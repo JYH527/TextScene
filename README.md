@@ -22,17 +22,19 @@ The project paper is included in this repository:
 
 ## CARLA Demos
 
+The demo videos are stored in this repository under [`demo/`](./demo). GitHub's file-preview page may fail to load MP4 files, so use the direct playback/download links below instead of opening the repository file page.
+
 ### Demo 1
 
-<video src="./demo/202608101126%20(1).mp4" controls width="100%"></video>
+<video src="https://raw.githubusercontent.com/JYH527/TextScene/main/demo/textscene_carla_demo_1.mp4" controls width="100%"></video>
 
-[Open Demo 1](<./demo/202608101126%20(1).mp4>)
+[Open Demo 1](https://raw.githubusercontent.com/JYH527/TextScene/main/demo/textscene_carla_demo_1.mp4)
 
 ### Demo 2
 
-<video src="./demo/202608101131.mp4" controls width="100%"></video>
+<video src="https://raw.githubusercontent.com/JYH527/TextScene/main/demo/textscene_carla_demo_2.mp4" controls width="100%"></video>
 
-[Open Demo 2](./demo/202608101131.mp4)
+[Open Demo 2](https://raw.githubusercontent.com/JYH527/TextScene/main/demo/textscene_carla_demo_2.mp4)
 
 ## Highlights
 
