@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-01T22:30:00" description="Dynamic Merging from Road 12/14 to Road 2" author="ESMINI_Expert"/>
+
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="two-way-four-lane-roundout-two.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <ScenarioObject name="Adversary">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="NightAndRain">
+                            <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+                            <Weather cloudState="overcast">
+                                <Precipitation precipitationType="rain" intensity="1.0"/>
+                            </Weather>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+                <!-- 自车初始化: 放在外部道路 Road_12 的远端 -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- Road_12 长15.5m，放在起点，给自己足够的加速/行驶距离 -->
+                                <LanePosition roadId="12" laneId="-1" offset="0.0" s="1.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="8.0"/> <!-- 36 km/h 匀速驶入 -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <!-- 为自车指定完整路径: Road_12 -> Road_14 -> Road_2 -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="EgoEntryRoute" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position><LanePosition roadId="12" laneId="-1" s="2.0" offset="0.0"/></Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position><LanePosition roadId="14" laneId="-1" s="0.5" offset="0.0"/></Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position><LanePosition roadId="2" laneId="-4" s="5.0" offset="0.0"/></Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- 对手车初始化: 放在 Road_6 (Junction_48 的上游) -->
+                <Private entityRef="Adversary">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- Road_6 长15.1m，放在起点 -->
+                                <LanePosition roadId="6" laneId="-4" offset="0.0" s="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="14.0"/> <!-- 28.8 km/h -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <!-- 强制对手车留在环岛: Road_6 -> Road_2 -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="AdversaryCircleRoute" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position><LanePosition roadId="6" laneId="-4" s="0.0" offset="0.0"/></Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position><LanePosition roadId="2" laneId="-4" s="5.0" offset="0.0"/></Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="ContinuousEntryStory">
+            <Act name="CollisionCourseAct">
+                
+                <!-- 
+                     计算逻辑 (用于验证):
+                     1. 对手车路径: Road_6(15.1m) + J48内部(Road_52, 22.0m) = 37.1m 到达 Road_2。
+                        速度 8m/s -> 所需时间约 4.6秒。
+                     
+                     2. 自车路径: Road_12(剩13.5m) + J43内部(4.2m) + Road_14(0.9m) + J48内部(Road_56, 14.0m) = 32.6m。
+                        速度 10m/s -> 所需时间约 3.3秒。
+                     
+                     结果: 自车会比对手车早到 1.3秒，可能就跑过去了，无法形成险情。
+                     
+                     调整策略 (在下方的 Event 中实施):
+                     让自车在 T=2秒 时稍微减速一点点，或者让对手车加速，精确制造碰撞。
+                     这里我们选择让对手车在绝对时间 T=1s 时稍微加速，以追上自车。
+                -->
+
+                <ManeuverGroup maximumExecutionCount="1" name="AdversaryAdjustManeuver">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Adversary"/>
+                    </Actors>
+                    <Maneuver name="AdversaryCatchUp">
+                        <Event name="SpeedUpEvent" priority="overwrite">
+                            <Action name="AdversaryAccelerate">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="2.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="11.0"/> <!-- 提速到 11m/s 以截住自车 -->
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 绝对时间触发: 1.0秒时开始加速 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="TimeTrigger_1s" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="1.0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <!-- 自车逻辑: 保持“莽撞”行驶，没有任何减速动作 -->
+                <ManeuverGroup maximumExecutionCount="1" name="EgoBlindDriveManeuver">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                    </Actors>
+                    <Maneuver name="DriveThrough">
+                        <Event name="KeepSpeedEvent" priority="overwrite">
+                            <Action name="MaintainSpeed">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="0.0" dynamicsDimension="time"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="10.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 一直保持这个状态 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="StartImmediately" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="0.0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="EndSimulation" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="10.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

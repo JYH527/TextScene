@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenScenario.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2026-05-18T12:00:00" description="Obscured_Merge_Conflict" author="ESMINI_Expert"/>
+    <ParameterDeclarations/>
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+    <RoadNetwork>
+        <LogicFile filepath="one-way-three-lane-ramp_in.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_white"/>
+        </ScenarioObject>
+        <ScenarioObject name="Leader">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <ScenarioObject name="Adversary">
+            <CatalogReference catalogName="VehicleCatalog" entryName="semi_truck"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Daytime_Clear">
+                            <TimeOfDay animation="false" dateTime="2026-05-18T12:00:00"/>
+                            <Weather cloudState="free">
+                                <Sun intensity="100000.0" azimuth="0.0" elevation="1.5"/>
+                                <Fog visualRange="100000.0"/>
+                                <Precipitation precipitationType="none" intensity="0.0"/>
+                            </Weather>
+                            <RoadCondition frictionScaleFactor="1.0"/>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+                
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="1" laneId="-4" s="3.0" offset="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="8.0"/> </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="EgoRoute" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position><LanePosition roadId="1" laneId="-4" s="3.0" offset="0.0"/></Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position><LanePosition roadId="6" laneId="-4" s="0.0" offset="0.0"/></Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position><LanePosition roadId="6" laneId="-4" s="26.9" offset="0.0"/></Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position><LanePosition roadId="2" laneId="-4" s="20.0" offset="0.0"/></Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <Private entityRef="Leader">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="1" laneId="-4" s="10.0" offset="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="12.0"/> </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="LeaderRoute" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position><LanePosition roadId="1" laneId="-4" s="10.0" offset="0.0"/></Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position><LanePosition roadId="6" laneId="-4" s="0.0" offset="0.0"/></Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position><LanePosition roadId="6" laneId="-4" s="26.9" offset="0.0"/></Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position><LanePosition roadId="2" laneId="-4" s="40.0" offset="0.0"/></Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <Private entityRef="Adversary">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="2" s="10.0" offset="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="10.0"/> 
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="AdversaryRoute" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position><LanePosition roadId="0" laneId="2" s="10.0" offset="0.0"/></Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position><LanePosition roadId="4" laneId="2" s="27.0" offset="0.0"/></Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position><LanePosition roadId="4" laneId="2" s="0.0" offset="0.0"/></Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position><LanePosition roadId="2" laneId="-4" s="10.0" offset="0.0"/></Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="MergeConflictStory">
+            <Act name="Act_Leader_EmergencyBrake">
+                <ManeuverGroup maximumExecutionCount="1" name="MG_Leader_Brake">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Leader"/>
+                    </Actors>
+                    <Maneuver name="Man_Leader_Brake">
+                        <Event name="Ev_Leader_Brake" priority="overwrite" maximumExecutionCount="1">
+                            <Action name="Act_Spd_Leader_Brake">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="3.0" dynamicsDimension="distance"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="7.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Cond_Ego_Detects_Adversary" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Leader"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <RelativeDistanceCondition entityRef="Adversary" relativeDistanceType="longitudinal" value="10.0" freespace="true" rule="lessThan"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="ActStart_Leader_Brake" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0.0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+        </Story>
+        
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="StopCondition" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="15.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

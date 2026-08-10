@@ -1,0 +1,540 @@
+"Town03_Roundout_02": {
+    "summary": {
+      "total_roads": 39,
+      "total_junctions": 7
+    },
+    "junctions_semantic": {
+      "Junction_1469": {
+        "type": "Complex",
+        "arms_count": 6,
+        "connected_arms": [
+          "Road_12 (North)",
+          "Road_13 (South)",
+          "Road_25 (North)",
+          "Road_37 (East)",
+          "Road_38 (South)",
+          "Road_61 (West)"
+        ],
+        "driving_paths": [
+          "From Road_12 to Road_13 via Road_1470",
+          "From Road_25 to Road_38 via Road_1577",
+          "From Road_25 to Road_61 via Road_1608",
+          "From Road_37 to Road_38 via Road_1624",
+          "From Road_61 to Road_13 via Road_1566"
+        ],
+        "internal_parts": [
+          "Road_1470",
+          "Road_1566",
+          "Road_1577",
+          "Road_1608",
+          "Road_1624"
+        ]
+      },
+      "Junction_1682": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_15 (South)",
+          "Road_25 (South)",
+          "Road_28 (North)"
+        ],
+        "driving_paths": [
+          "From Road_15 to Road_28 via Road_1684",
+          "From Road_28 to Road_25 via Road_1691"
+        ],
+        "internal_parts": [
+          "Road_1684",
+          "Road_1691"
+        ]
+      },
+      "Junction_1082": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_15 (North)",
+          "Road_34 (East)",
+          "Road_35 (South)",
+          "Road_36 (West)"
+        ],
+        "driving_paths": [
+          "From Road_34 to Road_15 via Road_1105",
+          "From Road_34 to Road_36 via Road_1089",
+          "From Road_35 to Road_15 via Road_1122",
+          "From Road_35 to Road_36 via Road_1100"
+        ],
+        "internal_parts": [
+          "Road_1089",
+          "Road_1100",
+          "Road_1105",
+          "Road_1122"
+        ]
+      },
+      "Junction_1205": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_10 (West)",
+          "Road_11 (North)",
+          "Road_46 (East)"
+        ],
+        "driving_paths": [
+          "From Road_10 to Road_11 via Road_1206",
+          "From Road_10 to Road_46 via Road_1214"
+        ],
+        "internal_parts": [
+          "Road_1206",
+          "Road_1214"
+        ]
+      },
+      "Junction_1736": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_10 (East)",
+          "Road_16 (North)",
+          "Road_30 (South)",
+          "Road_9 (West)"
+        ],
+        "driving_paths": [
+          "From Road_16 to Road_30 via Road_1737",
+          "From Road_30 to Road_10 via Road_1772",
+          "From Road_9 to Road_10 via Road_1786"
+        ],
+        "internal_parts": [
+          "Road_1737",
+          "Road_1772",
+          "Road_1786"
+        ]
+      },
+      "Junction_1654": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_13 (North)",
+          "Road_14 (East)",
+          "Road_16 (South)"
+        ],
+        "driving_paths": [
+          "From Road_13 to Road_14 via Road_1655",
+          "From Road_13 to Road_16 via Road_1661"
+        ],
+        "internal_parts": [
+          "Road_1655",
+          "Road_1661"
+        ]
+      },
+      "Junction_1191": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_34 (West)",
+          "Road_46 (West)",
+          "Road_8 (East)"
+        ],
+        "driving_paths": [
+          "From Road_46 to Road_8 via Road_1192",
+          "From Road_8 to Road_34 via Road_1197"
+        ],
+        "internal_parts": [
+          "Road_1192",
+          "Road_1197"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_12": {
+        "info": "Len:0.2m | One-Way Urban Shape:Curve",
+        "link": "pred:road_38(end) -> succ:junction_1469(end)",
+        "lanes": "driving:[-5, -4] | shoulder:[-7, -6, -3, -2] | sidewalk:[-1]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635] | sidewalk:[2]"
+      },
+      "Road_1470": {
+        "info": "Len:12.1m | One-Way Junction_Link(ID:1469) Shape:Curve",
+        "link": "pred:road_12(end) -> succ:road_13(start)",
+        "lanes": "driving:[-5, -4] | shoulder:[-6, -3, -2] | sidewalk:[-1]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.5,0.5,0.635] | sidewalk:[2]"
+      },
+      "Road_1566": {
+        "info": "Len:30.1m | One-Way Junction_Link(ID:1469) Shape:Curve",
+        "link": "succ:road_61(start) -> pred:road_13(start)",
+        "lanes": "driving:[1, 2, 5] | none:[1, 1, 2, 3, 4] | shoulder:[2, 3, 3, 4, 6, 7] | sidewalk:[4, 5, 8]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[2,0.635,3.5] | none:[2,2,0.635,0.5,3.5] | shoulder:[0.635,0.5,0.5,3.5,0.5,0.635] | sidewalk:[3.5,3.5,2]"
+      },
+      "Road_1577": {
+        "info": "Len:33.2m | One-Way Junction_Link(ID:1469) Shape:Curve",
+        "link": "pred:road_25(end) -> succ:road_38(start)",
+        "lanes": "driving:[-3, -2] | shoulder:[-4, -1]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[1.5711,0.635]"
+      },
+      "Road_1608": {
+        "info": "Len:50.0m | One-Way Junction_Link(ID:1469) Shape:Curve",
+        "link": "pred:road_25(end) -> succ:road_61(start)",
+        "lanes": "driving:[-3, -2, -1] | none:[-1]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,0.635] | none:[0.635]"
+      },
+      "Road_1624": {
+        "info": "Len:31.3m | One-Way Junction_Link(ID:1469) Shape:Curve",
+        "link": "pred:road_37(end) -> succ:road_38(start)",
+        "lanes": "driving:[-5, -4] | shoulder:[-6, -3, -2] | sidewalk:[-1]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.5,0.5,0.635] | sidewalk:[2]"
+      },
+      "Road_37": {
+        "info": "Len:1.0m | One-Way Urban Shape:Curve",
+        "link": "pred:road_36(end) -> succ:junction_1469(end)",
+        "lanes": "driving:[-5, -4] | shoulder:[-7, -6, -3, -2] | sidewalk:[-1]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635] | sidewalk:[2]"
+      },
+      "Road_38": {
+        "info": "Len:1.7m | One-Way Urban Shape:Curve",
+        "link": "pred:junction_1469(end) -> succ:road_12(start)",
+        "lanes": "driving:[-5, -4] | shoulder:[-7, -6, -3, -2] | sidewalk:[-1]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635] | sidewalk:[2]"
+      },
+      "Road_61": {
+        "info": "Len:21.7m | Two-Way Urban Shape:Straight",
+        "link": "pred:junction_1469(end) -> succ:junction_861(end)",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3] | sidewalk:[-4, 4]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635] | sidewalk:[2,2]"
+      },
+      "Road_1684": {
+        "info": "Len:13.6m | One-Way Junction_Link(ID:1682) Shape:Curve",
+        "link": "succ:road_15(start) -> pred:road_28(start)",
+        "lanes": "driving:[1, 2, 2, 3] | none:[1] | shoulder:[3, 4, 4, 5] | sidewalk:[5, 6]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,2.5] | none:[3.5] | shoulder:[2.5,0.635,0.635,2] | sidewalk:[2,2]"
+      },
+      "Road_1691": {
+        "info": "Len:13.5m | One-Way Junction_Link(ID:1682) Shape:Curve",
+        "link": "succ:road_28(start) -> pred:road_25(start)",
+        "lanes": "driving:[2, 3] | none:[1] | shoulder:[4, 5] | sidewalk:[6]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | none:[0.635] | shoulder:[1.8067,0.635] | sidewalk:[2]"
+      },
+      "Road_25": {
+        "info": "Len:2.3m | One-Way Urban Shape:Curve",
+        "link": "pred:junction_1682(end) -> succ:junction_1469(end)",
+        "lanes": "driving:[-3, -2] | shoulder:[-5, -4, -1] | sidewalk:[-6]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,1.8067,0.635] | sidewalk:[2]"
+      },
+      "Road_28": {
+        "info": "Len:78.9m | Two-Way Urban Shape:Straight",
+        "link": "pred:junction_1682(end) -> succ:junction_1221(end)",
+        "lanes": "bidirectional:[1] | driving:[-2, -1, 2, 3] | shoulder:[-4, -3, 4, 5] | sidewalk:[-5, 6]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "bidirectional:[3.5] | driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,2.5,2.5,0.635] | sidewalk:[2,2]"
+      },
+      "Road_1089": {
+        "info": "Len:33.8m | One-Way Junction_Link(ID:1082) Shape:Curve",
+        "link": "succ:road_34(start) -> pred:road_36(start)",
+        "lanes": "border:[2] | driving:[3, 3, 4, 4] | none:[1, 1] | shoulder:[2, 5, 5]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "border:[0.5] | driving:[3.5,3.5,3.5,3.5] | none:[0.635,0.635] | shoulder:[0.5,0.5,0.5]"
+      },
+      "Road_1100": {
+        "info": "Len:32.4m | One-Way Junction_Link(ID:1082) Shape:Curve",
+        "link": "pred:road_35(end) -> succ:road_36(start)",
+        "lanes": "driving:[-5, -4] | shoulder:[-6, -3, -2] | sidewalk:[-1]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.5,0.5,0.635] | sidewalk:[2]"
+      },
+      "Road_1105": {
+        "info": "Len:34.3m | One-Way Junction_Link(ID:1082) Shape:Curve",
+        "link": "succ:road_34(start) -> pred:road_15(end)",
+        "lanes": "driving:[2, 3] | none:[1] | shoulder:[4, 5]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | none:[0.635] | shoulder:[1.6801,0.635]"
+      },
+      "Road_1122": {
+        "info": "Len:32.9m | One-Way Junction_Link(ID:1082) Shape:Curve",
+        "link": "pred:road_35(end) -> succ:road_15(end)",
+        "lanes": "driving:[-3, -2] | none:[-1] | shoulder:[-4]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | none:[0.5] | shoulder:[0.5]"
+      },
+      "Road_15": {
+        "info": "Len:2.2m | One-Way Urban Shape:Curve",
+        "link": "succ:junction_1082(end) -> pred:junction_1682(end)",
+        "lanes": "driving:[2, 3] | shoulder:[1, 4, 5] | sidewalk:[6]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,1.8861,0.635] | sidewalk:[2]"
+      },
+      "Road_35": {
+        "info": "Len:0.6m | One-Way Urban Shape:Curve",
+        "link": "pred:road_11(end) -> succ:junction_1082(end)",
+        "lanes": "driving:[-5, -4] | shoulder:[-7, -6, -3, -2] | sidewalk:[-1]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635] | sidewalk:[2]"
+      },
+      "Road_36": {
+        "info": "Len:1.0m | One-Way Urban Shape:Curve",
+        "link": "pred:junction_1082(end) -> succ:road_37(start)",
+        "lanes": "driving:[-5, -4] | shoulder:[-7, -6, -3, -2] | sidewalk:[-1]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635] | sidewalk:[2]"
+      },
+      "Road_11": {
+        "info": "Len:0.2m | One-Way Urban Shape:Curve",
+        "link": "pred:junction_1205(end) -> succ:road_35(start)",
+        "lanes": "driving:[-5, -4] | shoulder:[-7, -6, -3, -2] | sidewalk:[-1]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635] | sidewalk:[2]"
+      },
+      "Road_1206": {
+        "info": "Len:13.7m | One-Way Junction_Link(ID:1205) Shape:Curve",
+        "link": "pred:road_10(end) -> succ:road_11(start)",
+        "lanes": "driving:[-5, -4] | shoulder:[-6, -3, -2] | sidewalk:[-1]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.5,0.5,0.635] | sidewalk:[2]"
+      },
+      "Road_1214": {
+        "info": "Len:15.2m | One-Way Junction_Link(ID:1205) Shape:Curve",
+        "link": "pred:road_10(end) -> succ:road_46(end)",
+        "lanes": "border:[-2] | driving:[-4, -4, -3, -3] | none:[-1, -1] | shoulder:[-6, -6, -5, -5, -2] | sidewalk:[-7, -7]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "border:[0.5] | driving:[3.5,3.5,3.5,3.5] | none:[0.635,0.635] | shoulder:[0.635,0.635,0.5,0.5,0.5] | sidewalk:[2,2]"
+      },
+      "Road_10": {
+        "info": "Len:4.0m | One-Way Urban Shape:Curve",
+        "link": "pred:junction_1736(end) -> succ:junction_1205(end)",
+        "lanes": "driving:[-5, -4] | shoulder:[-7, -6, -3, -2] | sidewalk:[-8, -1]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635] | sidewalk:[2,2]"
+      },
+      "Road_1737": {
+        "info": "Len:13.0m | One-Way Junction_Link(ID:1736) Shape:Curve",
+        "link": "succ:road_16(start) -> pred:road_30(start)",
+        "lanes": "border:[2] | driving:[3, 3, 4, 4] | none:[1, 1] | shoulder:[2, 5, 5, 6, 6] | sidewalk:[7, 7]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "border:[0.5] | driving:[3.5,3.5,3.5,3.5] | none:[3.5,3.5] | shoulder:[0.5,2.5,2.5,0.635,0.635] | sidewalk:[2,2]"
+      },
+      "Road_1772": {
+        "info": "Len:30.8m | One-Way Junction_Link(ID:1736) Shape:Curve",
+        "link": "succ:road_30(start) -> pred:road_10(start)",
+        "lanes": "border:[2] | driving:[3, 3, 3, 4, 4, 4] | median:[1] | shoulder:[1, 1, 2, 2, 5, 5, 5, 6, 6, 6] | sidewalk:[7, 7, 7]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "border:[0.5] | driving:[3.5,3.5,3.5,3.5,3.5,3.5] | median:[0.635] | shoulder:[0.635,0.635,0.5,0.5,0.5,0.5,0.5,0.635,0.635,0.635] | sidewalk:[2,2,2]"
+      },
+      "Road_1786": {
+        "info": "Len:16.1m | One-Way Junction_Link(ID:1736) Shape:Curve",
+        "link": "pred:road_9(end) -> succ:road_10(start)",
+        "lanes": "driving:[-5, -4] | shoulder:[-6, -3, -2] | sidewalk:[-1]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.5,0.5,0.635] | sidewalk:[2]"
+      },
+      "Road_30": {
+        "info": "Len:74.7m | Two-Way Urban Shape:Straight",
+        "link": "pred:junction_1736(end) -> succ:junction_103(end)",
+        "lanes": "driving:[-2, -1, 4, 5] | median:[2] | shoulder:[-4, -3, 1, 3, 6, 7] | sidewalk:[-5, 8, 9]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | median:[3.5] | shoulder:[0.635,2.5,0.5,0.5,2.5,0.635] | sidewalk:[2,2,2]"
+      },
+      "Road_9": {
+        "info": "Len:0.1m | One-Way Urban Shape:Curve",
+        "link": "pred:road_14(end) -> succ:junction_1736(end)",
+        "lanes": "driving:[-5, -4] | shoulder:[-7, -6, -3, -2] | sidewalk:[-1]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635] | sidewalk:[2]"
+      },
+      "Road_13": {
+        "info": "Len:2.4m | One-Way Urban Shape:Curve",
+        "link": "pred:junction_1469(end) -> succ:junction_1654(end)",
+        "lanes": "driving:[-5, -4] | shoulder:[-7, -6, -3, -2] | sidewalk:[-8, -1]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635] | sidewalk:[2,2]"
+      },
+      "Road_14": {
+        "info": "Len:1.6m | One-Way Urban Shape:Curve",
+        "link": "pred:junction_1654(end) -> succ:road_9(start)",
+        "lanes": "driving:[-5, -4] | shoulder:[-7, -6, -3, -2] | sidewalk:[-1]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635] | sidewalk:[2]"
+      },
+      "Road_16": {
+        "info": "Len:1.1m | One-Way Urban Shape:Curve",
+        "link": "succ:junction_1654(end) -> pred:junction_1736(end)",
+        "lanes": "border:[2] | driving:[3, 4] | shoulder:[1, 5, 6] | sidewalk:[7]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "border:[0.5] | driving:[3.5,3.5] | shoulder:[0.635,1.8123,0.635] | sidewalk:[2]"
+      },
+      "Road_1655": {
+        "info": "Len:17.7m | One-Way Junction_Link(ID:1654) Shape:Curve",
+        "link": "pred:road_13(end) -> succ:road_14(start)",
+        "lanes": "driving:[-5, -4] | shoulder:[-6, -3, -2] | sidewalk:[-1]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.5,0.5,0.635] | sidewalk:[2]"
+      },
+      "Road_1661": {
+        "info": "Len:17.9m | One-Way Junction_Link(ID:1654) Shape:Curve",
+        "link": "pred:road_13(end) -> succ:road_16(end)",
+        "lanes": "border:[-2] | driving:[-4, -4, -3, -3] | none:[-1, -1] | shoulder:[-6, -6, -5, -5, -2] | sidewalk:[-7, -7]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "border:[0.5] | driving:[3.5,3.5,3.5,3.5] | none:[0.635,0.635] | shoulder:[0.635,0.635,0.5,0.5,0.5] | sidewalk:[2,2]"
+      },
+      "Road_1192": {
+        "info": "Len:13.9m | One-Way Junction_Link(ID:1191) Shape:Curve",
+        "link": "succ:road_46(start) -> pred:road_8(end)",
+        "lanes": "border:[2] | driving:[3, 3, 4, 4] | none:[1, 1] | shoulder:[2, 5, 5, 6, 6] | sidewalk:[7, 7]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "border:[0.5] | driving:[3.5,3.5,3.5,3.5] | none:[3.5,3.5] | shoulder:[0.5,2.5,2.5,0.635,0.635] | sidewalk:[2,2]"
+      },
+      "Road_1197": {
+        "info": "Len:14.8m | One-Way Junction_Link(ID:1191) Shape:Curve",
+        "link": "pred:road_8(end) -> succ:road_34(end)",
+        "lanes": "border:[-2] | driving:[-4, -4, -3, -3] | none:[-1, -1] | shoulder:[-6, -6, -5, -5, -2] | sidewalk:[-7, -7]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "border:[0.5] | driving:[3.5,3.5,3.5,3.5] | none:[3.5,3.5] | shoulder:[0.635,0.635,3.5,3.5,0.5] | sidewalk:[2,2]"
+      },
+      "Road_34": {
+        "info": "Len:2.3m | One-Way Urban Shape:Curve",
+        "link": "succ:junction_1191(end) -> pred:junction_1082(end)",
+        "lanes": "border:[2] | driving:[3, 4] | shoulder:[1, 5, 6] | sidewalk:[7]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "border:[0.5] | driving:[3.5,3.5] | shoulder:[0.635,2.0464,0.635] | sidewalk:[2]"
+      },
+      "Road_46": {
+        "info": "Len:3.4m | One-Way Urban Shape:Curve",
+        "link": "succ:junction_1205(end) -> pred:junction_1191(end)",
+        "lanes": "border:[2] | driving:[3, 4] | shoulder:[1, 5, 6] | sidewalk:[7]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "border:[0.5] | driving:[3.5,3.5] | shoulder:[0.635,1.7983,0.635] | sidewalk:[2]"
+      },
+      "Road_8": {
+        "info": "Len:18.1m | Two-Way Urban Shape:Straight",
+        "link": "pred:junction_475(end) -> succ:junction_1191(end)",
+        "lanes": "driving:[-2, -1, 4, 5] | median:[2] | shoulder:[-4, -3, 1, 3, 6, 7] | sidewalk:[-5, 8]",
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | median:[3.5] | shoulder:[0.635,3.5,0.5,0.5,2.5,0.635] | sidewalk:[2,2]"
+      }
+    }
+}
+
+[Reasoning and Constraints (please strictly follow the reasoning order below)]
+    
+    1. Entity selection: 
+       - Only generate actions (Action) and corresponding triggers (Trigger) for the entities listed in [the macro intent of this stage]. Entities without assigned intent should keep their current motion state and continue driving.
+
+    2. Action parameter calculation (Params Design):
+       Please strictly infer the specific parameters according to `action_type`:
+       - For `SpeedAction`: combine the current entity speed and stage intent to set a reasonable target speed `target_speed`, and infer the reasonable distance `dynamics_value` required to complete the acceleration/deceleration.
+       - For `LaneChangeAction`: you must provide the lane offset `target_lane_offset` (use 1 for a left lane change and -1 for a right lane change; absolute lane numbers are strictly forbidden), and infer the distance `dynamics_value` required to complete the lane change.
+       - For `AssignRouteAction`: you must provide a `waypoints` sequence. Include the waypoint of the current road and the waypoint of the target road; if there is an intermediate connecting road (intersection), you must insert the connecting-road waypoint in between.
+       - For `FollowTrajectoryAction`: you must provide a `vertices` sequence. Include the starting vertex of the entity's current road, the intermediate transition vertex of the trajectory, and the target vertex.
+
+    3. Trigger design (Trigger Design):
+       Please choose one of the following trigger modes according to the scenario timing logic and strictly align the attribute configuration:
+       
+       [Case A: Action must be executed immediately (e.g. actions that execute at the beginning of the scenario)]
+       - trigger_type: "TraveledDistanceCondition"
+       - trigger_value: 0.0 (must be a float)
+       - trigger_ref: the name of the entity executing the action (actor_name)
+       - trigger_rule: "None"
+       
+       [Case B: Triggered by relative distance to another entity]
+       - Constraint: type `SpeedAction` and `LaneChangeAction` must use this mode; the remaining types 'AssignRouteAction' and 'FollowTrajectoryAction' are optional.
+       - trigger_type: "RelativeDistanceCondition"
+       - trigger_value: the relative distance difference estimated from the current scenario intent and entity physical state.
+       - trigger_ref: the exact name of the reference entity. ⚠️Absolute red line: never set the executor itself (actor_name) as the reference entity! You must reference another entity in the scenario.
+       - trigger_rule: "lessThan" or "greaterThan" (must never be None)
+
+       [Case C: Triggered when an entity reaches a certain absolute position]
+       - Constraint: only `AssignRouteAction` and `FollowTrajectoryAction` may optionally use this mode.
+       - trigger_type: "EntityReachPosition"
+       - trigger_value: the target coordinate object (PositionTriggerValue structure, must include road_id, lane_id, s).
+       - trigger_ref: the name of the entity executing the action (actor_name)
+       - trigger_rule: "None"
+
+    ⚠️ [Format Requirements] ⚠️:
+       - You must output the reasoning process first, and you must strictly wrap it with <think> and </think> tags.
+         After reasoning, output the final result in ```json format!
+       - Your output must strictly match the `FinalPhysicalActionOutput` format requirements.
+       - Ensure the outermost `stage_index` strictly equals
+
+[Reasoning and Constraints (please strictly follow the reasoning order below)]
+    
+    1. Entity selection: 
+       - Only generate actions (Action) and corresponding triggers (Trigger) for the entities listed in [the macro intent of this stage]. Entities without assigned intent should keep their current motion state and continue driving.
+
+    2. Action parameter calculation (Params Design):
+       Please strictly infer the specific parameters according to `action_type`:
+       - For `SpeedAction`: combine the current entity speed and stage intent to set a reasonable target speed `target_speed`, and infer the reasonable distance `dynamics_value` required to complete the acceleration/deceleration.
+       - For `LaneChangeAction`: you must provide the lane offset `target_lane_offset` (use 1 for a left lane change and -1 for a right lane change; absolute lane numbers are strictly forbidden), and infer the distance `dynamics_value` required to complete the lane change.
+       - For `AssignRouteAction`: you must provide a `waypoints` sequence. Include the waypoint of the current road and the waypoint of the target road; if there is an intermediate connecting road (intersection), you must insert the connecting-road waypoint in between.
+       - For `FollowTrajectoryAction`: you must provide a `vertices` sequence. Include the starting vertex of the entity's current road, the intermediate transition vertex of the trajectory, and the target vertex.
+
+    3. Trigger design (Trigger Design):
+       Please choose one of the following trigger modes according to the scenario timing logic and strictly align the attribute configuration:
+       
+       [Case A: Action must be executed immediately (e.g. actions that execute at the beginning of the scenario)]
+       - trigger_type: "TraveledDistanceCondition"
+       - trigger_value: 0.0 (must be a float)
+       - trigger_ref: the name of the entity executing the action (actor_name)
+       - trigger_rule: "None"
+       
+       [Case B: Triggered by relative distance to another entity]
+       - Constraint: type `SpeedAction` and `LaneChangeAction` must use this mode; the remaining types 'AssignRouteAction' and 'FollowTrajectoryAction' are optional.
+       - trigger_type: "RelativeDistanceCondition"
+       - trigger_value: the relative distance difference estimated from the current scenario intent and entity physical state.
+       - trigger_ref: the exact name of the reference entity. ⚠️Absolute red line: never set the executor itself (actor_name) as the reference entity! You must reference another entity in the scenario.
+       - trigger_rule: "lessThan" or "greaterThan" (must never be None)
+
+       [Case C: Triggered when an entity reaches a certain absolute position]
+       - Constraint: only `AssignRouteAction` and `FollowTrajectoryAction` may optionally use this mode.
+       - trigger_type: "EntityReachPosition"
+       - trigger_value: the target coordinate object (PositionTriggerValue structure, must include road_id, lane_id, s).
+       - trigger_ref: the name of the entity executing the action (actor_name)
+       - trigger_rule: "None"
+
+    ⚠️ [Format Requirements] ⚠️:
+       - You must output the reasoning process first, and you must strictly wrap it with <think> and </think> tags.
+         After reasoning, output the final result in ```json format!
+       - Your output must strictly match the `FinalPhysicalActionOutput` format requirements.
+       - Ensure the outermost `stage_index` strictly equals

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+  <FileHeader revMajor="1" revMinor="0" date="2023-10-27T10:00:00" description="Urban Pedestrian Crossing Collision" author="ScenarioBuilder"/>
+  
+  <ParameterDeclarations/>
+  
+  <CatalogLocations>
+    <VehicleCatalog>
+      <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+    </VehicleCatalog>
+    <PedestrianCatalog>
+      <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+    </PedestrianCatalog>
+  </CatalogLocations>
+  
+  <RoadNetwork>
+    <LogicFile filepath="../maps/two-way-four-lane-straight-urban.xodr"/>
+  </RoadNetwork>
+  
+  <Entities>
+    <!-- Ego 强制映射为 car_red -->
+    <ScenarioObject name="Ego">
+      <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+    </ScenarioObject>
+    
+    <!-- Target1: 行人 -->
+    <ScenarioObject name="Target1">
+      <CatalogReference catalogName="PedestrianCatalog" entryName="pedestrian_adult"/>
+    </ScenarioObject>
+  </Entities>
+  
+  <Storyboard>
+    <Init>
+      <Actions>
+        <Private entityRef="Ego">
+          <PrivateAction>
+            <!-- Ego在右侧外车道(Lane -2)向南行驶，初始位置 s=10 -->
+            <TeleportAction>
+              <Position>
+                <LanePosition roadId="0" laneId="-2" offset="0.0" s="10.0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <!-- 40 kph = 11.11 m/s -->
+                  <AbsoluteTargetSpeed value="11.11"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        
+        <Private entityRef="Target1">
+          <PrivateAction>
+            <!-- 行人在西侧人行道(Lane -5)等待，位于Ego前方 s=60处 -->
+            <TeleportAction>
+              <Position>
+                <LanePosition roadId="0" laneId="-5" offset="0.0" s="60.0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="0.0"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+    
+    <Story name="PedestrianCrossingStory">
+      <Act name="CrossingAct">
+        <ManeuverGroup maximumExecutionCount="1" name="PedestrianManeuverGroup">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Target1"/>
+          </Actors>
+          
+          <Maneuver name="PedestrianCrossRoad">
+            <Event name="StartWalkingEvent" priority="overwrite">
+              <Action name="PedestrianSpeedUp">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <!-- 行人速度 1.5 m/s -->
+                      <SpeedActionDynamics dynamicsShape="linear" value="2.0" dynamicsDimension="time"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="3.5"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              
+              <Action name="PedestrianMoveAcross">
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneChangeAction>
+                      <LaneChangeActionDynamics dynamicsShape="linear" value="10.0" dynamicsDimension="time"/>
+                      <LaneChangeTarget>
+                        <!-- 目标为马路对面的车道(Lane 2)，迫使其穿过Ego所在的Lane -2 -->
+                        <AbsoluteTargetLane value="2"/>
+                      </LaneChangeTarget>
+                    </LaneChangeAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+              
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="DistanceTrigger" delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any">
+                        <EntityRef entityRef="Ego"/>
+                      </TriggeringEntities>
+                      <EntityCondition>
+                        <!-- 当Ego距离行人约35米时开始横穿 -->
+                        <RelativeDistanceCondition entityRef="Target1" relativeDistanceType="longitudinal" value="35.0" freespace="true" rule="lessThan"/>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+      </Act>
+    </Story>
+    
+    <StopTrigger>
+      <ConditionGroup>
+        <Condition name="TimeOut" delay="0" conditionEdge="rising">
+          <ByValueCondition>
+            <SimulationTimeCondition value="20.0" rule="greaterThan"/>
+          </ByValueCondition>
+        </Condition>
+      </ConditionGroup>
+    </StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

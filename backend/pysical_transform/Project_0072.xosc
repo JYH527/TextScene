@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenScenario.xsd">
+    <FileHeader description="adaptspeed_example_generic - shifted left one lane (corrected)" author="User" revMajor="1" revMinor="3" date="2025-11-29T10:30:00.000000"/>
+    <ParameterDeclarations/>
+    <!-- 1. 资源库配置 (必须包含) -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+    <RoadNetwork>
+        <LogicFile filepath="two-way-six-lane-straight-highway.xodr"/>
+    </RoadNetwork>
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <ScenarioObject name="Target1">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+    </Entities>
+    <Storyboard>
+        <Init>
+            <Actions>
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Night_Rain_Environment">
+                            <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+                            <Weather cloudState="overcast">
+                                <Sun intensity="0.0" azimuth="0.0" elevation="0.0"/>
+                                <Fog visualRange="10000.0"/>
+                                <Precipitation precipitationType="rain" intensity="1.0"/>
+                            </Weather>
+                            <RoadCondition frictionScaleFactor="1.0"/>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="30.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- 原 -3 → 现在 -2（向左移一个车道） -->
+                                <LanePosition roadId="0" laneId="-2" s="25.0" offset="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                </Private>
+                <Private entityRef="Target1">
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="40.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- 原 -2 → 现在 -1（向左移一个车道） -->
+                                <LanePosition roadId="0" laneId="-1" s="15.0" offset="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="mystory">
+            <Act name="red_act">
+                <ManeuverGroup name="mangroup_red_lane_change" maximumExecutionCount="1">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Target1"/>
+                    </Actors>
+                    <Maneuver name="red_maneuver_lc">
+                        <Event name="first_lane_change" priority="overwrite" maximumExecutionCount="1">
+                            <Action name="lane_change_red">
+                                <PrivateAction>
+                                    <LateralAction>
+                                        <LaneChangeAction>
+                                            <LaneChangeActionDynamics dynamicsShape="sinusoidal" value="2.0" dynamicsDimension="time"/>
+                                            <LaneChangeTarget>
+                                                <!-- 原 -3 → 现在 -2（向左移一个车道） -->
+                                                <AbsoluteTargetLane value="-2"/>
+                                            </LaneChangeTarget>
+                                        </LaneChangeAction>
+                                    </LateralAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="redtrigger_lc" delay="0.0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Ego"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <TimeHeadwayCondition entityRef="Target1" value="0.01" relativeDistanceType="longitudinal" coordinateSystem="road" freespace="true" rule="greaterThan"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <ManeuverGroup name="red_mangroup_brake" maximumExecutionCount="1">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Target1"/>
+                    </Actors>
+                    <Maneuver name="red_maneuver_brake">
+                        <Event name="brake_red" priority="overwrite" maximumExecutionCount="1">
+                            <Action name="brake_to_stop">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="0.1" dynamicsDimension="time"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="0.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="redtrigger_brake" delay="0.0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Ego"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <TimeHeadwayCondition entityRef="Target1" value="0.01" relativeDistanceType="longitudinal" coordinateSystem="road" freespace="true" rule="greaterThan"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="starttrigger" delay="0.0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0.0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+
+                <StopTrigger/>
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="stop_simulation" delay="0.0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="20.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

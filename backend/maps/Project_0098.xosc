@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenScenario.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2025-11-29T17:30:00" description="Ego in Lane -2 enters tunnel with stationary vehicle in same lane"/>
+
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="one-way-two-lane-tunnels.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <ScenarioObject name="StationaryCar">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Night_Rain_Environment">
+                            <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+                            <Weather cloudState="overcast">
+                                <Sun intensity="0.0" azimuth="0.0" elevation="0.0"/>
+                                <Fog visualRange="10000.0"/>
+                                <Precipitation precipitationType="rain" intensity="1.0"/>
+                            </Weather>
+                            <RoadCondition frictionScaleFactor="1.0"/>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+                <!-- Ego 车 -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- 修改：laneId 改为 -2 (外侧车道)，s=50 离隧道口远一点 -->
+                                <LanePosition roadId="1" laneId="-2" s="50.0" offset="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="22.22"/> <!-- 80km/h -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- 静止故障车 -->
+                <Private entityRef="StationaryCar">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- 修改：laneId 改为 -2，与自车在同一车道，制造障碍 -->
+                                <!-- 位置 s=450 (在隧道内 150m 处) -->
+                                <LanePosition roadId="1" laneId="-2" s="450.0" offset="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="MainStory">
+            <Act name="Act1">
+                <!-- 保持故障车静止 -->
+                <ManeuverGroup name="StayStoppedGroup" maximumExecutionCount="1">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="StationaryCar"/>
+                    </Actors>
+                    <Maneuver name="StayStopped">
+                        <Event name="EventKeepZeroSpeed" priority="overwrite">
+                            <Action name="ActionKeepZeroSpeed">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="AfterInit" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <StopTrigger>
+                    <ConditionGroup>
+                        <Condition name="EndByTime" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="60" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StopTrigger>
+            </Act>
+        </Story>
+    </Storyboard>
+</OpenSCENARIO>

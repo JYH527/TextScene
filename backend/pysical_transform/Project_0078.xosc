@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenScenario.xsd">
+  <FileHeader revMajor="1" revMinor="0" description="CQU_0007: 鬼探头 + 对向来车（逃逸路径被封）" date="2025-11-29"/>
+  <ParameterDeclarations/>
+  <CatalogLocations>
+    <VehicleCatalog><Directory path="../resources/xosc/Catalogs/Vehicles"/></VehicleCatalog>
+    <PedestrianCatalog><Directory path="../resources/xosc/catalogs/pedestrians"/></PedestrianCatalog>
+  </CatalogLocations>
+
+  <RoadNetwork><LogicFile filepath="two-way-two-lane-straight-urban.xodr"/></RoadNetwork>
+
+  <Entities>
+    <ScenarioObject name="Ego"><CatalogReference catalogName="VehicleCatalog" entryName="car_red"/></ScenarioObject>
+    <ScenarioObject name="ParkedTruck"><CatalogReference catalogName="VehicleCatalog" entryName="semi_truck"/></ScenarioObject>
+    <ScenarioObject name="Pedestrian"><CatalogReference catalogName="PedestrianCatalog" entryName="pedestrian_adult"/></ScenarioObject>
+    <ScenarioObject name="Oncoming"><CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/></ScenarioObject> <!-- 对向车 -->
+  </Entities>
+
+  <Storyboard>
+    <Init>
+      <Actions>
+        <GlobalAction>
+          <EnvironmentAction>
+            <Environment name="Night_Rain">
+              <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+              <Weather cloudState="overcast">
+                <Sun intensity="0.0" azimuth="0.0" elevation="0.0"/>
+                <Fog visualRange="10000.0"/>
+                <Precipitation precipitationType="rain" intensity="1.0"/>
+              </Weather>
+              <RoadCondition frictionScaleFactor="0.8"/>
+            </Environment>
+          </EnvironmentAction>
+        </GlobalAction>
+        <Private entityRef="Ego">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-1" s="20.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/><SpeedActionTarget><AbsoluteTargetSpeed value="8.5"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+        <Private entityRef="ParkedTruck">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-2" s="100.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="0.0"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+        <Private entityRef="Pedestrian">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-2" s="118.0"/></Position></TeleportAction></PrivateAction>
+        </Private>
+        <!-- 对向车：速度11m/s ≈40km/h -->
+        <Private entityRef="Oncoming">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="1" s="180.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/><SpeedActionTarget><AbsoluteTargetSpeed value="11.0"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+
+    <Story>
+      <Act>
+        <!-- 行人横穿 -->
+        <ManeuverGroup maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false"><EntityRef entityRef="Pedestrian"/></Actors>
+          <Maneuver>
+            <Event priority="overwrite">
+              <Action>
+                <PrivateAction>
+                  <RoutingAction>
+                    <FollowTrajectoryAction>
+                      <Trajectory closed="false">
+                        <Shape><Polyline>
+                          <Vertex time="0.0"><Position><LanePosition roadId="0" laneId="-2" s="118.0"/></Position></Vertex>
+                          <Vertex time="4.2"><Position><LanePosition roadId="0" laneId="-1" s="119.8"/></Position></Vertex>
+                        </Polyline></Shape>
+                      </Trajectory>
+                      <TimeReference><Timing domainAbsoluteRelative="relative"/></TimeReference>
+                      <TrajectoryFollowingMode followingMode="position"/>
+                    </FollowTrajectoryAction>
+                  </RoutingAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup><Condition delay="0" conditionEdge="rising">
+                  <ByEntityCondition>
+                    <TriggeringEntities triggeringEntitiesRule="any"><EntityRef entityRef="Ego"/></TriggeringEntities>
+                    <EntityCondition><TraveledDistanceCondition value="58.0"/></EntityCondition>
+                  </ByEntityCondition>
+                </Condition></ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+
+        <StartTrigger><ConditionGroup><Condition delay="0" conditionEdge="rising"><ByValueCondition><SimulationTimeCondition value="0.1" rule="greaterThan"/></ByValueCondition></Condition></ConditionGroup></StartTrigger>
+      </Act>
+    </Story>
+
+    <StopTrigger><ConditionGroup><Condition delay="0" conditionEdge="rising"><ByValueCondition><SimulationTimeCondition value="30.0" rule="greaterThan"/></ByValueCondition></Condition></ConditionGroup></StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

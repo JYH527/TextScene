@@ -1,0 +1,5380 @@
+{
+  "Town06_Ramp_01": {
+    "summary": {
+      "total_roads": 15,
+      "total_junctions": 2
+    },
+    "junctions_semantic": {
+      "Junction_413": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_52 (East)",
+          "Road_53 (West)",
+          "Road_59 (South)"
+        ],
+        "driving_paths": [
+          "From Road_52 to Road_53 via Road_415",
+          "From Road_52 to Road_59 via Road_423",
+          "From Road_52 to Road_59 via Road_427"
+        ],
+        "internal_parts": [
+          "Road_415",
+          "Road_423",
+          "Road_427",
+          "Road_433"
+        ]
+      },
+      "Junction_763": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_12 (West)",
+          "Road_13 (East)",
+          "Road_69 (North)"
+        ],
+        "driving_paths": [
+          "From Road_12 to Road_13 via Road_764",
+          "From Road_69 to Road_13 via Road_783",
+          "From Road_69 to Road_13 via Road_796",
+          "From Road_69 to Road_13 via Road_797"
+        ],
+        "internal_parts": [
+          "Road_764",
+          "Road_780",
+          "Road_783",
+          "Road_796",
+          "Road_797"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_12": {
+        "info": "Len:38.7m | One-Way Urban Shape:Straight",
+        "link": "pred:road_67(end) -> succ:junction_763(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_13": {
+        "info": "Len:104.6m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_763(end) -> succ:junction_452(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_69": {
+        "info": "Len:1.0m | One-Way Urban Shape:Straight",
+        "link": "succ:road_59(end) -> pred:junction_763(end)",
+        "lanes": "driving:[3, 4] | shoulder:[1, 2, 5, 6]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_764": {
+        "info": "Len:31.9m | One-Way Junction_Link(ID:763) Shape:Straight",
+        "link": "pred:road_12(end) -> succ:road_13(start)",
+        "lanes": "driving:[-6,-5,-4,-3] | none:[-2, -1] | shoulder:[-8,-7]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | none:[0.5,0.635] | shoulder:[0.635,0.5]"
+      },
+      "Road_780": {
+        "info": "Len:28.7m | No_Driving Junction_Link(ID:763) Shape:Curve(Arc+Line)",
+        "link": "pred:road_12(end) -> succ:road_69(start)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_783": {
+        "info": "Len:42.5m | One-Way Junction_Link(ID:763) Shape:Curve(Arc+Line)",
+        "link": "succ:road_69(start) -> pred:road_13(start)",
+        "lanes": "driving:[3, 4] | shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5]"
+      },
+      "Road_796": {
+        "info": "Len:45.7m | One-Way Junction_Link(ID:763) Shape:Curve(Arc+Line)",
+        "link": "succ:road_69(start) -> pred:road_13(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_797": {
+        "info": "Len:43.9m | One-Way Junction_Link(ID:763) Shape:Curve(Arc+Line)",
+        "link": "succ:road_69(start) -> pred:road_13(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_415": {
+        "info": "Len:27.9m | One-Way Junction_Link(ID:413) Shape:Straight",
+        "link": "pred:road_52(end) -> succ:road_53(start)",
+        "lanes": "driving:[-7, -6, -5, -4] | driving_merge:[-3] | none:[-2, -1] | shoulder:[-9, -8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | driving_merge:[3.5] | none:[0.5,0.635] | shoulder:[0.635,0.5]"
+      },
+      "Road_423": {
+        "info": "Len:28.8m | One-Way Junction_Link(ID:413) Shape:Curve(Arc+Line)",
+        "link": "pred:road_52(end) -> succ:road_59(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_427": {
+        "info": "Len:26.3m | One-Way Junction_Link(ID:413) Shape:Curve(Arc+Line)",
+        "link": "pred:road_52(end) -> succ:road_59(start)",
+        "lanes": "driving:[-3] | shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.5,0.635]"
+      },
+      "Road_433": {
+        "info": "Len:16.3m | No_Driving Junction_Link(ID:413) Shape:Curve(Arc+Line)",
+        "link": "pred:road_53(start) -> succ:road_59(start)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_52": {
+        "info": "Len:98.1m | One-Way Urban Shape:Straight",
+        "link": "pred:road_51(end) -> succ:junction_413(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lane_width": {
+          "3": [
+            {
+              "s_range": [
+                0.0,
+                36.29
+              ],
+              "type": "Polynomial_Taper",
+              "equation_params": {
+                "a": 4.75e-07,
+                "b": 0.0,
+                "c": 0.007973,
+                "d": -0.0001465
+              }
+            },
+            {
+              "s_range": [
+                36.29,
+                98.1
+              ],
+              "type": "Constant",
+              "width_m": 3.5
+            }
+          ]
+        },
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,lane_width] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_53": {
+        "info": "Len:43.9m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_413(end) -> succ:road_66(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_59": {
+        "info": "Len:13.6m | One-Way Urban Shape:Curve(Arc)",
+        "link": "pred:junction_413(end) -> succ:road_69(end)",
+        "lanes": "driving:[-4, -3] | shoulder:[-6, -5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图由两个T形交叉口及连接匝道组成,构成典型的分流与合流拓扑结构。",
+      "lane_and_direction": "全线单向通行,主路为四至五车道,匝道为双车道,均配备路肩,无行人道。",
+      "environment_and_geometry": "属于城市平坦道路环境,由长直道与路口内的转向弧线弯道连接而成。",
+      "driving_routes": "车辆可执行主路直行,或经由连接匝道从一条主路分流并合流至另一条主路。"
+    }
+  },
+  "Town06_Ramp_02": {
+    "summary": {
+      "total_roads": 15,
+      "total_junctions": 2
+    },
+    "junctions_semantic": {
+      "Junction_1162": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_31 (South)",
+          "Road_49 (East)",
+          "Road_50 (West)"
+        ],
+        "driving_paths": [
+          "From Road_31 to Road_50 via Road_1175",
+          "From Road_31 to Road_50 via Road_1176",
+          "From Road_31 to Road_50 via Road_1180",
+          "From Road_49 to Road_50 via Road_1164"
+        ],
+        "internal_parts": [
+          "Road_1164",
+          "Road_1172",
+          "Road_1175",
+          "Road_1176",
+          "Road_1180"
+        ]
+      },
+      "Junction_798": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_15 (West)",
+          "Road_16 (East)",
+          "Road_41 (North)"
+        ],
+        "driving_paths": [
+          "From Road_15 to Road_16 via Road_799",
+          "From Road_15 to Road_41 via Road_810",
+          "From Road_15 to Road_41 via Road_814"
+        ],
+        "internal_parts": [
+          "Road_799",
+          "Road_810",
+          "Road_814",
+          "Road_819"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_15": {
+        "info": "Len:97.6m | One-Way Urban Shape:Straight",
+        "link": "pred:road_14(end) -> succ:junction_798(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lane_width": {
+          "3": [
+            {
+              "s_range": [
+                0.0,
+                37.21
+              ],
+              "type": "Polynomial_Taper",
+              "equation_params": {
+                "a": 1.79e-07,
+                "b": 0.0,
+                "c": 0.009065,
+                "d": -0.0001624
+              }
+            },
+            {
+              "s_range": [
+                37.21,
+                97.6
+              ],
+              "type": "Constant",
+              "width_m": 4.18
+            }
+          ]
+        },
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,lane_width] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_16": {
+        "info": "Len:47.8m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_798(end) -> succ:road_25(start)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_41": {
+        "info": "Len:1.0m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_798(end) -> succ:road_31(end)",
+        "lanes": "driving:[-4, -3] | shoulder:[-6, -5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_799": {
+        "info": "Len:28.3m | One-Way Junction_Link(ID:798) Shape:Straight",
+        "link": "pred:road_15(end) -> succ:road_16(start)",
+        "lanes": "driving:[-7, -6, -5, -4] | driving_merge:[-3] | none:[-2,-1] | shoulder:[-9,-8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | driving_merge:[3.5] | none:[0.5,0.635] | shoulder:[0.635,0.5]"
+      },
+      "Road_810": {
+        "info": "Len:36.5m | One-Way Junction_Link(ID:798) Shape:Curve(Arc+Line)",
+        "link": "pred:road_15(end) -> succ:road_41(start)",
+        "lanes": "driving:[-3] | shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5495] | shoulder:[0.5,0.635]"
+      },
+      "Road_814": {
+        "info": "Len:40.5m | One-Way Junction_Link(ID:798) Shape:Curve(Arc+Line)",
+        "link": "pred:road_15(end) -> succ:road_41(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5495]"
+      },
+      "Road_819": {
+        "info": "Len:34.8m | No_Driving Junction_Link(ID:798) Shape:Curve(Arc+Line)",
+        "link": "pred:road_16(start) -> succ:road_41(start)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_1164": {
+        "info": "Len:29.2m | One-Way Junction_Link(ID:1162) Shape:Straight",
+        "link": "pred:road_49(end) -> succ:road_50(start)",
+        "lanes": "driving:[-6, -5, -4, -3] | none:[-1] | shoulder:[-8, -7, -2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | none:[0.635] | shoulder:[0.635,0.5,0.5]"
+      },
+      "Road_1172": {
+        "info": "Len:20.8m | No_Driving Junction_Link(ID:1162) Shape:Curve(Arc+Line)",
+        "link": "pred:road_49(end) -> succ:road_31(start)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_1175": {
+        "info": "Len:34.0m | One-Way Junction_Link(ID:1162) Shape:Curve(Arc+Line)",
+        "link": "succ:road_31(start) -> pred:road_50(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_1176": {
+        "info": "Len:30.9m | One-Way Junction_Link(ID:1162) Shape:Curve(Arc+Line)",
+        "link": "succ:road_31(start) -> pred:road_50(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_1180": {
+        "info": "Len:29.2m | One-Way Junction_Link(ID:1162) Shape:Curve(Arc+Line)",
+        "link": "succ:road_31(start) -> pred:road_50(start)",
+        "lanes": "driving:[3, 4] | shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5]"
+      },
+      "Road_31": {
+        "info": "Len:9.4m | One-Way Urban Shape:Curve(Arc)",
+        "link": "succ:road_41(end) -> pred:junction_1162(end)",
+        "lanes": "driving:[3, 4] | shoulder:[1, 2, 5, 6]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_49": {
+        "info": "Len:152.9m | One-Way Urban Shape:Straight",
+        "link": "pred:road_48(end) -> succ:junction_1162(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_50": {
+        "info": "Len:100.1m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1162(end) -> succ:junction_582(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图包含两个T形交叉口,通过单向道路连接,形成典型的匝道汇入拓扑结构。",
+      "lane_and_direction": "所有道路均为单向通行,主路包含多条驾驶车道并配备路肩,无对向车道。",
+      "environment_and_geometry": "整体地形平坦,外部道路以直道为主辅以弯道,交叉口内部由平坦的直道和弯道连接。",
+      "driving_routes": "车辆可执行单向直行,或从侧方匝道通过弯道转向并汇入主路。"
+    }
+  },
+  "Town06_Ramp_03": {
+    "summary": {
+      "total_roads": 16,
+      "total_junctions": 2
+    },
+    "junctions_semantic": {
+      "Junction_1203": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_27 (South)",
+          "Road_47 (East)",
+          "Road_48 (West)"
+        ],
+        "driving_paths": [
+          "From Road_27 to Road_48 via Road_1216",
+          "From Road_27 to Road_48 via Road_1218",
+          "From Road_47 to Road_48 via Road_1206"
+        ],
+        "internal_parts": [
+          "Road_1206",
+          "Road_1213",
+          "Road_1216",
+          "Road_1218"
+        ]
+      },
+      "Junction_1050": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_27 (North)",
+          "Road_29 (West)",
+          "Road_3 (South)",
+          "Road_30 (East)"
+        ],
+        "driving_paths": [
+          "From Road_29 to Road_27 via Road_1051",
+          "From Road_29 to Road_30 via Road_1083",
+          "From Road_3 to Road_30 via Road_1124"
+        ],
+        "internal_parts": [
+          "Road_1051",
+          "Road_1052",
+          "Road_1056",
+          "Road_1083",
+          "Road_1117",
+          "Road_1124"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_1051": {
+        "info": "Len:39.4m | One-Way Junction_Link(ID:1050) Shape:Curve(Arc+Line)",
+        "link": "pred:road_29(end) -> succ:road_27(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_1052": {
+        "info": "Len:35.9m | No_Driving Junction_Link(ID:1050) Shape:Curve(Arc+Line)",
+        "link": "pred:road_29(end) -> succ:road_27(end)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_1056": {
+        "info": "Len:50.9m | No_Driving Junction_Link(ID:1050) Shape:Curve(Arc+Line)",
+        "link": "pred:road_29(end) -> succ:road_3(start)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_1083": {
+        "info": "Len:70.8m | One-Way Junction_Link(ID:1050) Shape:Straight",
+        "link": "pred:road_29(end) -> succ:road_30(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | none:[-1] | shoulder:[-8, -2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | none:[0.635] | shoulder:[0.5,0.5]"
+      },
+      "Road_1117": {
+        "info": "Len:50.6m | No_Driving Junction_Link(ID:1050) Shape:Curve(Arc+Line)",
+        "link": "pred:road_27(end) -> succ:road_30(start)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_1124": {
+        "info": "Len:34.9m | One-Way Junction_Link(ID:1050) Shape:Curve(Arc+Line)",
+        "link": "succ:road_3(start) -> pred:road_30(start)",
+        "lanes": "driving:[3, 7] | none:[1, 1, 2, 2, 3, 4, 5, 6] | shoulder:[4, 5, 8, 9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | none:[0.635,0.635,0.5,0.5,3.5,3.5,3.5,3.5] | shoulder:[3.5,3.5,0.5,0.635]"
+      },
+      "Road_27": {
+        "info": "Len:27.5m | One-Way Urban Shape:Curve(Arc)",
+        "link": "succ:junction_1050(end) -> pred:junction_1203(end)",
+        "lanes": "driving:[3] | shoulder:[1, 2, 4, 5]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_29": {
+        "info": "Len:198.0m | One-Way Urban Shape:Straight",
+        "link": "pred:road_28(end) -> succ:junction_1050(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lane_width": {
+          "3": [
+            {
+              "s_range": [
+                0.0,
+                46.73
+              ],
+              "type": "Polynomial_Taper",
+              "equation_params": {
+                "a": 0.0,
+                "b": 0.0,
+                "c": 0.004808,
+                "d": -6.86e-05
+              }
+            },
+            {
+              "s_range": [
+                46.73,
+                198.0
+              ],
+              "type": "Constant",
+              "width_m": 3.5
+            }
+          ]
+        },
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,lane_width] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_3": {
+        "info": "Len:27.3m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "succ:road_24(start) -> pred:junction_1050(end)",
+        "lanes": "driving:[3] | shoulder:[1, 2, 4, 5]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_30": {
+        "info": "Len:95.8m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1050(end) -> succ:junction_268(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_1206": {
+        "info": "Len:35.8m | One-Way Junction_Link(ID:1203) Shape:Straight",
+        "link": "pred:road_47(end) -> succ:road_48(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | none:[-1] | shoulder:[-9, -8, -2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | none:[0.635] | shoulder:[0.635,0.5,0.5]"
+      },
+      "Road_1213": {
+        "info": "Len:15.2m | No_Driving Junction_Link(ID:1203) Shape:Curve(Arc+Line)",
+        "link": "pred:road_47(end) -> succ:road_27(start)",
+        "lanes": "shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.5,0.635]"
+      },
+      "Road_1216": {
+        "info": "Len:35.1m | One-Way Junction_Link(ID:1203) Shape:Curve(Arc+Line)",
+        "link": "succ:road_27(start) -> pred:road_48(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_1218": {
+        "info": "Len:33.7m | One-Way Junction_Link(ID:1203) Shape:Curve(Arc+Line)",
+        "link": "succ:road_27(start) -> pred:road_48(start)",
+        "lanes": "driving:[3] | shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5]"
+      },
+      "Road_47": {
+        "info": "Len:73.3m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:road_4(start) -> succ:junction_1203(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_48": {
+        "info": "Len:184.4m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_1203(end) -> succ:road_49(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lane_width": {
+          "3": [
+            {
+              "s_range": [
+                0.0,
+                140.56
+              ],
+              "type": "Constant",
+              "width_m": 3.5
+            },
+            {
+              "s_range": [
+                140.56,
+                184.4
+              ],
+              "type": "Polynomial_Taper",
+              "equation_params": {
+                "a": 3.5,
+                "b": 0.0,
+                "c": -0.005458,
+                "d": 8.296e-05
+              }
+            }
+          ]
+        },
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,lane_width] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图由一个十字路口和一个T形路口通过单向连接道复合而成,形成典型的匝道汇入与分流结构。",
+      "lane_and_direction": "全线为单向通行,主干道为五车道,连接匝道为单车道,配备路肩,无行人及停车设施。",
+      "environment_and_geometry": "属于城市快速路环境,整体地形平坦,包含多段直线与用于转向连接的弧线道路。",
+      "driving_routes": "车辆可实现主路直行通过路口,或从支路经匝道汇入主线,以及在路口间进行切换转向。"
+    }
+  },
+  "Town06_Crossroad_04": {
+    "summary": {
+      "total_roads": 16,
+      "total_junctions": 2
+    },
+    "junctions_semantic": {
+      "Junction_1034": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_37 (West)",
+          "Road_38 (East)",
+          "Road_70 (East)"
+        ],
+        "driving_paths": [
+          "From Road_37 to Road_38 via Road_1037",
+          "From Road_37 to Road_70 via Road_1043"
+        ],
+        "internal_parts": [
+          "Road_1037",
+          "Road_1043",
+          "Road_1047"
+        ]
+      },
+      "Junction_1050": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_27 (North)",
+          "Road_29 (West)",
+          "Road_3 (South)",
+          "Road_30 (East)"
+        ],
+        "driving_paths": [
+          "From Road_29 to Road_27 via Road_1051",
+          "From Road_29 to Road_30 via Road_1083",
+          "From Road_3 to Road_30 via Road_1124"
+        ],
+        "internal_parts": [
+          "Road_1051",
+          "Road_1052",
+          "Road_1056",
+          "Road_1083",
+          "Road_1117",
+          "Road_1124"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_1037": {
+        "info": "Len:44.7m | One-Way Junction_Link(ID:1034) Shape:Straight",
+        "link": "pred:road_37(end) -> succ:road_38(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | none:[-1] | shoulder:[-9, -8, -2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | none:[0.635] | shoulder:[0.635,0.5,0.5]"
+      },
+      "Road_1043": {
+        "info": "Len:44.2m | One-Way Junction_Link(ID:1034) Shape:Curve(Arc+Line)",
+        "link": "pred:road_37(end) -> succ:road_70(start)",
+        "lanes": "driving:[-3] | shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.5,0.635]"
+      },
+      "Road_1047": {
+        "info": "Len:15.9m | No_Driving Junction_Link(ID:1034) Shape:Curve(Arc+Line)",
+        "link": "pred:road_38(start) -> succ:road_70(start)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_37": {
+        "info": "Len:199.5m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1146(end) -> succ:junction_1034(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_38": {
+        "info": "Len:144.1m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1034(end) -> succ:junction_332(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_70": {
+        "info": "Len:31.7m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_1034(end) -> succ:road_24(end)",
+        "lanes": "driving:[-3] | shoulder:[-5, -4, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_1051": {
+        "info": "Len:39.4m | One-Way Junction_Link(ID:1050) Shape:Curve(Arc+Line)",
+        "link": "pred:road_29(end) -> succ:road_27(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_1052": {
+        "info": "Len:35.9m | No_Driving Junction_Link(ID:1050) Shape:Curve(Arc+Line)",
+        "link": "pred:road_29(end) -> succ:road_27(end)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_1056": {
+        "info": "Len:50.9m | No_Driving Junction_Link(ID:1050) Shape:Curve(Arc+Line)",
+        "link": "pred:road_29(end) -> succ:road_3(start)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_1083": {
+        "info": "Len:70.8m | One-Way Junction_Link(ID:1050) Shape:Straight",
+        "link": "pred:road_29(end) -> succ:road_30(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | none:[-1] | shoulder:[-8, -2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | none:[0.635] | shoulder:[0.5,0.5]"
+      },
+      "Road_1117": {
+        "info": "Len:50.6m | No_Driving Junction_Link(ID:1050) Shape:Curve(Arc+Line)",
+        "link": "pred:road_27(end) -> succ:road_30(start)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_1124": {
+        "info": "Len:34.9m | One-Way Junction_Link(ID:1050) Shape:Curve(Arc+Line)",
+        "link": "succ:road_3(start) -> pred:road_30(start)",
+        "lanes": "driving:[3, 7] | none:[1, 1, 2, 2, 3, 4, 5, 6] | shoulder:[4, 5, 8, 9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | none:[0.635,0.635,0.5,0.5,3.5,3.5,3.5,3.5] | shoulder:[3.5,3.5,0.5,0.635]"
+      },
+      "Road_27": {
+        "info": "Len:27.5m | One-Way Urban Shape:Curve(Arc)",
+        "link": "succ:junction_1050(end) -> pred:junction_1203(end)",
+        "lanes": "driving:[3] | shoulder:[1, 2, 4, 5]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_29": {
+        "info": "Len:198.0m | One-Way Urban Shape:Straight",
+        "link": "pred:road_28(end) -> succ:junction_1050(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lane_width": {
+          "3": [
+            {
+              "s_range": [
+                0.0,
+                46.73
+              ],
+              "type": "Polynomial_Taper",
+              "equation_params": {
+                "a": 0.0,
+                "b": 0.0,
+                "c": 0.004808,
+                "d": -6.86e-05
+              }
+            },
+            {
+              "s_range": [
+                46.73,
+                198.0
+              ],
+              "type": "Constant",
+              "width_m": 3.5
+            }
+          ]
+        },
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,lane_width] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_3": {
+        "info": "Len:27.3m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "succ:road_24(start) -> pred:junction_1050(end)",
+        "lanes": "driving:[3] | shoulder:[1, 2, 4, 5]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_30": {
+        "info": "Len:95.8m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1050(end) -> succ:junction_268(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图由一个T形交叉口和一个十字路口串联而成,连接了东西南北四个方向的单向道路。",
+      "lane_and_direction": "所有道路均为单向通行,主干道为五车道,支路为单车道,配备路肩,无行人道。",
+      "environment_and_geometry": "属于城市快速路环境,地形平坦,由长直道和用于转向连接的弧形弯道组成。",
+      "driving_routes": "车辆可执行主路直行、分流进入支路以及在路口完成左转或右转动作。"
+    }
+  },
+  "Town06_Ramp_05": {
+    "summary": {
+      "total_roads": 14,
+      "total_junctions": 2
+    },
+    "junctions_semantic": {
+      "Junction_565": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_35 (West)",
+          "Road_36 (East)",
+          "Road_8 (East)"
+        ],
+        "driving_paths": [
+          "From Road_35 to Road_36 via Road_575",
+          "From Road_35 to Road_8 via Road_570"
+        ],
+        "internal_parts": [
+          "Road_566",
+          "Road_570",
+          "Road_571",
+          "Road_575"
+        ]
+      },
+      "Junction_728": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_25 (West)",
+          "Road_28 (East)",
+          "Road_45 (West)"
+        ],
+        "driving_paths": [
+          "From Road_25 to Road_28 via Road_735",
+          "From Road_45 to Road_28 via Road_741"
+        ],
+        "internal_parts": [
+          "Road_735",
+          "Road_741",
+          "Road_745"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_25": {
+        "info": "Len:18.7m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:road_16(end) -> succ:junction_728(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_28": {
+        "info": "Len:18.2m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_728(end) -> succ:road_29(start)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_45": {
+        "info": "Len:27.4m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "succ:road_2(start) -> pred:junction_728(end)",
+        "lanes": "driving:[3] | shoulder:[1, 2, 4, 5]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_2": {
+        "info": "Len:15.6m | One-Way Highway Shape:Curve(Arc+Line)",
+        "link": "succ:road_8(end) -> pred:road_45(end)",
+        "lanes": "driving:[3] | shoulder:[1, 2, 4, 5]",
+        "tunnels": [],
+        "crosswalks": [],
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_735": {
+        "info": "Len:45.4m | One-Way Junction_Link(ID:728) Shape:Straight",
+        "link": "pred:road_25(end) -> succ:road_28(start)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.5,0.5,0.635]"
+      },
+      "Road_741": {
+        "info": "Len:49.1m | One-Way Junction_Link(ID:728) Shape:Curve(Arc+Line)",
+        "link": "succ:road_45(start) -> pred:road_28(start)",
+        "lanes": "driving:[3, 6] | none:[1, 1, 2, 2, 3, 4, 5] | shoulder:[4, 5, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | none:[0.635,0.635,0.5,0.5,3.5,3.5,3.5] | shoulder:[3.5,3.5,0.5,0.635]"
+      },
+      "Road_745": {
+        "info": "Len:11.7m | No_Driving Junction_Link(ID:728) Shape:Curve(Arc+Line)",
+        "link": "pred:road_25(end) -> succ:road_45(start)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_35": {
+        "info": "Len:40.6m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_72(end) -> succ:junction_565(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_36": {
+        "info": "Len:53.8m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_565(end) -> succ:junction_1146(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_566": {
+        "info": "Len:64.1m | No_Driving Junction_Link(ID:565) Shape:Curve(Arc+Line)",
+        "link": "pred:road_8(start) -> succ:road_35(end)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_570": {
+        "info": "Len:65.9m | One-Way Junction_Link(ID:565) Shape:Curve(Arc+Line)",
+        "link": "pred:road_35(end) -> succ:road_8(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_571": {
+        "info": "Len:19.5m | No_Driving Junction_Link(ID:565) Shape:Curve(Arc+Line)",
+        "link": "pred:road_8(start) -> succ:road_36(start)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_575": {
+        "info": "Len:65.7m | One-Way Junction_Link(ID:565) Shape:Straight",
+        "link": "pred:road_35(end) -> succ:road_36(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | none:[-1] | shoulder:[-9, -8, -2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | none:[0.635] | shoulder:[0.635,0.5,0.5]"
+      },
+      "Road_8": {
+        "info": "Len:67.5m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_565(end) -> succ:road_2(end)",
+        "lanes": "driving:[-3] | shoulder:[-5, -4, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "双T形路口通过匝道连接,形成分流与汇合结构。",
+      "lane_and_direction": "单向通行,主路多车道,匝道单车道,含路肩。",
+      "environment_and_geometry": "平坦城市环境,包含直道与圆弧弯道。",
+      "driving_routes": "支持主路直行、匝道分流及汇合行驶。"
+    }
+  },
+  "Town06_Ramp_06": {
+    "summary": {
+      "total_roads": 12,
+      "total_junctions": 2
+    },
+    "junctions_semantic": {
+      "Junction_1128": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_21 (West)",
+          "Road_22 (East)",
+          "Road_60 (East)"
+        ],
+        "driving_paths": [
+          "From Road_22 to Road_21 via Road_1129",
+          "From Road_60 to Road_21 via Road_1139"
+        ],
+        "internal_parts": [
+          "Road_1129",
+          "Road_1139",
+          "Road_1143"
+        ]
+      },
+      "Junction_436": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_18 (West)",
+          "Road_19 (East)",
+          "Road_9 (East)"
+        ],
+        "driving_paths": [
+          "From Road_18 to Road_19 via Road_438",
+          "From Road_18 to Road_9 via Road_445"
+        ],
+        "internal_parts": [
+          "Road_438",
+          "Road_445",
+          "Road_449"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_18": {
+        "info": "Len:84.9m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_822(end) -> succ:junction_436(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_19": {
+        "info": "Len:58.8m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_436(end) -> succ:junction_838(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_438": {
+        "info": "Len:42.5m | One-Way Junction_Link(ID:436) Shape:Straight",
+        "link": "pred:road_18(end) -> succ:road_19(start)",
+        "lanes": "driving:[-7,-6,-5,-4] | driving_merge:[-3] | none:[-2,-1] | shoulder:[-9, -8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | driving_merge:[3.5] | none:[0.5,0.635] | shoulder:[0.635,0.5]"
+      },
+      "Road_445": {
+        "info": "Len:41.2m | One-Way Junction_Link(ID:436) Shape:Curve(Arc+Line)",
+        "link": "pred:road_18(end) -> succ:road_9(start)",
+        "lanes": "driving:[-3] | shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.5,0.635]"
+      },
+      "Road_449": {
+        "info": "Len:16.0m | No_Driving Junction_Link(ID:436) Shape:Curve(Arc+Line)",
+        "link": "pred:road_19(start) -> succ:road_9(start)",
+        "lanes": "shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635,0.5]"
+      },
+      "Road_9": {
+        "info": "Len:35.3m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_436(end) -> succ:road_61(start)",
+        "lanes": "driving:[-3] | shoulder:[-5, -4, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_1129": {
+        "info": "Len:42.1m | One-Way Junction_Link(ID:1128) Shape:Straight",
+        "link": "succ:road_22(start) -> pred:road_21(end)",
+        "lanes": "driving:[4, 5, 6, 7] | driving_merge:[3] | none:[1,2] | shoulder:[8,9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | driving_merge:[3.5] | none:[0.635,0.5] | shoulder:[0.5,0.635]"
+      },
+      "Road_1139": {
+        "info": "Len:41.0m | One-Way Junction_Link(ID:1128) Shape:Curve(Arc+Line)",
+        "link": "succ:road_60(start) -> pred:road_21(end)",
+        "lanes": "driving:[3] | shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5]"
+      },
+      "Road_1143": {
+        "info": "Len:16.4m | No_Driving Junction_Link(ID:1128) Shape:Curve(Arc+Line)",
+        "link": "pred:road_22(start) -> succ:road_60(start)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_21": {
+        "info": "Len:81.0m | One-Way Urban Shape:Straight",
+        "link": "succ:junction_1128(end) -> pred:junction_396(end)",
+        "lanes": "driving:[3, 4, 5, 6, 7] | shoulder:[1, 2, 8, 9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_22": {
+        "info": "Len:54.8m | One-Way Urban Shape:Straight",
+        "link": "succ:road_23(start) -> pred:junction_1128(end)",
+        "lanes": "driving:[3, 4, 5, 6] | shoulder:[1, 2, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lane_width": {
+          "3": [
+            {
+              "s_range": [
+                0.0,
+                15.52
+              ],
+              "type": "Constant",
+              "width_m": 3.5
+            },
+            {
+              "s_range": [
+                15.52,
+                54.8
+              ],
+              "type": "Polynomial_Taper",
+              "equation_params": {
+                "a": 3.5,
+                "b": 0.0,
+                "c": -0.006788,
+                "d": 0.0001151
+              }
+            }
+          ]
+        },
+        "lanes_width": "driving:[lane_width,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_60": {
+        "info": "Len:34.2m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "succ:road_61(end) -> pred:junction_1128(end)",
+        "lanes": "driving:[3] | shoulder:[1, 2, 4, 5]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "包含两个T形交叉口,分别实现主路与匝道的分流与合流拓扑。",
+      "lane_and_direction": "全线单向通行,主路为多车道,匝道为单车道,均配备路肩。",
+      "environment_and_geometry": "城市平坦道路,由直线主干道与曲线连接匝道构成。",
+      "driving_routes": "车辆可沿主路直行,或在主路与匝道之间执行分流与合流动作。"
+    }
+  },
+  "Town06_Ramp_07": {
+    "summary": {
+      "total_roads": 12,
+      "total_junctions": 2
+    },
+    "junctions_semantic": {
+      "Junction_1187": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_32 (East)",
+          "Road_39 (West)",
+          "Road_40 (East)"
+        ],
+        "driving_paths": [
+          "From Road_39 to Road_32 via Road_1196",
+          "From Road_39 to Road_40 via Road_1190"
+        ],
+        "internal_parts": [
+          "Road_1190",
+          "Road_1196",
+          "Road_1200"
+        ]
+      },
+      "Junction_1146": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_36 (West)",
+          "Road_37 (East)",
+          "Road_68 (West)"
+        ],
+        "driving_paths": [
+          "From Road_36 to Road_37 via Road_1149",
+          "From Road_68 to Road_37 via Road_1159"
+        ],
+        "internal_parts": [
+          "Road_1149",
+          "Road_1155",
+          "Road_1159"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_1149": {
+        "info": "Len:71.3m | One-Way Junction_Link(ID:1146) Shape:Straight",
+        "link": "pred:road_36(end) -> succ:road_37(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.5,0.5,0.635]"
+      },
+      "Road_1155": {
+        "info": "Len:19.5m | No_Driving Junction_Link(ID:1146) Shape:Curve(Arc+Line)",
+        "link": "pred:road_36(end) -> succ:road_68(start)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_1159": {
+        "info": "Len:70.9m | One-Way Junction_Link(ID:1146) Shape:Curve(Arc+Line)",
+        "link": "succ:road_68(start) -> pred:road_37(start)",
+        "lanes": "driving:[3, 7] | none:[1, 1, 2, 2, 3, 4, 5, 6] | shoulder:[4, 5, 8, 9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | none:[0.635,0.635,0.5,0.5,3.5,3.5,3.5,3.5] | shoulder:[3.5,3.5,0.5,0.635]"
+      },
+      "Road_36": {
+        "info": "Len:53.8m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_565(end) -> succ:junction_1146(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_37": {
+        "info": "Len:199.5m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1146(end) -> succ:junction_1034(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_68": {
+        "info": "Len:20.5m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "succ:road_63(end) -> pred:junction_1146(end)",
+        "lanes": "driving:[3] | shoulder:[1, 2, 4, 5]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_1190": {
+        "info": "Len:55.7m | One-Way Junction_Link(ID:1187) Shape:Straight",
+        "link": "pred:road_39(end) -> succ:road_40(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | none:[-1] | shoulder:[-9, -8, -2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | none:[0.635] | shoulder:[0.635,0.5,0.5]"
+      },
+      "Road_1196": {
+        "info": "Len:55.7m | One-Way Junction_Link(ID:1187) Shape:Curve(Arc+Line)",
+        "link": "pred:road_39(end) -> succ:road_32(start)",
+        "lanes": "driving:[-3] | shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.5,0.635]"
+      },
+      "Road_1200": {
+        "info": "Len:16.3m | No_Driving Junction_Link(ID:1187) Shape:Curve(Arc+Line)",
+        "link": "pred:road_40(start) -> succ:road_32(start)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_32": {
+        "info": "Len:47.7m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_1187(end) -> succ:road_63(start)",
+        "lanes": "driving:[-3] | shoulder:[-5, -4, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_39": {
+        "info": "Len:50.5m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_838(end) -> succ:junction_1187(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_40": {
+        "info": "Len:470.6m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1187(end) -> succ:road_71(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图包含两个T形交叉口,构成典型的匝道分流与汇入拓扑结构。",
+      "lane_and_direction": "所有道路均为单向通行,主干道包含多条驾驶车道,匝道包含单条或多条驾驶车道,并配备路肩。",
+      "environment_and_geometry": "属于城市道路环境,整体地形平坦,由多条直道和弯道组合而成。",
+      "driving_routes": "车辆可沿主干道直行,或通过匝道进行分流驶出及汇入主干道。"
+    }
+  },
+  "Town06_Crossroad_08": {
+    "summary": {
+      "total_roads": 24,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_72": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_0 (South)",
+          "Road_1 (North)",
+          "Road_23 (West)",
+          "Road_35 (East)"
+        ],
+        "driving_paths": [
+          "From Road_0 to Road_1 via Road_96",
+          "From Road_0 to Road_1 via Road_97",
+          "From Road_0 to Road_35 via Road_175",
+          "From Road_0 to Road_35 via Road_201",
+          "From Road_0 to Road_35 via Road_213",
+          "From Road_0 to Road_35 via Road_219",
+          "From Road_0 to Road_35 via Road_224",
+          "From Road_1 to Road_0 via Road_128",
+          "From Road_1 to Road_0 via Road_95",
+          "From Road_1 to Road_23 via Road_238",
+          "From Road_1 to Road_23 via Road_245",
+          "From Road_1 to Road_23 via Road_249"
+        ],
+        "internal_parts": [
+          "Road_95",
+          "Road_96",
+          "Road_97",
+          "Road_128",
+          "Road_159",
+          "Road_175",
+          "Road_187",
+          "Road_201",
+          "Road_213",
+          "Road_219",
+          "Road_224",
+          "Road_228",
+          "Road_238",
+          "Road_245",
+          "Road_249",
+          "Road_252"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:4.0m | Two-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:road_34(end) -> succ:junction_72(end)",
+        "lanes": "driving:[-3, -2, -1, 4, 5, 6] | median:[2] | shoulder:[-5, -4, 1, 3, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5,3.5] | median:[3.5] | shoulder:[0.635,0.5,0.5,0.5,0.5,0.635]"
+      },
+      "Road_34": {
+        "info": "Len:65.2m | Two-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_838(end) -> succ:road_0(start)",
+        "lanes": "driving:[-3, -2, -1, 4, 5, 6] | median:[2] | shoulder:[-5, -4, 1, 3, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5,3.5] | median:[3.5] | shoulder:[0.635,0.5,0.5,0.5,0.5,0.635]"
+      },
+      "Road_1": {
+        "info": "Len:15.2m | Two-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_72(end) -> succ:road_58(end)",
+        "lanes": "driving:[-3, -2, -1, 4, 5, 6] | median:[2] | shoulder:[-5, -4, 1, 3, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5,3.5] | median:[3.5] | shoulder:[0.635,0.5,0.5,0.5,0.5,0.635]"
+      },
+      "Road_128": {
+        "info": "Len:33.2m | One-Way Junction_Link(ID:72) Shape:Curve(Arc+Line)",
+        "link": "succ:road_1(start) -> pred:road_0(end)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_159": {
+        "info": "Len:20.5m | No_Driving Junction_Link(ID:72) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_23(end)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_175": {
+        "info": "Len:34.7m | One-Way Junction_Link(ID:72) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_35(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_187": {
+        "info": "Len:12.0m | No_Driving Junction_Link(ID:72) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_35(start)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_201": {
+        "info": "Len:18.4m | One-Way Junction_Link(ID:72) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_35(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_213": {
+        "info": "Len:21.3m | One-Way Junction_Link(ID:72) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_35(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_219": {
+        "info": "Len:30.5m | One-Way Junction_Link(ID:72) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_35(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_224": {
+        "info": "Len:26.8m | One-Way Junction_Link(ID:72) Shape:Curve(Arc+Line) [Has_Crosswalk]",
+        "link": "pred:road_0(end) -> succ:road_35(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [
+          {
+            "id": "1736",
+            "s": 20.89
+          }
+        ],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_228": {
+        "info": "Len:13.2m | No_Driving Junction_Link(ID:72) Shape:Curve(Arc+Line)",
+        "link": "pred:road_1(start) -> succ:road_23(end)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_22": {
+        "info": "Len:54.8m | One-Way Urban Shape:Straight",
+        "link": "succ:road_23(start) -> pred:junction_1128(end)",
+        "lanes": "driving:[3, 4, 5, 6] | shoulder:[1, 2, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lane_width": {
+          "3": [
+            {
+              "s_range": [
+                0.0,
+                15.52
+              ],
+              "type": "Constant",
+              "width_m": 3.5
+            },
+            {
+              "s_range": [
+                15.52,
+                54.8
+              ],
+              "type": "Polynomial_Taper",
+              "equation_params": {
+                "a": 3.5,
+                "b": 0.0,
+                "c": -0.006788,
+                "d": 0.0001151
+              }
+            }
+          ]
+        },
+        "lanes_width": "driving:[lane_width,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_23": {
+        "info": "Len:5.8m | One-Way Urban Shape:Straight",
+        "link": "succ:junction_72(end) -> pred:road_22(end)",
+        "lanes": "driving:[3, 4, 5] | shoulder:[1, 2, 6, 7]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_238": {
+        "info": "Len:28.6m | One-Way Junction_Link(ID:72) Shape:Curve(Arc+Line)",
+        "link": "succ:road_1(start) -> pred:road_23(end)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_245": {
+        "info": "Len:20.0m | One-Way Junction_Link(ID:72) Shape:Curve(Arc+Line)",
+        "link": "succ:road_1(start) -> pred:road_23(end)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_249": {
+        "info": "Len:25.1m | One-Way Junction_Link(ID:72) Shape:Curve(Arc+Line) [Has_Crosswalk]",
+        "link": "succ:road_1(start) -> pred:road_23(end)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [
+          {
+            "id": "1737",
+            "s": 7.29
+          }
+        ],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_252": {
+        "info": "Len:16.3m | No_Driving Junction_Link(ID:72) Shape:Curve(Arc+Line)",
+        "link": "pred:road_1(start) -> succ:road_35(start)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_35": {
+        "info": "Len:40.6m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_72(end) -> succ:junction_565(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_95": {
+        "info": "Len:33.1m | One-Way Junction_Link(ID:72) Shape:Curve(Arc+Line)",
+        "link": "succ:road_1(start) -> pred:road_0(end)",
+        "lanes": "driving:[4, 5] | median:[2] | none:[6] | shoulder:[1, 3, 7]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | median:[3.5] | none:[3.5] | shoulder:[0.5,0.5,0.5]"
+      },
+      "Road_96": {
+        "info": "Len:33.1m | One-Way Junction_Link(ID:72) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_1(start)",
+        "lanes": "driving:[-2, -1] | none:[-3] | shoulder:[-4]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | none:[3.5] | shoulder:[0.5]"
+      },
+      "Road_97": {
+        "info": "Len:33.6m | One-Way Junction_Link(ID:72) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_1(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_58": {
+        "info": "Len:45.8m | Two-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_452(end) -> succ:road_1(end)",
+        "lanes": "driving:[-3, -2, -1, 4, 5, 6] | median:[2] | shoulder:[-5, -4, 1, 3, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5,3.5] | median:[3.5] | shoulder:[0.635,0.5,0.5,0.5,0.5,0.635]"
+      },
+      "Road_1129": {
+        "info": "Len:42.1m | One-Way Junction_Link(ID:1128) Shape:Straight",
+        "link": "succ:road_22(start) -> pred:road_21(end)",
+        "lanes": "driving:[4, 5, 6, 7] | driving_merge:[3] | none:[1,2] | shoulder:[8,9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | driving_merge:[3.5] | none:[0.635,0.5] | shoulder:[0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "Crosswalk"
+      ],
+      "core_topology": "四臂十字交叉口。",
+      "lane_and_direction": "主路双向六车道,支路单向。",
+      "environment_and_geometry": "城市平坦地形,含直道与弯道。",
+      "driving_routes": "支持直行与转向行驶。"
+    }
+  },
+  "Town06_T-junction_09": {
+    "summary": {
+      "total_roads": 11,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_268": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_30 (West)",
+          "Road_4 (West)",
+          "Road_5 (South)"
+        ],
+        "driving_paths": [
+          "From Road_30 to Road_4 via Road_297",
+          "From Road_30 to Road_4 via Road_307",
+          "From Road_30 to Road_4 via Road_311",
+          "From Road_30 to Road_4 via Road_316",
+          "From Road_30 to Road_4 via Road_322",
+          "From Road_5 to Road_4 via Road_269"
+        ],
+        "internal_parts": [
+          "Road_269",
+          "Road_297",
+          "Road_300",
+          "Road_307",
+          "Road_311",
+          "Road_316",
+          "Road_322",
+          "Road_324"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_269": {
+        "info": "Len:39.4m | One-Way Junction_Link(ID:268) Shape:Curve(Arc)",
+        "link": "succ:road_5(start) -> pred:road_4(end)",
+        "lanes": "driving:[3, 4, 5, 6, 7] | none:[1] | shoulder:[2, 8, 9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | none:[0.635] | shoulder:[0.5,0.5,0.635]"
+      },
+      "Road_297": {
+        "info": "Len:18.2m | One-Way Junction_Link(ID:268) Shape:Curve(Arc+Line)",
+        "link": "pred:road_30(end) -> succ:road_4(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_30": {
+        "info": "Len:95.8m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1050(end) -> succ:junction_268(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_300": {
+        "info": "Len:11.1m | No_Driving Junction_Link(ID:268) Shape:Curve(Arc+Line)",
+        "link": "pred:road_4(end) -> succ:road_30(end)",
+        "lanes": "shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635,0.5]"
+      },
+      "Road_307": {
+        "info": "Len:24.7m | One-Way Junction_Link(ID:268) Shape:Curve(Arc+Line)",
+        "link": "pred:road_30(end) -> succ:road_4(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_311": {
+        "info": "Len:31.3m | One-Way Junction_Link(ID:268) Shape:Curve(Arc+Line)",
+        "link": "pred:road_30(end) -> succ:road_4(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_316": {
+        "info": "Len:37.8m | One-Way Junction_Link(ID:268) Shape:Curve(Arc+Line)",
+        "link": "pred:road_30(end) -> succ:road_4(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_322": {
+        "info": "Len:18.1m | One-Way Junction_Link(ID:268) Shape:Curve(Arc+Line)",
+        "link": "pred:road_30(end) -> succ:road_4(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_324": {
+        "info": "Len:17.9m | No_Driving Junction_Link(ID:268) Shape:Curve(Arc+Line)",
+        "link": "pred:road_5(start) -> succ:road_30(end)",
+        "lanes": "shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.5,0.635]"
+      },
+      "Road_4": {
+        "info": "Len:73.8m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "succ:junction_268(end) -> pred:road_47(start)",
+        "lanes": "driving:[3, 4, 5, 6, 7] | shoulder:[1, 2, 8, 9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_5": {
+        "info": "Len:54.8m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "succ:junction_332(end) -> pred:junction_268(end)",
+        "lanes": "driving:[3, 4, 5, 6, 7] | shoulder:[1, 2, 8, 9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "城市T形路口,连接西、南双向。",
+      "lane_and_direction": "单向五车道,含路肩,无逆向。",
+      "environment_and_geometry": "城市平坦地形,含直道与弯道。",
+      "driving_routes": "西侧直行及南侧左转汇入。"
+    }
+  },
+  "Town06_T-junction_10": {
+    "summary": {
+      "total_roads": 11,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_332": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_38 (West)",
+          "Road_5 (North)",
+          "Road_6 (South)"
+        ],
+        "driving_paths": [
+          "From Road_38 to Road_5 via Road_369",
+          "From Road_38 to Road_5 via Road_375",
+          "From Road_38 to Road_5 via Road_379",
+          "From Road_38 to Road_5 via Road_384",
+          "From Road_38 to Road_5 via Road_391",
+          "From Road_6 to Road_5 via Road_333"
+        ],
+        "internal_parts": [
+          "Road_333",
+          "Road_361",
+          "Road_369",
+          "Road_375",
+          "Road_379",
+          "Road_384",
+          "Road_391",
+          "Road_394"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_333": {
+        "info": "Len:48.2m | One-Way Junction_Link(ID:332) Shape:Straight",
+        "link": "succ:road_6(start) -> pred:road_5(end)",
+        "lanes": "driving:[3, 4, 5, 6, 7] | none:[1] | shoulder:[2, 8, 9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | none:[0.635] | shoulder:[0.5,0.5,0.635]"
+      },
+      "Road_361": {
+        "info": "Len:26.3m | No_Driving Junction_Link(ID:332) Shape:Curve(Arc+Line)",
+        "link": "pred:road_5(end) -> succ:road_38(end)",
+        "lanes": "shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635,0.5]"
+      },
+      "Road_369": {
+        "info": "Len:32.3m | One-Way Junction_Link(ID:332) Shape:Curve(Arc+Line)",
+        "link": "pred:road_38(end) -> succ:road_5(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_375": {
+        "info": "Len:43.0m | One-Way Junction_Link(ID:332) Shape:Curve(Arc+Line)",
+        "link": "pred:road_38(end) -> succ:road_5(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_379": {
+        "info": "Len:37.6m | One-Way Junction_Link(ID:332) Shape:Curve(Arc+Line)",
+        "link": "pred:road_38(end) -> succ:road_5(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_38": {
+        "info": "Len:144.1m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1034(end) -> succ:junction_332(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_384": {
+        "info": "Len:32.4m | One-Way Junction_Link(ID:332) Shape:Curve(Arc+Line)",
+        "link": "pred:road_38(end) -> succ:road_5(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_391": {
+        "info": "Len:48.4m | One-Way Junction_Link(ID:332) Shape:Curve(Arc+Line)",
+        "link": "pred:road_38(end) -> succ:road_5(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_394": {
+        "info": "Len:23.9m | No_Driving Junction_Link(ID:332) Shape:Curve(Arc+Line)",
+        "link": "pred:road_6(start) -> succ:road_38(end)",
+        "lanes": "shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.5,0.635]"
+      },
+      "Road_5": {
+        "info": "Len:54.8m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "succ:junction_332(end) -> pred:junction_268(end)",
+        "lanes": "driving:[3, 4, 5, 6, 7] | shoulder:[1, 2, 8, 9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_6": {
+        "info": "Len:10.0m | One-Way Urban Shape:Straight",
+        "link": "succ:road_71(end) -> pred:junction_332(end)",
+        "lanes": "driving:[3, 4, 5, 6, 7] | shoulder:[1, 2, 8, 9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一个典型的T形交叉口,连接了西、北、南三个方向的道路。",
+      "lane_and_direction": "所有连接道路均为单向五车道通行,并配备了路肩,无专门的人行道。",
+      "environment_and_geometry": "属于城市道路环境,整体地形平坦。外部道路包含直道和弯道,交叉口内部由多条平坦道路连接。",
+      "driving_routes": "车辆在此处可执行从西向北的转向行驶,以及从南向北的行驶路线。"
+    }
+  },
+  "Town06_T-junction_11": {
+    "summary": {
+      "total_roads": 6,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_396": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_20 (East)",
+          "Road_21 (East)",
+          "Road_7 (West)"
+        ],
+        "driving_paths": [
+          "From Road_21 to Road_20 via Road_404",
+          "From Road_21 to Road_7 via Road_400"
+        ],
+        "internal_parts": [
+          "Road_397",
+          "Road_400",
+          "Road_404"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_20": {
+        "info": "Len:209.9m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "succ:junction_396(end) -> pred:road_67(start)",
+        "lanes": "driving:[3, 4, 5, 6] | shoulder:[1, 2, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_21": {
+        "info": "Len:81.0m | One-Way Urban Shape:Straight",
+        "link": "succ:junction_1128(end) -> pred:junction_396(end)",
+        "lanes": "driving:[3, 4, 5, 6, 7] | shoulder:[1, 2, 8, 9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_397": {
+        "info": "Len:24.6m | No_Driving Junction_Link(ID:396) Shape:Curve(Arc+Line)",
+        "link": "pred:road_7(start) -> succ:road_20(end)",
+        "lanes": "shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.5,0.635]"
+      },
+      "Road_400": {
+        "info": "Len:32.9m | One-Way Junction_Link(ID:396) Shape:Curve(Arc+Line)",
+        "link": "succ:road_21(start) -> pred:road_7(start)",
+        "lanes": "driving:[3] | shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.2171] | shoulder:[0.635,0.5]"
+      },
+      "Road_404": {
+        "info": "Len:33.6m | One-Way Junction_Link(ID:396) Shape:Straight",
+        "link": "succ:road_21(start) -> pred:road_20(end)",
+        "lanes": "driving:[3,4,5,6,7] | none:[1,2] | shoulder:[8, 9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | none:[0.635,0.5] | shoulder:[0.5,0.635]"
+      },
+      "Road_7": {
+        "info": "Len:36.9m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_396(end) -> succ:road_42(end)",
+        "lanes": "driving:[-3] | shoulder:[-5, -4, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.2171] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一个典型的T形交叉口,连接了三个方向的道路。",
+      "lane_and_direction": "道路均为单向通行,包含多条驾驶车道及路肩。",
+      "environment_and_geometry": "属于城市道路,地形平坦,由直道与弯道组合而成。",
+      "driving_routes": "车辆可执行单向的分流或直行路线。"
+    }
+  },
+  "Town06_T-junction_12": {
+    "summary": {
+      "total_roads": 7,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_413": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_52 (East)",
+          "Road_53 (West)",
+          "Road_59 (South)"
+        ],
+        "driving_paths": [
+          "From Road_52 to Road_53 via Road_415",
+          "From Road_52 to Road_59 via Road_423",
+          "From Road_52 to Road_59 via Road_427"
+        ],
+        "internal_parts": [
+          "Road_415",
+          "Road_423",
+          "Road_427",
+          "Road_433"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_415": {
+        "info": "Len:27.9m | One-Way Junction_Link(ID:413) Shape:Straight",
+        "link": "pred:road_52(end) -> succ:road_53(start)",
+        "lanes": "driving:[-7, -6, -5, -4] | driving_merge:[-3] | none:[-2, -1] | shoulder:[-9, -8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | driving_merge:[3.5] | none:[0.5,0.635] | shoulder:[0.635,0.5]"
+      },
+      "Road_423": {
+        "info": "Len:28.8m | One-Way Junction_Link(ID:413) Shape:Curve(Arc+Line)",
+        "link": "pred:road_52(end) -> succ:road_59(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_427": {
+        "info": "Len:26.3m | One-Way Junction_Link(ID:413) Shape:Curve(Arc+Line)",
+        "link": "pred:road_52(end) -> succ:road_59(start)",
+        "lanes": "driving:[-3] | shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.5,0.635]"
+      },
+      "Road_433": {
+        "info": "Len:16.3m | No_Driving Junction_Link(ID:413) Shape:Curve(Arc+Line)",
+        "link": "pred:road_53(start) -> succ:road_59(start)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_52": {
+        "info": "Len:98.1m | One-Way Urban Shape:Straight",
+        "link": "pred:road_51(end) -> succ:junction_413(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lane_width": {
+          "3": [
+            {
+              "s_range": [
+                0.0,
+                36.29
+              ],
+              "type": "Polynomial_Taper",
+              "equation_params": {
+                "a": 4.75e-07,
+                "b": 0.0,
+                "c": 0.007973,
+                "d": -0.0001465
+              }
+            },
+            {
+              "s_range": [
+                36.29,
+                98.1
+              ],
+              "type": "Constant",
+              "width_m": 3.5
+            }
+          ]
+        },
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,lane_width] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_53": {
+        "info": "Len:43.9m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_413(end) -> succ:road_66(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_59": {
+        "info": "Len:13.6m | One-Way Urban Shape:Curve(Arc)",
+        "link": "pred:junction_413(end) -> succ:road_69(end)",
+        "lanes": "driving:[-4, -3] | shoulder:[-6, -5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一个典型的T形交叉口,连接了东、西、南三个方向的道路。",
+      "lane_and_direction": "所有道路均为单向通行,包含多条驾驶车道及路肩,无停车车道和人行道。",
+      "environment_and_geometry": "属于城市道路环境,整体地形平坦,由直道和弯道组合而成。",
+      "driving_routes": "车辆可从东侧道路直行至西侧道路,或转向行驶至南侧道路。"
+    }
+  },
+  "Town06_T-junction_13": {
+    "summary": {
+      "total_roads": 6,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_436": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_18 (West)",
+          "Road_19 (East)",
+          "Road_9 (East)"
+        ],
+        "driving_paths": [
+          "From Road_18 to Road_19 via Road_438",
+          "From Road_18 to Road_9 via Road_445"
+        ],
+        "internal_parts": [
+          "Road_438",
+          "Road_445",
+          "Road_449"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_18": {
+        "info": "Len:84.9m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_822(end) -> succ:junction_436(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_19": {
+        "info": "Len:58.8m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_436(end) -> succ:junction_838(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_438": {
+        "info": "Len:42.5m | One-Way Junction_Link(ID:436) Shape:Straight",
+        "link": "pred:road_18(end) -> succ:road_19(start)",
+        "lanes": "driving:[-7,-6,-5,-4] | driving_merge:[-3] | none:[-2,-1] | shoulder:[-9, -8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | driving_merge:[3.5] | none:[0.5,0.635] | shoulder:[0.635,0.5]"
+      },
+      "Road_445": {
+        "info": "Len:41.2m | One-Way Junction_Link(ID:436) Shape:Curve(Arc+Line)",
+        "link": "pred:road_18(end) -> succ:road_9(start)",
+        "lanes": "driving:[-3] | shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.5,0.635]"
+      },
+      "Road_449": {
+        "info": "Len:16.0m | No_Driving Junction_Link(ID:436) Shape:Curve(Arc+Line)",
+        "link": "pred:road_19(start) -> succ:road_9(start)",
+        "lanes": "shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635,0.5]"
+      },
+      "Road_9": {
+        "info": "Len:35.3m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_436(end) -> succ:road_61(start)",
+        "lanes": "driving:[-3] | shoulder:[-5, -4, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一个典型的T形交叉口,连接了西侧和东侧的三条道路。",
+      "lane_and_direction": "所有道路均为单向通行,主干道包含多条驾驶车道,并配备了路肩,无专门的人行道。",
+      "environment_and_geometry": "属于城市道路环境,整体地形平坦。外部道路包含直道和弯道,交叉口内部由平坦的直道和弯道连接。",
+      "driving_routes": "车辆在此处可从西侧道路直行或转向进入东侧的两条不同道路。"
+    }
+  },
+  "Town06_Crossroad_14": {
+    "summary": {
+      "total_roads": 16,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_452": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_13 (West)",
+          "Road_14 (East)",
+          "Road_57 (North)",
+          "Road_58 (South)"
+        ],
+        "driving_paths": [
+          "From Road_13 to Road_14 via Road_453",
+          "From Road_13 to Road_58 via Road_484",
+          "From Road_57 to Road_58 via Road_545",
+          "From Road_58 to Road_14 via Road_511",
+          "From Road_58 to Road_57 via Road_546"
+        ],
+        "internal_parts": [
+          "Road_453",
+          "Road_484",
+          "Road_492",
+          "Road_498",
+          "Road_499",
+          "Road_511",
+          "Road_515",
+          "Road_545",
+          "Road_546"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_13": {
+        "info": "Len:104.6m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_763(end) -> succ:junction_452(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_14": {
+        "info": "Len:9.4m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_452(end) -> succ:road_15(start)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_453": {
+        "info": "Len:41.4m | One-Way Junction_Link(ID:452) Shape:Curve(Arc+Line)",
+        "link": "pred:road_13(end) -> succ:road_14(start)",
+        "lanes": "driving:[-5, -4, -3] | none:[-1] | shoulder:[-2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5] | none:[0.635] | shoulder:[0.5]"
+      },
+      "Road_484": {
+        "info": "Len:22.8m | One-Way Junction_Link(ID:452) Shape:Curve(Arc+Line) [Has_Crosswalk]",
+        "link": "pred:road_13(end) -> succ:road_58(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [
+          {
+            "id": "1304",
+            "s": 3.65
+          },
+          {
+            "id": "1288",
+            "s": 18.22
+          }
+        ],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_492": {
+        "info": "Len:16.8m | No_Driving Junction_Link(ID:452) Shape:Curve(Arc+Line)",
+        "link": "pred:road_13(end) -> succ:road_58(start)",
+        "lanes": "shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635,0.5]"
+      },
+      "Road_498": {
+        "info": "Len:18.9m | No_Driving Junction_Link(ID:452) Shape:Curve(Arc+Line)",
+        "link": "pred:road_57(end) -> succ:road_13(end)",
+        "lanes": "shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635,0.5]"
+      },
+      "Road_499": {
+        "info": "Len:13.0m | No_Driving Junction_Link(ID:452) Shape:Curve(Arc+Line)",
+        "link": "pred:road_14(start) -> succ:road_58(start)",
+        "lanes": "shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.5,0.635]"
+      },
+      "Road_511": {
+        "info": "Len:19.3m | One-Way Junction_Link(ID:452) Shape:Curve(Arc+Line) [Has_Crosswalk]",
+        "link": "succ:road_58(start) -> pred:road_14(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [
+          {
+            "id": "1734",
+            "s": 1.0
+          },
+          {
+            "id": "1289",
+            "s": 14.75
+          }
+        ],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_515": {
+        "info": "Len:15.1m | No_Driving Junction_Link(ID:452) Shape:Curve(Arc+Line)",
+        "link": "pred:road_14(start) -> succ:road_57(end)",
+        "lanes": "shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635,0.5]"
+      },
+      "Road_545": {
+        "info": "Len:36.8m | One-Way Junction_Link(ID:452) Shape:Curve(Arc+Line)",
+        "link": "pred:road_57(end) -> succ:road_58(start)",
+        "lanes": "driving:[-2, -1] | none:[-3] | shoulder:[-4]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | none:[3.5] | shoulder:[0.5]"
+      },
+      "Road_546": {
+        "info": "Len:36.8m | One-Way Junction_Link(ID:452) Shape:Curve(Arc+Line)",
+        "link": "succ:road_58(start) -> pred:road_57(end)",
+        "lanes": "driving:[4, 5] | none:[2, 6] | shoulder:[1, 3, 7]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | none:[3.5,3.5] | shoulder:[0.5,0.5,0.5]"
+      },
+      "Road_55": {
+        "info": "Len:17.9m | Two-Way Urban Shape:Straight",
+        "link": "pred:junction_582(end) -> succ:road_56(start)",
+        "lanes": "driving:[-2, -1, 4, 5] | median:[2] | none:[-3, 6] | shoulder:[-5, -4, 1, 3, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | median:[3.5] | none:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.5,0.5,0.635]"
+      },
+      "Road_56": {
+        "info": "Len:2.1m | Two-Way Highway Shape:Straight",
+        "link": "pred:road_55(end) -> succ:road_57(start)",
+        "lanes": "driving:[-2, -1, 4, 5] | median:[2] | none:[-3, 6] | shoulder:[-5, -4, 1, 3, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | median:[3.5] | none:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.5,0.5,0.635]"
+      },
+      "Road_57": {
+        "info": "Len:7.1m | Two-Way Urban Shape:Straight",
+        "link": "pred:road_56(end) -> succ:junction_452(end)",
+        "lanes": "driving:[-2, -1, 4, 5] | median:[2] | none:[-3, 6] | shoulder:[-5, -4, 1, 3, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | median:[3.5] | none:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.5,0.5,0.635]"
+      },
+      "Road_58": {
+        "info": "Len:45.8m | Two-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_452(end) -> succ:road_1(end)",
+        "lanes": "driving:[-3, -2, -1, 4, 5, 6] | median:[2] | shoulder:[-5, -4, 1, 3, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5,3.5] | median:[3.5] | shoulder:[0.635,0.5,0.5,0.5,0.5,0.635]"
+      },
+      "Road_15": {
+        "info": "Len:97.6m | One-Way Urban Shape:Straight",
+        "link": "pred:road_14(end) -> succ:junction_798(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lane_width": {
+          "3": [
+            {
+              "s_range": [
+                0.0,
+                37.21
+              ],
+              "type": "Polynomial_Taper",
+              "equation_params": {
+                "a": 1.79e-07,
+                "b": 0.0,
+                "c": 0.009065,
+                "d": -0.0001624
+              }
+            },
+            {
+              "s_range": [
+                37.21,
+                97.6
+              ],
+              "type": "Constant",
+              "width_m": 4.18
+            }
+          ]
+        },
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,lane_width] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "Crosswalk"
+      ],
+      "core_topology": "该地图为一个典型的十字交叉口,连接了东西南北四个方向的道路。",
+      "lane_and_direction": "包含单向及双向通行道路,车道数从2至4条不等,配备了路肩、中间带及人行横道。",
+      "environment_and_geometry": "属于城市道路环境,整体地形平坦。外部道路包含直道与弯道,交叉口内部由多条平坦的弯道连接。",
+      "driving_routes": "车辆在此处可执行直行(如西向东、南向北)及右转(如西向南、南向东)行驶路线。"
+    }
+  },
+  "Town06_T-junction_15": {
+    "summary": {
+      "total_roads": 7,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_565": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_35 (West)",
+          "Road_36 (East)",
+          "Road_8 (East)"
+        ],
+        "driving_paths": [
+          "From Road_35 to Road_36 via Road_575",
+          "From Road_35 to Road_8 via Road_570"
+        ],
+        "internal_parts": [
+          "Road_566",
+          "Road_570",
+          "Road_571",
+          "Road_575"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_35": {
+        "info": "Len:40.6m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_72(end) -> succ:junction_565(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_36": {
+        "info": "Len:53.8m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_565(end) -> succ:junction_1146(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_566": {
+        "info": "Len:64.1m | No_Driving Junction_Link(ID:565) Shape:Curve(Arc+Line)",
+        "link": "pred:road_8(start) -> succ:road_35(end)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_570": {
+        "info": "Len:65.9m | One-Way Junction_Link(ID:565) Shape:Curve(Arc+Line)",
+        "link": "pred:road_35(end) -> succ:road_8(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_571": {
+        "info": "Len:19.5m | No_Driving Junction_Link(ID:565) Shape:Curve(Arc+Line)",
+        "link": "pred:road_8(start) -> succ:road_36(start)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_575": {
+        "info": "Len:65.7m | One-Way Junction_Link(ID:565) Shape:Straight",
+        "link": "pred:road_35(end) -> succ:road_36(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | none:[-1] | shoulder:[-9, -8, -2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | none:[0.635] | shoulder:[0.635,0.5,0.5]"
+      },
+      "Road_8": {
+        "info": "Len:67.5m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_565(end) -> succ:road_2(end)",
+        "lanes": "driving:[-3] | shoulder:[-5, -4, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一个T形交叉口,连接了西侧的一条主干道与东侧的两条单向分支道路。",
+      "lane_and_direction": "所有道路均为单向通行。主干道拥有五条行车道,分支道路为单车道,均配备了路肩。",
+      "environment_and_geometry": "属于平坦的城市道路环境。包含直行主路以及连接分支道路的弧形弯道。",
+      "driving_routes": "车辆可从西侧驶入,执行直行进入东侧主路或向右分流进入分支道路。"
+    }
+  },
+  "Town06_Crossroad_16": {
+    "summary": {
+      "total_roads": 15,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_582": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_50 (East)",
+          "Road_51 (West)",
+          "Road_54 (North)",
+          "Road_55 (South)"
+        ],
+        "driving_paths": [
+          "From Road_50 to Road_51 via Road_680",
+          "From Road_50 to Road_54 via Road_596",
+          "From Road_54 to Road_51 via Road_583",
+          "From Road_54 to Road_55 via Road_653",
+          "From Road_55 to Road_54 via Road_652"
+        ],
+        "internal_parts": [
+          "Road_583",
+          "Road_584",
+          "Road_596",
+          "Road_598",
+          "Road_652",
+          "Road_653",
+          "Road_680",
+          "Road_701",
+          "Road_710"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_50": {
+        "info": "Len:100.1m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1162(end) -> succ:junction_582(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_51": {
+        "info": "Len:6.8m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_582(end) -> succ:road_52(start)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_54": {
+        "info": "Len:62.6m | Two-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_712(end) -> succ:junction_582(end)",
+        "lanes": "driving:[-3, -2, -1, 4, 5, 6] | median:[2] | shoulder:[-5, -4, 1, 3, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5,3.5] | median:[3.5] | shoulder:[0.635,0.5,0.5,0.5,0.5,0.635]"
+      },
+      "Road_55": {
+        "info": "Len:17.9m | Two-Way Urban Shape:Straight",
+        "link": "pred:junction_582(end) -> succ:road_56(start)",
+        "lanes": "driving:[-2, -1, 4, 5] | median:[2] | none:[-3, 6] | shoulder:[-5, -4, 1, 3, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | median:[3.5] | none:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.5,0.5,0.635]"
+      },
+      "Road_583": {
+        "info": "Len:21.8m | One-Way Junction_Link(ID:582) Shape:Curve(Arc+Line) [Has_Crosswalk]",
+        "link": "pred:road_54(end) -> succ:road_51(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [
+          {
+            "id": "1301",
+            "s": 5.19
+          },
+          {
+            "id": "1735",
+            "s": 18.48
+          }
+        ],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_584": {
+        "info": "Len:15.9m | No_Driving Junction_Link(ID:582) Shape:Curve(Arc+Line)",
+        "link": "pred:road_54(end) -> succ:road_51(start)",
+        "lanes": "shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635,0.5]"
+      },
+      "Road_596": {
+        "info": "Len:26.6m | One-Way Junction_Link(ID:582) Shape:Curve(Arc+Line) [Has_Crosswalk]",
+        "link": "pred:road_50(end) -> succ:road_54(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [
+          {
+            "id": "1307",
+            "s": 5.4
+          },
+          {
+            "id": "1300",
+            "s": 21.72
+          }
+        ],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_598": {
+        "info": "Len:20.4m | No_Driving Junction_Link(ID:582) Shape:Curve(Arc+Line)",
+        "link": "pred:road_54(end) -> succ:road_50(end)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_652": {
+        "info": "Len:35.4m | One-Way Junction_Link(ID:582) Shape:Straight",
+        "link": "succ:road_55(start) -> pred:road_54(end)",
+        "lanes": "driving:[4, 5] | none:[2] | shoulder:[1, 3]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | none:[3.5] | shoulder:[0.5,0.5]"
+      },
+      "Road_653": {
+        "info": "Len:35.4m | One-Way Junction_Link(ID:582) Shape:Straight",
+        "link": "pred:road_54(end) -> succ:road_55(start)",
+        "lanes": "driving:[-2, -1] | none:[-3] | shoulder:[-4]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | none:[3.5] | shoulder:[0.5]"
+      },
+      "Road_680": {
+        "info": "Len:47.9m | One-Way Junction_Link(ID:582) Shape:Straight",
+        "link": "pred:road_50(end) -> succ:road_51(start)",
+        "lanes": "driving:[-5, -4, -3] | none:[-1] | shoulder:[-2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5] | none:[0.635] | shoulder:[0.5]"
+      },
+      "Road_701": {
+        "info": "Len:16.3m | No_Driving Junction_Link(ID:582) Shape:Curve(Arc+Line)",
+        "link": "pred:road_51(start) -> succ:road_55(start)",
+        "lanes": "shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635,0.5]"
+      },
+      "Road_710": {
+        "info": "Len:20.2m | No_Driving Junction_Link(ID:582) Shape:Curve(Arc+Line)",
+        "link": "pred:road_50(end) -> succ:road_55(start)",
+        "lanes": "shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.5,0.635]"
+      },
+      "Road_56": {
+        "info": "Len:2.1m | Two-Way Highway Shape:Straight",
+        "link": "pred:road_55(end) -> succ:road_57(start)",
+        "lanes": "driving:[-2, -1, 4, 5] | median:[2] | none:[-3, 6] | shoulder:[-5, -4, 1, 3, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | median:[3.5] | none:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.5,0.5,0.635]"
+      },
+      "Road_57": {
+        "info": "Len:7.1m | Two-Way Highway Shape:Straight",
+        "link": "pred:road_56(end) -> succ:junction_452(end)",
+        "lanes": "driving:[-2, -1, 4, 5] | median:[2] | none:[-3, 6] | shoulder:[-5, -4, 1, 3, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | median:[3.5] | none:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "Crosswalk"
+      ],
+      "core_topology": "该地图为一个典型的十字路口,连接了东、西、南、北四个方向的道路。",
+      "lane_and_direction": "包含单向及双向多车道通行,设有中央分隔带、路肩及人行横道,车道分布多样。",
+      "environment_and_geometry": "属于城市道路环境,地形平坦。外部道路包含直道与弯道,路口内部由转向弯道和直道连接。",
+      "driving_routes": "车辆可执行东西向直行、南北向双向直行,以及从东向北、从北向西的转向行驶。"
+    }
+  },
+  "Town06_T-junction_17": {
+    "summary": {
+      "total_roads": 6,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_728": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_25 (West)",
+          "Road_28 (East)",
+          "Road_45 (West)"
+        ],
+        "driving_paths": [
+          "From Road_25 to Road_28 via Road_735",
+          "From Road_45 to Road_28 via Road_741"
+        ],
+        "internal_parts": [
+          "Road_735",
+          "Road_741",
+          "Road_745"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_25": {
+        "info": "Len:18.7m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:road_16(end) -> succ:junction_728(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_28": {
+        "info": "Len:18.2m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_728(end) -> succ:road_29(start)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_45": {
+        "info": "Len:27.4m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "succ:road_2(start) -> pred:junction_728(end)",
+        "lanes": "driving:[3] | shoulder:[1, 2, 4, 5]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_735": {
+        "info": "Len:45.4m | One-Way Junction_Link(ID:728) Shape:Straight",
+        "link": "pred:road_25(end) -> succ:road_28(start)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.5,0.5,0.635]"
+      },
+      "Road_741": {
+        "info": "Len:49.1m | One-Way Junction_Link(ID:728) Shape:Curve(Arc+Line)",
+        "link": "succ:road_45(start) -> pred:road_28(start)",
+        "lanes": "driving:[3, 6] | none:[1, 1, 2, 2, 3, 4, 5] | shoulder:[4, 5, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | none:[0.635,0.635,0.5,0.5,3.5,3.5,3.5] | shoulder:[3.5,3.5,0.5,0.635]"
+      },
+      "Road_745": {
+        "info": "Len:11.7m | No_Driving Junction_Link(ID:728) Shape:Curve(Arc+Line)",
+        "link": "pred:road_25(end) -> succ:road_45(start)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一个平坦的T形交叉口,连接了两个西侧入口方向和一个东侧出口方向的道路。",
+      "lane_and_direction": "所有道路均为单向通行。西侧入口包含四车道和单车道规格,东侧出口为四车道,均配备路肩。",
+      "environment_and_geometry": "属于城市道路环境,地形平坦。包含直道与弧形弯道,交叉口内部通过直线和曲线连接件实现汇合。",
+      "driving_routes": "车辆可从西侧的不同入口道路分别汇入东侧的出口道路。"
+    }
+  },
+  "Town06_T-junction_18": {
+    "summary": {
+      "total_roads": 8,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_763": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_12 (West)",
+          "Road_13 (East)",
+          "Road_69 (North)"
+        ],
+        "driving_paths": [
+          "From Road_12 to Road_13 via Road_764",
+          "From Road_69 to Road_13 via Road_783",
+          "From Road_69 to Road_13 via Road_796",
+          "From Road_69 to Road_13 via Road_797"
+        ],
+        "internal_parts": [
+          "Road_764",
+          "Road_780",
+          "Road_783",
+          "Road_796",
+          "Road_797"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_12": {
+        "info": "Len:38.7m | One-Way Urban Shape:Straight",
+        "link": "pred:road_67(end) -> succ:junction_763(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_13": {
+        "info": "Len:104.6m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_763(end) -> succ:junction_452(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_69": {
+        "info": "Len:1.0m | One-Way Urban Shape:Straight",
+        "link": "succ:road_59(end) -> pred:junction_763(end)",
+        "lanes": "driving:[3, 4] | shoulder:[1, 2, 5, 6]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_764": {
+        "info": "Len:31.9m | One-Way Junction_Link(ID:763) Shape:Straight",
+        "link": "pred:road_12(end) -> succ:road_13(start)",
+        "lanes": "driving:[-6,-5,-4,-3] | none:[-2, -1] | shoulder:[-8,-7]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | none:[0.5,0.635] | shoulder:[0.635,0.5]"
+      },
+      "Road_780": {
+        "info": "Len:28.7m | No_Driving Junction_Link(ID:763) Shape:Curve(Arc+Line)",
+        "link": "pred:road_12(end) -> succ:road_69(start)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_783": {
+        "info": "Len:42.5m | One-Way Junction_Link(ID:763) Shape:Curve(Arc+Line)",
+        "link": "succ:road_69(start) -> pred:road_13(start)",
+        "lanes": "driving:[3, 4] | shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5]"
+      },
+      "Road_796": {
+        "info": "Len:45.7m | One-Way Junction_Link(ID:763) Shape:Curve(Arc+Line)",
+        "link": "succ:road_69(start) -> pred:road_13(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_797": {
+        "info": "Len:43.9m | One-Way Junction_Link(ID:763) Shape:Curve(Arc+Line)",
+        "link": "succ:road_69(start) -> pred:road_13(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一个典型的T形交叉口,连接了西、东、北三个方向的道路。",
+      "lane_and_direction": "所有外部道路均为单向通行,包含多条驾驶车道,并配备了路肩。",
+      "environment_and_geometry": "属于城市道路环境,整体地形平坦。外部道路为直道,交叉口内部包含直道与弯道。",
+      "driving_routes": "车辆可执行从西向东的直行,以及从北向东的转向行驶路线。"
+    }
+  },
+  "Town06_T-junction_19": {
+    "summary": {
+      "total_roads": 7,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_798": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_15 (West)",
+          "Road_16 (East)",
+          "Road_41 (North)"
+        ],
+        "driving_paths": [
+          "From Road_15 to Road_16 via Road_799",
+          "From Road_15 to Road_41 via Road_810",
+          "From Road_15 to Road_41 via Road_814"
+        ],
+        "internal_parts": [
+          "Road_799",
+          "Road_810",
+          "Road_814",
+          "Road_819"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_15": {
+        "info": "Len:97.6m | One-Way Urban Shape:Straight",
+        "link": "pred:road_14(end) -> succ:junction_798(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lane_width": {
+          "3": [
+            {
+              "s_range": [
+                0.0,
+                37.21
+              ],
+              "type": "Polynomial_Taper",
+              "equation_params": {
+                "a": 1.79e-07,
+                "b": 0.0,
+                "c": 0.009065,
+                "d": -0.0001624
+              }
+            },
+            {
+              "s_range": [
+                37.21,
+                97.6
+              ],
+              "type": "Constant",
+              "width_m": 4.18
+            }
+          ]
+        },
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,lane_width] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_16": {
+        "info": "Len:47.8m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_798(end) -> succ:road_25(start)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_41": {
+        "info": "Len:1.0m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_798(end) -> succ:road_31(end)",
+        "lanes": "driving:[-4, -3] | shoulder:[-6, -5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_799": {
+        "info": "Len:28.3m | One-Way Junction_Link(ID:798) Shape:Straight",
+        "link": "pred:road_15(end) -> succ:road_16(start)",
+        "lanes": "driving:[-7, -6, -5, -4] | driving_merge:[-3] | none:[-2,-1] | shoulder:[-9,-8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | driving_merge:[3.5] | none:[0.5,0.635] | shoulder:[0.635,0.5]"
+      },
+      "Road_810": {
+        "info": "Len:36.5m | One-Way Junction_Link(ID:798) Shape:Curve(Arc+Line)",
+        "link": "pred:road_15(end) -> succ:road_41(start)",
+        "lanes": "driving:[-3] | shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5495] | shoulder:[0.5,0.635]"
+      },
+      "Road_814": {
+        "info": "Len:40.5m | One-Way Junction_Link(ID:798) Shape:Curve(Arc+Line)",
+        "link": "pred:road_15(end) -> succ:road_41(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5495]"
+      },
+      "Road_819": {
+        "info": "Len:34.8m | No_Driving Junction_Link(ID:798) Shape:Curve(Arc+Line)",
+        "link": "pred:road_16(start) -> succ:road_41(start)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为T形交叉口,连接西、东、北三个方向的单向道路。",
+      "lane_and_direction": "所有道路均为单向通行,包含多条行驶车道、路肩及车道宽度渐变段。",
+      "environment_and_geometry": "城市平坦道路环境,外部为直道,路口内部由直道与弧形弯道构成。",
+      "driving_routes": "车辆可实现由西向东直行,以及由西向北左转行驶。"
+    }
+  },
+  "Town06_T-junction_20": {
+    "summary": {
+      "total_roads": 6,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_822": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_17 (West)",
+          "Road_18 (East)",
+          "Road_43 (North)"
+        ],
+        "driving_paths": [
+          "From Road_17 to Road_18 via Road_823",
+          "From Road_43 to Road_18 via Road_834"
+        ],
+        "internal_parts": [
+          "Road_823",
+          "Road_831",
+          "Road_834"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_17": {
+        "info": "Len:54.8m | One-Way Urban Shape:Straight",
+        "link": "pred:road_65(end) -> succ:junction_822(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_18": {
+        "info": "Len:84.9m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_822(end) -> succ:junction_436(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_43": {
+        "info": "Len:30.4m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "succ:road_42(start) -> pred:junction_822(end)",
+        "lanes": "driving:[3] | shoulder:[1, 2, 4, 5]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_823": {
+        "info": "Len:38.2m | One-Way Junction_Link(ID:822) Shape:Straight",
+        "link": "pred:road_17(end) -> succ:road_18(start)",
+        "lanes": "driving:[-7,-6,-5,-4] | driving_merge:[-3] | none:[-1,-2] | shoulder:[-9,-8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | driving_merge:[3.5] | none:[0.635,0.5] | shoulder:[0.635,0.5]"
+      },
+      "Road_831": {
+        "info": "Len:19.4m | No_Driving Junction_Link(ID:822) Shape:Curve(Arc+Line)",
+        "link": "pred:road_17(end) -> succ:road_43(start)",
+        "lanes": "shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.5,0.635]"
+      },
+      "Road_834": {
+        "info": "Len:37.4m | One-Way Junction_Link(ID:822) Shape:Curve(Arc+Line)",
+        "link": "succ:road_43(start) -> pred:road_18(start)",
+        "lanes": "driving:[3] | shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一个典型的T形交叉口,连接了西、东、北三个方向的道路。",
+      "lane_and_direction": "所有道路均为单向通行。主干道为多车道,支路为单车道,均配备路肩,无行人道。",
+      "environment_and_geometry": "属于城市道路环境,地形平坦。包含直道与弯道,交叉口内部由直线和曲线路径连接。",
+      "driving_routes": "车辆可从西侧主干道直行进入东侧,或从北侧支路经弯道汇入东侧主干道。"
+    }
+  },
+  "Town06_Crossroad_21": {
+    "summary": {
+      "total_roads": 20,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_838": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_19 (West)",
+          "Road_33 (South)",
+          "Road_34 (North)",
+          "Road_39 (East)"
+        ],
+        "driving_paths": [
+          "From Road_19 to Road_33 via Road_854",
+          "From Road_19 to Road_33 via Road_863",
+          "From Road_19 to Road_33 via Road_869",
+          "From Road_19 to Road_39 via Road_888",
+          "From Road_19 to Road_39 via Road_899",
+          "From Road_33 to Road_34 via Road_940",
+          "From Road_33 to Road_34 via Road_980",
+          "From Road_33 to Road_39 via Road_1003",
+          "From Road_33 to Road_39 via Road_985",
+          "From Road_34 to Road_33 via Road_939",
+          "From Road_34 to Road_39 via Road_1004",
+          "From Road_34 to Road_39 via Road_1027"
+        ],
+        "internal_parts": [
+          "Road_839",
+          "Road_854",
+          "Road_863",
+          "Road_869",
+          "Road_876",
+          "Road_888",
+          "Road_899",
+          "Road_939",
+          "Road_940",
+          "Road_980",
+          "Road_985",
+          "Road_989",
+          "Road_1003",
+          "Road_1004",
+          "Road_1013",
+          "Road_1027"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_1003": {
+        "info": "Len:26.4m | One-Way Junction_Link(ID:838) Shape:Curve(Arc+Line)",
+        "link": "pred:road_33(end) -> succ:road_39(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_1004": {
+        "info": "Len:34.1m | One-Way Junction_Link(ID:838) Shape:Curve(Arc+Line)",
+        "link": "succ:road_34(start) -> pred:road_39(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_1013": {
+        "info": "Len:13.8m | No_Driving Junction_Link(ID:838) Shape:Curve(Arc+Line)",
+        "link": "pred:road_34(start) -> succ:road_39(start)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_1027": {
+        "info": "Len:40.3m | One-Way Junction_Link(ID:838) Shape:Curve(Arc+Line) [Has_Crosswalk]",
+        "link": "succ:road_34(start) -> pred:road_39(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [
+          {
+            "id": "1739",
+            "s": 6.39
+          }
+        ],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_19": {
+        "info": "Len:58.8m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_436(end) -> succ:junction_838(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_33": {
+        "info": "Len:82.0m | Two-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_747(end) -> succ:junction_838(end)",
+        "lanes": "driving:[-3, -2, -1, 4, 5, 6] | median:[2] | shoulder:[-5, -4, 1, 3, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5,3.5] | median:[3.5] | shoulder:[0.635,0.5,0.5,0.5,0.5,0.635]"
+      },
+      "Road_34": {
+        "info": "Len:65.2m | Two-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_838(end) -> succ:road_0(start)",
+        "lanes": "driving:[-3, -2, -1, 4, 5, 6] | median:[2] | shoulder:[-5, -4, 1, 3, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5,3.5] | median:[3.5] | shoulder:[0.635,0.5,0.5,0.5,0.5,0.635]"
+      },
+      "Road_39": {
+        "info": "Len:50.5m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_838(end) -> succ:junction_1187(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_839": {
+        "info": "Len:17.9m | No_Driving Junction_Link(ID:838) Shape:Curve(Arc+Line)",
+        "link": "pred:road_19(end) -> succ:road_33(end)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_854": {
+        "info": "Len:30.3m | One-Way Junction_Link(ID:838) Shape:Curve(Arc+Line) [Has_Crosswalk]",
+        "link": "pred:road_19(end) -> succ:road_33(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [
+          {
+            "id": "1741",
+            "s": 7.39
+          }
+        ],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_863": {
+        "info": "Len:35.9m | One-Way Junction_Link(ID:838) Shape:Curve(Arc+Line)",
+        "link": "pred:road_19(end) -> succ:road_33(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_869": {
+        "info": "Len:25.1m | One-Way Junction_Link(ID:838) Shape:Curve(Arc+Line)",
+        "link": "pred:road_19(end) -> succ:road_33(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_876": {
+        "info": "Len:16.1m | No_Driving Junction_Link(ID:838) Shape:Curve(Arc+Line)",
+        "link": "pred:road_19(end) -> succ:road_34(start)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_888": {
+        "info": "Len:43.4m | One-Way Junction_Link(ID:838) Shape:Curve(Arc+Line)",
+        "link": "pred:road_19(end) -> succ:road_39(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_899": {
+        "info": "Len:43.4m | One-Way Junction_Link(ID:838) Shape:Curve(Arc+Line)",
+        "link": "pred:road_19(end) -> succ:road_39(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_939": {
+        "info": "Len:35.5m | One-Way Junction_Link(ID:838) Shape:Straight [Has_Crosswalk]",
+        "link": "succ:road_34(start) -> pred:road_33(end)",
+        "lanes": "driving:[5, 6] | none:[2, 4] | shoulder:[1, 3, 7]",
+        "tunnels": [],
+        "crosswalks": [
+          {
+            "id": "1738",
+            "s": 8.53
+          },
+          {
+            "id": "1740",
+            "s": 28.33
+          }
+        ],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | none:[3.5,3.5] | shoulder:[0.5,0.5,0.5]"
+      },
+      "Road_940": {
+        "info": "Len:35.5m | One-Way Junction_Link(ID:838) Shape:Straight",
+        "link": "pred:road_33(end) -> succ:road_34(start)",
+        "lanes": "driving:[-2, -1] | none:[-3] | shoulder:[-4]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | none:[3.5] | shoulder:[0.5]"
+      },
+      "Road_980": {
+        "info": "Len:35.8m | One-Way Junction_Link(ID:838) Shape:Curve(Arc+Line)",
+        "link": "pred:road_33(end) -> succ:road_34(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_985": {
+        "info": "Len:21.3m | One-Way Junction_Link(ID:838) Shape:Curve(Arc+Line)",
+        "link": "pred:road_33(end) -> succ:road_39(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_989": {
+        "info": "Len:14.5m | No_Driving Junction_Link(ID:838) Shape:Curve(Arc+Line)",
+        "link": "pred:road_33(end) -> succ:road_39(start)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      }
+    },
+    "map_description": "该地图为平坦的城市四路交叉口,连接东西南北四向。包含单双向多车道,设有路肩、隔离带及人行横道。"
+  },
+  "Town06_T-junction_22": {
+    "summary": {
+      "total_roads": 6,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_1034": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_37 (West)",
+          "Road_38 (East)",
+          "Road_70 (East)"
+        ],
+        "driving_paths": [
+          "From Road_37 to Road_38 via Road_1037",
+          "From Road_37 to Road_70 via Road_1043"
+        ],
+        "internal_parts": [
+          "Road_1037",
+          "Road_1043",
+          "Road_1047"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_1037": {
+        "info": "Len:44.7m | One-Way Junction_Link(ID:1034) Shape:Straight",
+        "link": "pred:road_37(end) -> succ:road_38(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | none:[-1] | shoulder:[-9, -8, -2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | none:[0.635] | shoulder:[0.635,0.5,0.5]"
+      },
+      "Road_1043": {
+        "info": "Len:44.2m | One-Way Junction_Link(ID:1034) Shape:Curve(Arc+Line)",
+        "link": "pred:road_37(end) -> succ:road_70(start)",
+        "lanes": "driving:[-3] | shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.5,0.635]"
+      },
+      "Road_1047": {
+        "info": "Len:15.9m | No_Driving Junction_Link(ID:1034) Shape:Curve(Arc+Line)",
+        "link": "pred:road_38(start) -> succ:road_70(start)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_37": {
+        "info": "Len:199.5m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1146(end) -> succ:junction_1034(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_38": {
+        "info": "Len:144.1m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1034(end) -> succ:junction_332(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_70": {
+        "info": "Len:31.7m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_1034(end) -> succ:road_24(end)",
+        "lanes": "driving:[-3] | shoulder:[-5, -4, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为T形交叉口,连接西侧主路与东侧两条单向分支道路。",
+      "lane_and_direction": "全线单向通行,主路设五车道,分支为单车道,均含路肩且无行人道。",
+      "environment_and_geometry": "城市平坦环境,主干道为直线,通往分支的连接路为曲线。",
+      "driving_routes": "车辆可由西向东直行进入主路,或右转分流进入东侧分支道路。"
+    }
+  },
+  "Town06_Crossroad_23": {
+    "summary": {
+      "total_roads": 10,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_1050": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_27 (North)",
+          "Road_29 (West)",
+          "Road_3 (South)",
+          "Road_30 (East)"
+        ],
+        "driving_paths": [
+          "From Road_29 to Road_27 via Road_1051",
+          "From Road_29 to Road_30 via Road_1083",
+          "From Road_3 to Road_30 via Road_1124"
+        ],
+        "internal_parts": [
+          "Road_1051",
+          "Road_1052",
+          "Road_1056",
+          "Road_1083",
+          "Road_1117",
+          "Road_1124"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_1051": {
+        "info": "Len:39.4m | One-Way Junction_Link(ID:1050) Shape:Curve(Arc+Line)",
+        "link": "pred:road_29(end) -> succ:road_27(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_1052": {
+        "info": "Len:35.9m | No_Driving Junction_Link(ID:1050) Shape:Curve(Arc+Line)",
+        "link": "pred:road_29(end) -> succ:road_27(end)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_1056": {
+        "info": "Len:50.9m | No_Driving Junction_Link(ID:1050) Shape:Curve(Arc+Line)",
+        "link": "pred:road_29(end) -> succ:road_3(start)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_1083": {
+        "info": "Len:70.8m | One-Way Junction_Link(ID:1050) Shape:Straight",
+        "link": "pred:road_29(end) -> succ:road_30(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | none:[-1] | shoulder:[-8, -2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | none:[0.635] | shoulder:[0.5,0.5]"
+      },
+      "Road_1117": {
+        "info": "Len:50.6m | No_Driving Junction_Link(ID:1050) Shape:Curve(Arc+Line)",
+        "link": "pred:road_27(end) -> succ:road_30(start)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_1124": {
+        "info": "Len:34.9m | One-Way Junction_Link(ID:1050) Shape:Curve(Arc+Line)",
+        "link": "succ:road_3(start) -> pred:road_30(start)",
+        "lanes": "driving:[3, 7] | none:[1, 1, 2, 2, 3, 4, 5, 6] | shoulder:[4, 5, 8, 9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | none:[0.635,0.635,0.5,0.5,3.5,3.5,3.5,3.5] | shoulder:[3.5,3.5,0.5,0.635]"
+      },
+      "Road_27": {
+        "info": "Len:27.5m | One-Way Urban Shape:Curve(Arc)",
+        "link": "succ:junction_1050(end) -> pred:junction_1203(end)",
+        "lanes": "driving:[3] | shoulder:[1, 2, 4, 5]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_29": {
+        "info": "Len:198.0m | One-Way Urban Shape:Straight",
+        "link": "pred:road_28(end) -> succ:junction_1050(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lane_width": {
+          "3": [
+            {
+              "s_range": [
+                0.0,
+                46.73
+              ],
+              "type": "Polynomial_Taper",
+              "equation_params": {
+                "a": 0.0,
+                "b": 0.0,
+                "c": 0.004808,
+                "d": -6.86e-05
+              }
+            },
+            {
+              "s_range": [
+                46.73,
+                198.0
+              ],
+              "type": "Constant",
+              "width_m": 3.5
+            }
+          ]
+        },
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,lane_width] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_3": {
+        "info": "Len:27.3m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "succ:road_24(start) -> pred:junction_1050(end)",
+        "lanes": "driving:[3] | shoulder:[1, 2, 4, 5]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_30": {
+        "info": "Len:95.8m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1050(end) -> succ:junction_268(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一个典型的十字交叉口,连接了东、西、南、北四个方向的道路。",
+      "lane_and_direction": "道路均为单向通行,包含多条驾驶车道,并配备了路肩,无停车车道和人行道。",
+      "environment_and_geometry": "属于城市道路环境,整体地形平坦。外部道路包含直道和弯道,交叉口内部由平坦的直道和弯道连接。",
+      "driving_routes": "车辆在此处可执行从西向北的左转、从西向东的直行以及从南向东的右转行驶路线。"
+    }
+  },
+  "Town06_T-junction_24": {
+    "summary": {
+      "total_roads": 6,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_1128": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_21 (West)",
+          "Road_22 (East)",
+          "Road_60 (East)"
+        ],
+        "driving_paths": [
+          "From Road_22 to Road_21 via Road_1129",
+          "From Road_60 to Road_21 via Road_1139"
+        ],
+        "internal_parts": [
+          "Road_1129",
+          "Road_1139",
+          "Road_1143"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_1129": {
+        "info": "Len:42.1m | One-Way Junction_Link(ID:1128) Shape:Straight",
+        "link": "succ:road_22(start) -> pred:road_21(end)",
+        "lanes": "driving:[4, 5, 6, 7] | driving_merge:[3] | none:[1,2] | shoulder:[8,9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | driving_merge:[3.5] | none:[0.635,0.5] | shoulder:[0.5,0.635]"
+      },
+      "Road_1139": {
+        "info": "Len:41.0m | One-Way Junction_Link(ID:1128) Shape:Curve(Arc+Line)",
+        "link": "succ:road_60(start) -> pred:road_21(end)",
+        "lanes": "driving:[3] | shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5]"
+      },
+      "Road_1143": {
+        "info": "Len:16.4m | No_Driving Junction_Link(ID:1128) Shape:Curve(Arc+Line)",
+        "link": "pred:road_22(start) -> succ:road_60(start)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_21": {
+        "info": "Len:81.0m | One-Way Urban Shape:Straight",
+        "link": "succ:junction_1128(end) -> pred:junction_396(end)",
+        "lanes": "driving:[3, 4, 5, 6, 7] | shoulder:[1, 2, 8, 9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_22": {
+        "info": "Len:54.8m | One-Way Urban Shape:Straight",
+        "link": "succ:road_23(start) -> pred:junction_1128(end)",
+        "lanes": "driving:[3, 4, 5, 6] | shoulder:[1, 2, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lane_width": {
+          "3": [
+            {
+              "s_range": [
+                0.0,
+                15.52
+              ],
+              "type": "Constant",
+              "width_m": 3.5
+            },
+            {
+              "s_range": [
+                15.52,
+                54.8
+              ],
+              "type": "Polynomial_Taper",
+              "equation_params": {
+                "a": 3.5,
+                "b": 0.0,
+                "c": -0.006788,
+                "d": 0.0001151
+              }
+            }
+          ]
+        },
+        "lanes_width": "driving:[lane_width,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_60": {
+        "info": "Len:34.2m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "succ:road_61(end) -> pred:junction_1128(end)",
+        "lanes": "driving:[3] | shoulder:[1, 2, 4, 5]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一个典型的T形交叉口,连接了西侧主路与东侧两条单向汇入的支路。",
+      "lane_and_direction": "全线为单向通行,包含多条行驶车道与汇合车道,并配备了路肩,无侧石或人行道。",
+      "environment_and_geometry": "属于城市道路环境,整体地形平坦。包含直道与弧形弯道,用于实现支路向主路的汇流。",
+      "driving_routes": "车辆可从东侧的两条支路分别经由直行或左转弯道汇入西侧的单向主干道。"
+    }
+  },
+  "Town06_T-junction_25": {
+    "summary": {
+      "total_roads": 6,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_1146": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_36 (West)",
+          "Road_37 (East)",
+          "Road_68 (West)"
+        ],
+        "driving_paths": [
+          "From Road_36 to Road_37 via Road_1149",
+          "From Road_68 to Road_37 via Road_1159"
+        ],
+        "internal_parts": [
+          "Road_1149",
+          "Road_1155",
+          "Road_1159"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_1149": {
+        "info": "Len:71.3m | One-Way Junction_Link(ID:1146) Shape:Straight",
+        "link": "pred:road_36(end) -> succ:road_37(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.5,0.5,0.635]"
+      },
+      "Road_1155": {
+        "info": "Len:19.5m | No_Driving Junction_Link(ID:1146) Shape:Curve(Arc+Line)",
+        "link": "pred:road_36(end) -> succ:road_68(start)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_1159": {
+        "info": "Len:70.9m | One-Way Junction_Link(ID:1146) Shape:Curve(Arc+Line)",
+        "link": "succ:road_68(start) -> pred:road_37(start)",
+        "lanes": "driving:[3, 7] | none:[1, 1, 2, 2, 3, 4, 5, 6] | shoulder:[4, 5, 8, 9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | none:[0.635,0.635,0.5,0.5,3.5,3.5,3.5,3.5] | shoulder:[3.5,3.5,0.5,0.635]"
+      },
+      "Road_36": {
+        "info": "Len:53.8m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_565(end) -> succ:junction_1146(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_37": {
+        "info": "Len:199.5m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1146(end) -> succ:junction_1034(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_68": {
+        "info": "Len:20.5m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "succ:road_63(end) -> pred:junction_1146(end)",
+        "lanes": "driving:[3] | shoulder:[1, 2, 4, 5]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一个单向T形交叉口,由西侧的主路与侧路汇合后向东延伸。",
+      "lane_and_direction": "所有道路均为单向通行,主路设五条行车道,侧路为单车道,均配备路肩。",
+      "environment_and_geometry": "属于城市道路环境,地形平坦。主路为直线,侧路汇入段为弯道。",
+      "driving_routes": "车辆可从西侧主路直行,或从西侧支路汇入东侧主干道。"
+    }
+  },
+  "Town06_T-junction_26": {
+    "summary": {
+      "total_roads": 8,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_1162": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_31 (South)",
+          "Road_49 (East)",
+          "Road_50 (West)"
+        ],
+        "driving_paths": [
+          "From Road_31 to Road_50 via Road_1175",
+          "From Road_31 to Road_50 via Road_1176",
+          "From Road_31 to Road_50 via Road_1180",
+          "From Road_49 to Road_50 via Road_1164"
+        ],
+        "internal_parts": [
+          "Road_1164",
+          "Road_1172",
+          "Road_1175",
+          "Road_1176",
+          "Road_1180"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_1164": {
+        "info": "Len:29.2m | One-Way Junction_Link(ID:1162) Shape:Straight",
+        "link": "pred:road_49(end) -> succ:road_50(start)",
+        "lanes": "driving:[-6, -5, -4, -3] | none:[-1] | shoulder:[-8, -7, -2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | none:[0.635] | shoulder:[0.635,0.5,0.5]"
+      },
+      "Road_1172": {
+        "info": "Len:20.8m | No_Driving Junction_Link(ID:1162) Shape:Curve(Arc+Line)",
+        "link": "pred:road_49(end) -> succ:road_31(start)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_1175": {
+        "info": "Len:34.0m | One-Way Junction_Link(ID:1162) Shape:Curve(Arc+Line)",
+        "link": "succ:road_31(start) -> pred:road_50(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_1176": {
+        "info": "Len:30.9m | One-Way Junction_Link(ID:1162) Shape:Curve(Arc+Line)",
+        "link": "succ:road_31(start) -> pred:road_50(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_1180": {
+        "info": "Len:29.2m | One-Way Junction_Link(ID:1162) Shape:Curve(Arc+Line)",
+        "link": "succ:road_31(start) -> pred:road_50(start)",
+        "lanes": "driving:[3, 4] | shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5]"
+      },
+      "Road_31": {
+        "info": "Len:9.4m | One-Way Urban Shape:Curve(Arc)",
+        "link": "succ:road_41(end) -> pred:junction_1162(end)",
+        "lanes": "driving:[3, 4] | shoulder:[1, 2, 5, 6]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_49": {
+        "info": "Len:152.9m | One-Way Urban Shape:Straight",
+        "link": "pred:road_48(end) -> succ:junction_1162(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_50": {
+        "info": "Len:100.1m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1162(end) -> succ:junction_582(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一个典型的T形交叉口,连接了东、西、南三个方向的道路。",
+      "lane_and_direction": "所有外部道路均为单向通行,分别包含两条或四条驾驶车道,并配备了路肩,无专门的人行道或停车区。",
+      "environment_and_geometry": "属于城市道路环境,整体地形平坦。外部道路包含直道和弯道,交叉口内部由平坦的直道和弯道共同连接。",
+      "driving_routes": "车辆在此交叉口可执行从东向西的直行路线,以及从南向西的转向行驶路线。"
+    }
+  },
+  "Town06_T-junction_27": {
+    "summary": {
+      "total_roads": 6,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_1187": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_32 (East)",
+          "Road_39 (West)",
+          "Road_40 (East)"
+        ],
+        "driving_paths": [
+          "From Road_39 to Road_32 via Road_1196",
+          "From Road_39 to Road_40 via Road_1190"
+        ],
+        "internal_parts": [
+          "Road_1190",
+          "Road_1196",
+          "Road_1200"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_1190": {
+        "info": "Len:55.7m | One-Way Junction_Link(ID:1187) Shape:Straight",
+        "link": "pred:road_39(end) -> succ:road_40(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | none:[-1] | shoulder:[-9, -8, -2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | none:[0.635] | shoulder:[0.635,0.5,0.5]"
+      },
+      "Road_1196": {
+        "info": "Len:55.7m | One-Way Junction_Link(ID:1187) Shape:Curve(Arc+Line)",
+        "link": "pred:road_39(end) -> succ:road_32(start)",
+        "lanes": "driving:[-3] | shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.5,0.635]"
+      },
+      "Road_1200": {
+        "info": "Len:16.3m | No_Driving Junction_Link(ID:1187) Shape:Curve(Arc+Line)",
+        "link": "pred:road_40(start) -> succ:road_32(start)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      },
+      "Road_32": {
+        "info": "Len:47.7m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_1187(end) -> succ:road_63(start)",
+        "lanes": "driving:[-3] | shoulder:[-5, -4, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_39": {
+        "info": "Len:50.5m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_838(end) -> succ:junction_1187(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_40": {
+        "info": "Len:470.6m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1187(end) -> succ:road_71(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一个单向分流的T型交叉口,连接了西侧主路与东侧的两条去向道路。",
+      "lane_and_direction": "全线单向通行,主干道为五车道,分支为单车道,均配备路肩,无行人道。",
+      "environment_and_geometry": "属于城市道路环境,地形平坦。包含长直道及用于右转分流的曲线连接道。",
+      "driving_routes": "车辆可从西侧主路直行进入东侧主路,或向右分流进入东侧分支道路。"
+    }
+  },
+  "Town06_T-junction_28": {
+    "summary": {
+      "total_roads": 7,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_1203": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_27 (South)",
+          "Road_47 (East)",
+          "Road_48 (West)"
+        ],
+        "driving_paths": [
+          "From Road_27 to Road_48 via Road_1216",
+          "From Road_27 to Road_48 via Road_1218",
+          "From Road_47 to Road_48 via Road_1206"
+        ],
+        "internal_parts": [
+          "Road_1206",
+          "Road_1213",
+          "Road_1216",
+          "Road_1218"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_1206": {
+        "info": "Len:35.8m | One-Way Junction_Link(ID:1203) Shape:Straight",
+        "link": "pred:road_47(end) -> succ:road_48(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | none:[-1] | shoulder:[-9, -8, -2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | none:[0.635] | shoulder:[0.635,0.5,0.5]"
+      },
+      "Road_1213": {
+        "info": "Len:15.2m | No_Driving Junction_Link(ID:1203) Shape:Curve(Arc+Line)",
+        "link": "pred:road_47(end) -> succ:road_27(start)",
+        "lanes": "shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.5,0.635]"
+      },
+      "Road_1216": {
+        "info": "Len:35.1m | One-Way Junction_Link(ID:1203) Shape:Curve(Arc+Line)",
+        "link": "succ:road_27(start) -> pred:road_48(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      },
+      "Road_1218": {
+        "info": "Len:33.7m | One-Way Junction_Link(ID:1203) Shape:Curve(Arc+Line)",
+        "link": "succ:road_27(start) -> pred:road_48(start)",
+        "lanes": "driving:[3] | shoulder:[1, 2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5]"
+      },
+      "Road_27": {
+        "info": "Len:27.5m | One-Way Urban Shape:Curve(Arc)",
+        "link": "succ:junction_1050(end) -> pred:junction_1203(end)",
+        "lanes": "driving:[3] | shoulder:[1, 2, 4, 5]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_47": {
+        "info": "Len:73.3m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:road_4(start) -> succ:junction_1203(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_48": {
+        "info": "Len:184.4m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_1203(end) -> succ:road_49(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lane_width": {
+          "3": [
+            {
+              "s_range": [
+                0.0,
+                140.56
+              ],
+              "type": "Constant",
+              "width_m": 3.5
+            },
+            {
+              "s_range": [
+                140.56,
+                184.4
+              ],
+              "type": "Polynomial_Taper",
+              "equation_params": {
+                "a": 3.5,
+                "b": 0.0,
+                "c": -0.005458,
+                "d": 8.296e-05
+              }
+            }
+          ]
+        },
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,lane_width] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一个平坦的城市T型交叉口,连接了东、西、南三个方向的单向道路。",
+      "lane_and_direction": "所有道路均为单向通行,主干道为五车道,支路为单车道,均配备路肩,无行人道。",
+      "environment_and_geometry": "属于城市道路环境,地形平坦。道路由弧线与直线构成,路口内通过弯道实现转向连接。",
+      "driving_routes": "车辆可执行从东向西的直行路线,以及从南向西的左转汇入路线。"
+    }
+  },
+  "Town06_Curved-Urban-Road_29": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_4": {
+        "info": "Len:73.8m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "succ:junction_268(end) -> pred:road_47(start)",
+        "lanes": "driving:[3, 4, 5, 6, 7] | shoulder:[1, 2, 8, 9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图由一条单向道路组成,连接了前驱道路Road_47和后继交叉口Junction_268。",
+      "lane_and_direction": "道路为单向通行,包含5条宽3.5米的行车道及路肩,未设置人行道或停车专用道。",
+      "environment_and_geometry": "属于城市道路环境,整体地形平坦。道路几何特征为弯道,包含圆弧和直线段。",
+      "driving_routes": "车辆在此处可沿单向的五条车道顺着弯道行驶,通往前方交叉口。"
+    }
+  },
+  "Town06_Curved-Urban-Road_30": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_8": {
+        "info": "Len:67.5m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_565(end) -> succ:road_2(end)",
+        "lanes": "driving:[-3] | shoulder:[-5, -4, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一段单向连接弯道,连接了上游交叉口与下游道路。",
+      "lane_and_direction": "道路为单向单车道通行,配备一条行车道及多条路肩,无对向车道。",
+      "environment_and_geometry": "属于城市道路环境,地形平坦,由圆弧与直线构成的弯道组成。",
+      "driving_routes": "车辆可沿单向行车道从交叉口驶向衔接道路,或在弯道内执行常态化跟车。"
+    }
+  },
+  "Town06_Curved-Urban-Road_31": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_10": {
+        "info": "Len:78.6m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:road_46(end) -> succ:road_44(start)",
+        "lanes": "driving:[-5, -4, -3] | shoulder:[-7, -6, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一段单一的道路片段,首尾连接相邻道路。",
+      "lane_and_direction": "道路为单向通行,设三条机动车道及两侧路肩。",
+      "environment_and_geometry": "属于城市道路环境,地形平坦,整体呈弯道几何特征。",
+      "driving_routes": "车辆在此路段仅可沿单向车道顺着弯道向前行驶。"
+    }
+  },
+  "Town06_Curved-Highway-Road_32": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_11": {
+        "info": "Len:370.6m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "succ:road_66(start) -> pred:road_65(start)",
+        "lanes": "driving:[3, 4, 5, 6] | shoulder:[1, 2, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一条独立的单向道路,无交叉口。",
+      "lane_and_direction": "道路为单向四车道通行,两侧均配备有路肩。",
+      "environment_and_geometry": "属于高速路环境,整体地形平坦,为弯道结构。",
+      "driving_routes": "车辆可沿弯道单向行驶,或在各车道间变道。"
+    }
+  },
+  "Town06_Straight-Highway-Road_33": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_13": {
+        "info": "Len:104.6m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_763(end) -> succ:junction_452(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Straight",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一条单向直行道路,连接前后两个交叉口。",
+      "lane_and_direction": "道路为单向四车道通行,两侧均配备了路肩。",
+      "environment_and_geometry": "属于快速路环境,整体地形平坦,为一条直道。",
+      "driving_routes": "车辆在此处可执行单向直行路线。"
+    }
+  },
+  "Town06_Curved-Highway-Road_34": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_20": {
+        "info": "Len:209.9m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "succ:junction_396(end) -> pred:road_67(start)",
+        "lanes": "driving:[3, 4, 5, 6] | shoulder:[1, 2, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "单向曲线道路,连接前序路段与路口。",
+      "lane_and_direction": "单向四车道,含路肩,无行人道。",
+      "environment_and_geometry": "城市平坦地形,圆弧与直线组合。",
+      "driving_routes": "沿曲线直行或进行多车道换道。"
+    }
+  },
+  "Town06_Straight-Urban-Road_35": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_21": {
+        "info": "Len:81.0m | One-Way Urban Shape:Straight",
+        "link": "succ:junction_1128(end) -> pred:junction_396(end)",
+        "lanes": "driving:[3, 4, 5, 6, 7] | shoulder:[1, 2, 8, 9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Straight",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一条单向直行道路。",
+      "lane_and_direction": "单向五车道通行,配有路肩。",
+      "environment_and_geometry": "城市道路,地形平坦的直道。",
+      "driving_routes": "车辆可沿五个车道单向直行。"
+    }
+  },
+  "Town06_Curved-Urban-Road_36": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_33": {
+        "info": "Len:82.0m | Two-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_747(end) -> succ:junction_838(end)",
+        "lanes": "driving:[-3, -2, -1, 4, 5, 6] | median:[2] | shoulder:[-5, -4, 1, 3, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5,3.5] | median:[3.5] | shoulder:[0.635,0.5,0.5,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一段连接两个交叉口的单一道路。",
+      "lane_and_direction": "道路为双向六车道,配有中央分隔带和路肩。",
+      "environment_and_geometry": "属于城市道路环境,地形平坦,呈弯道形状。",
+      "driving_routes": "车辆可在此双向弯道路段上双向行驶通过。"
+    }
+  },
+  "Town06_Curved-Urban-Road_37": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_34": {
+        "info": "Len:65.2m | Two-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_838(end) -> succ:road_0(start)",
+        "lanes": "driving:[-3, -2, -1, 4, 5, 6] | median:[2] | shoulder:[-5, -4, 1, 3, 7, 8]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5,3.5] | median:[3.5] | shoulder:[0.635,0.5,0.5,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一段单一道路,连接前序交叉口与后续道路。",
+      "lane_and_direction": "双向六车道通行,配有中央分隔带和两侧路肩。",
+      "environment_and_geometry": "属于城市道路环境,地形平坦,呈弯道几何特征。",
+      "driving_routes": "车辆可在此路段双向顺着弯道行驶通过。"
+    }
+  },
+  "Town06_Straight-Highway-Road_38": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_36": {
+        "info": "Len:53.8m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_565(end) -> succ:junction_1146(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Straight",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "连接两个路口的单向直行道路。",
+      "lane_and_direction": "单向五车道通行,含路肩,无对向车道。",
+      "environment_and_geometry": "平坦城市直道,无坡度或弯道。",
+      "driving_routes": "支持单向直行及自主变道。"
+    }
+  },
+  "Town06_Straight-Urban-Road_39": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_37": {
+        "info": "Len:199.5m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1146(end) -> succ:junction_1034(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Straight",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一段连接两个路口的单向直行城市道路。",
+      "lane_and_direction": "道路为单向五车道通行,包含多条行车道及两侧路肩,无逆向车道。",
+      "environment_and_geometry": "属于城市道路环境,地形平坦,道路线形为直线。",
+      "driving_routes": "车辆可沿五条行车道中的任意一条进行直行。"
+    }
+  },
+  "Town06_Straight-Highway-Road_40": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_40": {
+        "info": "Len:470.6m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1187(end) -> succ:road_71(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Straight",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图由一段单向直道构成,连接上游路口与下游道路。",
+      "lane_and_direction": "单向五车道通行,包含五个行车道及两侧路肩,无逆向车道。",
+      "environment_and_geometry": "属于城市环境中的平坦直道,无坡度或弯道,视野开阔。",
+      "driving_routes": "车辆可沿单向五车道直行,或在行车道间进行自主换道行驶。"
+    }
+  },
+  "Town06_Straight-Highway-Road_41": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_49": {
+        "info": "Len:152.9m | One-Way Urban Shape:Straight",
+        "link": "pred:road_48(end) -> succ:junction_1162(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Straight",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "平直单向道路,连接前序路段与下游路口。",
+      "lane_and_direction": "单向四车道,包含行车道及两侧路肩。",
+      "environment_and_geometry": "城市环境,地形平坦,直线线形。",
+      "driving_routes": "车辆沿行车道由起始端直行至交叉口。"
+    }
+  },
+  "Town06_Straight-Urban-Road_42": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_50": {
+        "info": "Len:100.1m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1162(end) -> succ:junction_582(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Straight",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一条单向直行道路,连接前后两个交叉口。",
+      "lane_and_direction": "单向四车道通行,两侧配有路肩。",
+      "environment_and_geometry": "城市道路环境,地形平坦,为笔直的直道。",
+      "driving_routes": "车辆仅可沿单向车道直行。"
+    }
+  },
+  "Town06_Curved-Urban-Road_43": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_64": {
+        "info": "Len:121.8m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:road_26(start) -> succ:road_62(start)",
+        "lanes": "driving:[-5, -4, -3] | shoulder:[-7, -6, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一条单向行驶的独立道路,无交叉口。",
+      "lane_and_direction": "道路为单向通行,包含三条驾驶车道及两侧路肩。",
+      "environment_and_geometry": "属于城市道路环境,整体地形平坦,为弯道线型。",
+      "driving_routes": "车辆可沿单向弯道行驶,支持车道保持或变道。"
+    }
+  },
+  "Town06_Curved-Highway-Road_44": {
+    "summary": {
+      "total_roads": 2,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_71": {
+        "info": "Len:101.1m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:road_40(end) -> succ:road_6(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_40": {
+        "info": "Len:470.6m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_1187(end) -> succ:road_71(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图由一段长直道与一段弯道顺接组成,构成单向连续行驶的道路拓扑。",
+      "lane_and_direction": "道路为单向五车道布局,包含五条行车道及内外侧路肩,无对向交通。",
+      "environment_and_geometry": "属于城市道路环境,整体地形平坦,几何特征表现为由长直段进入弧形弯道。",
+      "driving_routes": "车辆可沿单向车道由直行段平稳过渡至弯道段,支持多车道并行通过。"
+    }
+  },
+  "Town06_Curved-Highway-Road_45": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_566": {
+        "info": "Len:64.1m | No_Driving Junction_Link(ID:565) Shape:Curve(Arc+Line)",
+        "link": "pred:road_8(start) -> succ:road_35(end)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图包含一条单向连接道路,作为交叉口内部的连接线,连接前后两端道路。",
+      "lane_and_direction": "该道路为单向通行,仅包含一条路肩,无常规驾驶车道。",
+      "environment_and_geometry": "属于高速公路环境,整体地形平坦,道路几何形状为弯道。",
+      "driving_routes": "由于仅包含路肩且标记为非驾驶区域,正常情况下车辆不可在此行驶,仅作应急使用。"
+    }
+  },
+  "Town06_Curved-Highway-Road_46": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_570": {
+        "info": "Len:65.9m | One-Way Junction_Link(ID:565) Shape:Curve(Arc+Line)",
+        "link": "pred:road_35(end) -> succ:road_8(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "单向弯道,连接两段主干道。",
+      "lane_and_direction": "单向单车道,无路肩人行道。",
+      "environment_and_geometry": "平坦高速弯道,由弧线直线构成。",
+      "driving_routes": "车辆沿单向车道完成转向汇入。"
+    }
+  },
+  "Town06_Straight-Highway-Road_47": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_575": {
+        "info": "Len:65.7m | One-Way Junction_Link(ID:565) Shape:Straight",
+        "link": "pred:road_35(end) -> succ:road_36(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | none:[-1] | shoulder:[-9, -8, -2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | none:[0.635] | shoulder:[0.635,0.5,0.5]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Straight",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一段直行单向连接道路,作为路段间的过渡连接。",
+      "lane_and_direction": "单向五车道通行,包含多条行车道及路肩,无对向车道及人行道。",
+      "environment_and_geometry": "属于高速/快速路环境,地形平坦,道路线形为直线。",
+      "driving_routes": "车辆可沿五条行车道中的任意一条执行直行通过。"
+    }
+  },
+  "Town06_Ramp_48": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_1056": {
+        "info": "Len:50.9m | No_Driving Junction_Link(ID:1050) Shape:Curve(Arc+Line)",
+        "link": "pred:road_29(end) -> succ:road_3(start)",
+        "lanes": "shoulder:[1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一段连接两条主干道的曲线连接段,起到转向过渡作用。",
+      "lane_and_direction": "道路仅包含单侧路肩,无标准行车道,属于非驾驶类型的连接区域。",
+      "environment_and_geometry": "属于平坦的公路环境,几何特征表现为由圆弧和直线组成的曲线路径。",
+      "driving_routes": "车辆沿曲线从前序道路末端行驶至后续道路起点；车辆在连接段内沿路肩轨迹平滑转向。"
+    }
+  },
+  "Town06_Straight-Highway-Road_49": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_1083": {
+        "info": "Len:70.8m | One-Way Junction_Link(ID:1050) Shape:Straight",
+        "link": "pred:road_29(end) -> succ:road_30(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | none:[-1] | shoulder:[-8, -2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | none:[0.635] | shoulder:[0.5,0.5]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Straight",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一段单向连接直道,用于衔接前后路段。",
+      "lane_and_direction": "单向五车道通行,配备两侧路肩,无行人及停车区域。",
+      "environment_and_geometry": "属于高速公路环境,地形平坦且线形笔直。",
+      "driving_routes": "车辆可在此路段执行单向直行及自主换道行驶。"
+    }
+  },
+  "Town06_Curved-Highway-Road_50": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_1117": {
+        "info": "Len:50.6m | No_Driving Junction_Link(ID:1050) Shape:Curve(Arc+Line)",
+        "link": "pred:road_27(end) -> succ:road_30(start)",
+        "lanes": "shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "shoulder:[0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一条单向连接道路,连接了前后两段主路。",
+      "lane_and_direction": "道路仅包含单侧路肩,无常规机动车行驶车道。",
+      "environment_and_geometry": "属于高速公路环境,整体地形平坦,道路呈弯道形状。",
+      "driving_routes": "由于仅存在路肩,无常规机动车行驶路线,仅供紧急停靠或特殊通行。"
+    }
+  },
+  "Town06_Straight-Highway-Road_51": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_1149": {
+        "info": "Len:71.3m | One-Way Junction_Link(ID:1146) Shape:Straight",
+        "link": "pred:road_36(end) -> succ:road_37(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | shoulder:[0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Straight",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一条单向直行道路,作为连接前后路段的过渡通道。",
+      "lane_and_direction": "道路为单向五车道通行,并配备了路肩,无专用人行道。",
+      "environment_and_geometry": "属于高速或快速路环境,整体地形平坦且为直线道路。",
+      "driving_routes": "车辆在此处可沿单向五车道执行直行路线,驶往后续道路。"
+    }
+  },
+  "Town06_Curved-Highway-Road_52": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_1159": {
+        "info": "Len:70.9m | One-Way Junction_Link(ID:1146) Shape:Curve(Arc+Line)",
+        "link": "succ:road_68(start) -> pred:road_37(start)",
+        "lanes": "driving:[3, 7] | none:[1, 1, 2, 2, 3, 4, 5, 6] | shoulder:[4, 5, 8, 9]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5] | none:[0.635,0.635,0.5,0.5,3.5,3.5,3.5,3.5] | shoulder:[3.5,3.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图由一段单向弯曲的连接道路组成,用于实现两条道路间的平滑过渡。",
+      "lane_and_direction": "单向两车道通行,配备多条路肩和辅助车道,无行人道。",
+      "environment_and_geometry": "高速公路环境,地形平坦,几何特征为弧线与直线结合的弯道。",
+      "driving_routes": "车辆可沿两条行车道完成单向的弯道行驶与路段切换。"
+    }
+  },
+  "Town06_Straight-Highway-Road_53": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_1190": {
+        "info": "Len:55.7m | One-Way Junction_Link(ID:1187) Shape:Straight",
+        "link": "pred:road_39(end) -> succ:road_40(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | none:[-1] | shoulder:[-9, -8, -2]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,3.5] | none:[0.635] | shoulder:[0.635,0.5,0.5]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Straight",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一段单向直行道路,连接前后两段道路。",
+      "lane_and_direction": "道路为单向五车道通行,并配备了路肩。",
+      "environment_and_geometry": "属于高速道路环境,整体地形平坦且为直道。",
+      "driving_routes": "车辆在此处仅可执行单向直行路线。"
+    }
+  },
+  "Town06_Curved-Highway-Road_54": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_1196": {
+        "info": "Len:55.7m | One-Way Junction_Link(ID:1187) Shape:Curve(Arc+Line)",
+        "link": "pred:road_39(end) -> succ:road_32(start)",
+        "lanes": "driving:[-3] | shoulder:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5] | shoulder:[0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为一条单向连接道路,作为路口区域的过渡路段,连接了前后两条主路。",
+      "lane_and_direction": "该道路为单向通行,仅包含一条机动车行驶车道,并配备了两条路肩。",
+      "environment_and_geometry": "属于高速或快速路环境,整体地形平坦。道路几何形状为包含圆弧和直线的弯道。",
+      "driving_routes": "车辆在此处仅能沿着单向弯道向前行驶,完成从上一路段到下一路段的平稳过渡。"
+    }
+  },
+  "Town06_Straight-Highway-Road_55": {
+    "summary": {
+      "total_roads": 4,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_29": {
+        "info": "Len:198.0m | One-Way Urban Shape:Straight",
+        "link": "pred:road_28(end) -> succ:junction_1050(end)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lane_width": {
+          "3": [
+            {
+              "s_range": [
+                0.0,
+                46.73
+              ],
+              "type": "Polynomial_Taper",
+              "equation_params": {
+                "a": 0.0,
+                "b": 0.0,
+                "c": 0.004808,
+                "d": -6.86e-05
+              }
+            },
+            {
+              "s_range": [
+                46.73,
+                198.0
+              ],
+              "type": "Constant",
+              "width_m": 3.5
+            }
+          ]
+        },
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,lane_width] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_28": {
+        "info": "Len:18.2m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_728(end) -> succ:road_29(start)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_735": {
+        "info": "Len:45.4m | One-Way Junction_Link(ID:728) Shape:Straight",
+        "link": "pred:road_25(end) -> succ:road_28(start)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.5,0.5,0.635]"
+      },
+      "Road_16": {
+        "info": "Len:47.8m | One-Way Urban Shape:Straight",
+        "link": "pred:junction_798(end) -> succ:road_25(start)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Straight",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图为单向直行道路,包含一个由四车道拓宽至五车道的汇入区域。",
+      "lane_and_direction": "单向通行,由4条行车道渐变为5条行车道,并配备两侧路肩,无对向车道及人行道。",
+      "environment_and_geometry": "属于平坦的直道环境,包含一段约46.7米的渐变段用于新增车道,整体线形简单。",
+      "driving_routes": "车辆可沿主线车道直行通过,或在路段拓宽处向右变道进入新增的行车道。"
+    }
+  },
+  "Town06_Curved-Highway-Road_56": {
+    "summary": {
+      "total_roads": 2,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_48": {
+        "info": "Len:184.4m | One-Way Urban Shape:Curve(Arc+Line)",
+        "link": "pred:junction_1203(end) -> succ:road_49(start)",
+        "lanes": "driving:[-7, -6, -5, -4, -3] | shoulder:[-9, -8, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lane_width": {
+          "3": [
+            {
+              "s_range": [
+                0.0,
+                140.56
+              ],
+              "type": "Constant",
+              "width_m": 3.5
+            },
+            {
+              "s_range": [
+                140.56,
+                184.4
+              ],
+              "type": "Polynomial_Taper",
+              "equation_params": {
+                "a": 3.5,
+                "b": 0.0,
+                "c": -0.005458,
+                "d": 8.296e-05
+              }
+            }
+          ]
+        },
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5,lane_width] | shoulder:[0.635,0.5,0.5,0.635]"
+      },
+      "Road_49": {
+        "info": "Len:152.9m | One-Way Urban Shape:Straight",
+        "link": "pred:road_48(end) -> succ:junction_1162(end)",
+        "lanes": "driving:[-6, -5, -4, -3] | shoulder:[-8, -7, -2, -1]",
+        "tunnels": [],
+        "crosswalks": [],
+        "slope": "Flat",
+        "lanes_width": "driving:[3.5,3.5,3.5,3.5] | shoulder:[0.635,0.5,0.5,0.635]"
+      }
+    },
+    "map_description": {
+      "key_words": [
+        "Curve",
+        "Flat",
+        "NoParking",
+        "NoCrosswalk"
+      ],
+      "core_topology": "该地图由两条首尾相连的单向道路组成,呈现车道合并的拓扑结构。",
+      "lane_and_direction": "单向通行,包含多条驾驶车道及路肩。前段五车道中一车道变窄消失,后段变为四车道。",
+      "environment_and_geometry": "属于城市道路环境,地形平坦。道路由弯道平滑过渡到直道。",
+      "driving_routes": "车辆可沿单向车道顺向行驶,并在车道减少路段执行变道合并操作。"
+    }
+  }
+}

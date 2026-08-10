@@ -1,0 +1,273 @@
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenScenario.xsd">
+    <FileHeader description="Urban Road Aggressive Side Vehicle Cut-in with Multi-Agent Conflict" author="System" revMajor="1" revMinor="0" date="2025-01-01T00:00:00" />
+    <ParameterDeclarations />
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../scenario_runner/srunner/examples/catalogs/" />
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../scenario_runner/srunner/examples/catalogs/" />
+        </PedestrianCatalog>
+    </CatalogLocations>
+    <RoadNetwork>
+        <LogicFile filepath="Town03" />
+    </RoadNetwork>
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="vehicle.tesla.model3" />
+        </ScenarioObject>
+        <ScenarioObject name="Adversary_Car">
+            <CatalogReference catalogName="VehicleCatalog" entryName="vehicle.tesla.model3" />
+        </ScenarioObject>
+        <ScenarioObject name="Oncoming_Car">
+            <CatalogReference catalogName="VehicleCatalog" entryName="vehicle.tesla.model3" />
+        </ScenarioObject>
+        <ScenarioObject name="Bike_Right">
+            <CatalogReference catalogName="VehicleCatalog" entryName="vehicle.kawasaki.ninja" />
+        </ScenarioObject>
+    </Entities>
+    <Storyboard>
+        <Init>
+            <Actions>
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Environment1">
+                            <TimeOfDay animation="false" dateTime="2025-01-01T12:00:00" />
+                            <Weather cloudState="free">
+                                <Sun azimuth="0.0" elevation="1.5" intensity="100000.0" />
+                                <Fog visualRange="100000.0" />
+                                <Precipitation intensity="0.0" precipitationType="dry" />
+                            </Weather>
+                            <RoadCondition frictionScaleFactor="1.0" />
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time" />
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="10.0" />
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="3" laneId="-1" s="5.0" offset="0.0" />
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                </Private>
+                <Private entityRef="Adversary_Car">
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time" />
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="12.0" />
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="3" laneId="-2" s="3.0" offset="0.0" />
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                </Private>
+                <Private entityRef="Oncoming_Car">
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time" />
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="10" />
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="3" laneId="2" s="80" offset="0.0" />
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                </Private>
+                <Private entityRef="Bike_Right">
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time" />
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="6.0" />
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="3" laneId="-2" s="0.0" offset="1.0" />
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+        <Story name="MainStory">
+            <Act name="Act_Adversary_Car_0">
+                <ManeuverGroup maximumExecutionCount="1" name="MG_Adversary_Car_0">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Adversary_Car" />
+                    </Actors>
+                    <Maneuver name="Man_Adversary_Car_0">
+                        <Event name="Ev_Adversary_Car_0" priority="overwrite" maximumExecutionCount="1">
+                            <Action name="Act_Spd_Adversary_Car_0">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="5.0" dynamicsDimension="distance" />
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="15.0" />
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Cond_Adversary_Car_0" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Adversary_Car" />
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <TraveledDistanceCondition value="0.0" />
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="ActStart_Adversary_Car_0" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan" />
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+            <Act name="Act_Adversary_Car_1">
+                <ManeuverGroup maximumExecutionCount="1" name="MG_Adversary_Car_1">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Adversary_Car" />
+                    </Actors>
+                    <Maneuver name="Man_Adversary_Car_1">
+                        <Event name="Ev_Adversary_Car_1" priority="overwrite" maximumExecutionCount="1">
+                            <Action name="Act_LC_Adversary_Car_1">
+                                <PrivateAction>
+                                    <LateralAction>
+                                        <LaneChangeAction>
+                                            <LaneChangeActionDynamics dynamicsShape="linear" value="8.0" dynamicsDimension="distance" />
+                                            <LaneChangeTarget>
+                                                <RelativeTargetLane entityRef="Adversary_Car" value="1" />
+                                            </LaneChangeTarget>
+                                        </LaneChangeAction>
+                                    </LateralAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Cond_Adversary_Car_1" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Adversary_Car" />
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <RelativeDistanceCondition entityRef="Ego" relativeDistanceType="longitudinal" value="2.0" freespace="true" rule="greaterThan" />
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="ActStart_Adversary_Car_1" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <StoryboardElementStateCondition storyboardElementType="act" storyboardElementRef="Act_Adversary_Car_0" state="completeState" />
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+            <Act name="Act_Adversary_Car_2">
+                <ManeuverGroup maximumExecutionCount="1" name="MG_Adversary_Car_2">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Adversary_Car" />
+                    </Actors>
+                    <Maneuver name="Man_Adversary_Car_2">
+                        <Event name="Ev_Adversary_Car_2" priority="overwrite" maximumExecutionCount="1">
+                            <Action name="Act_Spd_Adversary_Car_2">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="30.0" dynamicsDimension="distance" />
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="2.0" />
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Cond_Adversary_Car_2" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Adversary_Car" />
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <TraveledDistanceCondition value="0.0" />
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="ActStart_Adversary_Car_2" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <StoryboardElementStateCondition storyboardElementType="act" storyboardElementRef="Act_Adversary_Car_1" state="completeState" />
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+        </Story>
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="StopCondition" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="12.0" rule="greaterThan" />
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

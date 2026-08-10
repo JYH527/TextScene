@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2023-10-27T11:30:00" description="Overtake Aborted due to Blind Spot Interference (Fixed)" author="ScenarioEngineer"/>
+    <ParameterDeclarations/>
+    <!-- 资源目录配置 (严格遵守要求) -->
+    <!-- 必须的 Catalog 路径（esmini 标准相对路径） -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="one-way-two-lane-straight-highway.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <ScenarioObject name="SlowLeadingCar">
+            <CatalogReference catalogName="VehicleCatalog" entryName="truck_yellow"/>
+        </ScenarioObject>
+        <ScenarioObject name="InterferingCar">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- Ego: Lane -3, s=20, v=30 -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-3" offset="0.0" s="20.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="30.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- SlowLeadingCar: Lane -3, s=120, v=15 -->
+                <Private entityRef="SlowLeadingCar">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-3" offset="0.0" s="80.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="15.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- InterferingCar: Lane -2, s=10, v=32 -->
+                <Private entityRef="InterferingCar">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-2" offset="0.0" s="10.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="32.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="OvertakeAbortedStory">
+            <Act name="BrakeAndFollowAct">
+                <ManeuverGroup maximumExecutionCount="1" name="EgoReactionGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                    </Actors>
+
+                    <Maneuver name="DecelerateToFollowManeuver">
+                        <Event name="BrakeEvent" priority="overwrite">
+                            <Action name="MatchSpeedWithTruck">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="-4.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="15.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+
+                            <!-- 修正后的触发器结构 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="SafetyDistanceBreach" delay="0" conditionEdge="rising">
+                                        <!-- 必须使用 ByEntityCondition 包裹 -->
+                                        <ByEntityCondition>
+                                            <!-- 指定触发实体为 Ego -->
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Ego"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <!-- Ego 与 SlowLeadingCar 的距离小于 40m -->
+                                                <RelativeDistanceCondition entityRef="SlowLeadingCar" rule="lessThan" value="30.0" freeSpace="false" coordinateSystem="entity"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="ActStart" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="EndSimulation" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="15.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

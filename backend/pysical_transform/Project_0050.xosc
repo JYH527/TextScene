@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-02T14:20:00" description="Merge with Lead Vehicle Occlusion" author="ESMINI-Expert"/>
+    
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="one-way-three-lane-ramp_in.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="hero">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <ScenarioObject name="adversary">
+            <CatalogReference catalogName="VehicleCatalog" entryName="semi_truck"/>
+        </ScenarioObject>
+        <!-- 新增：前车（引导车） -->
+        <ScenarioObject name="leader">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_white"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- 自车: Road 1, Lane -4, 起步位置靠后 s=0 -->
+                <Private entityRef="hero">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="1" laneId="-4" offset="0.0" s="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="13.88"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- 前车: Road 1, Lane -4, s=20 (接近路口) -->
+                <!-- Road 1 只有28.5米，s=20意味着它马上进路口 -->
+                <Private entityRef="leader">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="1" laneId="-4" offset="0.0" s="20.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="15.0"/> <!-- 稍快一点，确保它能过去 -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- 敌车: Road 0, s=12 -->
+                <!-- 位置调整：稍微靠后一点，让Leader先过去，但正好卡在Leader和Hero之间 -->
+                <Private entityRef="adversary">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="2" offset="0.0" s="12.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="10.0"/> <!-- 稍慢，制造阻滞感 -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="Merge_Occlusion_Story">
+            <Act name="All_Move_Act">
+                <ManeuverGroup maximumExecutionCount="1" name="Vehicles_Maneuver_Group">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="hero"/>
+                        <EntityRef entityRef="adversary"/>
+                        <EntityRef entityRef="leader"/>
+                    </Actors>
+                    <Maneuver name="Route_Maneuver">
+                        <Event name="Assign_Routes" priority="overwrite">
+                            <Action name="All_Route">
+                                <PrivateAction>
+                                    <RoutingAction>
+                                        <AcquirePositionAction>
+                                            <Position><LanePosition roadId="2" laneId="-4" offset="0.0" s="40.0"/></Position>
+                                        </AcquirePositionAction>
+                                    </RoutingAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Start_Condition" delay="0" conditionEdge="rising">
+                                        <ByValueCondition><SimulationTimeCondition value="0" rule="greaterThan"/></ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="Act_Start" delay="0" conditionEdge="rising">
+                            <ByValueCondition><SimulationTimeCondition value="0" rule="greaterThan"/></ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+        </Story>
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="Time_Limit" delay="0" conditionEdge="rising">
+                    <ByValueCondition><SimulationTimeCondition value="12.0" rule="greaterThan"/></ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

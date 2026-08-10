@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenScenario.xsd">
+  <!-- 建议将 revMinor 改为 1 或 2，以更好支持 dynamicsDimension="time" -->
+  <FileHeader revMajor="1" revMinor="1" description="CQU_0015: 对向车突然向自车车道偏斜 + 右侧大货车封死逃逸（Fixed）" date="2025-11-29"/>
+  <ParameterDeclarations/>
+  <CatalogLocations>
+    <VehicleCatalog><Directory path="../resources/xosc/Catalogs/Vehicles"/></VehicleCatalog>
+  </CatalogLocations>
+
+  <RoadNetwork>
+    <LogicFile filepath="two-way-two-lane-straight-urban.xodr"/>
+  </RoadNetwork>
+
+  <Entities>
+    <ScenarioObject name="Ego"><CatalogReference catalogName="VehicleCatalog" entryName="car_red"/></ScenarioObject>
+    <ScenarioObject name="ParkedTruck"><CatalogReference catalogName="VehicleCatalog" entryName="semi_truck"/></ScenarioObject>
+    <ScenarioObject name="Oncoming"><CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/></ScenarioObject>
+  </Entities>
+
+  <Storyboard>
+    <Init>
+      <Actions>
+        <GlobalAction>
+          <EnvironmentAction>
+            <Environment name="NightRain">
+              <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+              <Weather cloudState="overcast">
+                <Sun intensity="0.0" azimuth="0.0" elevation="0.0"/>
+                <Fog visualRange="10000.0"/>
+                <Precipitation precipitationType="rain" intensity="1.0"/>
+              </Weather>
+              <RoadCondition frictionScaleFactor="1.0"/>
+            </Environment>
+          </EnvironmentAction>
+        </GlobalAction>
+        <Private entityRef="Ego">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-1" s="50.0" offset="0.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="8.5"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+        <Private entityRef="ParkedTruck">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-2" s="85.0" offset="0.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="0.0"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+        <Private entityRef="Oncoming">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="1" s="150.0" offset="0.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="11.0"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+
+    <Story>
+      <Act>
+        <!-- 对向车突然向你车道偏斜1.8米 -->
+        <ManeuverGroup maximumExecutionCount="1" name="OncomingCutInManeuver">
+          <Actors selectTriggeringEntities="false"><EntityRef entityRef="Oncoming"/></Actors>
+          <Maneuver name="CutInManeuver">
+            <Event name="CutInEvent" priority="overwrite">
+              <Action name="LaneOffsetAction">
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneOffsetAction continuous="true">
+                      <!-- 修正点：使用正确的 LaneOffsetActionDynamics 语法 -->
+                      <LaneOffsetActionDynamics dynamicsShape="sinusoidal" value="2.0" dynamicsDimension="time"/>
+                      <!-- 修正点：使用 AbsoluteTargetLaneOffset -->
+                      <LaneOffsetTarget>
+                        <AbsoluteTargetLaneOffset value="-1.8"/>
+                      </LaneOffsetTarget>
+                    </LaneOffsetAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+
+              <!-- 两车距离50米时开始偏斜 -->
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="DistanceTrigger" delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any"><EntityRef entityRef="Oncoming"/></TriggeringEntities>
+                      <EntityCondition>
+                        <RelativeDistanceCondition entityRef="Ego" relativeDistanceType="longitudinal" value="50.0" freespace="true" rule="lessThan"/>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+
+        <StartTrigger>
+          <ConditionGroup>
+            <Condition name="SimulationStart" delay="0" conditionEdge="rising">
+              <ByValueCondition><SimulationTimeCondition value="0.1" rule="greaterThan"/></ByValueCondition>
+            </Condition>
+          </ConditionGroup>
+        </StartTrigger>
+      </Act>
+    </Story>
+
+    <StopTrigger>
+      <ConditionGroup>
+        <Condition name="StopCondition" delay="0" conditionEdge="rising">
+          <ByValueCondition><SimulationTimeCondition value="30.0" rule="greaterThan"/></ByValueCondition>
+        </Condition>
+      </ConditionGroup>
+    </StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-01T11:30:00" description="Ghost Probe Scenario: Car changes lane and brakes due to bicyclist crossing" author="Esmini-Expert"/>
+
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="two-way-four-lane-crossroad.xodr"/>
+    </RoadNetwork>
+
+    <!-- 1. 定义实体: 自车、骑自行车者、小车 -->
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <!-- 小车 (在自车右侧车道) -->
+        <ScenarioObject name="Car_1">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+        <ScenarioObject name="Bicyclist_1">
+            <CatalogReference catalogName="VehicleCatalog" entryName="bicycle"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Night_Rain_Environment">
+                            <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+                            <Weather cloudState="overcast">
+                                <Sun intensity="0.0" azimuth="0.0" elevation="0.0"/>
+                                <Fog visualRange="10000.0"/>
+                                <Precipitation precipitationType="rain" intensity="1.0"/>
+                            </Weather>
+                            <RoadCondition frictionScaleFactor="1.0"/>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+                <!-- ============================
+                     1. 自车 (Lane 1, 内侧)
+                     ============================ -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- 自车在 Lane 1, s=65 -->
+                                <LanePosition roadId="1" laneId="1" offset="0.0" s="65.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="9.33"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <!-- 导航: 直行 -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Ego_Straight" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position> <LanePosition roadId="1" laneId="1" offset="0.0" s="60.0"/> </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position> <LanePosition roadId="0" laneId="1" offset="0.0" s="20.0"/> </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- ============================
+                     2. 小车 (Lane 2, 外侧，在自车右侧)
+                     ============================ -->
+                <Private entityRef="Car_1">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- 小车在 Lane 2, s=60 (在自车后方一些) -->
+                                <LanePosition roadId="1" laneId="2" offset="0.0" s="60.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <!-- 小车速度比自车稍慢 -->
+                                    <AbsoluteTargetSpeed value="11.03"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <!-- 导航: 直行 (初始路线) -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Car_Straight" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position> <LanePosition roadId="1" laneId="2" offset="0.0" s="60.0"/> </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position> <LanePosition roadId="0" laneId="2" offset="0.0" s="20.0"/> </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- ============================
+                     3. 骑自行车者 (位置不变, offset -10.5)
+                     ============================ -->
+                <Private entityRef="Bicyclist_1">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- 骑自行车者在自行车道或人行道，offset -10.5 -->
+                                <LanePosition roadId="69" laneId="1" offset="-10.5" s="3.56"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="GhostProbeStory">
+            
+            <!-- 剧情 A: 骑自行车者开始过马路 -->
+            <Act name="BicyclistStartAct">
+                <ManeuverGroup maximumExecutionCount="1" name="BicyclistMoveGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Bicyclist_1"/>
+                    </Actors>
+                    <Maneuver name="BicyclistRideManeuver">
+                        <Event name="BicyclistRideEvent" priority="overwrite">
+                            <!-- 触发条件: 按时间触发，仿真开始后3秒 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="TimeTrigger" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="3.0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                            
+                            <!-- 动作: 骑自行车 -->
+                            <Action name="SetBicycleSpeed">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <!-- 自行车加速，使用linear动态 -->
+                                            <SpeedActionDynamics dynamicsShape="linear" value="2.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <!-- 自行车速度约为10-15 km/h，转换为m/s约为3.0 m/s -->
+                                                <AbsoluteTargetSpeed value="3.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <Action name="FollowPath">
+                                <PrivateAction>
+                                    <RoutingAction>
+                                        <FollowTrajectoryAction>
+                                            <Trajectory name="CrossingPath" closed="false">
+                                                <Shape>
+                                                    <Polyline>
+                                                        <Vertex><Position><LanePosition roadId="69" laneId="1" offset="-10.5" s="3.56"/></Position></Vertex>
+                                                        <Vertex><Position><LanePosition roadId="69" laneId="1" offset="0.0" s="3.56"/></Position></Vertex>
+                                                        <Vertex><Position><LanePosition roadId="69" laneId="1" offset="12.0" s="3.56"/></Position></Vertex>
+                                                    </Polyline>
+                                                </Shape>
+                                                <TimeReference><None/></TimeReference>
+                                                <TrajectoryFollowingMode followingMode="position"/>
+                                            </Trajectory>
+                                        </FollowTrajectoryAction>
+                                    </RoutingAction>
+                                </PrivateAction>
+                            </Action>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+            </Act>
+
+            <!-- 剧情 B: 小车看到自行车后变道并急刹 -->
+            <Act name="CarLaneChangeAct">
+                <ManeuverGroup maximumExecutionCount="1" name="CarLaneChangeGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Car_1"/>
+                    </Actors>
+                    <Maneuver name="CarLaneChangeManeuver">
+                        <!-- 事件1: 变道到自车车道 -->
+                        <Event name="CarLaneChangeEvent" priority="overwrite" maximumExecutionCount="1">
+                            <Action name="CarLaneChangeAction">
+                                <PrivateAction>
+                                    <LateralAction>
+                                        <LaneChangeAction>
+                                            <!-- 变道动态: 正弦曲线，持续2秒 -->
+                                            <LaneChangeActionDynamics dynamicsShape="sinusoidal" value="2.0" dynamicsDimension="time"/>
+                                            <LaneChangeTarget>
+                                                <!-- 变道目标: 从lane 2变到lane 1 -->
+                                                <AbsoluteTargetLane value="1"/>
+                                            </LaneChangeTarget>
+                                        </LaneChangeAction>
+                                    </LateralAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <!-- 触发条件: 当小车看到自行车横穿时，按时间触发（自行车开始后1秒） -->
+                                    <Condition name="CarSeesBicyclist" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="4.0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <!-- 事件2: 急刹 -->
+                <ManeuverGroup maximumExecutionCount="1" name="CarBrakeGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Car_1"/>
+                    </Actors>
+                    <Maneuver name="CarEmergencyStop">
+                        <Event name="CarBrakeEvent" priority="overwrite" maximumExecutionCount="1">
+                            <Action name="CarBrakeAction">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <!-- 急刹: -8 m/s^2 的减速度 -->
+                                            <SpeedActionDynamics dynamicsShape="linear" value="-8.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="0.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <!-- 触发条件: 变道开始后0.5秒开始急刹 -->
+                                    <Condition name="CarBrakeTrigger" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="4.5" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="ActStartTrigger" delay="0.0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0.0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+            
+        </Story>
+
+        <!-- 停止触发器: 仿真20秒后停止 -->
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="StopSimulation" delay="0.0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="20.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

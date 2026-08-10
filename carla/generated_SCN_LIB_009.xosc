@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+  <FileHeader revMajor="1" revMinor="0" date="2024-05-21T10:00:00" description="SCN_LIB_009: 对向来车-摩托车压线行驶. 测试Ego在狭窄道路会车时，对压线行驶的对向摩托车的探测与预防性避让能力，同时考虑右侧静止车辆的避让空间限制。" author="ASAM OpenSCENARIO Expert"/>
+  <ParameterDeclarations/>
+  <CatalogLocations/>
+  <RoadNetwork>
+    <LogicFile filepath="generated_SCN_LIB_009.xodr"/>
+  </RoadNetwork>
+  <Entities>
+    <ScenarioObject name="Ego">
+      <Vehicle name="vehicle.tesla.model3" vehicleCategory="car">
+        <BoundingBox>
+          <Center x="1.5" y="0.0" z="0.9"/>
+          <Dimensions length="4.8" width="2.1" height="1.8"/>
+        </BoundingBox>
+        <Performance maxSpeed="55.56" maxAcceleration="10.0" maxDeceleration="10.0"/>
+        <Axles>
+          <FrontAxle maxSteering="0.5" wheelDiameter="0.8" trackWidth="1.8" positionX="3.8" positionZ="0.4"/>
+          <RearAxle maxSteering="0.0" wheelDiameter="0.8" trackWidth="1.8" positionX="1.0" positionZ="0.4"/>
+        </Axles>
+        <Properties/>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="Adv_1">
+      <Vehicle name="vehicle.kawasaki.ninja" vehicleCategory="motorbike">
+        <BoundingBox>
+          <Center x="1.0" y="0.0" z="0.7"/>
+          <Dimensions length="2.2" width="0.8" height="1.4"/>
+        </BoundingBox>
+        <Performance maxSpeed="50.0" maxAcceleration="8.0" maxDeceleration="10.0"/>
+        <Axles>
+          <FrontAxle maxSteering="0.8" wheelDiameter="0.6" trackWidth="0.0" positionX="1.5" positionZ="0.3"/>
+          <RearAxle maxSteering="0.0" wheelDiameter="0.6" trackWidth="0.0" positionX="0.0" positionZ="0.3"/>
+        </Axles>
+        <Properties/>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="Adv_2">
+      <Vehicle name="vehicle.toyota.prius" vehicleCategory="car">
+        <BoundingBox>
+          <Center x="1.5" y="0.0" z="0.9"/>
+          <Dimensions length="4.8" width="2.1" height="1.8"/>
+        </BoundingBox>
+        <Performance maxSpeed="55.56" maxAcceleration="10.0" maxDeceleration="10.0"/>
+        <Axles>
+          <FrontAxle maxSteering="0.5" wheelDiameter="0.8" trackWidth="1.8" positionX="3.8" positionZ="0.4"/>
+          <RearAxle maxSteering="0.0" wheelDiameter="0.8" trackWidth="1.8" positionX="1.0" positionZ="0.4"/>
+        </Axles>
+        <Properties/>
+      </Vehicle>
+    </ScenarioObject>
+  </Entities>
+  <Storyboard>
+    <Init>
+      <Actions>
+        <GlobalAction>
+          <EnvironmentAction>
+            <Environment name="Environment1">
+              <TimeOfDay animation="false" dateTime="2023-01-01T12:00:00"/>
+              <Weather cloudState="free">
+                <Sun intensity="0.85" azimuth="0.0" elevation="1.57"/>
+                <Fog visualRange="100000.0"/>
+                <Precipitation precipitationType="dry" intensity="0.0"/>
+              </Weather>
+              <RoadCondition frictionScaleFactor="1.0"/>
+            </Environment>
+          </EnvironmentAction>
+        </GlobalAction>
+        <Private entityRef="Ego">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <LanePosition roadId="1" laneId="-1" s="100.0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="11.11"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="Adv_1">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <LanePosition roadId="1" laneId="1" s="400.0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="13.89"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="Adv_2">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <LanePosition roadId="1" laneId="-1" s="250.0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="0.0"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+    <Story name="OncomingMotorcycleSwerveStory">
+      <Act name="OncomingMotorcycleSwerveStory_act">
+        <ManeuverGroup name="Ego_Initial_Cruise_mg" maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Ego"/>
+          </Actors>
+          <Maneuver name="Ego_Initial_Cruise_maneuver">
+            <Event name="Ego_Initial_Cruise_event" priority="parallel">
+              <Action name="Ego_Initial_Cruise">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="11.11"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="StartCondition" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                      <SimulationTimeCondition value="0.1" rule="greaterThan"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <ManeuverGroup name="Adv_1_Initial_Approach_mg" maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Adv_1"/>
+          </Actors>
+          <Maneuver name="Adv_1_Initial_Approach_maneuver">
+            <Event name="Adv_1_Initial_Approach_event" priority="parallel">
+              <Action name="Adv_1_Initial_Approach">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="13.89"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="StartCondition" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                      <SimulationTimeCondition value="0.1" rule="greaterThan"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <ManeuverGroup name="Adv_1_Swerve_Challenge_mg" maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Adv_1"/>
+          </Actors>
+          <Maneuver name="Adv_1_Swerve_Challenge_maneuver">
+            <Event name="Adv_1_Swerve_Challenge_event" priority="overwrite">
+              <Action name="Adv_1_Swerve_Challenge">
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneOffsetAction continuous="true">
+                      <LaneOffsetActionDynamics dynamicsShape="sinusoidal" maxLateralAcc="1.0" />
+                      <LaneOffsetTarget>
+                        <AbsoluteTargetLaneOffset value="-1.6" />
+                      </LaneOffsetTarget>
+                    </LaneOffsetAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="StartCondition" delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any">
+                        <EntityRef entityRef="Adv_1"/>
+                      </TriggeringEntities>
+                      <EntityCondition>
+                        <RelativeDistanceCondition entityRef="Ego" relativeDistanceType="cartesianDistance" value="100.0" freespace="true" rule="lessThan"/>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <ManeuverGroup name="Adv_1_Stabilize_Speed_mg" maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Adv_1"/>
+          </Actors>
+          <Maneuver name="Adv_1_Stabilize_Speed_maneuver">
+            <Event name="Adv_1_Stabilize_Speed_event" priority="overwrite">
+              <Action name="Adv_1_Stabilize_Speed">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="13.89"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="StartCondition" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                      <StoryboardElementStateCondition storyboardElementType="action" storyboardElementRef="Adv_1_Swerve_Challenge" state="completeState"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <ManeuverGroup name="Ego_React_To_Swerve_mg" maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Ego"/>
+          </Actors>
+          <Maneuver name="Ego_React_To_Swerve_maneuver">
+            <Event name="Ego_React_To_Swerve_event" priority="overwrite">
+              <Action name="Ego_React_To_Swerve">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics
+                        dynamicsShape="linear"
+                        dynamicsDimension="rate"
+                        value="3.0" />
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="0.0"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="EarlyBrake" delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any">
+                        <EntityRef entityRef="Ego"/>
+                      </TriggeringEntities>
+                      <EntityCondition>
+                        <RelativeDistanceCondition entityRef="Adv_1" relativeDistanceType="cartesianDistance" value="35.0" freespace="true" rule="lessThan"/>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <StartTrigger>
+          <ConditionGroup>
+            <Condition name="ActStart" delay="0" conditionEdge="rising">
+              <ByValueCondition>
+                <SimulationTimeCondition value="0" rule="greaterThan"/>
+              </ByValueCondition>
+            </Condition>
+          </ConditionGroup>
+        </StartTrigger>
+      </Act>
+    </Story>
+    <StopTrigger>
+      <ConditionGroup>
+        <Condition name="StopTime" delay="0" conditionEdge="rising">
+          <ByValueCondition>
+            <SimulationTimeCondition value="60" rule="greaterThan"/>
+          </ByValueCondition>
+        </Condition>
+        <Condition name="Collision" delay="0" conditionEdge="rising">
+          <ByEntityCondition>
+            <TriggeringEntities triggeringEntitiesRule="any">
+              <EntityRef entityRef="Ego"/>
+            </TriggeringEntities>
+            <EntityCondition>
+              <CollisionCondition>
+                <EntityRef entityRef="Ego"/>
+              </CollisionCondition>
+            </EntityCondition>
+          </ByEntityCondition>
+        </Condition>
+        <Condition name="ReachPosition" delay="0" conditionEdge="rising">
+          <ByEntityCondition>
+            <TriggeringEntities triggeringEntitiesRule="any">
+              <EntityRef entityRef="Ego"/>
+            </TriggeringEntities>
+            <EntityCondition>
+              <ReachPositionCondition tolerance="2.0">
+                <Position>
+                  <LanePosition roadId="1" laneId="-1" s="580.0"/>
+                </Position>
+              </ReachPositionCondition>
+            </EntityCondition>
+          </ByEntityCondition>
+        </Condition>
+      </ConditionGroup>
+    </StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

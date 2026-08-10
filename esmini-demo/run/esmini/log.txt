@@ -1,0 +1,109 @@
+esmini GIT REV: v2.52.2-0-a7cdd5b
+esmini GIT TAG: v2.52.2
+esmini GIT BRANCH: tags/v2.52.2^0
+esmini BUILD VERSION: 5676
+[] [info] Loaded config file: D:\esmini-demo\config.yml (D:\esmini-demo\bin\..\config.yml)
+[] [info] Loaded ../../resources/xosc/cut-in.xosc
+[2025-10-22 15:35:39]
+[] [info] Player options: --osc ../../resources/xosc/cut-in.xosc --camera_mode orbit --info_text 1 --logfile_path log.txt --log_level info --path ../../bin --text_scale 1.0 --traj_filter 0.1 
+[] [info] No fixed timestep specified - running in realtime speed
+[] [info] Added path ../../bin
+[] [info] Generated seed 473895949
+[] [info] Loading ../../resources/xosc/cut-in.xosc (v1.1)
+[] [info] 0 variables
+[] [error] Unsupported geo reference attr: +no_defs
+[] [error] Unsupported object type: rail-pole - interpret as NONE
+[] [error] Unsupported object type: rail-pole - interpret as NONE
+[] [error] Unsupported object type: guide-post - interpret as NONE
+[] [error] Unsupported object type: guide-post - interpret as NONE
+[] [info] Loaded OpenDRIVE: ../../resources/xosc/../xodr/e6mini.xodr
+[] [info] Expr ${250/3.6} = 250/3.6 = 69.4444444444
+[] [info] Expr ${$EgoSpeed / 3.6} = 108 / 3.6 = 30.0000000000
+[] [info] Expr ${BrakeCondition_HWT + _ + $HeadwayTime_Brake} = BrakeCondition_HWT + _ + 0.7 = BrakeCondition_HWT_0.7
+[] [info] 7 parameters:
+[] [info]    TargetSpeedFactor = 1.2
+[] [info]    EgoSpeed = 108
+[] [info]    HeadwayTime_Brake = 0.7
+[] [info]    HeadwayTime_LaneChange = 0.4
+[] [info]    EgoStartS = 50
+[] [info]    TargetVehicle = car_red
+[] [info]    HostVehicle = car_white
+[0.000] [info] Window created at 60,60 with size 1024,576
+[0.000] [info] Loaded scenegraph: ../../resources/xosc/../xodr/../models/e6mini.osgb
+[0.000] [warn] Object ../models/railing-pole.osgb missing length, set to bounding box length 0.10
+[0.000] [warn] Object ../models/railing-pole.osgb missing width, set to bounding box width 0.10
+[0.000] [warn] Object ../models/railing-pole.osgb missing height, set to bounding box height 1.00
+[0.000] [warn] Object ../models/railing-pole.osgb missing length, set to bounding box length 0.10
+[0.000] [warn] Object ../models/railing-pole.osgb missing width, set to bounding box width 0.10
+[0.000] [warn] Object ../models/railing-pole.osgb missing height, set to bounding box height 1.00
+[0.000] [warn] Object ../models/railing.osgb missing length, set to bounding box length 4.00
+[0.000] [warn] Object ../models/railing.osgb missing width, set to bounding box width 0.10
+[0.000] [warn] Object ../models/railing.osgb missing height, set to bounding box height 0.20
+[0.000] [warn] Object ../models/railing.osgb missing length, set to bounding box length 4.00
+[0.000] [warn] Object ../models/railing.osgb missing width, set to bounding box width 0.10
+[0.000] [warn] Object ../models/railing.osgb missing height, set to bounding box height 0.20
+[0.000] [warn] Object ../models/guide-post.osgb missing length, set to bounding box length 0.08
+[0.000] [warn] Object ../models/guide-post.osgb missing width, set to bounding box width 0.13
+[0.000] [warn] Object ../models/guide-post.osgb missing height, set to bounding box height 1.25
+[0.000] [warn] Object ../models/guide-post.osgb missing length, set to bounding box length 0.08
+[0.000] [warn] Object ../models/guide-post.osgb missing width, set to bounding box width 0.13
+[0.000] [warn] Object ../models/guide-post.osgb missing height, set to bounding box height 1.25
+[0.000] [info] Adjusted OverTaker bounding box to model car_red.osgb - xyz: 1.46, 0.00, 0.77 lwh: 5.04, 2.04, 1.49
+[0.000] [info] Init Ego TeleportAction initState -> startTransition -> runningState
+[0.000] [info] Starting teleport Action
+[0.000] [info] Ego New position:
+[0.000] [info] Pos(8.17, 49.97, -0.04) Rot(1.57, 0.00, 0.00) roadId 0 laneId -3 s 50.00 offset 0.00 t -8.00
+[0.000] [info] Init Ego LongitudinalAction initState -> startTransition -> runningState
+[0.000] [info] Init OverTaker TeleportAction initState -> startTransition -> runningState
+[0.000] [info] Starting teleport Action
+[0.000] [info] OverTaker New position:
+[0.000] [info] Pos(4.51, 24.98, -0.01) Rot(1.57, 0.00, 0.00) roadId 0 laneId -2 s 25.00 offset 0.00 t -4.42
+[0.000] [info] storyBoard initState -> startTransition -> runningState
+[0.000] [info] CutInAndBrakeStory initState -> startTransition -> runningState
+[0.000] [info] CutInAndBrakeAct initState -> initToStandbyTransition -> standbyState
+[0.000] [info] Init Ego TeleportAction runningState -> endTransition -> completeState
+[0.000] [info] Init Ego LongitudinalAction runningState -> endTransition -> completeState
+[0.000] [info] Init OverTaker TeleportAction runningState -> endTransition -> completeState
+[0.001] [info] CutInActStart: true, delay: 0.00, 0.0010 > 0.0000, edge: none
+[0.001] [info] Trigger /------------------------------------------------
+[0.001] [info] Group 0:
+[0.001] [info] CutInActStart: true
+[0.001] [info] Trigger  ------------------------------------------------/
+[0.001] [info] CutInAndBrakeAct standbyState -> startTransition -> runningState
+[0.001] [info] CutInAndBrakeSequence initState -> startTransition -> runningState
+[0.001] [info] CutInManeuver initState -> startTransition -> runningState
+[0.001] [info] OverTakerStartSpeedEvent initState -> initToStandbyTransition -> standbyState
+[0.001] [info] CutInEvent initState -> initToStandbyTransition -> standbyState
+[0.001] [info] OvertakerBrakeEvent initState -> initToStandbyTransition -> standbyState
+[0.001] [info] OverTakerStartSpeedCondition: true, delay: 0.00, CutInAndBrakeAct, RUNNING / START_TRANSITION == START_TRANSITION, edge: none
+[0.001] [info] Trigger /------------------------------------------------
+[0.001] [info] Group 0:
+[0.001] [info] OverTakerStartSpeedCondition: true
+[0.001] [info] Trigger  ------------------------------------------------/
+[0.001] [info] OverTakerStartSpeedEvent standbyState -> startTransition -> runningState
+[0.001] [info] OverTakerStartSpeedAction initState -> startTransition -> runningState
+[6.179] [info] CutInStartCondition: true, delay: 0.00, HWT: 0.40 > 0.40, edge rising
+[6.179] [info] Trigger /------------------------------------------------
+[6.179] [info] Group 0:
+[6.179] [info] CutInStartCondition: true
+[6.179] [info] Triggering entity 0: Ego
+[6.179] [info] Trigger  ------------------------------------------------/
+[6.179] [info] OverTakerStartSpeedAction runningState -> endTransition -> completeState
+[6.179] [info] OverTakerStartSpeedEvent complete after 1 execution
+[6.179] [info] OverTakerStartSpeedEvent runningState -> endTransition -> completeState
+[6.179] [info] Event OverTakerStartSpeedEvent ended, overwritten by event CutInEvent
+[6.179] [info] CutInEvent standbyState -> startTransition -> runningState
+[6.179] [info] CutInAction initState -> startTransition -> runningState
+[7.687] [info] BrakeCondition_HWT_0.7: true, delay: 0.00, HWT: 0.70 > 0.70, edge rising
+[7.687] [info] Trigger /------------------------------------------------
+[7.687] [info] Group 0:
+[7.687] [info] BrakeCondition_HWT_0.7: true
+[7.687] [info] Triggering entity 0: Ego
+[7.687] [info] Trigger  ------------------------------------------------/
+[7.687] [info] Other events ongoing, OvertakerBrakeEvent will run in parallel
+[7.687] [info] OvertakerBrakeEvent standbyState -> startTransition -> runningState
+[7.687] [info] OvertakerBrakeAction initState -> startTransition -> runningState
+[9.169] [info] CutInAction runningState -> endTransition -> completeState
+[9.169] [info] CutInEvent complete after 1 execution
+[9.169] [info] CutInEvent runningState -> endTransition -> completeState
+[15.489] [info] Closing

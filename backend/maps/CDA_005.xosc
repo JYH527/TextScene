@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2023-10-27T10:00:00" description="Double lane change collision" author="OpenSCENARIO-Expert"/>
+    <ParameterDeclarations/>
+    
+    <!-- 资源目录配置 (严格遵守 Rule) -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="one-way-three-lane-straight-highway.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <!-- 自车: 红色轿车 -->
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <!-- 目标车: 蓝色轿车 (干扰车) -->
+        <ScenarioObject name="Target">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- 初始化自车: Lane -4, S=50m, Speed=20m/s -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-4" offset="0.0" s="50.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="20.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+                
+                <!-- 初始化目标车: Lane -2, S=10m, Speed=30m/s (后方快速接近) -->
+                <Private entityRef="Target">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-2" offset="0.0" s="20.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="30.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="CollisionStory">
+            <Act name="LaneChangeAct">
+                <ManeuverGroup maximumExecutionCount="1" name="AggressiveCutInManeuver">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Target"/>
+                    </Actors>
+                    <Maneuver name="CutInManeuver">
+                        <!-- 事件: 连续跨越车道 (-2 -> -3 -> -4) -->
+                        <Event name="DoubleLaneChange" priority="overwrite">
+                            <Action name="LaneChangeAction">
+                                <PrivateAction>
+                                    <LateralAction>
+                                        <LaneChangeAction>
+                                            <LaneChangeActionDynamics dynamicsShape="sinusoidal" value="3.5" dynamicsDimension="time"/>
+                                            <LaneChangeTarget>
+                                                <!-- 直接设定目标为自车所在的 -4 车道 -->
+                                                <AbsoluteTargetLane value="-4"/>
+                                            </LaneChangeTarget>
+                                        </LaneChangeAction>
+                                    </LateralAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 触发条件: 改为基于相对距离触发 -->
+                            <!-- Target 初始在 Ego 后方30m处，速度比 Ego 快，距离会逐渐缩小 -->
+                            <!-- 当 Target 接近 Ego 纵向距离小于 15m 时触发换道，制造切入险情 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="DistanceTrigger" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Target"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <RelativeDistanceCondition entityRef="Ego" relativeDistanceType="longitudinal" value="20.0" freespace="false" rule="lessThan"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+            </Act>
+        </Story>
+        <StopTrigger>
+            <!-- 或者超过15秒自动停止 -->
+            <ConditionGroup>
+                <Condition name="Timeout" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="15.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

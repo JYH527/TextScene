@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-02T13:30:00" description="Merge Collision with Original Map" author="ESMINI-Expert"/>
+    
+    <!-- 1. 资源库引用 -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+    </CatalogLocations>
+
+    <!-- 2. 加载你的原版地图 -->
+    <RoadNetwork>
+        <LogicFile filepath="one-way-three-lane-ramp_in.xodr"/>
+    </RoadNetwork>
+
+    <!-- 3. 实体定义 -->
+    <Entities>
+        <ScenarioObject name="hero">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <ScenarioObject name="adversary">
+            <CatalogReference catalogName="VehicleCatalog" entryName="semi_truck"/>
+        </ScenarioObject>
+    </Entities>
+
+    <!-- 4. 故事板 -->
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- ============================================== -->
+                <!-- 全局环境设置: 黑夜 + 雨天 -->
+                <!-- ============================================== -->
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Night_Rain_Environment">
+                            <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+                            <Weather cloudState="overcast">
+                                <Sun intensity="0.0" azimuth="0.0" elevation="0.0"/>
+                                <Fog visualRange="10000.0"/>
+                                <Precipitation precipitationType="rain" intensity="1.0"/>
+                            </Weather>
+                            <RoadCondition frictionScaleFactor="1.0"/>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+
+                <!-- ============================================== -->
+                <!-- 自车初始化: Road 1 (主路) -->
+                <!-- Lane -4: 最外侧车道 (根据XML推测 -4 为最右) -->
+                <!-- ============================================== -->
+                <Private entityRef="hero">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- s=5.0: 刚进入路段 -->
+                                <LanePosition roadId="1" laneId="-4" offset="0.0" s="5.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="13.88"/> <!-- 50 km/h -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- ============================================== -->
+                <!-- 敌车初始化: Road 0 (匝道) -->
+                <!-- Lane 2: ！！！关键！！！原图定义为正数车道 -->
+                <!-- ============================================== -->
+                <Private entityRef="adversary">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- Road 0 只有约 21米长 -->
+                                <!-- s=15.0: 放在匝道后段，车头朝向路口 (因为Lane 2是逆向行驶) -->
+                                <LanePosition roadId="0" laneId="2" offset="0.0" s="15.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="11.11"/> <!-- 40 km/h -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="Original_Map_Merge_Story">
+            <Act name="Merge_Collision_Act">
+                
+                <!-- 敌车行为组 -->
+                <ManeuverGroup maximumExecutionCount="1" name="Adversary_Maneuver_Group">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="adversary"/>
+                    </Actors>
+                    
+                    <Maneuver name="Force_Merge_Maneuver">
+                        <!-- 强制规划路径到主路出口 (Road 2) -->
+                        <Event name="Route_To_Road2" priority="overwrite">
+                            <Action name="Adversary_Route">
+                                <PrivateAction>
+                                    <RoutingAction>
+                                        <AcquirePositionAction>
+                                            <Position>
+                                                <!-- 目标: Road 2 (出口), Lane -4 (外侧), 50米处 -->
+                                                <!-- 这会让仿真器自动计算穿过 Junction 3 的 Road 4 -->
+                                                <LanePosition roadId="2" laneId="-4" offset="0.0" s="40.0"/>
+                                            </Position>
+                                        </AcquirePositionAction>
+                                    </RoutingAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Start_Now" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <!-- 自车行为组 -->
+                <ManeuverGroup maximumExecutionCount="1" name="Hero_Maneuver_Group">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="hero"/>
+                    </Actors>
+                    <Maneuver name="Keep_Straight_Maneuver">
+                        <!-- 自车只需保持直行去往 Road 2 -->
+                        <Event name="Hero_Route" priority="overwrite">
+                            <Action name="Hero_Go_Straight">
+                                <PrivateAction>
+                                    <RoutingAction>
+                                        <AcquirePositionAction>
+                                            <Position>
+                                                <LanePosition roadId="2" laneId="-4" offset="0.0" s="40.0"/>
+                                            </Position>
+                                        </AcquirePositionAction>
+                                    </RoutingAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Start_Now" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="Act_Start" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="Time_Limit" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="10.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

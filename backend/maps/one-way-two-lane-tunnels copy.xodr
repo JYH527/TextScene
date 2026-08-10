@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenDRIVE>
+    <header revMajor="1" revMinor="4" name="Straight_Flat_Clean_Tunnel" version="1.0" date="2025-11-29T12:00:00" north="0.0" south="0.0" east="0.0" west="0.0" vendor="User"/>
+
+    <road name="SingleDirection_TwoLane_Tunnel" length="800.0" id="1" junction="-1" rule="RHT">
+        <link>
+        </link>
+        <planView>
+            <geometry s="0.0" x="0.0" y="0.0" hdg="0.0" length="800.0">
+                <line/>
+            </geometry>
+        </planView>
+        <elevationProfile>
+            <elevation s="0.0" a="0.0" b="0.0" c="0.0" d="0.0"/>
+        </elevationProfile>
+        <lanes>
+            <laneSection s="0.0">
+                <left>
+                    <lane id="1" type="shoulder" level="false">
+                        <width sOffset="0.0" a="1.0" b="0.0" c="0.0" d="0.0"/>
+                    </lane>
+                </left>
+
+                <center>
+                    <lane id="0" type="none">
+                        <roadMark sOffset="0.0" type="solid" color="yellow" width="0.15"/>
+                    </lane>
+                </center>
+
+                <right>
+                    <lane id="-1" type="driving" level="false">
+                        <width sOffset="0.0" a="3.75" b="0.0" c="0.0" d="0.0"/>
+                        <roadMark sOffset="0.0" type="broken" color="white" width="0.15"/>
+                    </lane>
+                    
+                    <lane id="-2" type="driving" level="false">
+                        <width sOffset="0.0" a="3.75" b="0.0" c="0.0" d="0.0"/>
+                        <roadMark sOffset="0.0" type="solid" color="white" width="0.15"/>
+                    </lane>
+
+                    <lane id="-3" type="shoulder" level="false">
+                        <width sOffset="0.0" a="1.0" b="0.0" c="0.0" d="0.0"/>
+                        <roadMark sOffset="0.0" type="solid" color="white" width="0.15"/>
+                    </lane>
+                </right>
+            </laneSection>
+        </lanes>
+
+        <objects>
+            <tunnel s="300.0" length="400.0" name="CleanTunnel" id="100" type="standard" lighting="0.4" daylight="0.8">
+            </tunnel>
+        </objects>
+    </road>
+</OpenDRIVE>

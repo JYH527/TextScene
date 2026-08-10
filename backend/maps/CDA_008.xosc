@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2023-10-27T12:00:00" description="Aggressive Cut-In with Emergency Braking" author="ScenarioEngineer"/>
+    <ParameterDeclarations/>
+    <!-- 资源目录配置 (严格遵守要求) -->
+    <!-- 必须的 Catalog 路径（esmini 标准相对路径） -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="one-way-two-lane-straight-highway.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+
+        <!-- TargetCutInCar: 红色轿车 (切入车) -->
+        <ScenarioObject name="TargetCutInCar">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- Ego: 右侧车道(Lane -3), 高速 -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-3" offset="0.0" s="20.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="30.0"/> <!-- 108 km/h -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- Target: 左侧车道(Lane -2), 低速, 稍前方 -->
+                <Private entityRef="TargetCutInCar">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-2" offset="0.0" s="60.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="15.0"/> <!-- 54 km/h -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="CutInStory">
+            <Act name="CutInAndReactionAct">
+                <!-- 1. 干扰车执行切入 -->
+                <ManeuverGroup maximumExecutionCount="1" name="TargetManeuverGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="TargetCutInCar"/>
+                    </Actors>
+                    <Maneuver name="CutInManeuver">
+                        <Event name="CutInEvent" priority="overwrite">
+                            <Action name="LaneChangeRight">
+                                <PrivateAction>
+                                    <LateralAction>
+                                        <LaneChangeAction>
+                                            <!-- 2.5秒内完成换道，正弦曲线轨迹 -->
+                                            <LaneChangeActionDynamics dynamicsShape="sinusoidal" value="2.5" dynamicsDimension="time"/>
+                                            <LaneChangeTarget>
+                                                <AbsoluteTargetLane value="-3"/> <!-- 目标：Ego所在车道 -->
+                                            </LaneChangeTarget>
+                                        </LaneChangeAction>
+                                    </LateralAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 触发条件：当Ego接近至纵向距离小于25米时触发切入 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="DistanceTrigger" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="TargetCutInCar"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <RelativeDistanceCondition entityRef="Ego" relativeDistanceType="longitudinal" value="25.0" freespace="false" rule="lessThan"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <!-- 2. Ego 执行紧急制动 -->
+                <ManeuverGroup maximumExecutionCount="1" name="EgoReactionGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                    </Actors>
+                    <Maneuver name="EmergencyBrakeManeuver">
+                        <Event name="BrakeEvent" priority="overwrite">
+                            <Action name="HardBraking">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <!-- 紧急减速：-8 m/s^2 -->
+                                            <SpeedActionDynamics dynamicsShape="linear" value="-8.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="15.0"/> <!-- 降速至与前车一致 -->
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+
+                            <!-- 触发条件：与前车距离小于 20米 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="CriticalDistanceTrigger" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Ego"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <RelativeDistanceCondition entityRef="TargetCutInCar" rule="lessThan" value="15.0" freeSpace="false" coordinateSystem="entity"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="ActStart" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="EndSimulation" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="10.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

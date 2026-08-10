@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2023-12-03T17:00:00" description="Ego emergency braking for static scooter in curve (Road 1->0)" author="OpenSCENARIO-Expert"/>
+
+    <ParameterDeclarations/>
+
+    <!-- 资源目录配置 (严格遵守要求) -->
+    <!-- 必须的 Catalog 路径（esmini 标准相对路径） -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="one-way-two-lane-curved-urban.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+
+        <!-- Target: 踏板摩托车 (弱势道路使用者) -->
+        <ScenarioObject name="TargetScooter">
+            <CatalogReference catalogName="VehicleCatalog" entryName="scooter"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Daytime">
+                            <TimeOfDay animation="false" dateTime="2023-12-03T12:00:00"/>
+                            <Weather cloudState="free">
+                                <Sun intensity="100000.0" azimuth="0.0" elevation="1.57"/>
+                            </Weather>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+
+                <!-- Ego 初始化: Road 1 (80m长) 的后段 -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="1" laneId="-4" offset="0.0" s="60.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="13.8"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- Scooter 初始化: Road 0 (弯道) 内部, 静止 -->
+                <Private entityRef="TargetScooter">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- Road 0 位于 Ego 前方, s=30m 处 -->
+                                <LanePosition roadId="0" laneId="-4" offset="0.0" s="30.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="CurveScooterBrakeStory">
+            <Act name="AEB_Act">
+                <ManeuverGroup maximumExecutionCount="1" name="AEB_ManeuverGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                    </Actors>
+
+                    <!-- 紧急制动操作 -->
+                    <Maneuver name="EmergencyBrakeManeuver">
+                        <Event name="BrakeForScooter" priority="overwrite">
+                            <Action name="HardBrake">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <!-- Linear 减速, -8 m/s^2 模拟急刹 -->
+                                            <SpeedActionDynamics dynamicsShape="linear" value="-8.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="0.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+
+                            <!-- 触发条件: 距离前方 Scooter 小于 30米 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="DistanceCondition" delay="0.0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Ego"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <!-- freeSpace="true" 确保使用的是边缘间距 -->
+                                                <RelativeDistanceCondition entityRef="TargetScooter" relativeDistanceType="longitudinal" value="10.0" rule="lessThan" freeSpace="true"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <!-- 结束条件: Ego 完全停止 -->
+                <StopTrigger>
+                    <ConditionGroup>
+                        <Condition name="EgoStopped" delay="1.0" conditionEdge="rising">
+                            <ByEntityCondition>
+                                <TriggeringEntities triggeringEntitiesRule="any">
+                                    <EntityRef entityRef="Ego"/>
+                                </TriggeringEntities>
+                                <EntityCondition>
+                                    <SpeedCondition value="0.1" rule="lessThan"/>
+                                </EntityCondition>
+                            </ByEntityCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StopTrigger>
+            </Act>
+        </Story>
+    </Storyboard>
+</OpenSCENARIO>

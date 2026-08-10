@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-02T12:45:00" description="Camera fixed on Ego" author="ESMINI_Expert"/>
+
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="two-way-four-lane-roundout-two.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+
+        <ScenarioObject name="Ego_Leader">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_yellow"/>
+        </ScenarioObject>
+
+        <ScenarioObject name="Adversary">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Night_Rain_Environment">
+                            <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+                            <Weather cloudState="overcast">
+                                <Precipitation precipitationType="rain" intensity="1.0"/>
+                            </Weather>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="12" laneId="-1" offset="0.0" s="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="8.0"/> 
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="EgoRoute" closed="false">
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="12" laneId="-1" s="1.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="2" laneId="-4" s="10.0" offset="0.0"/></Position></Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+                <Private entityRef="Ego_Leader">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="12" laneId="-1" offset="0.0" s="14.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="10.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="LeaderRoute" closed="false">
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="12" laneId="-1" s="10.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="2" laneId="-4" s="10.0" offset="0.0"/></Position></Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+                <Private entityRef="Adversary">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="6" laneId="-4" offset="0.0" s="8.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="11.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="AdversaryRoute" closed="false">
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="6" laneId="-4" s="0.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="2" laneId="-4" s="10.0" offset="0.0"/></Position></Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="SimpleFollowLeaderStory">
+            <Act name="DriveAct">
+                <ManeuverGroup maximumExecutionCount="1" name="KeepSpeedManeuver">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                        <EntityRef entityRef="Ego_Leader"/>
+                        <EntityRef entityRef="Adversary"/>
+                    </Actors>
+                    <Maneuver name="ConstantDrive">
+                        <Event name="DriveNow" priority="overwrite">
+                            <Action name="NoActionJustDrive">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="0.0" dynamicsDimension="time"/>
+                                            <SpeedActionTarget>
+                                                <RelativeTargetSpeed entityRef="Ego" value="0.0" speedTargetValueType="delta" continuous="true"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="StartCondition" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="0.0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="EndCondition" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="10.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

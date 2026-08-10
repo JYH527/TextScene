@@ -1,0 +1,3793 @@
+[
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Dense Vehicles at Foggy Intersection",
+        "description": "Foggy weather significantly degrades camera perception quality, causing blurry visibility of vehicles ahead and traffic signals, all occurring at a densely trafficked cross intersection.",
+        "tc_id": "TC-8.2",
+        "paths": [
+          "/Complex Weather/Fog",
+          "/Road Structure/Cross Intersection",
+          "/Traffic Facilities/Traffic Signals",
+          "/Dynamic Traffic Participants/Dense Vehicles"
+        ],
+        "path": "/Environment Perception/Dense Vehicles at Foggy Intersection",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Dense Vehicles at Foggy Intersection/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Large vehicle ahead obstructs traffic light",
+                "probability": "E4"
+              },
+              {
+                "name": "Vehicle from adjacent lane suddenly cuts into current lane",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian crossing when stationary roadside vehicle creates blind spot",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Foggy Traffic Police Command",
+        "description": "Foggy weather causes camera perception imaging to be blurry. There are traffic signals ahead, and traffic police are directing traffic while enforcing laws. Multiple vehicles are moving forward together in the surroundings.",
+        "tc_id": "TC-8.2",
+        "paths": [
+          "/Complex Weather/Fog",
+          "/Traffic Facilities/Traffic Signals",
+          "/Traffic Participants/Traffic Police Command",
+          "/Dynamic Traffic Participants/Multiple Vehicles Moving Forward Together"
+        ],
+        "path": "/Environment Perception/Foggy Traffic Police Command",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Hazard Seeds",
+            "path": "/Environment Perception/Foggy Traffic Police Command/Potential Hazard Seeds",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Right rear vehicle accelerates and cuts in while overtaking",
+                "Probability": "E4"
+              },
+              {
+                "name": "Front vehicle's high-beam headlights shine strongly",
+                "Probability": "E4"
+              },
+              {
+                "name": "Front vehicle makes an emergency stop",
+                "Probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Foggy Road Section Without Signals",
+        "description": "Foggy weather causes severely blurred vision and extremely low visibility, making it difficult to determine whether there are vehicles, pedestrians, or other sudden situations ahead, occurring on road sections without traffic signal facilities.",
+        "tc_id": "TC-8.2",
+        "paths": [
+          "/Complex Weather/Fog",
+          "/Air Particles/Fog",
+          "/Road Structure/Road Section Without Signals"
+        ],
+        "path": "/Environment Perception/Foggy Road Section Without Signals",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Foggy Road Section Without Signals/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Long-distance pedestrian crossing",
+                "probability": "E4"
+              },
+              {
+                "name": "Sudden stop of vehicle ahead",
+                "probability": "E4"
+              },
+              {
+                "name": "Blurred lane markings",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Meeting on Icy Uphill Road Section",
+        "description": "In winter, on an icy uphill road section, there is a vehicle approaching from the opposite direction.",
+        "tc_id": "TC-8.1",
+        "paths": [
+          "/Complex Weather/Ice",
+          "/Temperature and Humidity/Low Temperature Ice",
+          "/Road Structure/Uphill Section",
+          "/Dynamic Traffic Participants/Oncoming Vehicle"
+        ],
+        "path": "/Environmental Perception/Meeting on Icy Uphill Road Section",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Meeting on Icy Uphill Road Section/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Oncoming vehicle skidding on ice",
+                "probability": "E4"
+              },
+              {
+                "name": "Vehicle ahead rolling backward",
+                "probability": "E4"
+              },
+              {
+                "name": "Oncoming vehicle side-slip intrusion",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Rural Construction Road Block",
+        "description": "On a rural road section, there is a construction area ahead with a road block set up to block the vehicle's forward direction.",
+        "tc_id": "TC-20.1",
+        "paths": [
+          "/Road Structure/Rural Road",
+          "/Road Temporary Events/Construction Area",
+          "/Road Temporary Events/Road Block"
+        ],
+        "path": "/Environment Perception/Rural Construction Road Block",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Rural Construction Road Block/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Vehicle on roadside opens door",
+                "probability": "E4"
+              },
+              {
+                "name": "Construction obstacles",
+                "probability": "E3"
+              },
+              {
+                "name": "Narrow road section meeting oncoming vehicle",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Heavy Snowfall Intersection Meeting",
+        "description": "Heavy snowfall weather causes snow flurries, road accumulation, significantly degrading camera and LiDAR perception quality, with an upcoming intersection meeting with a vehicle ahead.",
+        "tc_id": "TC-8.1",
+        "paths": [
+          "/Complex Weather/Heavy Snowfall",
+          "/Sensor Occlusion/Snow Cover",
+          "/Road Structure/Intersection",
+          "/Dynamic Traffic Participants/Oncoming Vehicle"
+        ],
+        "path": "/Environment Perception/Heavy Snowfall Intersection Meeting",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Heavy Snowfall Intersection Meeting/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Road surface snow accumulation, icing",
+                "probability": "E4"
+              },
+              {
+                "name": "Intersection meeting",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian crossing when roadside stationary vehicle creates blind spot",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Heavy Snowfall Urban Slippery",
+        "description": "Heavy snowfall weather causes heavy snow flying, urban roads are slippery, dense traffic vehicles, increasing traffic complexity and danger.",
+        "tc_id": "TC-8.1",
+        "paths": [
+          "/Complex Weather/Heavy Snowfall",
+          "/Road Structure/Urban Roads",
+          "/Dynamic Traffic Participants/Dense Vehicles"
+        ],
+        "path": "/Environment Perception/Heavy Snowfall Urban Slippery",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Heavy Snowfall Urban Slippery/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Road surface snow, slippery",
+                "probability": "E4"
+              },
+              {
+                "name": "Motor vehicles partially occluding pedestrians",
+                "probability": "E4"
+              },
+              {
+                "name": "Fast-moving motor vehicles",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Traffic Light Obscured by Trees",
+        "description": "During daytime with normal weather conditions, traffic lights at an upcoming intersection are obscured by tall trees, making them difficult to distinguish, and there are vehicles moving through the intersection.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Traffic Facilities/Traffic Signals",
+          "/Sensor Obstructions/Tree Obstruction",
+          "/Road Structure/Intersection",
+          "/Dynamic Traffic Participants/Moving Vehicles"
+        ],
+        "path": "/Environmental Perception/Traffic Light Obscured by Trees",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Traffic Light Obscured by Trees/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Other vehicles running red lights",
+                "probability": "E4"
+              },
+              {
+                "name": "Motor vehicles partially obscuring pedestrians",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrians crossing the road",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Foggy Lane Line Blurring",
+        "description": "Foggy weather causes lane lines to become blurred, sensor perception quality to degrade, and traffic signals to be difficult to distinguish.",
+        "tc_id": "TC-8.2",
+        "paths": [
+          "/Complex Weather/Fog",
+          "/Air Particles/Fog",
+          "/Road Structure/Lane Lines"
+        ],
+        "path": "/Environment Perception/Foggy Lane Line Blurring",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Foggy Lane Line Blurring/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Oncoming Vehicle Crossing Lane Line",
+                "probability": "E4"
+              },
+              {
+                "name": "Sudden Stop of Vehicle Ahead",
+                "probability": "E4"
+              },
+              {
+                "name": "Rapidly Moving Vehicle",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Animal Dragging Object Obstruction",
+        "description": "On a rural road, an animal slowly drags a tree trunk from left to right, obstructing vehicle passage.",
+        "tc_id": "TC-20.1",
+        "paths": [
+          "/Road Structure/Rural Road",
+          "/Dynamic Traffic Participants/Animal",
+          "/Road Temporary Events/Tree Trunk Obstacle"
+        ],
+        "path": "/Environment Perception/Animal Dragging Object Obstruction",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Animal Dragging Object Obstruction/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Continuous Appearance of Animals",
+                "probability": "E3"
+              },
+              {
+                "name": "Animal Stops in the Middle of the Road",
+                "probability": "E3"
+              },
+              {
+                "name": "Other Fast-Moving Motor Vehicles",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Post-Rain Highway Accident Vehicle Blocking Road",
+        "description": "On the highway, the road is slippery after rain. A vehicle ahead traveling at high speed collides with the roadside guardrail and stops in the middle of the road.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Highway",
+          "/Complex Weather/Post-Rain Slippery",
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Road Temporary Events/Road Blockage"
+        ],
+        "path": "/Environmental Perception/Post-Rain Highway Accident Vehicle Blocking Road",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Post-Rain Highway Accident Vehicle Blocking Road/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Road Surface Water Accumulation, Ice Formation",
+                "probability": "E4"
+              },
+              {
+                "name": "Sensor Occlusion Blind Spots",
+                "probability": "E4"
+              },
+              {
+                "name": "Other Fast-Moving Motor Vehicles",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Cattle Blocking Road on Mountain Downhill",
+        "description": "On a downhill section of a mountain road, three cattle are lying in the middle of the road, blocking vehicle passage. The slope is relatively gentle.",
+        "tc_id": "TC-20.1",
+        "paths": [
+          "/Road Structure/Mountain Roads",
+          "/Road Structure/Downhill Sections",
+          "/Dynamic Traffic Participants/Animals",
+          "/Temporary Road Events/Road Blockage"
+        ],
+        "path": "/Environmental Perception/Cattle Blocking Road on Mountain Downhill",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Cattle Blocking Road on Mountain Downhill/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Vehicle forced to stop causing traffic congestion",
+                "probability": "E3"
+              },
+              {
+                "name": "Sensor blind spots",
+                "probability": "E3"
+              },
+              {
+                "name": "Other fast-moving motor vehicles",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Close-Range Cut-in Lane Change",
+        "description": "Clear weather, highway section, the vehicle in the left front suddenly shows a tendency to cut into the ego vehicle's current lane, with a very close distance between the two vehicles.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Highway Section",
+          "/Dynamic Traffic Participants/Left Front Vehicle",
+          "/Dynamic Traffic Participants/Close Range"
+        ],
+        "path": "/Environment Perception/Close-Range Cut-in Lane Change",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Close-Range Cut-in Lane Change/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Vehicle Driving on Lane Markings (Lane Line Occlusion)",
+                "probability": "E4"
+              },
+              {
+                "name": "Rapidly Moving Vehicle",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian Partially Occluded by Vehicle",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Single Lane Construction After Rain",
+        "description": "On a highway after rain, construction zones are set up with barriers, leaving only one lane open for traffic, and workers are present in the construction area.",
+        "tc_id": "TC-8.1",
+        "paths": [
+          "/Road Structure/Highway",
+          "/Road Temporary Events/Construction Zone",
+          "/Road Temporary Events/Barriers",
+          "/Complex Weather/Post-Rain Slippery Conditions"
+        ],
+        "path": "/Environmental Perception/Single Lane Construction After Rain",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Single Lane Construction After Rain/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Road surface water accumulation, icing",
+                "probability": "E4"
+              },
+              {
+                "name": "Vehicle door opening on roadside",
+                "probability": "E4"
+              },
+              {
+                "name": "Rapidly moving motor vehicles",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Worn Lane Lines and Markings",
+        "description": "Urban road, clear weather, lane lines missing due to long-term wear, most bus lane markings worn and unrecognizable.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Urban Road",
+          "/Road Structure/Lane Lines",
+          "/Traffic Facilities/Bus Lane Markings"
+        ],
+        "path": "/Environmental Perception/Worn Lane Lines and Markings",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Worn Lane Lines and Markings/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Motor vehicle driving over the line (lane line obscured)",
+                "probability": "E4"
+              },
+              {
+                "name": "Motor vehicle partially obscuring pedestrian",
+                "probability": "E3"
+              },
+              {
+                "name": "Rapidly moving motor vehicle",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Heavy Rainfall with Blurred Vision",
+        "description": "Heavy rainfall weather, torrential rain causes blurred vision on the highway, with vehicles ahead in motion.",
+        "tc_id": "TC-8.1",
+        "paths": [
+          "/Complex Weather/Heavy Rainfall",
+          "/Sensor Occlusion Surface/Rainwater Coverage",
+          "/Road Structure/Highway",
+          "/Dynamic Traffic Participants/Leading Vehicle"
+        ],
+        "path": "/Environmental Perception/Heavy Rainfall with Blurred Vision",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Heavy Rainfall with Blurred Vision/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Road Surface Water Accumulation, Icing",
+                "probability": "E4"
+              },
+              {
+                "name": "Rapidly Moving Motor Vehicles",
+                "probability": "E4"
+              },
+              {
+                "name": "Motor Vehicles Partially Obscuring Pedestrians",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Pedestrian Crossing Causing Congestion",
+        "description": "Normal weather, dense vehicle traffic on urban roads, a group of people crossing the road ahead causing traffic congestion.",
+        "tc_id": "TC-27.1",
+        "paths": [
+          "/Road Structure/Urban Roads",
+          "/Dynamic Traffic Participants/Dense Vehicles",
+          "/Dynamic Traffic Participants/Pedestrian Groups",
+          "/Road Temporary Events/Road Blockage"
+        ],
+        "path": "/Environmental Perception/Pedestrian Crossing Causing Congestion",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Pedestrian Crossing Causing Congestion/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Close-range pedestrian crossing",
+                "probability": "E4"
+              },
+              {
+                "name": "Partial occlusion of pedestrians by motor vehicles",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian crossing when roadside stationary vehicles create blind spots",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Mountain Landslide and Mudslide Blocking Road",
+        "description": "During rainy weather, on an uphill section of a mountain road, a landslide occurs ahead, with mud and rocks from the left side of the road accumulating in the middle, making passage impossible.",
+        "tc_id": "TC-20.1",
+        "paths": [
+          "/Road Structure/Mountain Road",
+          "/Road Structure/Uphill Section",
+          "/Complex Weather/Rainfall",
+          "/Road Temporary Events/Landslide and Mudslide",
+          "/Road Temporary Events/Road Blockage"
+        ],
+        "path": "/Environmental Perception/Mountain Landslide and Mudslide Blocking Road",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Mountain Landslide and Mudslide Blocking Road/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Road Surface Water Accumulation, Icing",
+                "probability": "E4"
+              },
+              {
+                "name": "Fast-Moving Motor Vehicles",
+                "probability": "E3"
+              },
+              {
+                "name": "Roadside Vehicles Opening Doors",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Heavy Snow Slippery Road",
+        "description": "Heavy snowfall weather, road becomes slippery due to snow accumulation, with a vehicle ahead during travel.",
+        "tc_id": "TC-8.1",
+        "paths": [
+          "/Complex Weather/Heavy Snow",
+          "/Sensor Occlusion Surface/Snow Cover",
+          "/Dynamic Traffic Participants/Leading Vehicle"
+        ],
+        "path": "/Environmental Perception/Heavy Snow Slippery Road",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Heavy Snow Slippery Road/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Road surface water accumulation, icing",
+                "probability": "E4"
+              },
+              {
+                "name": "Rapidly moving motor vehicle",
+                "probability": "E4"
+              },
+              {
+                "name": "Motor vehicle partially occluding pedestrian",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Tree Obscuring Traffic Sign",
+        "description": "Clear weather, urban road, traffic sign obscured by tall roadside trees, vehicle driving normally.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Urban Road",
+          "/Traffic Facilities/Traffic Sign",
+          "/Sensor Obstruction Objects/Tree Obstruction",
+          "/Dynamic Traffic Participants/Driving Vehicle"
+        ],
+        "path": "/Environmental Perception/Tree Obscuring Traffic Sign",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Tree Obscuring Traffic Sign/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Large vehicle ahead obscuring traffic light",
+                "probability": "E4"
+              },
+              {
+                "name": "Vehicle driving over lane line (lane line obscured)",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian crossing when roadside stationary vehicle creates blind spot",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Heavy Rainfall Blurred Vision",
+        "description": "Heavy rainfall weather, torrential rain causes blurred vision on the highway, with vehicles ahead.",
+        "tc_id": "TC-8.1",
+        "paths": [
+          "/Complex Weather/Heavy Rainfall",
+          "/Sensor Occlusion Surface/Rainwater Coverage",
+          "/Road Structure/Highway",
+          "/Dynamic Traffic Participants/Leading Vehicle"
+        ],
+        "path": "/Environmental Perception/Heavy Rainfall Blurred Vision",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Heavy Rainfall Blurred Vision/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Road Surface Water Accumulation",
+                "probability": "E4"
+              },
+              {
+                "name": "Rapidly Moving Motor Vehicle",
+                "probability": "E4"
+              },
+              {
+                "name": "Motor Vehicle Partially Obscuring Pedestrian",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Pedestrian Crossing While on Phone",
+        "description": "Urban bidirectional multi-lane road with vehicles passing alternately, and a pedestrian crossing the road while talking on the phone.",
+        "tc_id": "TC-21.1",
+        "paths": [
+          "/Road Structure/Urban Road",
+          "/Dynamic Traffic Participants/Multi-lane Vehicles",
+          "/Dynamic Traffic Participants/Pedestrians"
+        ],
+        "path": "/Environmental Perception/Pedestrian Crossing While on Phone",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Pedestrian Crossing While on Phone/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Pedestrian looking down at phone",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian not observing approaching vehicles",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian suddenly changing crossing path",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Highway Lane Blurring in Heavy Fog",
+        "description": "Heavy fog weather on a highway, where the fog causes blurred vision, unclear lane markings, difficulty in detecting multiple vehicles ahead, and vehicles in motion.",
+        "tc_id": "TC-8.2",
+        "paths": [
+          "/Complex Weather/Heavy Fog",
+          "/Airborne Particles/Heavy Fog",
+          "/Road Structure/Highway",
+          "/Road Structure/Lane Markings",
+          "/Dynamic Traffic Participants/Multiple Vehicles"
+        ],
+        "path": "/Environmental Perception/Highway Lane Blurring in Heavy Fog",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Highway Lane Blurring in Heavy Fog/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Lane markings obscured by fog",
+                "probability": "E4"
+              },
+              {
+                "name": "Blurred taillights of vehicles ahead",
+                "probability": "E4"
+              },
+              {
+                "name": "Sudden lane change by adjacent vehicles",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Mixed Traffic with Pedestrian Crossing",
+        "description": "Urban road, normal weather conditions, multiple cars and motorcycles traveling ahead, with a pedestrian crossing the road while talking on the phone.",
+        "tc_id": "TC-21.1",
+        "paths": [
+          "/Road Structure/Urban Road",
+          "/Dynamic Traffic Participants/Multiple Vehicles",
+          "/Dynamic Traffic Participants/Motorcycles",
+          "/Dynamic Traffic Participants/Pedestrians"
+        ],
+        "path": "/Environment Perception/Mixed Traffic with Pedestrian Crossing",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Mixed Traffic with Pedestrian Crossing/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Motorcycle weaving through traffic",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian obscured by motorcycle",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian emerging from between parked vehicles",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Sudden U-turn by Vehicle Ahead",
+        "description": "Normal weather, urban road with two-way lanes, yellow solid line in the middle, ego vehicle driving normally, vehicle ahead suddenly changes direction, possibly making a U-turn or cutting into ego vehicle's lane.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Urban Road",
+          "/Road Structure/Two-way Lane",
+          "/Dynamic Traffic Participants/Vehicle Ahead"
+        ],
+        "path": "/Environmental Perception/Sudden U-turn by Vehicle Ahead",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Sudden U-turn by Vehicle Ahead/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Vehicle crosses yellow solid line to make U-turn",
+                "probability": "E4"
+              },
+              {
+                "name": "Oncoming vehicle misjudges gap and cuts in",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian follows vehicle to cross",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Foggy Lane Line Blurring",
+        "description": "In foggy weather on a highway, visibility is extremely low, lane lines are blurred, and the vehicle is driving normally.",
+        "tc_id": "TC-8.2",
+        "paths": [
+          "/Complex Weather/Fog",
+          "/Air Particles/Fog",
+          "/Road Structure/Highway",
+          "/Road Structure/Lane Lines"
+        ],
+        "path": "/Environmental Perception/Foggy Lane Line Blurring",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Foggy Lane Line Blurring/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Lane lines completely invisible",
+                "probability": "E4"
+              },
+              {
+                "name": "Vehicle deviates from lane center",
+                "probability": "E4"
+              },
+              {
+                "name": "Stationary vehicle in emergency stopping lane",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Pedestrian Occluded at Night",
+        "description": "Driving at night, a pedestrian is crossing the road while talking on the phone, and a vehicle ahead on the left occludes the pedestrian.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Lighting/Night",
+          "/Dynamic Traffic Participants/Pedestrian",
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Sensor Occlusion Objects/Vehicle Occlusion"
+        ],
+        "path": "/Environmental Perception/Pedestrian Occluded at Night",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Pedestrian Occluded at Night/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Pedestrian located in vehicle shadow area",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian not wearing reflective clothing",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian suddenly crosses through a lighting blind spot",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Vehicle Cutting In at Intersection",
+        "description": "While driving straight, a vehicle from the left front intersection suddenly enters the current lane.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Intersection",
+          "/Dynamic Traffic Participants/Oncoming Vehicle"
+        ],
+        "path": "/Environmental Perception/Vehicle Cutting In at Intersection",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Vehicle Cutting In at Intersection/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "No Yield Sign at Intersection",
+                "probability": "E4"
+              },
+              {
+                "name": "Cutting-in Vehicle Does Not Use Turn Signal",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian Crossing Simultaneously at Intersection",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Sudden Braking of Vehicle Ahead",
+        "description": "The vehicle ahead suddenly brakes while driving.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Dynamic Traffic Participants/Sudden Braking Behavior"
+        ],
+        "path": "/Environmental Perception/Sudden Braking of Vehicle Ahead",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Sudden Braking of Vehicle Ahead/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Unnoticed Pedestrian Crossing Ahead",
+                "probability": "E4"
+              },
+              {
+                "name": "Animal Suddenly Crossing the Road",
+                "probability": "E3"
+              },
+              {
+                "name": "Road Debris Causing Sudden Braking",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Two-way Cut-in at Intersection",
+        "description": "While driving normally through a cross intersection, a pickup truck suddenly enters the current lane from the left front intersection, and a vehicle also suddenly enters from the right front intersection.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Cross Intersection",
+          "/Dynamic Traffic Participants/Oncoming Vehicles",
+          "/Dynamic Traffic Participants/Multiple Vehicles"
+        ],
+        "path": "/Environment Perception/Two-way Cut-in at Intersection",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Two-way Cut-in at Intersection/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Left-turning vehicle fails to yield to through traffic",
+                "probability": "E4"
+              },
+              {
+                "name": "Right-turning vehicle cuts in",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian runs red light at intersection",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Right Front Occlusion Cut-in",
+        "description": "During normal driving, due to occlusion by the vehicle in the right front, sensors fail to timely detect a vehicle suddenly entering the current lane from the right front.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Lead Vehicle",
+          "/Dynamic Traffic Participants/Lateral Cut-in Vehicle",
+          "/Sensor Occlusion Objects/Lead Vehicle Occlusion"
+        ],
+        "path": "/Environment Perception/Right Front Occlusion Cut-in",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Right Front Occlusion Cut-in/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Right front vehicle suddenly changes lanes",
+                "probability": "E4"
+              },
+              {
+                "name": "Cut-in vehicle does not use turn signal",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian crossing behind the occluding vehicle",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Highway Right Cut-in",
+        "description": "While driving on the highway, a vehicle from the right front suddenly cuts into the current lane.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Highway",
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Dynamic Traffic Participants/Lateral Cut-in Vehicle"
+        ],
+        "path": "/Environment Perception/Highway Right Cut-in",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Highway Right Cut-in/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Right lane vehicle forces lane change",
+                "probability": "E4"
+              },
+              {
+                "name": "Sudden deceleration after cut-in",
+                "probability": "E4"
+              },
+              {
+                "name": "Risk of rear-end collision from following vehicle",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Left Front Occlusion Meeting",
+        "description": "Due to occlusion by the vehicle in the left front, the sensors fail to perceive the oncoming vehicle from the left front in time, resulting in a sudden meeting with the oncoming vehicle.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Dynamic Traffic Participants/Oncoming Vehicle",
+          "/Sensor Occlusion Objects/Leading Vehicle Occlusion"
+        ],
+        "path": "/Environment Perception/Left Front Occlusion Meeting",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Left Front Occlusion Meeting/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Sudden appearance of oncoming vehicle",
+                "probability": "E4"
+              },
+              {
+                "name": "Sudden left turn of occluding vehicle",
+                "probability": "E4"
+              },
+              {
+                "name": "Blinding lights from oncoming vehicle",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Sudden Stop Blocking at Intersection",
+        "description": "While driving straight, a vehicle suddenly enters from the left front intersection and stops abruptly in the middle of the road.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Intersection",
+          "/Dynamic Traffic Participants/Oncoming Vehicle",
+          "/Dynamic Traffic Participants/Sudden Stop Behavior",
+          "/Road Temporary Events/Road Blockage"
+        ],
+        "path": "/Environment Perception/Sudden Stop Blocking at Intersection",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Sudden Stop Blocking at Intersection/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Intersection vehicle forcibly cuts in",
+                "probability": "E4"
+              },
+              {
+                "name": "Immediate braking after cutting in",
+                "probability": "E4"
+              },
+              {
+                "name": "Rear vehicle unable to avoid",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Nighttime Right Cut-in",
+        "description": "While driving at night, a vehicle from the right front suddenly cuts into the current lane.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Lighting/Nighttime",
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Dynamic Traffic Participants/Lateral Cut-in Vehicle"
+        ],
+        "path": "/Environmental Perception/Nighttime Right Cut-in",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Nighttime Right Cut-in/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Cut-in vehicle has no lighting indication",
+                "probability": "E4"
+              },
+              {
+                "name": "Low visibility at night",
+                "probability": "E4"
+              },
+              {
+                "name": "Sudden deceleration after cut-in",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Uphill Garage Exit",
+        "description": "A vehicle suddenly emerges from a garage exit on the right front side of an uphill road section.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Uphill Road Section",
+          "/Road Structure/Garage Exit",
+          "/Dynamic Traffic Participants/Oncoming Vehicle"
+        ],
+        "path": "/Environment Perception/Uphill Garage Exit",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Uphill Garage Exit/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Vehicle emerging from blind spot at garage exit",
+                "probability": "E4"
+              },
+              {
+                "name": "Limited visibility on uphill slope",
+                "probability": "E4"
+              },
+              {
+                "name": "Emerging vehicle fails to decelerate",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Sudden Turn of Preceding Vehicle",
+        "description": "The preceding vehicle suddenly turns, causing the ego vehicle to perform emergency braking.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Preceding Vehicle",
+          "/Dynamic Traffic Participants/Sudden Turn Behavior"
+        ],
+        "path": "/Environment Perception/Sudden Turn of Preceding Vehicle",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Sudden Turn of Preceding Vehicle/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Preceding vehicle turns suddenly without turn signal",
+                "probability": "E4"
+              },
+              {
+                "name": "Turning into a blind intersection",
+                "probability": "E4"
+              },
+              {
+                "name": "Risk of rear-end collision by following vehicle",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Right Occlusion Sudden Intrusion",
+        "description": "Vehicle on the right front is occluded, a vehicle suddenly intrudes, and sensors fail to detect it in time.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Dynamic Traffic Participants/Lateral Cut-in Vehicle",
+          "/Sensor Occlusion Objects/Leading Vehicle Occlusion"
+        ],
+        "path": "/Environmental Perception/Right Occlusion Sudden Intrusion",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Right Occlusion Sudden Intrusion/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Occluded vehicle suddenly accelerates",
+                "probability": "E4"
+              },
+              {
+                "name": "Intruding vehicle's path is unpredictable",
+                "probability": "E4"
+              },
+              {
+                "name": "Occluding vehicle suddenly brakes",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Parallel Emergency Stop",
+        "description": "When driving into the left front intersection together with the vehicle in the left front, the left front vehicle suddenly brakes and stops urgently.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Intersection",
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Dynamic Traffic Participants/Emergency Stop Behavior"
+        ],
+        "path": "/Environmental Perception/Parallel Emergency Stop",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Parallel Emergency Stop/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Parallel vehicle suddenly brakes and stops",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian crossing simultaneously at the intersection",
+                "probability": "E4"
+              },
+              {
+                "name": "Rear vehicle unable to react",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Highway Left Cut-in",
+        "description": "While driving on the highway, a vehicle from the left front suddenly cuts into the current lane.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Highway",
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Dynamic Traffic Participants/Lateral Cut-in Vehicle"
+        ],
+        "path": "/Environment Perception/Highway Left Cut-in",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Highway Left Cut-in/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Left lane vehicle forces lane change",
+                "probability": "E4"
+              },
+              {
+                "name": "Insufficient following distance after cut-in",
+                "probability": "E4"
+              },
+              {
+                "name": "Conflict with overtaking vehicle from behind",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Vehicle Suddenly Emerging at Right Turn Intersection",
+        "description": "A vehicle suddenly emerges from the right front turn intersection.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Intersection",
+          "/Road Structure/Fork",
+          "/Dynamic Traffic Participants/Oncoming Vehicle"
+        ],
+        "path": "/Environmental Perception/Vehicle Suddenly Emerging at Right Turn Intersection",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Vehicle Suddenly Emerging at Right Turn Intersection/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Vehicle Emerging from Blind Spot at Turn Intersection",
+                "probability": "E4"
+              },
+              {
+                "name": "Emerging Vehicle Does Not Slow Down",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian Crossing Simultaneously at Intersection",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Roadside Ghost Probe",
+        "description": "A pedestrian suddenly appears from behind a parked vehicle on the roadside, creating a 'ghost probe' scenario.",
+        "tc_id": "TC-27.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Parked Vehicle",
+          "/Sensor Occlusion Objects/Parked Vehicle",
+          "/Dynamic Traffic Participants/Pedestrian"
+        ],
+        "path": "/Environmental Perception/Roadside Ghost Probe",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Roadside Ghost Probe/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Pedestrian suddenly emerges from the front of the vehicle",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian quickly rushes out from in front of the vehicle",
+                "probability": "E4"
+              },
+              {
+                "name": "Parked vehicle suddenly opens its door",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Pedestrian Crossing During Right Turn",
+        "description": "A pedestrian suddenly crosses the road during a right turn at an intersection.",
+        "tc_id": "TC-30.1",
+        "paths": [
+          "/Road Structure/Intersection",
+          "/Road Structure/Right Turn",
+          "/Dynamic Traffic Participants/Pedestrian"
+        ],
+        "path": "/Environment Perception/Pedestrian Crossing During Right Turn",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Pedestrian Crossing During Right Turn/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Pedestrian enters right turn blind spot",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian looking down at phone",
+                "probability": "E4"
+              },
+              {
+                "name": "Following pedestrian group from behind",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Right-side Red Light Running",
+        "description": "When passing through a cross intersection, a vehicle from the right side runs a red light and approaches the ego vehicle at high speed.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Intersection",
+          "/Traffic Facilities/Traffic Lights",
+          "/Dynamic Traffic Participants/Oncoming Vehicles"
+        ],
+        "path": "/Environmental Perception/Right-side Red Light Running",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Right-side Red Light Running/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Right-side vehicle ignores red light",
+                "probability": "E4"
+              },
+              {
+                "name": "Red light running vehicle passes at high speed",
+                "probability": "E4"
+              },
+              {
+                "name": "Multiple vehicles consecutively run red lights",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Intersection Occlusion Sudden Drive-out",
+        "description": "Due to occlusion by the vehicle ahead on the right, a vehicle suddenly drives out at the intersection.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Intersection",
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Sensor Occlusion Objects/Leading Vehicle Occlusion",
+          "/Dynamic Traffic Participants/Oncoming Vehicle"
+        ],
+        "path": "/Environment Perception/Intersection Occlusion Sudden Drive-out",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Intersection Occlusion Sudden Drive-out/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Vehicle suddenly accelerates after occlusion",
+                "probability": "E4"
+              },
+              {
+                "name": "No yield sign at the intersection",
+                "probability": "E4"
+              },
+              {
+                "name": "Driving-out vehicle does not signal",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "High-speed Cut-in Loss of Control",
+        "description": "Multiple vehicles traveling in the same direction on a highway, with a vehicle from the right front suddenly cutting into the current lane, causing the preceding vehicle to lose control.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Highway",
+          "/Dynamic Traffic Participants/Dense Vehicles",
+          "/Dynamic Traffic Participants/Lateral Cut-in Vehicle",
+          "/Dynamic Traffic Participants/Preceding Vehicle"
+        ],
+        "path": "/Environment Perception/High-speed Cut-in Loss of Control",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/High-speed Cut-in Loss of Control/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Preceding Vehicle Emergency Evasion After Cut-in",
+                "probability": "E4"
+              },
+              {
+                "name": "Preceding Vehicle Skidding and Loss of Control",
+                "probability": "E4"
+              },
+              {
+                "name": "Multi-vehicle Chain Evasion Conflict",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Excavator Crossing",
+        "description": "Construction zone ahead with an excavator crossing the road.",
+        "tc_id": "TC-20.1",
+        "paths": [
+          "/Road Temporary Events/Construction Zone",
+          "/Dynamic Traffic Participants/Heavy Machinery",
+          "/Road Temporary Events/Road Blockage"
+        ],
+        "path": "/Environment Perception/Excavator Crossing",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Excavator Crossing/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Excavator slowly moving sideways",
+                "probability": "E3"
+              },
+              {
+                "name": "Construction zone traffic cones knocked over",
+                "probability": "E3"
+              },
+              {
+                "name": "Unclear instructions from construction workers",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Sudden Vehicle Emergence at Left Turn Intersection",
+        "description": "At a turning section with an intersection, a vehicle suddenly emerges from the left front.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Intersection",
+          "/Road Structure/Left Turn",
+          "/Dynamic Traffic Participants/Oncoming Vehicle"
+        ],
+        "path": "/Environmental Perception/Sudden Vehicle Emergence at Left Turn Intersection",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Sudden Vehicle Emergence at Left Turn Intersection/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Vehicle Appears in Blind Spot at Left Turn Intersection",
+                "probability": "E4"
+              },
+              {
+                "name": "Emerging Vehicle Fails to Yield",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian Crosses Following Vehicle",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Highway U-turn and Wrong-way Driving",
+        "description": "While driving on the highway, a vehicle ahead suddenly makes a U-turn and drives in the wrong direction towards the ego vehicle.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Highway",
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Dynamic Traffic Participants/Wrong-way Vehicle"
+        ],
+        "path": "/Environment Perception/Highway U-turn and Wrong-way Driving",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Highway U-turn and Wrong-way Driving/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Leading vehicle makes a U-turn crossing the solid line",
+                "probability": "E4"
+              },
+              {
+                "name": "Wrong-way vehicle drives straight towards the ego vehicle",
+                "probability": "E4"
+              },
+              {
+                "name": "Rear vehicle cannot yield",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Crossing at Intersection with Red Light Violation",
+        "description": "At a cross intersection, a vehicle from the right front intersection runs a red light and crosses the road.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Intersection",
+          "/Traffic Facilities/Traffic Lights",
+          "/Dynamic Traffic Participants/Oncoming Vehicles"
+        ],
+        "path": "/Environment Perception/Crossing at Intersection with Red Light Violation",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Crossing at Intersection with Red Light Violation/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Right-side vehicle runs red light and goes straight",
+                "probability": "E4"
+              },
+              {
+                "name": "Red-light-running vehicle passes at high speed",
+                "probability": "E4"
+              },
+              {
+                "name": "Consecutive red-light-running vehicles appear",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Right Front U-turn Cut-in",
+        "description": "Two-way lane, a vehicle in the right front suddenly makes a U-turn and cuts into the current lane.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Two-way Lane",
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Dynamic Traffic Participants/U-turn Behavior"
+        ],
+        "path": "/Environment Perception/Right Front U-turn Cut-in",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Right Front U-turn Cut-in/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Right front vehicle makes a U-turn crossing the solid line",
+                "probability": "E4"
+              },
+              {
+                "name": "Vehicle heads straight into the current lane after U-turn",
+                "probability": "E4"
+              },
+              {
+                "name": "Oncoming vehicle misjudges gap and follows",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Nighttime U-turn with Front Vehicle Occlusion",
+        "description": "During nighttime driving, due to occlusion by a front vehicle, a vehicle suddenly makes a U-turn into the current lane, and sensors fail to detect it in time.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Lighting/Nighttime",
+          "/Dynamic Traffic Participants/Front Vehicle",
+          "/Sensor Occlusion Objects/Front Vehicle Occlusion",
+          "/Dynamic Traffic Participants/U-turn Behavior"
+        ],
+        "path": "/Environmental Perception/Nighttime U-turn with Front Vehicle Occlusion",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Nighttime U-turn with Front Vehicle Occlusion/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Vehicle abruptly makes a U-turn after being occluded",
+                "probability": "E4"
+              },
+              {
+                "name": "No turn signal indication at night",
+                "probability": "E4"
+              },
+              {
+                "name": "Blinding lights from the U-turn vehicle",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Sudden Stop Blocking Intersection",
+        "description": "At a cross intersection, a vehicle suddenly emerges from the right side and immediately stops in the middle of the road.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Cross Intersection",
+          "/Road Structure/Fork Intersection",
+          "/Dynamic Traffic Participants/Oncoming Vehicles",
+          "/Dynamic Traffic Participants/Sudden Stop Behavior",
+          "/Road Temporary Events/Road Blockage"
+        ],
+        "path": "/Environmental Perception/Sudden Stop Blocking Intersection",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Sudden Stop Blocking Intersection/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Right-side vehicle forces its way in and stops suddenly",
+                "probability": "E4"
+              },
+              {
+                "name": "Stops at intersection center forming an obstacle",
+                "probability": "E4"
+              },
+              {
+                "name": "Continuous insertion of rear vehicles",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Right Aggressive Cut-in",
+        "description": "A vehicle from the right front suddenly changes lanes and aggressively cuts into the current lane.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Dynamic Traffic Participants/Lateral Cut-in Vehicle"
+        ],
+        "path": "/Environment Perception/Right Aggressive Cut-in",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Right Aggressive Cut-in/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Right lane vehicle forces lane change",
+                "probability": "E4"
+              },
+              {
+                "name": "Extremely close cut-in distance",
+                "probability": "E4"
+              },
+              {
+                "name": "Sudden deceleration after cut-in",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Vehicle Cutting In from Ahead Intersection",
+        "description": "At an intersection ahead, a vehicle suddenly enters the current lane.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Intersection",
+          "/Dynamic Traffic Participants/Oncoming Vehicle"
+        ],
+        "path": "/Environmental Perception/Vehicle Cutting In from Ahead Intersection",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Vehicle Cutting In from Ahead Intersection/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Vehicle emerging from blind spot at intersection",
+                "probability": "E4"
+              },
+              {
+                "name": "Vehicle fails to decelerate after entering",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian crossing simultaneously at intersection",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Roadside Start and Cut-in",
+        "description": "A vehicle parked ahead on the roadside suddenly starts and enters the current lane.",
+        "tc_id": "TC-27.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Parked Vehicles",
+          "/Dynamic Traffic Participants/Sudden Start"
+        ],
+        "path": "/Environment Perception/Roadside Start and Cut-in",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Roadside Start and Cut-in/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Parked vehicle starts without lights",
+                "probability": "E4"
+              },
+              {
+                "name": "Direct cut-in to main lane",
+                "probability": "E4"
+              },
+              {
+                "name": "Vehicle door not fully closed",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Nighttime Intersection Crossing",
+        "description": "Driving at night, a vehicle suddenly crosses the intersection ahead.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Lighting/Nighttime",
+          "/Road Structure/Intersection",
+          "/Dynamic Traffic Participants/Oncoming Vehicle"
+        ],
+        "path": "/Environment Perception/Nighttime Intersection Crossing",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Nighttime Intersection Crossing/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Crossing vehicle passes without lights",
+                "probability": "E4"
+              },
+              {
+                "name": "Extremely low visibility at night",
+                "probability": "E4"
+              },
+              {
+                "name": "Multiple vehicles crossing consecutively",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Nighttime Right Aggressive Cut-in",
+        "description": "Driving at night, a vehicle from the right front aggressively cuts into the current lane.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Lighting/Nighttime",
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Dynamic Traffic Participants/Lateral Cut-in Vehicle"
+        ],
+        "path": "/Environment Perception/Nighttime Right Aggressive Cut-in",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Nighttime Right Aggressive Cut-in/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Right lane vehicle forces lane change",
+                "probability": "E4"
+              },
+              {
+                "name": "Nighttime cut-in without turn signal",
+                "probability": "E4"
+              },
+              {
+                "name": "Sudden acceleration after cut-in",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Sudden Stop from Right Insertion",
+        "description": "At a cross intersection, a vehicle suddenly enters from the right side and brakes to an emergency stop in the middle of the road.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Cross Intersection",
+          "/Road Structure/Fork Intersection",
+          "/Dynamic Traffic Participants/Oncoming Vehicle",
+          "/Dynamic Traffic Participants/Emergency Stop Behavior",
+          "/Road Temporary Events/Road Blockage"
+        ],
+        "path": "/Environment Perception/Sudden Stop from Right Insertion",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Sudden Stop from Right Insertion/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Right-side vehicle forces insertion",
+                "probability": "E4"
+              },
+              {
+                "name": "Immediate emergency stop after insertion",
+                "probability": "E4"
+              },
+              {
+                "name": "Obstacle formed at intersection center",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "U-turn on Curved Road",
+        "description": "On a curved road, a vehicle suddenly makes a U-turn from the right front.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Curve",
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Dynamic Traffic Participants/U-turn Behavior"
+        ],
+        "path": "/Environment Perception/U-turn on Curved Road",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/U-turn on Curved Road/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Vehicle crossing lane line for U-turn within curve",
+                "probability": "E4"
+              },
+              {
+                "name": "Driving in opposite direction after U-turn",
+                "probability": "E4"
+              },
+              {
+                "name": "Increased visibility limitation in curve",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Nighttime Highway Overtaking Cut-in",
+        "description": "Multiple vehicles traveling in the same direction on a highway at night, with a vehicle from the right rear overtaking, accelerating past, and cutting into the current lane.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Lighting/Nighttime",
+          "/Road Structure/Highway",
+          "/Dynamic Traffic Participants/Dense Vehicles",
+          "/Dynamic Traffic Participants/Rear Vehicle",
+          "/Dynamic Traffic Participants/Overtaking Behavior",
+          "/Dynamic Traffic Participants/Lateral Cut-in Vehicle"
+        ],
+        "path": "/Environmental Perception/Nighttime Highway Overtaking Cut-in",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Nighttime Highway Overtaking Cut-in/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Rear vehicle high-speed overtaking and lane change",
+                "probability": "E4"
+              },
+              {
+                "name": "Insufficient distance after cut-in",
+                "probability": "E4"
+              },
+              {
+                "name": "No turn signal indication at night",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Right Cut-in During Heavy Rain",
+        "description": "During heavy rain, sensor detection quality degrades, and a vehicle from the right front cuts into the current lane.",
+        "tc_id": "TC-8.1",
+        "paths": [
+          "/Complex Weather/Heavy Rain",
+          "/Sensor Occlusion/Rain Coverage",
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Dynamic Traffic Participants/Lateral Cut-in Vehicle"
+        ],
+        "path": "/Environmental Perception/Right Cut-in During Heavy Rain",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Right Cut-in During Heavy Rain/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Lane change due to hydroplaning on wet road surface",
+                "probability": "E4"
+              },
+              {
+                "name": "Turn signal obscured by rain curtain",
+                "probability": "E4"
+              },
+              {
+                "name": "Sudden deceleration after cut-in",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Vehicle Suddenly Braking at Intersection",
+        "description": "While driving, a vehicle ahead suddenly brakes hard and stops in the middle of the road at an intersection.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Intersection",
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Dynamic Traffic Participants/Sudden Braking Behavior",
+          "/Road Temporary Events/Road Blockage"
+        ],
+        "path": "/Environmental Perception/Vehicle Suddenly Braking at Intersection",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Vehicle Suddenly Braking at Intersection/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Leading vehicle brakes suddenly to avoid pedestrians",
+                "probability": "E4"
+              },
+              {
+                "name": "Stops in the center of the intersection causing blockage",
+                "probability": "E4"
+              },
+              {
+                "name": "Risk of rear-end collision from following vehicles",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Sudden Cut-in Before Right Turn",
+        "description": "A vehicle suddenly cuts in front of the ego vehicle at a right-turn intersection.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Right Turn",
+          "/Road Structure/Intersection",
+          "/Dynamic Traffic Participants/Oncoming Vehicles",
+          "/Dynamic Traffic Participants/Lateral Cut-in Vehicles"
+        ],
+        "path": "/Environment Perception/Sudden Cut-in Before Right Turn",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Sudden Cut-in Before Right Turn/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Lateral vehicle aggressively cuts in",
+                "probability": "E4"
+              },
+              {
+                "name": "Vehicle does not slow down after cutting in to make the turn",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian simultaneously crosses in blind spot",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Sudden Rush at Snowy Intersection",
+        "description": "Heavy snow day with thick snow accumulation on the road. A vehicle suddenly emerges from a right-front intersection without slowing down.",
+        "tc_id": "TC-8.1",
+        "paths": [
+          "/Complex Weather/Heavy Snow",
+          "/Sensor Occlusion Surface/Snow Cover",
+          "/Road Structure/Intersection",
+          "/Dynamic Traffic Participants/Oncoming Vehicle"
+        ],
+        "path": "/Environment Perception/Sudden Rush at Snowy Intersection",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Sudden Rush at Snowy Intersection/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Vehicle skids and rushes out due to snow at intersection",
+                "probability": "E4"
+              },
+              {
+                "name": "Emerging vehicle cannot brake to stop",
+                "probability": "E4"
+              },
+              {
+                "name": "Snow obscures intersection signs",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Snowy Day Occlusion at Fork Road Rush",
+        "description": "Due to occlusion by the vehicle ahead on the right, the vehicle emerging from the right fork road without deceleration was not detected in time.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Preceding Vehicle",
+          "/Sensor Occlusion Objects/Preceding Vehicle Occlusion",
+          "/Road Structure/Fork Road",
+          "/Dynamic Traffic Participants/Oncoming Vehicle"
+        ],
+        "path": "/Environmental Perception/Snowy Day Occlusion at Fork Road Rush",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Snowy Day Occlusion at Fork Road Rush/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Vehicle Rushing Out from Fork Road After Occlusion",
+                "probability": "E4"
+              },
+              {
+                "name": "No Yielding Awareness at Fork Road",
+                "probability": "E4"
+              },
+              {
+                "name": "Stop Line Covered by Snow",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Large Bus Emerging from Intersection in Rain",
+        "description": "A large bus suddenly emerges from an intersection on the left front during rainy weather.",
+        "tc_id": "TC-8.1",
+        "paths": [
+          "/Complex Weather/Rainfall",
+          "/Road Structure/Intersection",
+          "/Dynamic Traffic Participants/Large Bus",
+          "/Dynamic Traffic Participants/Oncoming Vehicles"
+        ],
+        "path": "/Environmental Perception/Large Bus Emerging from Intersection in Rain",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Large Bus Emerging from Intersection in Rain/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Large Bus Emerging from Blind Spot",
+                "probability": "E4"
+              },
+              {
+                "name": "Difficulty Stopping on Wet Road Surface in Rain",
+                "probability": "E4"
+              },
+              {
+                "name": "Passengers Standing Behind the Bus",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Highway Front Vehicle Swerving",
+        "description": "On a highway with multiple vehicles traveling in the same direction, the vehicle ahead suddenly loses control and sways significantly from side to side.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Highway",
+          "/Dynamic Traffic Participants/Dense Vehicles",
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Dynamic Traffic Participants/Out-of-Control Behavior"
+        ],
+        "path": "/Environmental Perception/Highway Front Vehicle Swerving",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Highway Front Vehicle Swerving/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Front vehicle tire blowout causing side-to-side sway",
+                "probability": "E4"
+              },
+              {
+                "name": "Swerving intruding into adjacent lane",
+                "probability": "E4"
+              },
+              {
+                "name": "Multiple rear vehicles avoiding conflict",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Oncoming Vehicle Driving in Wrong Direction",
+        "description": "There is a vehicle driving in the wrong direction ahead, moving towards the ego vehicle.",
+        "tc_id": "TC-20.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Vehicle Driving in Wrong Direction",
+          "/Dynamic Traffic Participants/Oncoming Vehicle"
+        ],
+        "path": "/Environment Perception/Oncoming Vehicle Driving in Wrong Direction",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Oncoming Vehicle Driving in Wrong Direction/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Vehicle driving in wrong direction directly approaching",
+                "probability": "E4"
+              },
+              {
+                "name": "Glare interference from headlights of vehicle driving in wrong direction",
+                "probability": "E4"
+              },
+              {
+                "name": "Multiple vehicles driving in wrong direction appearing consecutively",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Nighttime Front Vehicle Swerving",
+        "description": "Driving at night, the vehicle ahead suddenly loses control and swerves significantly left and right.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Lighting/Nighttime",
+          "/Dynamic Traffic Participants/Front Vehicle",
+          "/Dynamic Traffic Participants/Loss of Control Behavior"
+        ],
+        "path": "/Environment Perception/Nighttime Front Vehicle Swerving",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Nighttime Front Vehicle Swerving/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Front vehicle tire blowout and swerving at night",
+                "probability": "E4"
+              },
+              {
+                "name": "Taillight flashing misleading judgment",
+                "probability": "E4"
+              },
+              {
+                "name": "Sudden braking after swerving",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Obstructed Vehicle Revealed by Preceding Vehicle Lane Change",
+        "description": "A preceding vehicle suddenly changes lanes, revealing a vehicle stopped in the middle of the road that the sensors failed to detect in time.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Preceding Vehicle",
+          "/Dynamic Traffic Participants/Sudden Lane Change",
+          "/Road Temporary Events/Road Obstruction",
+          "/Sensor Occlusion Objects/Preceding Vehicle Occlusion"
+        ],
+        "path": "/Environmental Perception/Obstructed Vehicle Revealed by Preceding Vehicle Lane Change",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Obstructed Vehicle Revealed by Preceding Vehicle Lane Change/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Preceding vehicle suddenly avoids a stationary obstacle",
+                "probability": "E4"
+              },
+              {
+                "name": "Vehicle in road stopped without warning lights",
+                "probability": "E4"
+              },
+              {
+                "name": "Rear vehicles continuously avoid conflict",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Roadside Reversing Intrusion",
+        "description": "While driving, a parked vehicle on the right front suddenly starts reversing into the middle of the road.",
+        "tc_id": "TC-27.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Parked Vehicles",
+          "/Dynamic Traffic Participants/Reversing Behavior",
+          "/Dynamic Traffic Participants/Sudden Start"
+        ],
+        "path": "/Environment Perception/Roadside Reversing Intrusion",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Roadside Reversing Intrusion/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Parked vehicle reversing without lights",
+                "probability": "E4"
+              },
+              {
+                "name": "Reversing directly into main lane",
+                "probability": "E4"
+              },
+              {
+                "name": "Door opening increases width",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Oncoming Vehicle Swerving Out of Control",
+        "description": "On a two-lane road with oncoming traffic, a vehicle ahead suddenly loses control and swerves significantly from side to side, heading towards the ego vehicle.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Oncoming Vehicles",
+          "/Dynamic Traffic Participants/Out-of-Control Behavior"
+        ],
+        "path": "/Environmental Perception/Oncoming Vehicle Swerving Out of Control",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Oncoming Vehicle Swerving Out of Control/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Oncoming vehicle tire blowout causing loss of control",
+                "probability": "E4"
+              },
+              {
+                "name": "Swerving into the ego vehicle's lane",
+                "probability": "E4"
+              },
+              {
+                "name": "Oncoming vehicle lights shaking violently",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Tanker Truck Emergency Stop",
+        "description": "A large tanker truck suddenly stops in the middle of the road ahead.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Dynamic Traffic Participants/Large Tanker Truck",
+          "/Dynamic Traffic Participants/Emergency Stop Behavior",
+          "/Road Temporary Events/Road Blockage"
+        ],
+        "path": "/Environment Perception/Tanker Truck Emergency Stop",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Tanker Truck Emergency Stop/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Tanker truck stops to avoid collision",
+                "probability": "E4"
+              },
+              {
+                "name": "Extra-long vehicle body completely blocks the road",
+                "probability": "E4"
+              },
+              {
+                "name": "Liquid sloshing increases instability",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Sudden Stop After Insertion at Fork",
+        "description": "A vehicle emerges from a fork on the right front and suddenly stops in the middle of the road, blocking the way.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Fork",
+          "/Dynamic Traffic Participants/Oncoming Vehicle",
+          "/Dynamic Traffic Participants/Sudden Stop Behavior",
+          "/Road Temporary Events/Road Blockage"
+        ],
+        "path": "/Environment Perception/Sudden Stop After Insertion at Fork",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Sudden Stop After Insertion at Fork/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Vehicle forcibly inserts at fork",
+                "probability": "E4"
+              },
+              {
+                "name": "Immediate braking after insertion",
+                "probability": "E4"
+              },
+              {
+                "name": "Continuous following vehicles behind",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Simple Cut-in by Preceding Vehicle",
+        "description": "The vehicle ahead suddenly changes lanes and cuts into the current lane.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Preceding Vehicle",
+          "/Dynamic Traffic Participants/Sudden Lane Change"
+        ],
+        "path": "/Environmental Perception/Simple Cut-in by Preceding Vehicle",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Simple Cut-in by Preceding Vehicle/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Preceding vehicle changes lanes suddenly without signaling",
+                "probability": "E4"
+              },
+              {
+                "name": "Sudden deceleration after cutting in",
+                "probability": "E4"
+              },
+              {
+                "name": "Rear vehicle fails to react in time",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Left Fork Road Without Deceleration",
+        "description": "A vehicle emerges from the left front fork road without decelerating.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Fork Road",
+          "/Dynamic Traffic Participants/Oncoming Vehicle"
+        ],
+        "path": "/Environmental Perception/Left Fork Road Without Deceleration",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Left Fork Road Without Deceleration/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Fork road vehicle rushes out",
+                "probability": "E4"
+              },
+              {
+                "name": "Proceeds straight without yielding awareness",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian appears simultaneously at fork road",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Nighttime Left Occlusion Sudden Intrusion",
+        "description": "At night, the vehicle on the left front is occluded, failing to detect the vehicle ahead intruding in time.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Lighting/Nighttime",
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Sensor Occlusion Objects/Leading Vehicle Occlusion"
+        ],
+        "path": "/Environmental Perception/Nighttime Left Occlusion Sudden Intrusion",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Nighttime Left Occlusion Sudden Intrusion/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Vehicle suddenly accelerates after occlusion",
+                "probability": "E4"
+              },
+              {
+                "name": "Vehicle quickly intrudes without lights at night",
+                "probability": "E4"
+              },
+              {
+                "name": "Unpredictable path deviation",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Sudden Stop During Turn",
+        "description": "A vehicle ahead suddenly stops in the middle of the road while turning at an intersection.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Curve",
+          "/Road Structure/Intersection",
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Dynamic Traffic Participants/Sudden Stop Behavior",
+          "/Road Temporary Events/Road Blockage"
+        ],
+        "path": "/Environmental Perception/Sudden Stop During Turn",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Sudden Stop During Turn/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Encountering Pedestrian Sudden Stop During Turn",
+                "probability": "E4"
+              },
+              {
+                "name": "Stopping at Curve Center Causing Blockage",
+                "probability": "E4"
+              },
+              {
+                "name": "Limited Visibility in Curve Worsened",
+                "probability": "E4"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Nighttime Overtaking After a Curve",
+        "description": "During nighttime driving, a vehicle suddenly accelerates and overtakes from the right rear at a turning intersection, cutting into the current lane.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Lighting/Nighttime",
+          "/Road Structure/Curve",
+          "/Dynamic Traffic Participants/Rear Vehicle",
+          "/Dynamic Traffic Participants/Overtaking Behavior",
+          "/Dynamic Traffic Participants/Lateral Cutting-in Vehicle"
+        ],
+        "path": "/Environmental Perception/Nighttime Overtaking After a Curve",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Nighttime Overtaking After a Curve/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Overtaking from the blind spot behind a curve",
+                "probability": "E4"
+              },
+              {
+                "name": "Forced lane change after overtaking",
+                "probability": "E3"
+              },
+              {
+                "name": "Temporary disappearance of nighttime lights",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Right Rear Overtaking and U-turn",
+        "description": "A vehicle from the right rear accelerates and overtakes the ego vehicle.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Rear Vehicle",
+          "/Dynamic Traffic Participants/Overtaking Behavior",
+          "/Dynamic Traffic Participants/U-turn Behavior"
+        ],
+        "path": "/Environment Perception/Right Rear Overtaking and U-turn",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Right Rear Overtaking and U-turn/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Sudden left turn and U-turn after overtaking",
+                "probability": "E4"
+              },
+              {
+                "name": "Cutting into the current lane",
+                "probability": "E4"
+              },
+              {
+                "name": "Other fast-moving motor vehicles",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Vehicle Emerging from Intersection at Night",
+        "description": "Driving at night, a vehicle accelerates out from an intersection on the right front.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Illumination/Night",
+          "/Road Structure/Intersection",
+          "/Dynamic Traffic Participants/Oncoming Vehicle"
+        ],
+        "path": "/Environmental Perception/Vehicle Emerging from Intersection at Night",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Vehicle Emerging from Intersection at Night/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Intersection vehicle accelerates out without lights",
+                "probability": "E3"
+              },
+              {
+                "name": "Sensor perception limited by night visibility",
+                "probability": "E3"
+              },
+              {
+                "name": "Multiple vehicles consecutively follow from intersection",
+                "probability": "E2"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Left Occlusion at Fork Exit",
+        "description": "Vehicle on the left front is occluded, failing to timely detect a vehicle emerging from the left front fork.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Leading Vehicle",
+          "/Sensor Occlusion Objects/Leading Vehicle Occlusion",
+          "/Road Structure/Fork",
+          "/Dynamic Traffic Participants/Oncoming Vehicle"
+        ],
+        "path": "/Environment Perception/Left Occlusion at Fork Exit",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Left Occlusion at Fork Exit/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Vehicle suddenly emerges after occlusion",
+                "probability": "E4"
+              },
+              {
+                "name": "No yield sign at the fork",
+                "probability": "E4"
+              },
+              {
+                "name": "Emerging vehicle does not signal",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Opposite Direction Red Light Running",
+        "description": "At a cross intersection, a vehicle traveling in the opposite direction runs a red light and moves toward the ego vehicle.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Cross Intersection",
+          "/Traffic Facilities/Traffic Signal",
+          "/Dynamic Traffic Participants/Oncoming Vehicle"
+        ],
+        "path": "/Environmental Perception/Opposite Direction Red Light Running",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Opposite Direction Red Light Running/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Oncoming vehicle runs red light and proceeds straight",
+                "probability": "E4"
+              },
+              {
+                "name": "High-speed approach toward ego vehicle's path",
+                "probability": "E4"
+              },
+              {
+                "name": "Consecutive red-light running vehicles appear",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Opposite Lane Change Cut-in",
+        "description": "A vehicle traveling in the opposite direction in the left front suddenly changes lanes and cuts into the current lane.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Opposite Vehicle",
+          "/Dynamic Traffic Participants/Sudden Lane Change",
+          "/Dynamic Traffic Participants/Lateral Cut-in Vehicle"
+        ],
+        "path": "/Environment Perception/Opposite Lane Change Cut-in",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Opposite Lane Change Cut-in/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Opposite vehicle crosses the line and cuts in",
+                "probability": "E4"
+              },
+              {
+                "name": "Vehicle cuts in and heads straight toward ego vehicle",
+                "probability": "E4"
+              },
+              {
+                "name": "Following opposite vehicle behind",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Truck Forcibly Cutting In",
+        "description": "While driving parallel to a large truck in the same direction, it suddenly accelerates and attempts to cut into the current lane.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Large Trucks",
+          "/Dynamic Traffic Participants/Lateral Cutting-in Vehicles"
+        ],
+        "path": "/Environment Perception/Truck Forcibly Cutting In",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Truck Forcibly Cutting In/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Truck Forcibly Changing Lanes and Occupying Space",
+                "probability": "E4"
+              },
+              {
+                "name": "Oversized Vehicle Body Obstructing Rear View",
+                "probability": "E3"
+              },
+              {
+                "name": "Sudden Deceleration After Cutting In",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Sudden Cut-in After Overtaking on Ramp",
+        "description": "At the highway entrance ramp ahead, a vehicle from the left rear suddenly accelerates to overtake the ego vehicle and cuts into the current lane without decelerating.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Highway Ramp",
+          "/Dynamic Traffic Participants/Rear Vehicle",
+          "/Dynamic Traffic Participants/Overtaking Behavior",
+          "/Dynamic Traffic Participants/Lateral Cut-in Vehicle"
+        ],
+        "path": "/Environmental Perception/Sudden Cut-in After Overtaking on Ramp",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Sudden Cut-in After Overtaking on Ramp/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Ramp merging vehicle forcibly overtaking",
+                "probability": "E4"
+              },
+              {
+                "name": "Extremely close distance after cut-in",
+                "probability": "E4"
+              },
+              {
+                "name": "Continuous merging conflicts from behind",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Vehicle Emerging from Intersection in Night Rain",
+        "description": "During heavy rain at night, a vehicle suddenly emerges from an intersection on the right front.",
+        "tc_id": "TC-8.1",
+        "paths": [
+          "/Lighting/Night",
+          "/Complex Weather/Heavy Rain",
+          "/Sensor Occlusion Surface/Rain Coverage",
+          "/Road Structure/Intersection",
+          "/Dynamic Traffic Participants/Oncoming Vehicle"
+        ],
+        "path": "/Environmental Perception/Vehicle Emerging from Intersection in Night Rain",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Vehicle Emerging from Intersection in Night Rain/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Vehicle suddenly appears in rain curtain",
+                "probability": "E4"
+              },
+              {
+                "name": "Unable to brake due to hydroplaning",
+                "probability": "E3"
+              },
+              {
+                "name": "Lights obscured by rain and fog",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Vehicle suddenly emerging from a rural intersection",
+        "description": "A vehicle suddenly emerges from the right front on a rural road without slowing down.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Road Structure/Rural Road",
+          "/Road Structure/Intersection",
+          "/Dynamic Traffic Participants/Oncoming Vehicle"
+        ],
+        "path": "/Environmental Perception/Vehicle suddenly emerging from a rural intersection",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Vehicle suddenly emerging from a rural intersection/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Meeting at an intersection",
+                "probability": "E3"
+              },
+              {
+                "name": "Dust flying obstructing the line of sight",
+                "probability": "E3"
+              },
+              {
+                "name": "Agricultural vehicle carrying oversized loads causing sensor blind spots",
+                "probability": "E2"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Stationary Vehicle in Curve Blind Spot",
+        "description": "A vehicle is parked at the turning point of a curve intersection.",
+        "tc_id": "TC-27.1",
+        "paths": [
+          "/Road Structure/Curve",
+          "/Dynamic Traffic Participants/Parked Vehicle",
+          "/Road Temporary Events/Road Blockage"
+        ],
+        "path": "/Environment Perception/Stationary Vehicle in Curve Blind Spot",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Stationary Vehicle in Curve Blind Spot/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Sensor Blind Spot",
+                "probability": "E3"
+              },
+              {
+                "name": "Obstacle from Front Vehicle",
+                "probability": "E3"
+              },
+              {
+                "name": "Vehicle Suddenly Starts and Cuts In",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Pedestrian Causing Front Vehicle Emergency Stop",
+        "description": "A pedestrian crosses the road ahead, with a vehicle traveling in front.",
+        "tc_id": "TC-25.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Pedestrian",
+          "/Dynamic Traffic Participants/Front Vehicle",
+          "/Dynamic Traffic Participants/Emergency Stop Behavior"
+        ],
+        "path": "/Environment Perception/Pedestrian Causing Front Vehicle Emergency Stop",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Pedestrian Causing Front Vehicle Emergency Stop/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Front Vehicle Emergency Stop",
+                "probability": "E4"
+              },
+              {
+                "name": "Rear Vehicle Rear-end Collision Risk",
+                "probability": "E4"
+              },
+              {
+                "name": "Sensor Occlusion Blind Spot",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Sudden Cyclist Intrusion at Intersection",
+        "description": "At an upcoming cross intersection, a cyclist suddenly emerges from the right front intersection.",
+        "tc_id": "TC-30.1",
+        "paths": [
+          "/Road Structure/Cross Intersection",
+          "/Dynamic Traffic Participants/Non-Motorized Vehicles",
+          "/Road Structure/Fork Intersection"
+        ],
+        "path": "/Environment Perception/Sudden Cyclist Intrusion at Intersection",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Sudden Cyclist Intrusion at Intersection/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Cyclist rushes out without decelerating",
+                "probability": "E4"
+              },
+              {
+                "name": "Sensor occlusion blind spot",
+                "probability": "E4"
+              },
+              {
+                "name": "Meeting at fork intersection",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environment Perception",
+    "path": "/Environment Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Child darting out from behind occlusion",
+        "description": "Multiple vehicles parked on the roadside ahead",
+        "tc_id": "TC-27.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Lead Vehicle",
+          "/Sensor Occlusion Objects/Lead Vehicle Occlusion",
+          "/Dynamic Traffic Participants/Pedestrian"
+        ],
+        "path": "/Environment Perception/Child darting out from behind occlusion",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environment Perception/Child darting out from behind occlusion/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Child suddenly emerges from vehicle front",
+                "probability": "E4"
+              },
+              {
+                "name": "Pedestrian crossing the road",
+                "probability": "E3"
+              },
+              {
+                "name": "Parked vehicle suddenly starts and cuts in",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Environmental Perception",
+    "path": "/Environmental Perception",
+    "level": 1,
+    "children": [
+      {
+        "scene_name": "Pedestrian Suddenly Crossing",
+        "description": "A pedestrian suddenly crosses the road ahead while driving.",
+        "tc_id": "TC-21.1",
+        "paths": [
+          "/Dynamic Traffic Participants/Pedestrian"
+        ],
+        "path": "/Environmental Perception/Pedestrian Suddenly Crossing",
+        "level": 2,
+        "children": [
+          {
+            "name": "Potential Trigger Conditions",
+            "path": "/Environmental Perception/Pedestrian Suddenly Crossing/Potential Trigger Conditions",
+            "level": 3,
+            "leaf_items": [
+              {
+                "name": "Ego vehicle emergency stop, rear vehicle emergency avoidance",
+                "probability": "E4"
+              },
+              {
+                "name": "Other fast motor vehicles",
+                "probability": "E3"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

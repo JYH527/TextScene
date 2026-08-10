@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-02T13:00:00" description="Cut-Out Hazard: Inner vehicle cuts to outer lane to exit" author="ESMINI_Expert"/>
+
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="two-way-four-lane-roundout-two.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <ScenarioObject name="Adversary">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="NightRainEnvironment">
+                            <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+                            <Weather cloudState="overcast">
+                                <Sun intensity="0.0" azimuth="0.0" elevation="0.0"/>
+                                <Fog visualRange="10000.0"/>
+                                <Precipitation precipitationType="rain" intensity="1.0"/>
+                            </Weather>
+                            <RoadCondition frictionScaleFactor="0.8"/>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+                <!-- ================== 自车 (外道) ================== -->
+                <!-- 放在 Road_52 (22m长) 的中间位置，外侧车道 (-4) -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="52" laneId="-4" offset="0.0" s="10.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="8.0"/> <!-- 约 30 km/h 稳健驾驶 -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="EgoRoute" closed="false">
+                                    <!-- Ego 打算继续绕环岛走: Road_52 -> Road_2 -> Road_11 -->
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="52" laneId="-4" s="10.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="2" laneId="-4" s="5.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="11" laneId="-4" s="5.0" offset="0.0"/></Position></Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- ================== 对手车 (内道) ================== -->
+                <!-- 放在 Ego 的左后方，准备加速超车变道 -->
+                <!-- Road_52, 内侧车道 (-3), s=0.0 (在 Ego 后面 10m) -->
+                <Private entityRef="Adversary">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="52" laneId="-3" offset="0.0" s="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="12.0"/> <!-- 必须比 Ego 快，才能追上去切入 -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <!-- 对手车的目标是出环岛: Road_52 -> Road_2 -> Road_8 (出口) -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="AdversaryExitRoute" closed="false">
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="52" laneId="-3" s="0.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="2" laneId="-4" s="5.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="8" laneId="-1" s="5.0" offset="0.0"/></Position></Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="CutOutStory">
+            <Act name="LaneChangeAct">
+                
+                <!-- 
+                   剧情设计:
+                   1. T=0s: Adversary 在内道加速追赶 Ego。
+                   2. T=1.5s (预估): Adversary 追到 Ego 平行或略微靠前的位置。
+                   3. T=1.5s: Adversary 发起向右变道 (Lane -3 -> -4)。
+                   4. T=3.5s: 变道完成，此时处于 Road_2 末端，Adversary 可能会减速转弯。
+                -->
+
+                <ManeuverGroup maximumExecutionCount="1" name="AdversaryCutInManeuver">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Adversary"/>
+                    </Actors>
+                    
+                    <!-- 事件1: 强制向右变道 -->
+                    <Maneuver name="AggressiveLaneChange">
+                        <Event name="CutInEvent" priority="overwrite">
+                            <Action name="ChangeToOuterLane">
+                                <PrivateAction>
+                                    <LateralAction>
+                                        <LaneChangeAction>
+                                            <LaneChangeActionDynamics dynamicsShape="sinusoidal" value="2.0" dynamicsDimension="time"/>
+                                            <LaneChangeTarget>
+                                                <AbsoluteTargetLane value="-4"/> <!-- 目标是 Ego 所在的车道 -->
+                                            </LaneChangeTarget>
+                                        </LaneChangeAction>
+                                    </LateralAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 触发时机: 稍微延迟一下，等它速度起来并接近路口 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="TimeTrigger" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="1.5" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+
+                    <!-- 事件2: 变道后减速 (模拟出匝道前的减速) -->
+                    <!-- 这会让危险程度加倍: 先切进来，然后突然刹车 -->
+                    <Maneuver name="BrakeForExit">
+                        <Event name="BrakeEvent" priority="overwrite">
+                            <Action name="SlowDown">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="-4.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="5.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 触发时机: 变道动作快结束时 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="TimeTrigger2" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="3.5" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <!-- 自车保持傻瓜式直行，测试感知和规控 -->
+                <ManeuverGroup maximumExecutionCount="1" name="EgoKeepGoing">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                    </Actors>
+                    <Maneuver name="DriveStraight">
+                        <Event name="KeepSpeed" priority="overwrite">
+                            <Action name="Maintain">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="0.0" dynamicsDimension="time"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="8.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Start" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="0.0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="EndSimulation" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="10.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

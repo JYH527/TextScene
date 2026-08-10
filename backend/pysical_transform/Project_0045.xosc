@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-01T14:10:00" description="Variation 1: Right Lane Blocked by NPC" author="Esmini-Expert"/>
+
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="two-way-four-lane-crossroad.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red">
+        </ScenarioObject>
+        <ScenarioObject name="OcclusionTruck">
+            <CatalogReference catalogName="VehicleCatalog" entryName="semi_truck"/>
+        </ScenarioObject>
+        <ScenarioObject name="GhostBicyclist">
+            <CatalogReference catalogName="VehicleCatalog" entryName="bicycle"/>
+        </ScenarioObject>
+        <!-- 新增: 封锁右侧的干扰车 -->
+        <ScenarioObject name="BlockingCar">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue">
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- 1. 自车 (Road 1, Lane 1) -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="1" laneId="1" offset="0.0" s="50.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="16.11"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Ego_Straight" closed="false">
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="1" laneId="1" offset="0.0" s="50.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="0" laneId="1" offset="0.0" s="20.0"/></Position></Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- 2. 干扰车 (Road 1, Lane 2 - 右侧) -->
+                <Private entityRef="BlockingCar">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- s=50 与自车并排，Lane 2 封锁右侧 -->
+                                <LanePosition roadId="1" laneId="2" offset="0.0" s="50.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <!-- 速度一致，保持并行 -->
+                                    <AbsoluteTargetSpeed value="16.11"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Blocking_Straight" closed="false">
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="1" laneId="2" offset="0.0" s="50.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="0" laneId="2" offset="0.0" s="20.0"/></Position></Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- 3. 对向货车 (保持不变) -->
+                <Private entityRef="OcclusionTruck">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-1" offset="0.0" s="40.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="15.88"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Truck_Straight" closed="false">
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="0" laneId="-1" offset="0.0" s="40.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="1" laneId="-1" offset="0.0" s="60.0"/></Position></Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- 4. 自行车 (保持不变) -->
+                <Private entityRef="GhostBicyclist">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="7" laneId="-1" offset="10.0" s="16.39"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="BlindSpotCrossingStory">
+            <Act name="CrossingAct">
+                <ManeuverGroup maximumExecutionCount="1" name="CrossingGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="GhostBicyclist"/>
+                    </Actors>
+                    <Maneuver name="BicycleCrossingManeuver">
+                        <Event name="StartCrossingEvent" priority="overwrite">
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="TruckBlocksView" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="OcclusionTruck"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <ReachPositionCondition tolerance="2.0">
+                                                    <Position><LanePosition roadId="0" laneId="-1" s="75.0"/></Position>
+                                                </ReachPositionCondition>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                            <Action name="SetCycleSpeed">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="5.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="4.5"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <Action name="CycleFollowPath">
+                                <PrivateAction>
+                                    <RoutingAction>
+                                        <FollowTrajectoryAction>
+                                            <Trajectory name="CrosswalkPath" closed="false">
+                                                <Shape>
+                                                    <Polyline>
+                                                        <Vertex><Position><LanePosition roadId="7" laneId="-1" offset="10.0" s="16.39"/></Position></Vertex>
+                                                        <Vertex><Position><LanePosition roadId="7" laneId="-1" offset="0.0" s="16.39"/></Position></Vertex>
+                                                        <Vertex><Position><LanePosition roadId="7" laneId="-1" offset="-10.0" s="16.39"/></Position></Vertex>
+                                                    </Polyline>
+                                                </Shape>
+                                                <TimeReference><None/></TimeReference>
+                                                <TrajectoryFollowingMode followingMode="position"/>
+                                            </Trajectory>
+                                        </FollowTrajectoryAction>
+                                    </RoutingAction>
+                                </PrivateAction>
+                            </Action>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+            </Act>
+        </Story>
+    </Storyboard>
+</OpenSCENARIO>

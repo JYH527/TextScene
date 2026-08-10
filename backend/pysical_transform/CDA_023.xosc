@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-03T13:45:00" description="Ego runs the intersection and crashes with Target from left transverse road" author="Esmini-Generator"/>
+
+    <ParameterDeclarations/>
+
+    <!-- 1. 资源库配置 -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="two-way-four-lane-crossroad.xodr"/>
+    </RoadNetwork>
+
+    <!-- 2. 实体定义 -->
+    <Entities>
+        <!-- Ego: 红色轿车 -->
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+
+        <!-- Target: 蓝色轿车 (来车) -->
+        <ScenarioObject name="Target">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- Init Ego: Road 2 (West), 距离路口约 30米 (Total 89.9m, Start at 60m) -->
+                <!-- 速度设为 12m/s，不减速 -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="2" laneId="-1" offset="0" s="60.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="12.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <!-- Ego 路由: 强制左转进入 Road 0 -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Ego_Left_Turn_Crash_Course" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="2" laneId="-1" offset="0" s="80.0"/>
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="0" laneId="1" offset="0" s="10.0"/>
+                                        </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- Init Target: Road 0 (North), 距离路口约 31米 (Total 86.1m, Start at 55m) -->
+                <!-- 速度设为 12m/s，直行冲入路口 -->
+                <Private entityRef="Target">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-1" offset="0" s="55.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="12.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <!-- Target 路由: 直行穿越路口去 Road 1 -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Target_Straight_Crash_Course" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="0" laneId="-1" offset="0" s="80.0"/>
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="1" laneId="1" offset="0" s="10.0"/>
+                                        </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="Intersection_Crash_Story">
+
+            <!-- Target 行为: 保持盲目直行 -->
+            <Act name="Target_Attack_Act">
+                <ManeuverGroup maximumExecutionCount="1" name="Target_No_Yield_Group">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Target"/>
+                    </Actors>
+                    <Maneuver name="Target_Keep_Speed_Maneuver">
+                        <Event name="Target_Constant_Speed_Event" priority="overwrite">
+                            <Action name="Target_Maintain_Speed">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="12.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Always_True" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+                <StartTrigger>
+                     <ConditionGroup>
+                        <Condition name="Start" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+
+            <!-- Ego 行为: 保持左转动作，不做任何减速 -->
+            <Act name="Ego_Crash_Act">
+                <ManeuverGroup maximumExecutionCount="1" name="Ego_No_Yield_Group">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                    </Actors>
+
+                    <Maneuver name="Left_Turn_No_Brake_Maneuver">
+                        <!-- 确保 Ego 维持速度 -->
+                        <Event name="Ego_Keep_Speed_Event" priority="overwrite">
+                            <Action name="Ego_Maintain_Speed">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="12.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 修改触发条件：基于相对距离触发 -->
+                            <!-- 当Ego与Target的直线距离小于50米时触发保持速度 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Distance_Trigger" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Ego"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <RelativeDistanceCondition entityRef="Target" relativeDistanceType="cartesianDistance" value="50.0" freespace="false" rule="lessThan"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="Act_Start_Ego" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <!-- 设置一个碰撞检测作为仿真停止条件，或者超时 -->
+                <Condition name="Collision_Condition" delay="2.0" conditionEdge="rising">
+                    <ByEntityCondition>
+                        <TriggeringEntities triggeringEntitiesRule="any">
+                            <EntityRef entityRef="Ego"/>
+                        </TriggeringEntities>
+                        <EntityCondition>
+                            <CollisionCondition>
+                                <EntityRef entityRef="Target"/>
+                            </CollisionCondition>
+                        </EntityCondition>
+                    </ByEntityCondition>
+                </Condition>
+                <Condition name="Time_Out" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="10.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

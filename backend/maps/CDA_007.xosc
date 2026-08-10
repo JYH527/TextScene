@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-03T22:00:00" description="Ego enters tunnel and crashes into stationary overturned vehicle" author="Esmini-Generator"/>
+
+    <ParameterDeclarations/>
+
+    <!-- 1. 资源库配置 -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="one-way-two-lane-tunnels.xodr"/>
+    </RoadNetwork>
+
+    <!-- 2. 实体定义 -->
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <ScenarioObject name="Overturned_Vehicle">
+            <CatalogReference catalogName="VehicleCatalog" entryName="van_blue"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- 环境设置: 正午强光 (Sun Intensity High) -->
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Bright_Daylight">
+                            <TimeOfDay animation="false" dateTime="2025-06-21T12:00:00"/>
+                            <Weather cloudState="free">
+                                <Sun intensity="1.0" azimuth="0.0" elevation="1.57"/> <!-- 直射 -->
+                            </Weather>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+
+                <!-- Init Ego: Road 1, Lane -1, S=50, Speed=25m/s -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="1" laneId="-1" offset="0" s="50.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="25.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- Init Overturned_Vehicle: Road 1, Lane -1, S=300 (隧道入口处), 静止 -->
+                <Private entityRef="Overturned_Vehicle">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="1" laneId="-1" offset="0" s="300.0">
+                                    <!-- 关键设置: r=1.57 (90度) 使车辆侧翻 -->
+                                    <Orientation type="relative" h="0.0" p="0.0" r="1.57"/>
+                                </LanePosition>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="Tunnel_Accident_Story">
+
+            <!-- 障碍物行为: 保持静止 (虽然初始速度为0，显式保持更安全) -->
+            <Act name="Obstacle_Static_Act">
+                <ManeuverGroup maximumExecutionCount="1" name="Static_Group">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Overturned_Vehicle"/>
+                    </Actors>
+                    <Maneuver name="Stay_Still">
+                        <Event name="Keep_Zero_Speed" priority="overwrite">
+                            <Action name="Zero_Speed">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="0.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Sim_Start" delay="0" conditionEdge="none">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="Always_True" delay="0" conditionEdge="none">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+
+            <!-- Ego 行为: 保持速度直撞 -->
+            <Act name="Ego_Crash_Act">
+                <ManeuverGroup maximumExecutionCount="1" name="Ego_No_Brake_Group">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                    </Actors>
+
+                    <Maneuver name="Drive_Into_Tunnel">
+                        <Event name="Maintain_Highway_Speed" priority="overwrite">
+                            <Action name="Keep_25mps">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="25.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Sim_Start_Ego" delay="0" conditionEdge="none">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="Always_True_Ego" delay="0" conditionEdge="none">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <!-- 超时保护 -->
+                <Condition name="Time_Out" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="15.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

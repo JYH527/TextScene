@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-02T15:00:00" description="Scenario 2 Modified: Ego Trapped in Inner Lane with Front Block" author="ESMINI_Expert"/>
+
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="two-way-four-lane-roundout-two.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+
+        <ScenarioObject name="Adversary_Blocker">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+
+        <ScenarioObject name="Obstacle_Front">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_yellow"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Night_Rain_Environment">
+                            <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+                            <Weather cloudState="overcast">
+                                <Precipitation precipitationType="rain" intensity="1.0"/>
+                            </Weather>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+                <!-- ================== 自车 (内道) ================== -->
+                <!-- Road_52, Lane -3 (内), s=0 -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="52" laneId="-3" offset="0.0" s="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="10.0"/> <!-- 初始速度正常 -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <!-- 路由：自车想去 Road_2 -> Road_8 (出口) -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="EgoExitRoute" closed="false">
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="52" laneId="-3" s="0.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="2" laneId="-4" s="10.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="8" laneId="-1" s="5.0" offset="0.0"/></Position></Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- ================== 封路车 (外道) ================== -->
+                <!-- Road_52, Lane -4 (外), s=0 (与自车并排) -->
+                <Private entityRef="Adversary_Blocker">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="52" laneId="-4" offset="0.0" s="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="10.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <!-- 路由：它不去出口，它继续绕环岛 (去 Road_11)，正好挡住你去 Road_8 的路 -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="BlockerRoute" closed="false">
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="52" laneId="-4" s="0.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="2" laneId="-4" s="10.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="11" laneId="-4" s="5.0" offset="0.0"/></Position></Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- ================== 前方障碍车 (内道) ================== -->
+                <!-- Road_2, Lane -3 (内), s=5.0 (在前方约 27m 处) -->
+                <!-- Road_52(22m) + Road_2(5m) = 27m 距离 -->
+                <Private entityRef="Obstacle_Front">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="2" laneId="-3" offset="0.0" s="5.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="4.0"/> <!-- 非常慢，龟速行驶 -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <!-- 路由：继续绕环岛 -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="ObstacleRoute" closed="false">
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="2" laneId="-3" s="5.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="11" laneId="-3" s="5.0" offset="0.0"/></Position></Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="TrappedStory">
+            <Act name="TheTrapAct">
+                <ManeuverGroup maximumExecutionCount="1" name="BlockerManeuver">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Adversary_Blocker"/>
+                    </Actors>
+                    <Maneuver name="Shadowing">
+                        <Event name="KeepParallel" priority="overwrite">
+                            <Action name="MatchEgoSpeed">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="2.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <!-- 保持相对速度 0，永远在旁边 -->
+                                                <RelativeTargetSpeed entityRef="Ego" value="0.0" speedTargetValueType="delta" continuous="true"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Start" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="0.0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <!-- 2. 前方车保持龟速 -->
+                <ManeuverGroup maximumExecutionCount="1" name="ObstacleManeuver">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Obstacle_Front"/>
+                    </Actors>
+                    <Maneuver name="DriveSlow">
+                        <Event name="BeAnnoying" priority="overwrite">
+                            <Action name="MaintainSlow">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="0.0" dynamicsDimension="time"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="6.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Start" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="0.0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="EndSimulation" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="12.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

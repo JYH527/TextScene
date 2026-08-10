@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenScenario.xsd">
+  <FileHeader revMajor="1" revMinor="1" description="CQU_0017: 前方同向车因纸箱突然右变道（恶搞经典）" date="2025-11-29"/>
+  <ParameterDeclarations/>
+  <CatalogLocations>
+    <VehicleCatalog><Directory path="../resources/xosc/Catalogs/Vehicles"/></VehicleCatalog>
+  </CatalogLocations>
+
+  <RoadNetwork>
+    <LogicFile filepath="two-way-two-lane-straight-urban.xodr"/>
+  </RoadNetwork>
+
+  <Entities>
+    <!-- 自车 -->
+    <ScenarioObject name="Ego">
+      <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+    </ScenarioObject>
+    
+    <!-- 前方同向车 -->
+    <ScenarioObject name="LeadCar">
+      <CatalogReference catalogName="VehicleCatalog" entryName="car_yellow"/>
+    </ScenarioObject>
+    
+    <!-- 恶搞大纸箱（醒目黄色） -->
+    <ScenarioObject name="CardboardBox">
+      <MiscObject name="box_yellow" miscObjectCategory="obstacle">
+        <BoundingBox>
+          <Center x="0.0" y="0.0" z="0.3"/>
+          <Dimensions width="1.5" length="1.0" height="0.8"/>
+        </BoundingBox>
+      </MiscObject>
+    </ScenarioObject>
+  </Entities>
+
+  <Storyboard>
+    <Init>
+      <Actions>
+        <GlobalAction>
+          <EnvironmentAction>
+            <Environment name="Night_Rain">
+              <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+              <Weather cloudState="overcast">
+                <Sun intensity="0.0" azimuth="0.0" elevation="0.0"/>
+                <Fog visualRange="10000.0"/>
+                <Precipitation precipitationType="rain" intensity="1.0"/>
+              </Weather>
+              <RoadCondition frictionScaleFactor="0.8"/>
+            </Environment>
+          </EnvironmentAction>
+        </GlobalAction>
+        <!-- Ego：30km/h -->
+        <Private entityRef="Ego">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-1" s="45.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="8.5"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+        
+        <!-- 前车：同车道，前方30米 -->
+        <Private entityRef="LeadCar">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-1" s="60.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="8.5"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+        
+        <!-- 黄色大纸箱放在前车正前方 -->
+        <Private entityRef="CardboardBox">
+          <PrivateAction><TeleportAction>
+            <Position><LanePosition roadId="0" laneId="-1" s="90.0" offset="0.0"/></Position>
+          </TeleportAction></PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+
+    <Story>
+      <Act>
+        <!-- 前车看到纸箱后立刻2.5秒右变道到路肩 -->
+        <ManeuverGroup maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false"><EntityRef entityRef="LeadCar"/></Actors>
+          <Maneuver>
+            <Event priority="overwrite">
+              <Action>
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneChangeAction>
+                      <LaneChangeActionDynamics dynamicsShape="sinusoidal" dynamicsDimension="time" value="2.5"/>
+                      <LaneChangeTarget><AbsoluteTargetLane value="-2"/></LaneChangeTarget>
+                    </LaneChangeAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+
+              <!-- 前车距离纸箱<12米时立即变道（非常真实） -->
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any"><EntityRef entityRef="LeadCar"/></TriggeringEntities>
+                      <EntityCondition>
+                        <RelativeDistanceCondition entityRef="CardboardBox" relativeDistanceType="longitudinal" value="12.0" freespace="true" rule="lessThan"/>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+
+        <StartTrigger>
+          <ConditionGroup>
+            <Condition delay="0" conditionEdge="rising">
+              <ByValueCondition><SimulationTimeCondition value="0.1" rule="greaterThan"/></ByValueCondition>
+            </Condition>
+          </ConditionGroup>
+        </StartTrigger>
+      </Act>
+    </Story>
+
+    <StopTrigger>
+      <ConditionGroup>
+        <Condition delay="0" conditionEdge="rising">
+          <ByValueCondition><SimulationTimeCondition value="30.0" rule="greaterThan"/></ByValueCondition>
+        </Condition>
+      </ConditionGroup>
+    </StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-03T12:45:00" description="Ego overtakes stationary car and faces oncoming motorcycle" author="Esmini-Generator"/>
+
+    <ParameterDeclarations/>
+
+    <!-- 资源配置 -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="two-way-two-lane-straight-urban.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <!-- Ego 自车 -->
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+
+        <!-- Oncoming_Biker 对向摩托车 -->
+        <ScenarioObject name="Oncoming_Biker">
+            <CatalogReference catalogName="VehicleCatalog" entryName="motorbike"/>
+        </ScenarioObject>
+
+        <!-- Obstacle_Car 静止故障车 (白色轿车) -->
+        <ScenarioObject name="Obstacle_Car">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_white"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- 初始化 Ego: Road 0, Lane -1, S=20m, Speed 36km/h (10m/s) -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-1" offset="0" s="20.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="10.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- 初始化 Obstacle: Road 0, Lane -1, S=80m, 静止 -->
+                <Private entityRef="Obstacle_Car">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-1" offset="0" s="80.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- 初始化 Motorcycle: Road 0, Lane 1 (对向), S=160m, Speed ~43km/h (12m/s) -->
+                <Private entityRef="Oncoming_Biker">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="1" offset="0" s="160.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="12.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="Overtake_Motorcycle_Conflict_Story">
+            <Act name="Ego_Bypass_Act">
+                <ManeuverGroup maximumExecutionCount="1" name="Ego_Maneuver_Group">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                    </Actors>
+
+                    <Maneuver name="LaneChange_Maneuver">
+                        <!-- 事件: 向左借道 -->
+                        <Event name="Start_Overtaking_Event" priority="overwrite">
+                            <Action name="Change_Lane_To_Left">
+                                <PrivateAction>
+                                    <LateralAction>
+                                        <LaneChangeAction>
+                                            <LaneChangeTarget>
+                                                <!-- 借用对向车道 Lane 1 -->
+                                                <AbsoluteTargetLane value="1"/>
+                                            </LaneChangeTarget>
+                                            <!-- 变道比较急，设为 2.5秒 -->
+                                            <LaneChangeActionDynamics dynamicsShape="sinusoidal" value="2.5" dynamicsDimension="time"/>
+                                        </LaneChangeAction>
+                                    </LateralAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 触发: 距离故障车 30m 时 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Approach_Obstacle_Condition" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Ego"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <RelativeDistanceCondition entityRef="Obstacle_Car" relativeDistanceType="longitudinal" value="30.0" freespace="false" rule="lessThan"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="Simulation_Start" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+
+            <Act name="Motorcycle_Act">
+                <ManeuverGroup maximumExecutionCount="1" name="Motorcycle_Straight_Group">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Oncoming_Biker"/>
+                    </Actors>
+                </ManeuverGroup>
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="Always_True" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="End_Time" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="12.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

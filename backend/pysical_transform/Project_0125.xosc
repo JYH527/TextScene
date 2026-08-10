@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-02T14:30:00" description="Improved Scenario 1: Dynamic Fake Exit Deception" author="ESMINI_Expert"/>
+
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="two-way-four-lane-roundout-two.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <ScenarioObject name="Adversary">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- ================== 环境设置 (黑夜 + 雨天) ================== -->
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="NightAndRain">
+                            <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+                            <Weather cloudState="overcast">
+                                <Sun intensity="0.0" azimuth="0.0" elevation="0.0"/>
+                                <Fog visualRange="10000.0"/>
+                                <Precipitation precipitationType="rain" intensity="1.0"/>
+                            </Weather>
+                            <RoadCondition frictionScaleFactor="1.0"/>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+
+                <!-- ================== 自车 (Road_12) ================== -->
+                <!-- 改进：自车在行驶中，而不是静止等待 -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- 从 Road_12 起点出发 -->
+                                <LanePosition roadId="12" laneId="-1" offset="0.0" s="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="5.0"/> <!-- 21.6 km/h，谨慎接近路口 -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="EgoRoute" closed="false">
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="12" laneId="-1" s="0.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="2" laneId="-4" s="10.0" offset="0.0"/></Position></Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- ================== 对手车 (Road_6) ================== -->
+                <Private entityRef="Adversary">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- Road_6 起点 -->
+                                <LanePosition roadId="6" laneId="-4" offset="0.0" s="5.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="10.0"/> <!-- 初始速度正常 -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="AdvRoute" closed="false">
+                                    <!-- 它的真实路径是继续绕环岛直行，不是出去 -->
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="6" laneId="-4" s="0.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="2" laneId="-4" s="10.0" offset="0.0"/></Position></Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="DynamicDeceptionStory">
+            <Act name="TheTrapAct">
+                
+                <!-- 
+                   时序逻辑:
+                   Ego (Road_12): 距离汇入点约 16m。速度 6m/s -> 约 2.6秒 到达。
+                   Adversary (Road_6): 距离汇入点约 15m。速度 10m/s -> 1.5秒 到达。
+                   
+                   如果不干预，Adversary 会先通过。
+                   
+                   欺骗战术:
+                   T=0.5s: Adversary 开始急减速+右偏 (假装要右转出环岛)。
+                   此时 Ego 看到 Adversary 减速，判定"它让路了/要出去了"，于是 Ego 保持速度甚至加速。
+                   T=2.0s: Adversary 突然加速+回正，正好在路口中间截住 Ego。
+                -->
+
+                <!-- 1. 对手车的“假动作” (Fake Move) -->
+                <ManeuverGroup maximumExecutionCount="1" name="AdversaryTrickManeuver">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Adversary"/>
+                    </Actors>
+                    <Maneuver name="FakeExit">
+                        <Event name="SlowAndOffset" priority="overwrite">
+                            <!-- 减速：假装要转弯 -->
+                            <Action name="SlowDown">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="-4.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="4.0"/> <!-- 减速到 14 km/h -->
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 偏移：假装向右切出 -->
+                            <Action name="OffsetRight">
+                                <PrivateAction>
+                                    <LateralAction>
+                                        <LaneOffsetAction continuous="true">
+                                            <LaneOffsetActionDynamics maxLateralAcc="1.0" dynamicsShape="sinusoidal"/>
+                                            <LaneOffsetTarget>
+                                                <AbsoluteTargetLaneOffset value="-1.5"/> <!-- 向外侧偏 -->
+                                            </LaneOffsetTarget>
+                                        </LaneOffsetAction>
+                                    </LateralAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 0.5秒时触发 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="TimeTrigger1" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="0.5" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+
+                        <!-- 2. 对手车的“回马枪” (Trap Trigger) -->
+                        <Event name="Attack" priority="overwrite">
+                            <!-- 突然加速 -->
+                            <Action name="SpeedUp">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="6.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="12.0"/> <!-- 猛踩油门 -->
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 回正方向，直击 Ego -->
+                            <Action name="CenterLane">
+                                <PrivateAction>
+                                    <LateralAction>
+                                        <LaneOffsetAction continuous="true">
+                                            <LaneOffsetActionDynamics maxLateralAcc="4.0" dynamicsShape="sinusoidal"/>
+                                            <LaneOffsetTarget>
+                                                <AbsoluteTargetLaneOffset value="0.0"/>
+                                            </LaneOffsetTarget>
+                                        </LaneOffsetAction>
+                                    </LateralAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 在 2.0秒时触发 (此时 Ego 刚要进路口) -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="TimeTrigger2" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="2.0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <!-- 3. 自车的“上当”反应 (Ego Reaction) -->
+                <!-- 如果你的 Ego 是算法控制的，可以删掉这个 Maneuver，看它会不会自己撞上去。
+                     这里为了演示效果，我们让 Ego "误以为安全" 并加速汇入 -->
+                <ManeuverGroup maximumExecutionCount="1" name="EgoNaiveManeuver">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                    </Actors>
+                    <Maneuver name="EgoEnter">
+                        <Event name="ThinkingItsSafe" priority="overwrite">
+                            <Action name="EgoAccelerate">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="2.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="10.0"/> <!-- 加速进入 -->
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 看到 Adversary 减速后 (1.5s)，Ego 决定加速 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="TimeTrigger3" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="1.5" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="EndSimulation" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="10.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

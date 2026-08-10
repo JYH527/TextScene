@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenScenario.xsd">
+  <FileHeader revMajor="1" revMinor="1" description="CQU_0019: 前车因纸箱右变道 + 后方大货车紧随（已修复，必变道）" date="2025-11-29"/>
+  <ParameterDeclarations/>
+  <CatalogLocations><VehicleCatalog><Directory path="../resources/xosc/Catalogs/Vehicles"/></VehicleCatalog></CatalogLocations>
+
+  <RoadNetwork><LogicFile filepath="two-way-two-lane-straight-urban.xodr"/></RoadNetwork>
+
+  <Entities>
+    <ScenarioObject name="Ego"><CatalogReference catalogName="VehicleCatalog" entryName="car_red"/></ScenarioObject>
+    <ScenarioObject name="LeadCar"><CatalogReference catalogName="VehicleCatalog" entryName="car_yellow"/></ScenarioObject>
+    <ScenarioObject name="CardboardBox">
+      <MiscObject name="box_yellow" miscObjectCategory="obstacle">
+        <BoundingBox><Center x="0.0" y="0.0" z="0.3"/><Dimensions width="1.5" length="1.0" height="0.8"/></BoundingBox>
+      </MiscObject>
+    </ScenarioObject>
+    <ScenarioObject name="Tailgater"><CatalogReference catalogName="VehicleCatalog" entryName="semi_truck"/></ScenarioObject>
+  </Entities>
+
+  <Storyboard>
+    <Init>
+      <Actions>
+        <Private entityRef="Ego">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-1" s="45.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="8.5"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+        <Private entityRef="LeadCar">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-1" s="75.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="8.5"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+        <Private entityRef="CardboardBox">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-1" s="90.0"/></Position></TeleportAction></PrivateAction>
+        </Private>
+        <Private entityRef="Tailgater">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-1" s="34.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="8.5"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+
+    <Story>
+      <Act>
+        <!-- 后车紧随 -->
+        <ManeuverGroup maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false"><EntityRef entityRef="Tailgater"/></Actors>
+          <Maneuver>
+            <Event priority="overwrite">
+              <Action><PrivateAction><LongitudinalAction><LongitudinalDistanceAction entityRef="Ego" distance="11.0" freespace="false" continuous="true"/></LongitudinalAction></PrivateAction></Action>
+              <StartTrigger><ConditionGroup><Condition delay="0" conditionEdge="rising"><ByValueCondition><SimulationTimeCondition value="0.1" rule="greaterThan"/></ByValueCondition></Condition></ConditionGroup></StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+
+        <!-- 前车右变道（关键修复：改用 ReachPosition） -->
+        <ManeuverGroup maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false"><EntityRef entityRef="LeadCar"/></Actors>
+          <Maneuver>
+            <Event priority="overwrite">
+              <Action><PrivateAction><LateralAction><LaneChangeAction>
+                <LaneChangeActionDynamics dynamicsShape="sinusoidal" dynamicsDimension="time" value="2.5"/>
+                <LaneChangeTarget><AbsoluteTargetLane value="-2"/></LaneChangeTarget>
+              </LaneChangeAction></LateralAction></PrivateAction></Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any"><EntityRef entityRef="LeadCar"/></TriggeringEntities>
+                      <EntityCondition>
+                        <ReachPositionCondition tolerance="8.0">
+                          <Position><LanePosition roadId="0" laneId="-1" s="85.0"/></Position>
+                        </ReachPositionCondition>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+
+        <StartTrigger><ConditionGroup><Condition delay="0" conditionEdge="rising"><ByValueCondition><SimulationTimeCondition value="0.0" rule="greaterThan"/></ByValueCondition></Condition></ConditionGroup></StartTrigger>
+      </Act>
+    </Story>
+
+    <StopTrigger><ConditionGroup><Condition delay="0" conditionEdge="rising"><ByValueCondition><SimulationTimeCondition value="30.0" rule="greaterThan"/></ByValueCondition></Condition></ConditionGroup></StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

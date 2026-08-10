@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-01T12:15:00" description="Scenario 2: NPC emergency brake due to occlusion, testing Ego reaction" author="Esmini-Expert"/>
+
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="two-way-four-lane-crossroad.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <!-- 自车: Lane 2 (外侧), 靠后 -->
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <!-- NPC前车: Lane 1 (内侧), 靠前, 遮挡视线 -->
+        <ScenarioObject name="NPC_Lead">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_yellow"/>
+        </ScenarioObject>
+        <!-- 对手车: 对向左转 -->
+        <ScenarioObject name="Adversary">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Night_Rain">
+                            <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+                            <Weather cloudState="overcast">
+                                <Sun intensity="0.0" azimuth="0.0" elevation="0.0"/>
+                                <Fog visualRange="10000.0"/>
+                                <Precipitation precipitationType="rain" intensity="1.0"/>
+                            </Weather>
+                            <RoadCondition frictionScaleFactor="1.0"/>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+                <!-- 1. 自车设置 -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- s=65 (靠后) -->
+                                <LanePosition roadId="1" laneId="2" offset="0.0" s="65.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="18.11"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Ego_Straight" closed="false">
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="1" laneId="2" s="65.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="0" laneId="2" s="20.0" offset="0.0"/></Position></Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- 2. NPC前车设置 (Ego左前方) -->
+                <Private entityRef="NPC_Lead">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- s=45 (靠前20米), Lane 1 -->
+                                <LanePosition roadId="1" laneId="1" offset="0.0" s="50.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="18.01"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="NPC_Straight" closed="false">
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="1" laneId="1" s="45.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="0" laneId="1" s="20.0" offset="0.0"/></Position></Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- 3. 对手车设置 (左转) -->
+                <Private entityRef="Adversary">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- s=35 (准备进入路口) -->
+                                <LanePosition roadId="0" laneId="-1" offset="0.0" s="35.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="16.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Adversary_Left" closed="false">
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="0" laneId="-1" s="35.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="3" laneId="-1" s="20.0" offset="0.0"/></Position></Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="ReactionStory">
+            <Act name="NPC_Brake_Act">
+                <ManeuverGroup maximumExecutionCount="1" name="NPC_Brake_Group">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="NPC_Lead"/>
+                    </Actors>
+                    <Maneuver name="NPC_Emergency_Stop_Maneuver">
+                        <Event name="NPC_Brake_Event" priority="overwrite">
+                            <!-- 触发条件: 当对手车(Adversary)开始进入路口交叉区域 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="AdversaryEntering" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Adversary"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <!-- s=60 是路口中心附近 (Road 0 从北向南) -->
+                                                <!-- 这里简单用位置触发，或者用 TimeToCollision -->
+                                                <ReachPositionCondition tolerance="5.0">
+                                                    <Position>
+                                                        <LanePosition roadId="0" laneId="-1" s="70.0"/>
+                                                    </Position>
+                                                </ReachPositionCondition>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                            
+                            <!-- 动作: NPC 急刹车 -->
+                            <Action name="NPC_Brake_Hard">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="-8.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="0.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+            </Act>
+        </Story>
+    </Storyboard>
+</OpenSCENARIO>

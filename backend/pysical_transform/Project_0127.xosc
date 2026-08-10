@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-02T14:10:00" description="Scenario 3: Static Obstacle Blind Spot" author="ESMINI_Expert"/>
+    <CatalogLocations><VehicleCatalog><Directory path="../resources/xosc/Catalogs/Vehicles"/></VehicleCatalog></CatalogLocations>
+    <RoadNetwork><LogicFile filepath="two-way-four-lane-roundout-two.xodr"/></RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego"><CatalogReference catalogName="VehicleCatalog" entryName="car_red"/></ScenarioObject>
+        <!-- 故障车：用黑色看起来更不显眼 -->
+        <ScenarioObject name="Obstacle"><CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/></ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Night_Rain">
+                            <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+                            <Weather cloudState="overcast" precipitationType="rain" intensity="1.0"/>
+                            <RoadCondition frictionScaleFactor="1.0"/>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+                <!-- 自车：从上游 Road_52 快速驶来 -->
+                <Private entityRef="Ego">
+                    <PrivateAction><TeleportAction><Position><LanePosition roadId="52" laneId="-4" s="0.0" offset="0.0"/></Position></TeleportAction></PrivateAction>
+                    <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/><SpeedActionTarget><AbsoluteTargetSpeed value="10.0"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+                    <PrivateAction><RoutingAction><AssignRouteAction><Route name="EgoRoute" closed="false"><Waypoint routeStrategy="shortest"><Position><LanePosition roadId="52" laneId="-4" s="0.0" offset="0.0"/></Position></Waypoint><Waypoint routeStrategy="shortest"><Position><LanePosition roadId="2" laneId="-4" s="15.0" offset="0.0"/></Position></Waypoint></Route></AssignRouteAction></RoutingAction></PrivateAction>
+                </Private>
+
+                <!-- 障碍物：静止在 Road_2 (弯道) 的中间位置 -->
+                <Private entityRef="Obstacle">
+                    <PrivateAction><TeleportAction><Position><LanePosition roadId="2" laneId="-4" s="8.0" offset="0.0"/></Position></TeleportAction></PrivateAction>
+                    <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/><SpeedActionTarget><AbsoluteTargetSpeed value="0.0"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="StaticObstacleStory">
+            <Act name="CollisionAct">
+                <!-- 无需额外 Maneuver，纯物理场景：Ego 必须自己看到并停下 -->
+            </Act>
+        </Story>
+        <StopTrigger><ConditionGroup><Condition name="End" delay="0" conditionEdge="rising"><ByValueCondition><SimulationTimeCondition value="8.0" rule="greaterThan"/></ByValueCondition></Condition></ConditionGroup></StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

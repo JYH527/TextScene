@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2023-10-27T10:00:00" description="Cut-out to Stationary Vehicle Scenario" author="AutonomousDrivingEngineer"/>
+
+    <ParameterDeclarations/>
+
+    <!-- 资源目录配置 (严格遵守要求) -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="one-way-three-lane-straight-highway.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+
+        <!-- LeadingCar: 红色面包车 (体积较大，遮挡效果好) -->
+        <ScenarioObject name="LeadingCar">
+            <CatalogReference catalogName="VehicleCatalog" entryName="van_red"/>
+        </ScenarioObject>
+
+        <!-- HiddenStationaryCar: 白色轿车 (故障静止车) -->
+        <ScenarioObject name="HiddenStationaryCar">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_white"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- 初始化 Ego: s=20m, 速度 100km/h -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-3" offset="0.0" s="20.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="27.78"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- 初始化 LeadingCar: s=60m (Ego前方40m), 速度 90km/h -->
+                <Private entityRef="LeadingCar">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-3" offset="0.0" s="60.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="25.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- 初始化 HiddenStationaryCar: s=150m (LeadingCar前方90m), 速度 0 -->
+                <Private entityRef="HiddenStationaryCar">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-3" offset="0.0" s="150.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="CutOutStory">
+            <Act name="CutOutAct">
+                <ManeuverGroup maximumExecutionCount="1" name="LeadingCarManeuverGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="LeadingCar"/>
+                    </Actors>
+
+                    <Maneuver name="CutOutManeuver">
+                        <!-- 事件: 前车切出 -->
+                        <Event name="LeadingCarCutOutEvent" priority="overwrite">
+                            <Action name="LaneChangeLeft">
+                                <PrivateAction>
+                                    <LateralAction>
+                                        <LaneChangeAction>
+                                            <LaneChangeActionDynamics dynamicsShape="sinusoidal" value="2.0" dynamicsDimension="time"/>
+                                            <LaneChangeTarget>
+                                                <AbsoluteTargetLane value="-2"/>
+                                            </LaneChangeTarget>
+                                        </LaneChangeAction>
+                                    </LateralAction>
+                                </PrivateAction>
+                            </Action>
+
+                            <!-- 触发条件: 当 LeadingCar 距离 HiddenStationaryCar 小于 30米时 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="DistanceCondition" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="LeadingCar"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <RelativeDistanceCondition entityRef="HiddenStationaryCar" relativeDistanceType="longitudinal" value="30.0" freespace="true" rule="lessThan"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <!--
+                     注意: Ego 的紧急制动 (AEB) 通常由被测系统 (SUT) 自身的算法控制，
+                     而不是在 OpenSCENARIO 中脚本化。
+                     如果需要强制 Ego 刹车 (例如测试物理效果而非算法)，可以在此处添加 Ego 的 Braking Event。
+                     但在标准测试中，我们只创造危险场景 (Cut-out)，看 Ego 如何反应。
+                -->
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="SimulationStart" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            <!-- 仿真结束条件: 时间超过 15秒 或 Ego 发生碰撞 -->
+            <ConditionGroup>
+                <Condition name="TimeOut" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="15.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

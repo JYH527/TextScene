@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-03T13:00:00" description="Ego merging into roundabout faces conflict with exiting vehicle blocked by obstacle" author="Esmini-Generator"/>
+
+    <ParameterDeclarations/>
+
+    <!-- 1. 资源库配置 -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="two-way-four-lane-roundout-two.xodr"/>
+    </RoadNetwork>
+
+    <!-- 2. 实体定义 -->
+    <Entities>
+        <!-- Ego: 红色轿车 -->
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+
+        <!-- Target_1: 环岛内切出车辆 (蓝色轿车) -->
+        <ScenarioObject name="Target_1">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+
+        <!-- Target_2: 出口处静止车辆 (厢式货车) -->
+        <ScenarioObject name="Target_2">
+            <CatalogReference catalogName="VehicleCatalog" entryName="van_red"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- Init Ego: 在支路 Road 13 准备进入 -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- Road 13 长度22.5m, 放在中间位置准备加速 -->
+                                <LanePosition roadId="13" laneId="-1" offset="0" s="12.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="8.0"/> <!-- 约30km/h -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <!-- 给 Ego 分配路径: 经由 Road 7 (入口) 进入 Road 11 (主路) -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Ego_Route" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="13" laneId="-1" offset="0" s="20.0"/>
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="11" laneId="-4" offset="0" s="5.0"/>
+                                        </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- Init Target_1: 在环岛主路 Road 2 内侧车道 -->
+                <Private entityRef="Target_1">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- Lane -3 是内侧快车道 -->
+                                <LanePosition roadId="2" laneId="-3" offset="0" s="5.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="10.0"/> <!-- 36km/h -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <!-- 给 Target_1 分配路径: 必须切出到 Road 78 (出口延伸段) -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Target1_Exit_Route" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="2" laneId="-3" offset="0" s="10.0"/>
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <!-- Road 78 是连接 Road 8 出口到 Road 13 的连接线 -->
+                                            <LanePosition roadId="78" laneId="1" offset="0" s="1.0"/>
+                                        </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- Init Target_2: 堵在出口连接线 Road 78 上 -->
+                <Private entityRef="Target_2">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- Road 78 长度4.2m，停在中间 -->
+                                <LanePosition roadId="78" laneId="1" offset="0" s="2.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="Roundabout_Merge_Conflict">
+            <Act name="Target1_Behavior">
+                <ManeuverGroup maximumExecutionCount="1" name="Target1_Emergency_Brake_Group">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Target_1"/>
+                    </Actors>
+
+                    <Maneuver name="Brake_For_Obstacle">
+                        <Event name="Emergency_Brake_Event" priority="overwrite">
+                            <Action name="Stop_Hard">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="2.0" dynamicsDimension="time"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="0.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 触发条件：Target_1 距离前方静止车辆 Target_2 小于 8米 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Distance_To_Blocked_Exit" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Target_1"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <RelativeDistanceCondition entityRef="Target_2" relativeDistanceType="longitudinal" value="8.0" freespace="false" rule="lessThan"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="Start_Sim" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+
+            <!-- Ego 保持路径跟随，遇到 Target_1 减速或阻挡时，仿真器内置的纵向控制应会处理避撞，或者发生碰撞 -->
+            <Act name="Ego_Driving">
+                <ManeuverGroup maximumExecutionCount="1" name="Ego_Keep_Driving">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                    </Actors>
+                </ManeuverGroup>
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="Always_True" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="TimeOut" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="15.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

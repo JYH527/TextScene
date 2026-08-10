@@ -1,0 +1,62 @@
+esmini GIT REV: v2.52.2-0-a7cdd5b
+esmini GIT TAG: v2.52.2
+esmini GIT BRANCH: tags/v2.52.2^0
+esmini BUILD VERSION: 5676
+[] [info] Loaded config file: D:\ProjectVW\developers_files\project\esmini-demo\config.yml (D:\ProjectVW\developers_files\project\esmini-demo\bin\..\config.yml)
+[] [info] Loaded D:\ProjectVW\developers_files\project\backend\xosc\Highway_Cut-in_with_Following_Large_Truck_20260716_105006.xosc
+[2026-07-16 10:50:07]
+[] [info] Player options: --osc D:\ProjectVW\developers_files\project\backend\xosc\Highway_Cut-in_with_Following_Large_Truck_20260716_105006.xosc --camera_mode orbit --info_text 1 --logfile_path log.txt --log_level info --path D:\ProjectVW\developers_files\project\esmini-demo\bin --text_scale 1.0 --traj_filter 0.1 
+[] [info] No fixed timestep specified - running in realtime speed
+[] [info] Added path D:\ProjectVW\developers_files\project\esmini-demo\bin
+[] [info] Generated seed 304809478
+[] [info] Loading D:\ProjectVW\developers_files\project\backend\xosc\Highway_Cut-in_with_Following_Large_Truck_20260716_105006.xosc (v1.0)
+[] [info] 0 variables
+[] [info] Loaded OpenDRIVE: D:\ProjectVW\developers_files\project\backend\xosc/../maps/two-way-six-lane-straight-highway.xodr
+[] [info] Expr ${250/3.6} = 250/3.6 = 69.4444444444
+[] [info] Expr ${250/3.6} = 250/3.6 = 69.4444444444
+[] [info] Parsing global action EnvironmentAction
+[] [warn] Ignorning TimeOfDay in envirnoment, attribute TimeOfDay is not in valid format
+[] [warn] cloudState is deprecated in v1.2. Use fractionalCloudCover instead, Accepting it anyway.
+[] [warn] Ignorning Precipitation in wheather, mandatory attribute precipitationType missing
+[] [info] 0 parameters
+[0.000] [info] Window created at 60,60 with size 800,400
+[0.000] [info] Generating a simplistic 3D model of the road network
+[0.000] [info] Adjusted Ego bounding box to model car_red.osgb - xyz: 1.46, 0.00, 0.77 lwh: 5.04, 2.04, 1.49
+[0.000] [warn] Failed to find additional wheel wheel_fr
+[0.000] [info] Init EnvironmentAction initState -> startTransition -> runningState
+[0.000] [info] Init Ego LongitudinalAction initState -> startTransition -> runningState
+[0.000] [info] Init Ego TeleportAction initState -> startTransition -> runningState
+[0.000] [info] Starting teleport Action
+[0.000] [info] Ego New position:
+[0.000] [info] Pos(-205.00, -19.25, 0.00) Rot(6.28, 0.00, 0.00) roadId 0 laneId -2 s 45.00 offset 0.00 t -19.25
+[0.000] [info] Init Target1 LongitudinalAction initState -> startTransition -> runningState
+[0.000] [info] Init Target1 TeleportAction initState -> startTransition -> runningState
+[0.000] [info] Starting teleport Action
+[0.000] [info] Target1 New position:
+[0.000] [info] Pos(-230.00, -15.75, 0.00) Rot(6.28, 0.00, 0.00) roadId 0 laneId -1 s 20.00 offset 0.00 t -15.75
+[0.000] [info] Init Target_Rear_Truck LongitudinalAction initState -> startTransition -> runningState
+[0.000] [info] Init Target_Rear_Truck TeleportAction initState -> startTransition -> runningState
+[0.000] [info] Starting teleport Action
+[0.000] [info] Target_Rear_Truck New position:
+[0.000] [info] Pos(-220.00, -19.25, 0.00) Rot(6.28, 0.00, 0.00) roadId 0 laneId -2 s 30.00 offset 0.00 t -19.25
+[0.000] [info] storyBoard initState -> startTransition -> runningState
+[0.000] [info] MainStory initState -> startTransition -> runningState
+[0.000] [info] Act_Target1_0 initState -> initToStandbyTransition -> standbyState
+[0.000] [info] Act_Target1_1 initState -> initToStandbyTransition -> standbyState
+[0.000] [info] Init EnvironmentAction runningState -> stopTransition -> completeState
+[0.000] [info] Init Ego LongitudinalAction runningState -> endTransition -> completeState
+[0.000] [info] Init Ego TeleportAction runningState -> endTransition -> completeState
+[0.000] [info] Init Target1 LongitudinalAction runningState -> endTransition -> completeState
+[0.000] [info] Init Target1 TeleportAction runningState -> endTransition -> completeState
+[0.000] [info] Init Target_Rear_Truck LongitudinalAction runningState -> endTransition -> completeState
+[0.000] [info] Init Target_Rear_Truck TeleportAction runningState -> endTransition -> completeState
+[0.001] [info] ActStart_Target1_0: true, delay: 0.00, 0.0010 > 0.0000, edge: rising
+[0.001] [info] Trigger /------------------------------------------------
+[0.001] [info] Group 0:
+[0.001] [info] ActStart_Target1_0: true
+[0.001] [info] Trigger  ------------------------------------------------/
+[0.001] [info] Act_Target1_0 standbyState -> startTransition -> runningState
+[0.001] [info] MG_Target1_0 initState -> startTransition -> runningState
+[0.001] [info] Man_Target1_0 initState -> startTransition -> runningState
+[0.001] [info] Ev_Target1_0 initState -> initToStandbyTransition -> standbyState
+[3.836] [info] Closing

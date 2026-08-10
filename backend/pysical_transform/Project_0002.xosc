@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenScenario.xsd">
+    <FileHeader description="cut-in + right-side block car + correct trigger" author="User" revMajor="1" revMinor="5" date="2025-11-29T12:00:00"/>
+    <ParameterDeclarations/>
+    <!-- 1. 资源库配置 -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+    <RoadNetwork>
+        <LogicFile filepath="two-way-six-lane-straight-highway.xodr"/>
+    </RoadNetwork>
+
+    <!-- 2. 实体定义 -->
+    <Entities>
+        <!-- Ego: 红色轿车 -->
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+
+        <!-- Target: 蓝色轿车 (来车) -->
+        <ScenarioObject name="Target1">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+
+        <!-- Target: 黄色轿车 (来车) -->
+        <ScenarioObject name="Target2">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_yellow"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- Ego：-2车道 30 m/s -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget><AbsoluteTargetSpeed value="30.0"/></SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position><LanePosition roadId="0" laneId="-2" s="25.0" offset="0.0"/></Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- Target1：最内侧-1车道 40 m/s（前方10m） -->
+                <Private entityRef="Target1">
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget><AbsoluteTargetSpeed value="35.0"/></SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position><LanePosition roadId="0" laneId="-1" s="15.0" offset="0.0"/></Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- Target2：右侧并行堵车，永远30 m/s，和Ego完全平齐 -->
+                <Private entityRef="Target2">
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget><AbsoluteTargetSpeed value="30.0"/></SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position><LanePosition roadId="0" laneId="-3" s="25.0" offset="0.0"/></Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="mystory">
+            <Act name="red_act">
+                <!-- Target1 变道 -->
+                <ManeuverGroup name="mangroup_red_lane_change" maximumExecutionCount="1">
+                    <Actors selectTriggeringEntities="false"><EntityRef entityRef="Target1"/></Actors>
+                    <Maneuver name="red_maneuver_lc">
+                        <Event name="first_lane_change" priority="overwrite">
+                            <Action name="lane_change_red">
+                                <PrivateAction>
+                                    <LateralAction>
+                                        <LaneChangeAction>
+                                            <LaneChangeActionDynamics dynamicsShape="sinusoidal" value="2.0" dynamicsDimension="time"/>
+                                            <LaneChangeTarget><AbsoluteTargetLane value="-2"/></LaneChangeTarget>
+                                        </LaneChangeAction>
+                                    </LateralAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="redtrigger_lc" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any"><EntityRef entityRef="Ego"/></TriggeringEntities>
+                                            <EntityCondition>
+                                                <!-- 修改：基于相对距离触发 -->
+                                                <!-- 逻辑：初始距离10m(True) -> 接近至5m(False) -> 超车后拉开至5m(True，触发) -->
+                                                <RelativeDistanceCondition entityRef="Target1"
+                                                                           relativeDistanceType="longitudinal"
+                                                                           value="2.0"
+                                                                           freespace="false"
+                                                                           rule="greaterThan"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <!-- Target1 急刹 -->
+                <ManeuverGroup name="red_mangroup_brake" maximumExecutionCount="1">
+                    <Actors selectTriggeringEntities="false"><EntityRef entityRef="Target1"/></Actors>
+                    <Maneuver name="red_maneuver_brake">
+                        <Event name="brake_red" priority="overwrite">
+                            <Action name="brake_to_stop">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="0.1" dynamicsDimension="time"/>
+                                            <SpeedActionTarget><AbsoluteTargetSpeed value="0.0"/></SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="redtrigger_brake" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any"><EntityRef entityRef="Ego"/></TriggeringEntities>
+                                            <EntityCondition>
+                                                <!-- 修改：基于相对距离触发 -->
+                                                <!-- 逻辑：变道后继续拉大距离，当距离超过20m时触发刹车 -->
+                                                <RelativeDistanceCondition entityRef="Target1"
+                                                                           relativeDistanceType="longitudinal"
+                                                                           value="8.0"
+                                                                           freespace="false"
+                                                                           rule="greaterThan"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="starttrigger" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0.0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="stop_simulation" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="20.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

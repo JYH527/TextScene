@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2023-12-03T19:00:00" description="High-speed Ego swerves right to avoid child in curve (Road 1->0)" author="OpenSCENARIO-Expert"/>
+
+    <ParameterDeclarations/>
+
+    <!-- 资源目录配置 (严格遵守要求) -->
+    <!-- 必须的 Catalog 路径（esmini 标准相对路径） -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="one-way-two-lane-curved-urban.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+
+        <!-- TargetChild: 使用 pedestrian_adult 替代 -->
+        <ScenarioObject name="TargetChild">
+            <CatalogReference catalogName="PedestrianCatalog" entryName="pedestrian_adult"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Daytime">
+                            <TimeOfDay animation="false" dateTime="2023-12-03T12:00:00"/>
+                            <Weather cloudState="free">
+                                <Sun intensity="100000.0" azimuth="0.0" elevation="1.57"/>
+                            </Weather>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+
+                <!-- Ego 初始化: Road 1 (直道) 末端附近 -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="1" laneId="-4" offset="0.0" s="20.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="22.2"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- TargetChild 初始化: Road 0 (弯道) 内部, 居中 -->
+                <Private entityRef="TargetChild">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- 放置在弯道入口后 30m 处 -->
+                                <LanePosition roadId="0" laneId="-4" offset="0.0" s="30.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="HighSpeedAvoidanceStory">
+            <Act name="BrakeAndSwerveAct">
+                <ManeuverGroup maximumExecutionCount="1" name="AvoidanceManeuverGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                    </Actors>
+
+                    <Maneuver name="CombinedAvoidanceManeuver">
+                        <Event name="BrakeAndSteerEvent" priority="overwrite">
+
+                            <!-- 动作1: 轻微减速 (保持高速过弯能力) -->
+                            <Action name="Decelerate">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <!-- rate=-4.0 属于中等强度制动，保留转向抓地力 -->
+                                            <SpeedActionDynamics dynamicsShape="linear" value="-4.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="16.6"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+
+                            <!-- 动作2: 快速向右切弯 -->
+                            <Action name="SwerveRight">
+                                <PrivateAction>
+                                    <LateralAction>
+                                        <LaneChangeAction>
+                                            <LaneChangeTarget>
+                                                <AbsoluteTargetLane value="-5"/>
+                                            </LaneChangeTarget>
+                                            <!-- 缩短时间至 2.0s，模拟高速下的敏捷变道 -->
+                                            <LaneChangeActionDynamics dynamicsShape="sinusoidal" value="2.0" dynamicsDimension="time"/>
+                                        </LaneChangeAction>
+                                    </LateralAction>
+                                </PrivateAction>
+                            </Action>
+
+                            <!-- 触发条件: 距离目标 < 45m (因车速快需提前响应) -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="DetectionTrigger" delay="0.0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Ego"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <RelativeDistanceCondition entityRef="TargetChild" relativeDistanceType="longitudinal" value="15.0" rule="lessThan" freeSpace="true"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <!-- 结束条件: 驶过危险区域 -->
+                <StopTrigger>
+                    <ConditionGroup>
+                        <Condition name="SafePass" delay="0.0" conditionEdge="rising">
+                            <ByEntityCondition>
+                                <TriggeringEntities triggeringEntitiesRule="any">
+                                    <EntityRef entityRef="Ego"/>
+                                </TriggeringEntities>
+                                <EntityCondition>
+                                    <ReachPositionCondition tolerance="5.0">
+                                        <Position>
+                                            <!-- 确保在 Road 0 的 s=75m 处已完成动作 -->
+                                            <LanePosition roadId="0" laneId="-5" s="75.0"/>
+                                        </Position>
+                                    </ReachPositionCondition>
+                                </EntityCondition>
+                            </ByEntityCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StopTrigger>
+            </Act>
+        </Story>
+    </Storyboard>
+</OpenSCENARIO>

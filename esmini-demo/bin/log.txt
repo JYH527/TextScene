@@ -1,0 +1,888 @@
+esmini GIT REV: v2.52.2-0-a7cdd5b
+esmini GIT TAG: v2.52.2
+esmini GIT BRANCH: tags/v2.52.2^0
+esmini BUILD VERSION: 5676
+[] [info] Loaded config file: D:\ProjectVW\developers_files\project\esmini-demo\config.yml (D:\ProjectVW\developers_files\project\esmini-demo\bin\..\config.yml)
+[] [info] Loaded D:\ProjectVW\developers_files\project\backend\xosc\Urban_Road_Ghost_Probe_with_Aggressive_Tailgating_and_Overtaking_Traffic_20260526_093349.xosc
+[2026-05-26 09:45:17]
+[] [info] Player options: --osc D:\ProjectVW\developers_files\project\backend\xosc\Urban_Road_Ghost_Probe_with_Aggressive_Tailgating_and_Overtaking_Traffic_20260526_093349.xosc --camera_mode orbit --info_text 1 --logfile_path log.txt --log_level info --path ./ --text_scale 1.0 --traj_filter 0.1 
+[] [info] No fixed timestep specified - running in realtime speed
+[] [info] Added path ./
+[] [info] Generated seed 2529175521
+[] [info] Loading D:\ProjectVW\developers_files\project\backend\xosc\Urban_Road_Ghost_Probe_with_Aggressive_Tailgating_and_Overtaking_Traffic_20260526_093349.xosc (v1.0)
+[] [info] 0 variables
+[] [error] Unsupported geo reference attr: +no_defs
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [error] INFO: signal element "signalReference" not supported yet
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Roadmark s value 22.78 beyond road length 22.78, ignoring it
+[] [error] Roadmark s value 22.78 beyond road length 22.78, ignoring it
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Roadmark s value 16.78 beyond road length 16.78, ignoring it
+[] [error] Roadmark s value 16.78 beyond road length 16.78, ignoring it
+[] [error] Roadmark s value 16.78 beyond road length 16.78, ignoring it
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Roadmark s value 13.04 beyond road length 13.04, ignoring it
+[] [error] Roadmark s value 13.04 beyond road length 13.04, ignoring it
+[] [error] Roadmark s value 13.04 beyond road length 13.04, ignoring it
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Roadmark s value 36.81 beyond road length 36.81, ignoring it
+[] [error] Roadmark s value 36.81 beyond road length 36.81, ignoring it
+[] [error] Roadmark s value 36.81 beyond road length 36.81, ignoring it
+[] [error] Roadmark s value 36.81 beyond road length 36.81, ignoring it
+[] [error] Roadmark s value 36.81 beyond road length 36.81, ignoring it
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Roadmark s value 36.81 beyond road length 36.81, ignoring it
+[] [error] Roadmark s value 36.81 beyond road length 36.81, ignoring it
+[] [error] Roadmark s value 36.81 beyond road length 36.81, ignoring it
+[] [error] Roadmark s value 36.81 beyond road length 36.81, ignoring it
+[] [error] Roadmark s value 36.81 beyond road length 36.81, ignoring it
+[] [error] Roadmark s value 36.81 beyond road length 36.81, ignoring it
+[] [error] Roadmark s value 36.81 beyond road length 36.81, ignoring it
+[] [error] Roadmark s value 36.81 beyond road length 36.81, ignoring it
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [info] Signal Type 1000001--1.0000000000000000e+0 doesn't exists for country opendrive
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [error] Unsupported object type: -1 - interpret as NONE
+[] [info] Loaded OpenDRIVE: D:\ProjectVW\developers_files\project\backend\xosc/../maps/Town06.xodr
+[] [info] Expr ${250/3.6} = 250/3.6 = 69.4444444444
+[] [info] Parsing global action EnvironmentAction
+[] [warn] Ignorning TimeOfDay in envirnoment, attribute TimeOfDay is not in valid format
+[] [warn] cloudState is deprecated in v1.2. Use fractionalCloudCover instead, Accepting it anyway.
+[] [warn] In Precipitation, intensity is deprecated in v1.1. Use precipitationIntensity instead, Accepting it anyway.
+[] [info] Added route waypoint 0, 0.00: road_id 13 lane_id -5 s 20.00 (scenario)
+[] [info] Added route waypoint 1, 80.00: road_id 13 lane_id -5 s 100.00 (scenario)
+[] [info] Removing previous waypoint for same road 13 (at s 100.00)
+[] [info] Added route waypoint 2, 84.00: road_id 13 lane_id -5 s 104.00 (scenario)
+[] [info] Added route waypoint 0, 0.00: road_id 13 lane_id -6 s 45.00 (scenario)
+[] [info] Added route waypoint 1, 55.00: road_id 13 lane_id -6 s 100.00 (scenario)
+[] [info] Removing previous waypoint for same road 13 (at s 100.00)
+[] [info] Added route waypoint 2, 59.00: road_id 13 lane_id -6 s 104.00 (scenario)
+[] [info] Added route waypoint 0, 0.00: road_id 13 lane_id -6 s 52.00 (scenario)
+[] [info] Added route waypoint 1, 0.00: road_id 13 lane_id -6 s 52.00 (scenario)
+[] [info] Removing previous waypoint for same road 13 (at s 52.00)
+[] [info] Added route waypoint 2, 0.00: road_id 13 lane_id -6 s 52.00 (scenario)
+[] [info] Added route waypoint 0, 0.00: road_id 13 lane_id -5 s 5.00 (scenario)
+[] [info] Added route waypoint 1, 95.00: road_id 13 lane_id -5 s 100.00 (scenario)
+[] [info] Removing previous waypoint for same road 13 (at s 100.00)
+[] [info] Added route waypoint 2, 99.00: road_id 13 lane_id -5 s 104.00 (scenario)
+[] [info] Added route waypoint 0, 0.00: road_id 13 lane_id -4 s 0.00 (scenario)
+[] [info] Added route waypoint 1, 100.00: road_id 13 lane_id -4 s 100.00 (scenario)
+[] [info] Removing previous waypoint for same road 13 (at s 100.00)
+[] [info] Added route waypoint 2, 104.00: road_id 13 lane_id -4 s 104.00 (scenario)
+[] [info] 0 parameters
+[0.000] [info] Window created at 60,60 with size 800,400
+[0.000] [info] Generating a simplistic 3D model of the road network
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: StopLine.osgb (StopLine). Creating a bounding box as stand in.
+[0.000] [warn] Object StopLine missing width, set to bounding box width 0.05
+[0.000] [warn] Object StopLine missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SpeedLimit30Assembly.osgb (SpeedLimit30Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SpeedLimit30Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Stencil_ArrowType4R.osgb (Stencil_ArrowType4R). Creating a bounding box as stand in.
+[0.000] [warn] Object Stencil_ArrowType4R missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Stencil_ArrowType4R.osgb (Stencil_ArrowType4R). Creating a bounding box as stand in.
+[0.000] [warn] Object Stencil_ArrowType4R missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: NoTurnLeft_Round_Assembly.osgb (NoTurnLeft_Round_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object NoTurnLeft_Round_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object NoTurnLeft_Round_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object NoTurnLeft_Round_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SolidSingleWhite.osgb (SolidSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object SolidSingleWhite missing width, set to bounding box width 0.05
+[0.000] [warn] Object SolidSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Stencil_ArrowType4L.osgb (Stencil_ArrowType4L). Creating a bounding box as stand in.
+[0.000] [warn] Object Stencil_ArrowType4L missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Stencil_ArrowType4L.osgb (Stencil_ArrowType4L). Creating a bounding box as stand in.
+[0.000] [warn] Object Stencil_ArrowType4L missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit90Assembly.osgb (Speedlimit90Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit90Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SpeedLimit30Assembly.osgb (SpeedLimit30Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SpeedLimit30Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SolidSingleWhite.osgb (SolidSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object SolidSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit90Assembly.osgb (Speedlimit90Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit90Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SpeedLimit30Assembly.osgb (SpeedLimit30Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SpeedLimit30Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SpeedLimit30Assembly.osgb (SpeedLimit30Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SpeedLimit30Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit90Assembly.osgb (Speedlimit90Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit90Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SpeedLimit30Assembly.osgb (SpeedLimit30Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SpeedLimit30Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit90Assembly.osgb (Speedlimit90Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit90Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit90Assembly.osgb (Speedlimit90Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit90Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: LaneR_L0_Assembly.osgb (LaneR_L0_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object LaneR_L0_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object LaneR_L0_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object LaneR_L0_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: LaneR_L1_Assembly.osgb (LaneR_L1_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object LaneR_L1_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object LaneR_L1_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object LaneR_L1_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: LaneR_L2_Assembly.osgb (LaneR_L2_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object LaneR_L2_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object LaneR_L2_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object LaneR_L2_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: LaneR_L3Assembly.osgb (LaneR_L3Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object LaneR_L3Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object LaneR_L3Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object LaneR_L3Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Stencil_ArrowType4R.osgb (Stencil_ArrowType4R). Creating a bounding box as stand in.
+[0.000] [warn] Object Stencil_ArrowType4R missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Stencil_ArrowType4R.osgb (Stencil_ArrowType4R). Creating a bounding box as stand in.
+[0.000] [warn] Object Stencil_ArrowType4R missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: NoTurnLeft_Round_Assembly.osgb (NoTurnLeft_Round_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object NoTurnLeft_Round_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object NoTurnLeft_Round_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object NoTurnLeft_Round_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit90Assembly.osgb (Speedlimit90Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit90Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SignPost_10ft.osgb (SignPost_10ft). Creating a bounding box as stand in.
+[0.000] [warn] Failed to load road object model file: Stencil_ArrowType4L.osgb (Stencil_ArrowType4L). Creating a bounding box as stand in.
+[0.000] [warn] Object Stencil_ArrowType4L missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Stencil_ArrowType4L.osgb (Stencil_ArrowType4L). Creating a bounding box as stand in.
+[0.000] [warn] Object Stencil_ArrowType4L missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SpeedLimit30Assembly.osgb (SpeedLimit30Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SpeedLimit30Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SpeedLimit30Assembly.osgb (SpeedLimit30Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SpeedLimit30Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Stencil_ArrowType4R.osgb (Stencil_ArrowType4R). Creating a bounding box as stand in.
+[0.000] [warn] Object Stencil_ArrowType4R missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: MichiganTurnAssembly.osgb (MichiganTurnAssembly). Creating a bounding box as stand in.
+[0.000] [warn] Object MichiganTurnAssembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object MichiganTurnAssembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object MichiganTurnAssembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Stencil_ArrowType4R.osgb (Stencil_ArrowType4R). Creating a bounding box as stand in.
+[0.000] [warn] Object Stencil_ArrowType4R missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SpeedLimit30Assembly.osgb (SpeedLimit30Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SpeedLimit30Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SpeedLimit30Assembly.osgb (SpeedLimit30Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SpeedLimit30Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: MichiganTurnAssembly.osgb (MichiganTurnAssembly). Creating a bounding box as stand in.
+[0.000] [warn] Object MichiganTurnAssembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object MichiganTurnAssembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object MichiganTurnAssembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Stencil_ArrowType4R.osgb (Stencil_ArrowType4R). Creating a bounding box as stand in.
+[0.000] [warn] Object Stencil_ArrowType4R missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Stencil_ArrowType4R.osgb (Stencil_ArrowType4R). Creating a bounding box as stand in.
+[0.000] [warn] Object Stencil_ArrowType4R missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SpeedLimit30Assembly.osgb (SpeedLimit30Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SpeedLimit30Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SpeedLimit30Assembly.osgb (SpeedLimit30Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SpeedLimit30Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: DashedShortSingleWhite.osgb (DashedShortSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object DashedShortSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: DashedShortSingleWhite.osgb (DashedShortSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object DashedShortSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SolidSingleWhite.osgb (SolidSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object SolidSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SolidSingleWhite.osgb (SolidSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object SolidSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: DashedShortSingleWhite.osgb (DashedShortSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object DashedShortSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: DashedShortSingleWhite.osgb (DashedShortSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object DashedShortSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Stencil_ArrowType4R.osgb (Stencil_ArrowType4R). Creating a bounding box as stand in.
+[0.000] [warn] Object Stencil_ArrowType4R missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: StopLine.osgb (StopLine). Creating a bounding box as stand in.
+[0.000] [warn] Object StopLine missing width, set to bounding box width 0.05
+[0.000] [warn] Object StopLine missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SimpleCrosswalk.osgb (SimpleCrosswalk). Creating a bounding box as stand in.
+[0.000] [warn] Object SimpleCrosswalk missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SimpleCrosswalk.osgb (SimpleCrosswalk). Creating a bounding box as stand in.
+[0.000] [warn] Object SimpleCrosswalk missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: StopLine.osgb (StopLine). Creating a bounding box as stand in.
+[0.000] [warn] Object StopLine missing width, set to bounding box width 0.05
+[0.000] [warn] Object StopLine missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: StopLine.osgb (StopLine). Creating a bounding box as stand in.
+[0.000] [warn] Object StopLine missing width, set to bounding box width 0.05
+[0.000] [warn] Object StopLine missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: StopLine.osgb (StopLine). Creating a bounding box as stand in.
+[0.000] [warn] Object StopLine missing width, set to bounding box width 0.05
+[0.000] [warn] Object StopLine missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: StopLine.osgb (StopLine). Creating a bounding box as stand in.
+[0.000] [warn] Object StopLine missing width, set to bounding box width 0.05
+[0.000] [warn] Object StopLine missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: oneWayL_Assembly.osgb (oneWayL_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object oneWayL_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object oneWayL_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object oneWayL_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SpeedLimit30Assembly.osgb (SpeedLimit30Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SpeedLimit30Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SolidSingleWhite.osgb (SolidSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object SolidSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: oneWayL_Assembly.osgb (oneWayL_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object oneWayL_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object oneWayL_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object oneWayL_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SpeedLimit30Assembly.osgb (SpeedLimit30Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SpeedLimit30Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: oneWayL_Assembly.osgb (oneWayL_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object oneWayL_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object oneWayL_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object oneWayL_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: StopLine.osgb (StopLine). Creating a bounding box as stand in.
+[0.000] [warn] Object StopLine missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SimpleCrosswalk.osgb (SimpleCrosswalk). Creating a bounding box as stand in.
+[0.000] [warn] Object SimpleCrosswalk missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SimpleCrosswalk.osgb (SimpleCrosswalk). Creating a bounding box as stand in.
+[0.000] [warn] Object SimpleCrosswalk missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: StopLine.osgb (StopLine). Creating a bounding box as stand in.
+[0.000] [warn] Object StopLine missing width, set to bounding box width 0.05
+[0.000] [warn] Object StopLine missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: oneWayR_Assembly.osgb (oneWayR_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object oneWayR_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object oneWayR_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object oneWayR_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: oneWayR_Assembly.osgb (oneWayR_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object oneWayR_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object oneWayR_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object oneWayR_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: NoTurn_Assembly.osgb (NoTurn_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object NoTurn_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object NoTurn_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object NoTurn_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: StopLine.osgb (StopLine). Creating a bounding box as stand in.
+[0.000] [warn] Object StopLine missing width, set to bounding box width 0.05
+[0.000] [warn] Object StopLine missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SimpleCrosswalk.osgb (SimpleCrosswalk). Creating a bounding box as stand in.
+[0.000] [warn] Object SimpleCrosswalk missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SimpleCrosswalk.osgb (SimpleCrosswalk). Creating a bounding box as stand in.
+[0.000] [warn] Object SimpleCrosswalk missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: StopLine.osgb (StopLine). Creating a bounding box as stand in.
+[0.000] [warn] Object StopLine missing width, set to bounding box width 0.05
+[0.000] [warn] Object StopLine missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: NoTurnLeft_Round_Assembly.osgb (NoTurnLeft_Round_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object NoTurnLeft_Round_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object NoTurnLeft_Round_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object NoTurnLeft_Round_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: StopLine.osgb (StopLine). Creating a bounding box as stand in.
+[0.000] [warn] Object StopLine missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SolidSingleWhite.osgb (SolidSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object SolidSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SolidSingleWhite.osgb (SolidSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object SolidSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SolidSingleWhite.osgb (SolidSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object SolidSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SolidSingleWhite.osgb (SolidSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object SolidSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: oneWayL_Assembly.osgb (oneWayL_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object oneWayL_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object oneWayL_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object oneWayL_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: StopLine.osgb (StopLine). Creating a bounding box as stand in.
+[0.000] [warn] Object StopLine missing width, set to bounding box width 0.05
+[0.000] [warn] Object StopLine missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SimpleCrosswalk.osgb (SimpleCrosswalk). Creating a bounding box as stand in.
+[0.000] [warn] Object SimpleCrosswalk missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SimpleCrosswalk.osgb (SimpleCrosswalk). Creating a bounding box as stand in.
+[0.000] [warn] Object SimpleCrosswalk missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SimpleCrosswalk.osgb (SimpleCrosswalk). Creating a bounding box as stand in.
+[0.000] [warn] Object SimpleCrosswalk missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SimpleCrosswalk.osgb (SimpleCrosswalk). Creating a bounding box as stand in.
+[0.000] [warn] Object SimpleCrosswalk missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: StopLine.osgb (StopLine). Creating a bounding box as stand in.
+[0.000] [warn] Object StopLine missing width, set to bounding box width 0.05
+[0.000] [warn] Object StopLine missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SolidSingleWhite.osgb (SolidSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object SolidSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SolidSingleWhite.osgb (SolidSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object SolidSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SolidSingleWhite.osgb (SolidSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object SolidSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SolidSingleWhite.osgb (SolidSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object SolidSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: StopLine.osgb (StopLine). Creating a bounding box as stand in.
+[0.000] [warn] Object StopLine missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: NoTurnLeft_Round_Assembly.osgb (NoTurnLeft_Round_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object NoTurnLeft_Round_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object NoTurnLeft_Round_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object NoTurnLeft_Round_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: StopLine.osgb (StopLine). Creating a bounding box as stand in.
+[0.000] [warn] Object StopLine missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: StopLine.osgb (StopLine). Creating a bounding box as stand in.
+[0.000] [warn] Object StopLine missing width, set to bounding box width 0.05
+[0.000] [warn] Object StopLine missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: NoTurn_Assembly.osgb (NoTurn_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object NoTurn_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object NoTurn_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object NoTurn_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SpeedLimit30Assembly.osgb (SpeedLimit30Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SpeedLimit30Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: DoNotEnter_Assembly.osgb (DoNotEnter_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object DoNotEnter_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object DoNotEnter_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object DoNotEnter_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: oneWayL_Assembly.osgb (oneWayL_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object oneWayL_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object oneWayL_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object oneWayL_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SpeedLimit30Assembly.osgb (SpeedLimit30Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SpeedLimit30Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SimpleCrosswalk.osgb (SimpleCrosswalk). Creating a bounding box as stand in.
+[0.000] [warn] Object SimpleCrosswalk missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: DashedShortSingleWhite.osgb (DashedShortSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object DashedShortSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: DashedShortSingleWhite.osgb (DashedShortSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object DashedShortSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: NoTurnLeft_Round_Assembly.osgb (NoTurnLeft_Round_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object NoTurnLeft_Round_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object NoTurnLeft_Round_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object NoTurnLeft_Round_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: DashedShortSingleWhite.osgb (DashedShortSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object DashedShortSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SimpleCrosswalk.osgb (SimpleCrosswalk). Creating a bounding box as stand in.
+[0.000] [warn] Object SimpleCrosswalk missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SimpleCrosswalk.osgb (SimpleCrosswalk). Creating a bounding box as stand in.
+[0.000] [warn] Object SimpleCrosswalk missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: DashedShortSingleWhite.osgb (DashedShortSingleWhite). Creating a bounding box as stand in.
+[0.000] [warn] Object DashedShortSingleWhite missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SimpleCrosswalk.osgb (SimpleCrosswalk). Creating a bounding box as stand in.
+[0.000] [warn] Object SimpleCrosswalk missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: oneWayL_Assembly.osgb (oneWayL_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object oneWayL_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object oneWayL_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object oneWayL_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit90Assembly.osgb (Speedlimit90Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit90Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SppedLimit40Assembly.osgb (SppedLimit40Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SppedLimit40Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SppedLimit40Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: oneWayL_Assembly.osgb (oneWayL_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object oneWayL_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object oneWayL_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object oneWayL_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit60Assembly.osgb (Speedlimit60Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit60Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit60Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit90Assembly.osgb (Speedlimit90Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit90Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: StopLine.osgb (StopLine). Creating a bounding box as stand in.
+[0.000] [warn] Object StopLine missing width, set to bounding box width 0.05
+[0.000] [warn] Object StopLine missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: DoNotEnter_Assembly.osgb (DoNotEnter_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object DoNotEnter_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object DoNotEnter_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object DoNotEnter_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit90Assembly.osgb (Speedlimit90Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit90Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: oneWayL_Assembly.osgb (oneWayL_Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object oneWayL_Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object oneWayL_Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object oneWayL_Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: SpeedLimit30Assembly.osgb (SpeedLimit30Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object SpeedLimit30Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object SpeedLimit30Assembly missing height, set to bounding box height 0.05
+[0.000] [warn] Failed to load road object model file: Speedlimit90Assembly.osgb (Speedlimit90Assembly). Creating a bounding box as stand in.
+[0.000] [warn] Object Speedlimit90Assembly missing length, set to bounding box length 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing width, set to bounding box width 0.05
+[0.000] [warn] Object Speedlimit90Assembly missing height, set to bounding box height 0.05
+[0.000] [info] Adjusted Truck bounding box to model truck_yellow.osgb - xyz: 1.63, 0.00, 1.06 lwh: 5.65, 1.91, 2.11
+[0.000] [info] Adjusted Pedestrian bounding box to model walkman.osgb - xyz: -0.04, 0.00, 0.91 lwh: 1.05, 0.25, 1.78
+[0.000] [info] Adjusted Tailgater bounding box to model car_red.osgb - xyz: 1.46, 0.00, 0.77 lwh: 5.04, 2.04, 1.49
+[0.000] [info] Init EnvironmentAction initState -> startTransition -> runningState
+[0.000] [info] Init Ego LongitudinalAction initState -> startTransition -> runningState
+[0.000] [info] Init Ego TeleportAction initState -> startTransition -> runningState
+[0.000] [info] Starting teleport Action
+[0.000] [info] Ego New position:
+[0.000] [info] Pos(-109.24, -48.94, 0.00) Rot(0.00, 0.00, 0.00) roadId 13 laneId -5 s 20.00 offset 0.00 t -8.75
+[0.000] [info] Entity Ego on route at roadId=13, s=20.00
+[0.000] [info] Init Ego RoutingAction initState -> startTransition -> runningState
+[0.000] [info] Init Truck LongitudinalAction initState -> startTransition -> runningState
+[0.000] [info] Init Truck TeleportAction initState -> startTransition -> runningState
+[0.000] [info] Starting teleport Action
+[0.000] [info] Truck New position:
+[0.000] [info] Pos(-84.24, -52.43, 0.00) Rot(0.00, 0.00, 0.00) roadId 13 laneId -6 s 45.00 offset 0.00 t -12.25
+[0.000] [info] Entity Truck on route at roadId=13, s=45.00
+[0.000] [info] Init Truck RoutingAction initState -> startTransition -> runningState
+[0.000] [info] Init Pedestrian LongitudinalAction initState -> startTransition -> runningState
+[0.000] [info] Init Pedestrian TeleportAction initState -> startTransition -> runningState
+[0.000] [info] Starting teleport Action
+[0.000] [info] Pedestrian New position:
+[0.000] [info] Pos(-77.24, -52.43, 0.00) Rot(0.00, 0.00, 0.00) roadId 13 laneId -6 s 52.00 offset 0.00 t -12.25
+[0.000] [info] Entity Pedestrian on route at roadId=13, s=52.00
+[0.000] [info] Init Pedestrian RoutingAction initState -> startTransition -> runningState
+[0.000] [info] Init Tailgater LongitudinalAction initState -> startTransition -> runningState
+[0.000] [info] Init Tailgater TeleportAction initState -> startTransition -> runningState
+[0.000] [info] Starting teleport Action
+[0.000] [info] Tailgater New position:
+[0.000] [info] Pos(-124.24, -48.95, 0.00) Rot(0.00, 0.00, 0.00) roadId 13 laneId -5 s 5.00 offset 0.00 t -8.75
+[0.000] [info] Entity Tailgater on route at roadId=13, s=5.00
+[0.000] [info] Init Tailgater RoutingAction initState -> startTransition -> runningState
+[0.000] [info] Init Overtaker LongitudinalAction initState -> startTransition -> runningState
+[0.000] [info] Init Overtaker TeleportAction initState -> startTransition -> runningState
+[0.000] [info] Starting teleport Action
+[0.000] [info] Overtaker New position:
+[0.000] [info] Pos(-129.24, -45.45, 0.00) Rot(0.00, 0.00, 0.00) roadId 13 laneId -4 s 0.00 offset 0.00 t -5.25
+[0.000] [info] Entity Overtaker on route at roadId=13, s=0.00
+[0.000] [info] Init Overtaker RoutingAction initState -> startTransition -> runningState
+[0.000] [info] storyBoard initState -> startTransition -> runningState
+[0.000] [info] MainStory initState -> startTransition -> runningState
+[0.000] [info] Act_Overtaker_1 initState -> initToStandbyTransition -> standbyState
+[0.000] [info] Act_Tailgater_2 initState -> initToStandbyTransition -> standbyState
+[0.000] [info] Act_Pedestrian_3 initState -> initToStandbyTransition -> standbyState
+[0.000] [info] Act_Pedestrian_4 initState -> initToStandbyTransition -> standbyState
+[0.000] [info] Act_Pedestrian_5 initState -> initToStandbyTransition -> standbyState
+[0.000] [info] Init EnvironmentAction runningState -> stopTransition -> completeState
+[0.000] [info] Init Ego LongitudinalAction runningState -> endTransition -> completeState
+[0.000] [info] Init Ego TeleportAction runningState -> endTransition -> completeState
+[0.000] [info] Init Ego RoutingAction runningState -> endTransition -> completeState
+[0.000] [info] Init Truck LongitudinalAction runningState -> endTransition -> completeState
+[0.000] [info] Init Truck TeleportAction runningState -> endTransition -> completeState
+[0.000] [info] Init Truck RoutingAction runningState -> endTransition -> completeState
+[0.000] [info] Init Pedestrian LongitudinalAction runningState -> endTransition -> completeState
+[0.000] [info] Init Pedestrian TeleportAction runningState -> endTransition -> completeState
+[0.000] [info] Init Pedestrian RoutingAction runningState -> endTransition -> completeState
+[0.000] [info] Init Tailgater LongitudinalAction runningState -> endTransition -> completeState
+[0.000] [info] Init Tailgater TeleportAction runningState -> endTransition -> completeState
+[0.000] [info] Init Tailgater RoutingAction runningState -> endTransition -> completeState
+[0.000] [info] Init Overtaker LongitudinalAction runningState -> endTransition -> completeState
+[0.000] [info] Init Overtaker TeleportAction runningState -> endTransition -> completeState
+[0.000] [info] Init Overtaker RoutingAction runningState -> endTransition -> completeState
+[0.001] [info] ActStart_Overtaker_1: true, delay: 0.00, 0.0010 > 0.0000, edge: rising
+[0.001] [info] Trigger /------------------------------------------------
+[0.001] [info] Group 0:
+[0.001] [info] ActStart_Overtaker_1: true
+[0.001] [info] Trigger  ------------------------------------------------/
+[0.001] [info] Act_Overtaker_1 standbyState -> startTransition -> runningState
+[0.001] [info] MG_Overtaker_1 initState -> startTransition -> runningState
+[0.001] [info] Man_Overtaker_1 initState -> startTransition -> runningState
+[0.001] [info] Ev_Overtaker_1 initState -> initToStandbyTransition -> standbyState
+[0.001] [info] Cond_Overtaker_1: true, delay: 0.00, traveled_dist: 0.02 >= 0.00, edge: none
+[0.001] [info] Trigger /------------------------------------------------
+[0.001] [info] Group 0:
+[0.001] [info] Cond_Overtaker_1: true
+[0.001] [info] Triggering entity 0: Overtaker
+[0.001] [info] Trigger  ------------------------------------------------/
+[0.001] [info] Ev_Overtaker_1 standbyState -> startTransition -> runningState
+[0.001] [info] Act_Spd_Overtaker_1 initState -> startTransition -> runningState
+[0.990] [info] Act_Spd_Overtaker_1 runningState -> endTransition -> completeState
+[0.990] [info] Ev_Overtaker_1 complete after 1 execution
+[0.990] [info] Ev_Overtaker_1 runningState -> endTransition -> completeState
+[0.990] [info] Man_Overtaker_1 runningState -> endTransition -> completeState
+[0.990] [info] MG_Overtaker_1 complete after 1 execution
+[0.990] [info] MG_Overtaker_1 runningState -> endTransition -> completeState
+[0.990] [info] Act_Overtaker_1 runningState -> endTransition -> completeState
+[1.001] [info] ActStart_Tailgater_2: true, delay: 0.00, Act_Overtaker_1, COMPLETE / END_TRANSITION == COMPLETE, edge: rising
+[1.001] [info] Trigger /------------------------------------------------
+[1.001] [info] Group 0:
+[1.001] [info] ActStart_Tailgater_2: true
+[1.001] [info] Trigger  ------------------------------------------------/
+[1.001] [info] Act_Tailgater_2 standbyState -> startTransition -> runningState
+[1.001] [info] MG_Tailgater_2 initState -> startTransition -> runningState
+[1.001] [info] Man_Tailgater_2 initState -> startTransition -> runningState
+[1.001] [info] Ev_Tailgater_2 initState -> initToStandbyTransition -> standbyState
+[1.001] [info] Cond_Tailgater_2: true, delay: 0.00, traveled_dist: 12.02 >= 0.00, edge: none
+[1.001] [info] Trigger /------------------------------------------------
+[1.001] [info] Group 0:
+[1.001] [info] Cond_Tailgater_2: true
+[1.001] [info] Triggering entity 0: Tailgater
+[1.001] [info] Trigger  ------------------------------------------------/
+[1.001] [info] Ev_Tailgater_2 standbyState -> startTransition -> runningState
+[1.001] [info] Act_Spd_Tailgater_2 initState -> startTransition -> runningState
+[1.740] [info] Act_Spd_Tailgater_2 runningState -> endTransition -> completeState
+[1.740] [info] Ev_Tailgater_2 complete after 1 execution
+[1.740] [info] Ev_Tailgater_2 runningState -> endTransition -> completeState
+[1.740] [info] Man_Tailgater_2 runningState -> endTransition -> completeState
+[1.740] [info] MG_Tailgater_2 complete after 1 execution
+[1.740] [info] MG_Tailgater_2 runningState -> endTransition -> completeState
+[1.740] [info] Act_Tailgater_2 runningState -> endTransition -> completeState
+[1.751] [info] ActStart_Pedestrian_3: true, delay: 0.00, Act_Tailgater_2, COMPLETE / END_TRANSITION == COMPLETE, edge: rising
+[1.751] [info] Trigger /------------------------------------------------
+[1.751] [info] Group 0:
+[1.751] [info] ActStart_Pedestrian_3: true
+[1.751] [info] Trigger  ------------------------------------------------/
+[1.751] [info] Act_Pedestrian_3 standbyState -> startTransition -> runningState
+[1.751] [info] MG_Pedestrian_3 initState -> startTransition -> runningState
+[1.751] [info] Man_Pedestrian_3 initState -> startTransition -> runningState
+[1.751] [info] Ev_Pedestrian_3 initState -> initToStandbyTransition -> standbyState
+[5.329] [info] Entity Overtaker moved out of route at roadId=13, s=0.00 (SetPathS())
+[5.329] [info] End of route at road_id=13, lane_id=-4, s=103.94
+[6.380] [info] Closing

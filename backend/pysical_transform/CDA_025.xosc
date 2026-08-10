@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-03T18:00:00" description="Scooter cuts in from right causing Ego to emergency brake and crash" author="Esmini-Generator"/>
+
+    <ParameterDeclarations/>
+
+    <!-- 1. 资源库配置 -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="one-way-two-lane-straight-urban.xodr"/>
+    </RoadNetwork>
+
+    <!-- 2. 实体定义 -->
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+
+        <!-- TargetScooter: 轻便踏板车 -->
+        <ScenarioObject name="TargetScooter">
+            <CatalogReference catalogName="VehicleCatalog" entryName="scooter"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- Init Ego: Lane -4 (左车道), S=0, Speed=20m/s (72km/h) -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-4" offset="0" s="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="20.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- Init Scooter: Lane -5 (右车道), S=40, Speed=8m/s (29km/h) -->
+                <!-- 位于 Ego 前方 40m，速度慢 -->
+                <Private entityRef="TargetScooter">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-5" offset="0" s="40.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="8.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="Scooter_CutIn_Crash_Story">
+
+            <!-- Act 1: Scooter 向左切入 -->
+            <Act name="Scooter_Maneuver_Act">
+                <ManeuverGroup maximumExecutionCount="1" name="Scooter_CutIn_Group">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="TargetScooter"/>
+                    </Actors>
+                    <Maneuver name="Cut_In_Left">
+                        <Event name="Lane_Change_Event" priority="overwrite">
+                            <Action name="Change_To_Ego_Lane">
+                                <PrivateAction>
+                                    <LateralAction>
+                                        <LaneChangeAction>
+                                            <LaneChangeTarget>
+                                                <AbsoluteTargetLane value="-4"/> <!-- 切入 Ego 所在的 -4 车道 -->
+                                            </LaneChangeTarget>
+                                            <!-- 2.5秒完成变道，比较从容的切入，让 Ego 反应不及 -->
+                                            <LaneChangeActionDynamics dynamicsShape="sinusoidal" value="2.5" dynamicsDimension="time"/>
+                                        </LaneChangeAction>
+                                    </LateralAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 触发: 改为基于相对距离触发 -->
+                            <!-- Ego速度20m/s，Scooter速度8m/s，相对速度12m/s。初始间距40m。-->
+                            <!-- 原0.5s触发时，间距约为 40 - (12*0.5) = 34m。此处设定为35m触发。 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Distance_Start_CutIn" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="TargetScooter"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <RelativeDistanceCondition entityRef="Ego" relativeDistanceType="longitudinal" value="35.0" freespace="false" rule="lessThan"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="Sim_Start" delay="0" conditionEdge="none">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+
+            <!-- Act 2: Ego 紧急制动 (但撞上) -->
+            <Act name="Ego_Reaction_Act">
+                <ManeuverGroup maximumExecutionCount="1" name="Ego_Brake_Group">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                    </Actors>
+
+                    <Maneuver name="Emergency_Brake_Maneuver">
+                        <Event name="Brake_Event" priority="overwrite">
+                            <Action name="Brake_Action">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <!-- 减速度 5 m/s^2，不足以在剩余距离内停下 -->
+                                            <SpeedActionDynamics dynamicsShape="linear" value="5.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="0.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 触发条件: 当与 Scooter 纵向距离小于 12米时 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Critical_Distance_Condition" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Ego"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <RelativeDistanceCondition entityRef="TargetScooter" relativeDistanceType="longitudinal" value="12.0" freespace="false" rule="lessThan"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="Always_True_Ego" delay="0" conditionEdge="none">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <!-- 碰撞检测: 碰撞发生后延迟2秒退出 -->
+                <Condition name="Collision_Occurred" delay="2.0" conditionEdge="rising">
+                    <ByEntityCondition>
+                        <TriggeringEntities triggeringEntitiesRule="any">
+                            <EntityRef entityRef="Ego"/>
+                        </TriggeringEntities>
+                        <EntityCondition>
+                            <CollisionCondition>
+                                <EntityRef entityRef="TargetScooter"/>
+                            </CollisionCondition>
+                        </EntityCondition>
+                    </ByEntityCondition>
+                </Condition>
+                <!-- 超时保护 -->
+                <Condition name="Time_Out" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="10.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

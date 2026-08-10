@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-01T11:30:00" description="Ghost Probe Scenario: Truck blocks view, Pedestrian crosses" author="Esmini-Expert"/>
+
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="two-way-four-lane-crossroad.xodr"/>
+    </RoadNetwork>
+
+    <!-- 1. 定义实体: 自车、行人、货车 -->
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <!-- 新增: 遮挡视线的卡车 -->
+        <ScenarioObject name="Truck_1">
+            <CatalogReference catalogName="VehicleCatalog" entryName="semi_truck"/>
+        </ScenarioObject>
+        <ScenarioObject name="Pedestrian_1">
+            <CatalogReference catalogName="PedestrianCatalog" entryName="pedestrian_adult"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- 新增: 全局环境设置 (黑夜 + 雨天) -->
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Night_Rain_Environment">
+                            <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+                            <Weather cloudState="overcast">
+                                <Sun intensity="0.0" azimuth="0.0" elevation="0.0"/>
+                                <Fog visualRange="10000.0"/>
+                                <Precipitation precipitationType="rain" intensity="1.0"/>
+                            </Weather>
+                            <RoadCondition frictionScaleFactor="0.8"/>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+
+                <!-- ============================
+                     1. 自车 (Lane 1, 内侧)
+                     ============================ -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- 自车在 Lane 1, s=60 -->
+                                <LanePosition roadId="1" laneId="1" offset="0.0" s="65.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="18.33"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <!-- 导航: 直行 -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Ego_Straight" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position> <LanePosition roadId="1" laneId="1" offset="0.0" s="60.0"/> </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position> <LanePosition roadId="0" laneId="1" offset="0.0" s="20.0"/> </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- ============================
+                     2. 卡车 (Lane 2, 外侧, 遮挡源)
+                     ============================ -->
+                <Private entityRef="Truck_1">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- 卡车在 Lane 2, s=65 (稍微靠前一点点，确保遮挡) -->
+                                <LanePosition roadId="1" laneId="2" offset="0.0" s="60.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <!-- 卡车速度和自车一样 -->
+                                    <AbsoluteTargetSpeed value="17.33"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <!-- 卡车也要导航直行 -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Truck_Straight" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position> <LanePosition roadId="1" laneId="2" offset="0.0" s="65.0"/> </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position> <LanePosition roadId="0" laneId="2" offset="0.0" s="20.0"/> </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- ============================
+                     3. 行人 (位置不变, offset -10.5)
+                     ============================ -->
+                <Private entityRef="Pedestrian_1">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="69" laneId="1" offset="-10.5" s="3.56"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="GhostProbeStory">
+            
+            <!-- 剧情 A: 行人开始过马路 -->
+            <Act name="PedestrianStartAct">
+                <ManeuverGroup maximumExecutionCount="1" name="PedestrianMoveGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Pedestrian_1"/>
+                    </Actors>
+                    <Maneuver name="PedestrianRunManeuver">
+                        <Event name="PedestrianRunEvent" priority="overwrite">
+                            <!-- 触发条件: 当卡车到达 s=45 时 (离路口45米) -->
+                            <!-- 用卡车触发比较好，因为它是第一视角目击者 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="TruckApproaches" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Truck_1"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <ReachPositionCondition tolerance="2.0">
+                                                    <Position>
+                                                        <LanePosition roadId="1" laneId="2" s="45.0"/>
+                                                    </Position>
+                                                </ReachPositionCondition>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                            
+                            <!-- 动作: 跑步 -->
+                            <Action name="SetRunSpeed">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="5.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="4.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <Action name="FollowPath">
+                                <PrivateAction>
+                                    <RoutingAction>
+                                        <FollowTrajectoryAction>
+                                            <Trajectory name="CrossingPath" closed="false">
+                                                <Shape>
+                                                    <Polyline>
+                                                        <Vertex><Position><LanePosition roadId="69" laneId="1" offset="-10.5" s="3.56"/></Position></Vertex>
+                                                        <Vertex><Position><LanePosition roadId="69" laneId="1" offset="0.0" s="3.56"/></Position></Vertex>
+                                                        <Vertex><Position><LanePosition roadId="69" laneId="1" offset="12.0" s="3.56"/></Position></Vertex>
+                                                    </Polyline>
+                                                </Shape>
+                                                <TimeReference><None/></TimeReference>
+                                                <TrajectoryFollowingMode followingMode="position"/>
+                                            </Trajectory>
+                                        </FollowTrajectoryAction>
+                                    </RoutingAction>
+                                </PrivateAction>
+                            </Action>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+            </Act>
+
+            <!-- 剧情 B: 卡车紧急刹车 -->
+            <Act name="TruckBrakeAct">
+                <ManeuverGroup maximumExecutionCount="1" name="TruckBrakeGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Truck_1"/>
+                    </Actors>
+                    <Maneuver name="TruckEmergencyStop">
+                        <Event name="BrakeEvent" priority="overwrite">
+                            <!-- 触发条件: 当卡车到达 s=20 时 (此时看到了行人) -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="TruckSeesPedestrian" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Truck_1"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <ReachPositionCondition tolerance="2.0">
+                                                    <Position>
+                                                        <LanePosition roadId="1" laneId="2" s="20.0"/>
+                                                    </Position>
+                                                </ReachPositionCondition>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+
+                            <!-- 动作: 紧急刹车至停止 -->
+                            <Action name="TruckStop">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <!-- 减速度: -6 m/s^2 (急刹) -->
+                                            <SpeedActionDynamics dynamicsShape="linear" value="-6.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="0.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+            </Act>
+            
+        </Story>
+    </Storyboard>
+</OpenSCENARIO>

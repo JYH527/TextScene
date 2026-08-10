@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+  <FileHeader revMajor="1" revMinor="0" date="2024-05-21T10:00:00" description="测试Ego的AEB-P系统在静止车辆形成的视觉盲区中，对突然横穿的儿童行人的感知和紧急制动能力。" author="Scenario Generator"/>
+  <ParameterDeclarations/>
+  <CatalogLocations/>
+  <RoadNetwork>
+    <LogicFile filepath="generated_SCN_LIB_010.xodr"/>
+  </RoadNetwork>
+  <Entities>
+    <!-- 关键修正: 恢复所有车辆的完整物理属性定义 -->
+    <ScenarioObject name="Ego">
+      <Vehicle name="vehicle.tesla.model3" vehicleCategory="car">
+        <BoundingBox>
+          <Center x="1.4" y="0.0" z="0.8"/>
+          <Dimensions length="4.5" width="2.0" height="1.6"/>
+        </BoundingBox>
+        <Performance maxSpeed="55.5" maxAcceleration="10.0" maxDeceleration="10.0"/>
+        <Axles>
+          <FrontAxle maxSteering="0.5" wheelDiameter="0.8" trackWidth="1.8" positionX="2.8" positionZ="0.4"/>
+          <RearAxle maxSteering="0.0" wheelDiameter="0.8" trackWidth="1.8" positionX="0.0" positionZ="0.4"/>
+        </Axles>
+        <Properties/>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="Adv_1">
+      <Vehicle name="vehicle.tesla.cybertruck" vehicleCategory="truck"> <!-- FIX: Changed to valid/older blueprint; use 'vehicle.carlamotors.european_hgv' if CARLA >=0.9.15 -->
+        <BoundingBox>
+          <Center x="5.0" y="0.0" z="2.0"/>
+          <Dimensions length="13.0" width="2.5" height="4.0"/>
+        </BoundingBox>
+        <Performance maxSpeed="30" maxAcceleration="2.0" maxDeceleration="5.0"/>
+        <Axles>
+          <FrontAxle maxSteering="0.5" wheelDiameter="1.1" trackWidth="2.2" positionX="12.0" positionZ="0.55"/>
+          <RearAxle maxSteering="0.0" wheelDiameter="1.1" trackWidth="2.2" positionX="7.0" positionZ="0.55"/>
+        </Axles>
+        <Properties/>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="Adv_2">
+      <Pedestrian model="walker.pedestrian.00012" mass="35" name="Adv2Pedestrian" pedestrianCategory="pedestrian">
+        <BoundingBox>
+          <Center x="0.1" y="0.0" z="0.6"/>
+          <Dimensions length="0.4" width="0.4" height="1.2"/>
+        </BoundingBox>
+        <Properties/>
+      </Pedestrian>
+    </ScenarioObject>
+  </Entities>
+  <Storyboard>
+    <Init>
+      <Actions>
+        <GlobalAction>
+          <EnvironmentAction>
+            <Environment name="Environment1">
+              <TimeOfDay animation="false" dateTime="2023-01-01T12:00:00"/>
+              <Weather cloudState="free">
+                <Sun intensity="0.85" azimuth="0" elevation="1.57"/>
+                <Fog visualRange="100000.0"/>
+                <Precipitation precipitationType="dry" intensity="0.0"/>
+              </Weather>
+              <RoadCondition frictionScaleFactor="1.0"/>
+            </Environment>
+          </EnvironmentAction>
+        </GlobalAction>
+        <Private entityRef="Ego">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <LanePosition roadId="1" laneId="-2" s="50.0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="8.5"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="Adv_1">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <LanePosition roadId="1" laneId="-3" s="100.0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="0.0"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="Adv_2">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <!-- FIX: Start pedestrian at the very edge of a routable DRIVING lane, not on the shoulder -->
+                <!-- Lane -2 is 3.5m wide, so offset -1.7 places them right at the border with the shoulder -->
+                <LanePosition roadId="1" laneId="-3" s="104.0" offset="1.3"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+    <Story name="OcclusionGhostHeadStory">
+      <Act name="OcclusionGhostHeadStory_act">
+        <ManeuverGroup maximumExecutionCount="1" name="Ego_Initial_Cruise_mg">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Ego"/>
+          </Actors>
+          <Maneuver name="Ego_Initial_Cruise_maneuver">
+            <Event name="Ego_Initial_Cruise_event" priority="parallel">
+              <Action name="Ego_Initial_Cruise">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="8.4"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="Start" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                      <SimulationTimeCondition value="0.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <ManeuverGroup maximumExecutionCount="1" name="Truck_Static_mg">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Adv_1"/>
+          </Actors>
+          <Maneuver name="Truck_Static_maneuver">
+            <Event name="Truck_Static_event" priority="parallel">
+              <Action name="Truck_Static">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="0.0"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="Start" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                      <SimulationTimeCondition value="0.1" rule="greaterThan"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <ManeuverGroup maximumExecutionCount="1" name="Child_Cross_Road_Challenge_mg">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Adv_2"/>
+          </Actors>
+          <Maneuver name="Child_Cross_Road_Challenge_maneuver">
+            <Event name="Child_Cross_Road_Challenge_event" priority="overwrite">
+              <Action name="Child_Follow_Defined_Path_Action">
+                <PrivateAction>
+                  <RoutingAction>
+                    <FollowTrajectoryAction>
+                      <Trajectory name="PedestrianCrossingPath" closed="false">
+                        <Shape>
+                          <Polyline>
+                            <!-- MODIFIED: Vertex 1 now matches the new starting position of the pedestrian. -->
+                            <Vertex time="0.0">
+                              <Position>
+                                <LanePosition roadId="1" laneId="-3" s="104.0" offset="-1.5"/>
+                              </Position>
+                            </Vertex>
+                            <!--
+                              MODIFIED: Vertex 2 is the end of the crossing path.
+                              Time is recalculated for the new crossing distance (~6.5m) at ~1.5m/s.
+                            -->
+                            <Vertex time="6.50">
+                              <Position>
+                                <!-- The target is the far side of the Ego's lane (-2). -->
+                                <LanePosition roadId="1" laneId="-1" s="104.0" offset="1.5"/>
+                              </Position>
+                            </Vertex>
+                          </Polyline>
+                        </Shape>
+                      </Trajectory>
+                      <TimeReference>
+                        <Timing domainAbsoluteRelative="relative" scale="1.0" offset="0"/>
+                      </TimeReference>
+                      <TrajectoryFollowingMode followingMode="follow"/>
+                    </FollowTrajectoryAction>
+                  </RoutingAction>
+                </PrivateAction>
+              </Action>
+              <!-- The absolute position trigger remains the most robust solution -->
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="Child_Cross_Trigger_By_Position" delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any">
+                        <EntityRef entityRef="Ego"/>
+                      </TriggeringEntities>
+                      <EntityCondition>
+                        <ReachPositionCondition tolerance="2.0">
+                          <Position>
+                            <LanePosition roadId="1" laneId="-2" s="70.0"/>
+                          </Position>
+                        </ReachPositionCondition>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <ManeuverGroup maximumExecutionCount="1" name="Ego_React_Brake_mg">
+          <Actors selectTriggeringEntities="false"> <!-- 改为false，因为执行者是固定的Ego -->
+            <EntityRef entityRef="Ego"/>
+          </Actors>
+          <Maneuver name="Ego_React_Brake_maneuver">
+            <Event name="Ego_React_Brake_event" priority="overwrite">
+              <Action name="Ego_React_Brake">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsShape="linear" value="8.5" dynamicsDimension="rate"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="0.0"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <!-- 触发条件：当Ego与行人Adv_2的距离小于20米时 -->
+                  <Condition name="Ego_Brake_Trigger" delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any">
+                        <EntityRef entityRef="Ego"/>
+                      </TriggeringEntities>
+                      <EntityCondition>
+                        <RelativeDistanceCondition entityRef="Adv_2" relativeDistanceType="cartesianDistance" value="16" freespace="false" rule="lessThan"/>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <StartTrigger>
+          <ConditionGroup>
+            <Condition name="Act_Start_Trigger" delay="0" conditionEdge="rising">
+              <ByValueCondition>
+                <SimulationTimeCondition value="0.1" rule="greaterThan"/>
+              </ByValueCondition>
+            </Condition>
+          </ConditionGroup>
+        </StartTrigger>
+      </Act>
+    </Story>
+    <StopTrigger>
+      <ConditionGroup>
+        <Condition name="SimulationTime" delay="0" conditionEdge="rising">
+          <ByValueCondition>
+            <SimulationTimeCondition value="20" rule="greaterThan"/>
+          </ByValueCondition>
+        </Condition>
+        <Condition name="Collision" delay="0" conditionEdge="rising">
+          <ByEntityCondition>
+            <TriggeringEntities triggeringEntitiesRule="any">
+              <EntityRef entityRef="Ego"/>
+            </TriggeringEntities>
+            <EntityCondition>
+              <CollisionCondition/>
+            </EntityCondition>
+          </ByEntityCondition>
+        </Condition>
+      </ConditionGroup>
+    </StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

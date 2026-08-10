@@ -1,0 +1,2949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Scenario Engine - Intelligent Driving Scenario Management Platform</title>
+  <!-- React & Tailwind Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.15/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      background-color: #f3f4f6;
+    }
+    .main-content {
+        height: calc(100vh - 65px);
+    }
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+    /* Code Area Styling */
+    .xosc-code-area {
+      background-color: #eff6ff; color: #0f172a;
+      font-family: 'Consolas', 'Monaco', 'Menlo', 'Courier New', monospace;
+      font-size: 0.875em; line-height: 1.6; padding: 1rem;
+      border-radius: 0.5rem; max-height: 450px; overflow: auto;
+      white-space: pre-wrap; word-break: break-all; border: 1px solid #bfdbfe;
+    }
+    .error-border { border: 2px solid #ef4444 !important; }
+    .warning-border { border: 2px solid #f59e0b !important; }
+    .success-border { border: 2px solid #22c55e !important; }
+     .candidate-card-selected {
+        transform: scale(1.02);
+        box-shadow: 0 0 0 2px #2563eb, 0 8px 15px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    // const API_BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'https://your-production-url.com';
+    const API_BASE_URL = 'http://127.0.0.1:5000';
+    // --- ICONS ---
+    const LoadingIconSvg = ({className}) => (
+      <svg className={`animate-spin -ml-1 mr-3 h-5 w-5 ${className || ''}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+    );
+    const ICONS = {
+        scenario: (props) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" {...props}><path d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.06.44l.858.858A1.5 1.5 0 007.624 4h4.752a1.5 1.5 0 011.06.44l.858.858A1.5 1.5 0 0015.352 6H16.5A1.5 1.5 0 0118 7.5v7A1.5 1.5 0 0116.5 16H3.5A1.5 1.5 0 012 14.5v-11z" /><path d="M15 10a1 1 0 00-1-1H6a1 1 0 100 2h8a1 1 0 001-1z" /></svg>,
+        trigger: (props) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" {...props}><path d="M3.5 2.75a.75.75 0 00-1.5 0v14.5a.75.75 0 001.5 0v-4.392l1.657-.348a6.443 6.443 0 013.682 0l2.31.482a6.445 6.445 0 003.682 0l1.658-.348a.75.75 0 000-1.474l-1.658-.348a6.443 6.443 0 01-3.682 0l-2.31.482a6.445 6.445 0 00-3.682 0l-1.657-.348V2.75z" /></svg>,
+        ai: (props) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" {...props}><path d="M11.235 3.322l1.414-1.414a.75.75 0 011.061 0l2.121 2.121a.75.75 0 010 1.061l-1.414 1.414a.75.75 0 01-1.061 0l-2.121-2.121a.75.75 0 010-1.061zM13.65 8.345a.75.75 0 010 1.061l-2.121 2.12a.75.75 0 01-1.061 0l-1.414-1.415a.75.75 0 010-1.06l2.121-2.121a.75.75 0 011.06 0l1.415 1.414zM8.91 3.593a.75.75 0 00-1.06-1.06L6.435 3.947a.75.75 0 000 1.06L7.85 6.421a.75.75 0 001.06 0l1.415-1.414-1.414-1.414zM3.594 8.91a.75.75 0 00-1.061 1.061l1.414 1.414a.75.75 0 001.06 0l2.121-2.12a.75.75 0 000-1.061L5.009 7.495 3.594 8.91zM2 10a8 8 0 1116 0 8 8 0 01-16 0z" /></svg>,
+        tag: (props) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" {...props}><path fillRule="evenodd" d="M5.5 2A1.5 1.5 0 004 3.5v13A1.5 1.5 0 005.5 18h9a1.5 1.5 0 001.5-1.5V7.621a1.5 1.5 0 00-.44-1.06l-4.12-4.122A1.5 1.5 0 0010.378 2H5.5zM10 6.5a1 1 0 00-1 1v5.5a1 1 0 102 0v-5.5a1 1 0 00-1-1z" clipRule="evenodd" /></svg>,
+        knowledge: (props) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" {...props}><path fillRule="evenodd" d="M10 2a.75.75 0 01.75.75v.252a.25.25 0 00.499.052l.248-.992a.75.75 0 011.45.364l-.248.992A1.75 1.75 0 0110.75 6H9.25a1.75 1.75 0 01-1.741-2.534l-.248-.992a.75.75 0 011.45-.364l.248.992a.25.25 0 00.499-.052V2.75A.75.75 0 0110 2zM5.003 4.412A.75.75 0 015.75 4h.334a.25.25 0 00.2-.143l.425-.85a.75.75 0 011.342 0l.425.85a.25.25 0 00.2.143h.334a.75.75 0 010 1.5h-.334a.25.25 0 00-.2.143l-.425.85a.75.75 0 01-1.342 0l-.425-.85a.25.25 0 00-.2-.143h-.334a.75.75 0 01-.747-.838zM9.25 10.25a.75.75 0 01.75-.75h2a.75.75 0 010 1.5h-2a.75.75 0 01-.75-.75zM15 4.5a.75.75 0 00-1.5 0v.334a.25.25 0 01-.143.2l-.85.425a.75.75 0 000 1.342l.85.425a.25.25 0 01.143.2v.334a.75.75 0 001.5 0v-.334a.25.25 0 01.143-.2l.85-.425a.75.75 0 000-1.342l-.85-.425a.25.25 0 01-.143-.2V4.5z" clipRule="evenodd" /><path d="M4 9.75a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75a.75.75 0 01-.75-.75zM4 13.25a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75a.75.75 0 01-.75-.75zM4 16.75a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75a.75.75 0 01-.75-.75z" /></svg>,
+        simulation: (props) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" {...props}><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg>,
+        trash: (props) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" {...props}><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" /></svg>,
+    };
+
+    // --- MAIN LAYOUT COMPONENTS ---
+    function Header({ selectedModel, setSelectedModel, apiKey, setApiKey, isAdmin, onAdminLogin, onAdminLogout }) {
+        const [showAdminInput, setShowAdminInput] = React.useState(false);
+        const [tempPass, setTempPass] = React.useState('');
+
+        const handleLogin = (e) => {
+            e.preventDefault();
+            onAdminLogin(tempPass);
+            setShowAdminInput(false);
+            setTempPass('');
+        };
+
+        return (
+            <header className="bg-white border-b border-gray-200 h-[65px] flex items-center justify-between px-6 shadow-sm flex-shrink-0 z-10">
+                <div className="flex items-center">
+                    <img src="./003.jpg" alt="Logo" className="w-25 h-8 rounded-md mr-3 object-cover" />
+                    <span className="text-xl font-semibold text-gray-800">AutoScenarist</span>
+                    {isAdmin && <span className="ml-3 bg-red-600 text-white text-xs px-2 py-1 rounded font-bold animate-pulse">ADMIN MODE</span>}
+                </div>
+                
+                <div className="flex items-center space-x-3">
+                    {/* 管理员登录区域 */}
+                    {!isAdmin ? (
+                        <div className="relative">
+                            {!showAdminInput ? (
+                                <button onClick={() => setShowAdminInput(true)} className="text-sm text-gray-500 hover:text-gray-800 underline">Admin Login</button>
+                            ) : (
+                                <form onSubmit={handleLogin} className="flex items-center">
+                                    <input 
+                                        type="password" 
+                                        className="border border-gray-300 rounded px-2 py-1 text-xs w-24 mr-1"
+                                        placeholder="Admin Pwd"
+                                        value={tempPass}
+                                        onChange={e => setTempPass(e.target.value)}
+                                        autoFocus
+                                    />
+                                    <button type="submit" className="text-xs bg-gray-800 text-white px-2 py-1 rounded">Go</button>
+                                    <button type="button" onClick={() => setShowAdminInput(false)} className="ml-1 text-xs text-gray-400">✕</button>
+                                </form>
+                            )}
+                        </div>
+                    ) : (
+                        <button onClick={onAdminLogout} className="text-sm text-red-500 hover:text-red-700 underline mr-4">Logout</button>
+                    )}
+
+                    <div className="flex flex-col items-end">
+                        <select 
+                            value={selectedModel} 
+                            onChange={(e) => setSelectedModel(e.target.value)}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-1.5"
+                        >
+                            <option value="local">Local (vLLM)</option>
+                            <option value="deepseekv3.2">DeepSeek v3.2</option>
+                            {/* [新增] Gemini 选项 */}
+                            <option value="gemini3_pro">Google Gemini</option>
+                        </select>
+                    </div>
+                    <div className="relative w-64">
+                        <input 
+                            type="password" 
+                            value={apiKey}
+                            onChange={(e) => setApiKey(e.target.value)}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5" 
+                            placeholder={selectedModel === 'local' ? "API Key (Optional)" : "Paste API Key here..."} 
+                        />
+                    </div>
+                </div>
+            </header>
+        );
+    }
+
+    function Sidebar({ currentPage, setCurrentPage, onLibraryAccess, onAddLibrary, scenarioLibs, onDeleteLibrary }) {
+        const [openMenuIds, setOpenMenuIds] = React.useState({});
+        const publicLibsList = [];
+        const privateLibsList = [];
+        const systemLibIds = ['cda', 'cidas', 'project', 'triggers1', 'maps_carla'];
+
+        if (scenarioLibs) {
+            Object.values(scenarioLibs).forEach(lib => {
+                const item = { 
+                    id: `scenario_library_${lib.id}`, 
+                    label: lib.name, 
+                    isLibrary: true, 
+                    libId: lib.id,
+                    canDelete: !systemLibIds.includes(lib.id) 
+                };
+                // 简单的分类逻辑：名字里包含 Public 或者是 cda/cidas
+                if (lib.name.toLowerCase().includes('public') || lib.id === 'cda' || lib.id === 'cidas') {
+                    publicLibsList.push(item);
+                } else {
+                    privateLibsList.push(item);
+                }
+            });
+        }
+
+        const handleRebuildIndex = async () => {
+            // 安全起见，要求输入管理员密码（因为这是耗时操作）
+            const pwd = prompt("Rebuilding indices allows new scenarios to be searchable.\nThis requires Admin permission.\nEnter Admin Password:");
+            if (!pwd) return;
+
+            // 显示加载状态（这里简单用 alert 阻塞，或者你可以加个 loading state）
+            const confirmRebuild = confirm("This process might take a few seconds. Confirm?");
+            if (!confirmRebuild) return;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/rebuild_indices`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password: pwd })
+                });
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert(result.message);
+                } else {
+                    alert("Error: " + result.error);
+                }
+            } catch (err) {
+                alert("Network error: " + err.message);
+            }
+        };
+
+        const navItems = [
+            {
+                id: 'scenario_management',
+                label: 'Scenario Management',
+                icon: ICONS.scenario,
+                subItems: [
+                    // === Public Library 组 (动态) ===
+                    {
+                        id: 'group_public',
+                        label: 'Public Library',
+                        isGroup: true,
+                        icon: (props) => <span className="mr-2 text-base">📂</span>,
+                        subItems: [
+                            ...publicLibsList, // 展开动态生成的列表
+                            { id: 'add_public', label: '+ Add Public Lib', isAction: true, actionType: 'public' },
+                        ]
+                    },
+                    // === Private Library 组 (动态) ===
+                    {
+                        id: 'group_private',
+                        label: 'Private Library',
+                        isGroup: true,
+                        icon: (props) => <span className="mr-2 text-base">🔒</span>,
+                        subItems: [
+                            ...privateLibsList, // 展开动态生成的列表
+                            { id: 'add_private', label: '+ Add Private Lib', isAction: true, actionType: 'private' },
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'trigger_management',
+                label: 'Triggering Condition',
+                icon: ICONS.trigger,
+                subItems: [
+                    { id: 'trigger_library', label: 'Triggering Library' },
+                ]
+            },
+            {
+                id: 'ai_generation',
+                label: 'AI Scenario Gen',
+                icon: ICONS.ai,
+                subItems: [
+                    { id: 'ai_assisted_scenario', label: 'Assisted Scenario Gen' },
+                    { id: 'manual_import_scenario', label: 'Manual Import / Upload' }, 
+                    { id: 'ai_test_function_scenario', label: 'Functional Scenario Gen' },
+                    // [新增] 场景转化与仿真菜单项
+                    { id: 'scenario_simulation', label: 'Scenario Simulation' } 
+                ] 
+            },
+            {
+                id: 'knowledge_base',
+                label: 'User Manual',
+                icon: ICONS.knowledge,
+                subItems: [
+                    { id: 'openscenario_rules', label: 'User Manual' },
+                ]
+            },
+            // === [新增] 系统工具 ===
+            {
+                id: 'system_tools',
+                label: 'System Tools',
+                icon: (props) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" {...props}><path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" /></svg>,
+                subItems: [
+                    { 
+                        id: 'rebuild_index_action', 
+                        label: '⚡ Update Search Index', 
+                        isAction: true, // 标记这是一个动作，不是页面跳转
+                        actionFunction: handleRebuildIndex // 绑定上面的函数
+                    }
+                ]
+            }
+        ];
+
+        // 2. 自动展开逻辑 (保持不变)
+        React.useEffect(() => {
+            const newOpenState = { ...openMenuIds };
+            let hasChange = false;
+            navItems.forEach(item => {
+                let containsActive = false;
+                if (item.subItems) {
+                    if (item.subItems.some(sub => sub.id === currentPage)) containsActive = true;
+                    else {
+                        item.subItems.forEach(sub => {
+                            if (sub.isGroup && sub.subItems) {
+                                if (sub.subItems.some(child => child.id === currentPage)) {
+                                    containsActive = true;
+                                    if (!newOpenState[sub.id]) { newOpenState[sub.id] = true; hasChange = true; }
+                                }
+                            }
+                        });
+                    }
+                }
+                if (containsActive && !newOpenState[item.id]) { newOpenState[item.id] = true; hasChange = true; }
+            });
+            if (hasChange) setOpenMenuIds(newOpenState);
+        }, [currentPage, scenarioLibs]); // 注意依赖项加入了 scenarioLibs
+
+        const toggleMenu = (id) => {
+            setOpenMenuIds(prev => ({ ...prev, [id]: !prev[id] }));
+        };
+
+        return (
+            <aside className="w-60 bg-white border-r border-gray-200 flex-shrink-0 flex flex-col overflow-y-auto">
+                <nav className="p-4">
+                    <ul>
+                        {navItems.map(item => {
+                            let isHighLight = item.id === currentPage;
+                            if (!isHighLight && item.subItems) {
+                                isHighLight = item.subItems.some(sub => {
+                                    if (sub.id === currentPage) return true;
+                                    if (sub.subItems) return sub.subItems.some(child => child.id === currentPage);
+                                    return false;
+                                });
+                            }
+                            const isOpen = openMenuIds[item.id];
+
+                            return (
+                                <li key={item.id} className="mb-1">
+                                    <a href="#" onClick={(e) => { e.preventDefault(); if (item.subItems) toggleMenu(item.id); else setCurrentPage(item.id); }} 
+                                       className={`flex items-center justify-between p-2.5 rounded-md text-sm font-medium transition-colors ${ isHighLight ? 'bg-green-100 text-green-800' : 'text-gray-700 hover:bg-gray-100' }`} >
+                                        <div className="flex items-center"><item.icon className="w-5 h-5 mr-3" /><span>{item.label}</span></div>
+                                        {item.subItems && (<svg className={`w-4 h-4 transition-transform ${isOpen ? 'transform rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>)}
+                                    </a>
+
+                                    {item.subItems && isOpen && (
+                                        <ul className="pl-4 mt-1 space-y-1 border-l-2 border-green-100 ml-4">
+                                            {item.subItems.map(subItem => {
+                                                if (subItem.isGroup) {
+                                                    const isGroupExpanded = openMenuIds[subItem.id];
+                                                    return (
+                                                        <li key={subItem.id}>
+                                                            <div onClick={(e) => { e.stopPropagation(); toggleMenu(subItem.id); }} className="flex items-center justify-between p-2 rounded-md text-sm font-semibold text-gray-700 hover:bg-gray-100 cursor-pointer select-none">
+                                                                <div className="flex items-center">{subItem.icon && <subItem.icon />}<span>{subItem.label}</span></div>
+                                                                <svg className={`w-3 h-3 transition-transform ${isGroupExpanded ? 'transform rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                                                            </div>
+                                                            {isGroupExpanded && subItem.subItems && (
+                                                                <ul className="pl-6 mt-1 space-y-1">
+                                                                    {subItem.subItems.map(child => (
+                                                                        <li key={child.id} className="relative group"> 
+                                                                            <a href="#" onClick={(e) => { 
+                                                                                   e.preventDefault(); e.stopPropagation(); 
+                                                                                   if (child.isAction) {
+                                                                                    if (child.actionFunction) child.actionFunction(); // 执行自定义函数
+                                                                                    else onAddLibrary(child.actionType); // 兼容之前的 Add Library
+                                                                                    }
+                                                                                   else if (child.isLibrary) onLibraryAccess(child.libId); 
+                                                                               }} 
+                                                                               className={`flex items-center justify-between p-2 rounded-md text-sm transition-colors ${ child.id === currentPage ? 'text-green-700 font-bold bg-green-50' : 'text-gray-500 hover:text-gray-800 hover:bg-gray-50' } ${child.isAction ? 'text-blue-500 hover:text-blue-700 italic' : ''}`}
+                                                                            >
+                                                                                <span className="truncate pr-6">{child.label}</span>
+                                                                                
+                                                                                {/* === 删除按钮 === */}
+                                                                                {child.canDelete && (
+                                                                                    <span 
+                                                                                        onClick={(e) => { 
+                                                                                            e.stopPropagation(); // 防止触发点击库的跳转
+                                                                                            onDeleteLibrary(child.libId); 
+                                                                                        }}
+                                                                                        className="hidden group-hover:flex absolute right-2 top-2 p-0.5 rounded hover:bg-red-100 text-gray-400 hover:text-red-600 transition-colors"
+                                                                                        title="Delete Library"
+                                                                                    >
+                                                                                        <ICONS.trash className="w-4 h-4" />
+                                                                                    </span>
+                                                                                )}
+                                                                            </a>
+                                                                        </li>
+                                                                    ))}
+                                                                </ul>
+                                                            )}
+                                                        </li>
+                                                    );
+                                                }
+                                                return (
+                                                    <li key={subItem.id}>
+                                                    <a href="#" 
+                                                        onClick={(e) => { 
+                                                            e.preventDefault(); 
+                                                            e.stopPropagation(); 
+                                                            // [修复] 检查是否是动作按钮，如果是则执行函数，否则才跳转页面
+                                                            if (subItem.isAction && subItem.actionFunction) {
+                                                                subItem.actionFunction();
+                                                            } else {
+                                                                setCurrentPage(subItem.id); 
+                                                            }
+                                                        }} 
+                                                        className={`block p-2 rounded-md text-sm cursor-pointer transition-colors ${ 
+                                                            // [修复] 为动作按钮添加特殊的样式（蓝色/斜体），普通页面保持原样
+                                                            subItem.isAction 
+                                                                ? 'text-blue-600 hover:text-blue-800 hover:bg-blue-50 italic font-medium' 
+                                                                : (subItem.id === currentPage ? 'bg-green-200/80 text-green-900 font-semibold' : 'text-gray-600 hover:bg-gray-100') 
+                                                        }`}
+                                                    >
+                                                        {/* [可选] 如果是动作，加个小闪电图标前缀 */}
+                                                        {subItem.isAction && <span className="mr-1">⚡</span>}
+                                                        {subItem.label}
+                                                    </a>
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                    )}
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </nav>
+            </aside>
+        );
+    }
+ 
+    const PageWrapper = ({ title, subtitle, children }) => (
+      <div className="p-6 overflow-y-auto h-full">
+          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 min-h-full">
+              <h1 className="text-2xl font-bold text-gray-800 mb-2">{title}</h1>
+              {subtitle && <p className="text-sm text-gray-500 mb-6">{subtitle}</p>}
+              {children}
+          </div>
+      </div>
+    );
+ 
+    const PlaceholderPage = ({ title }) => (
+      <PageWrapper title={title}>
+        <div className="w-full h-full flex flex-col items-center justify-center text-gray-500 mt-20">
+            <div className="text-center p-8 border-2 border-dashed border-gray-300 rounded-lg">
+                <h2 className="text-xl font-bold text-gray-700">Recycled Document List</h2>
+                <p className="mt-2 text-sm">This page ({title}) temporarily stores deleted scenario documents.</p>
+            </div>
+        </div>
+      </PageWrapper>
+    );
+
+    // --- HELPER PAGES ---
+    function MarkdownViewerPage({ title, fileUrl }) {
+        const [content, setContent] = React.useState(''); const [isLoading, setIsLoading] = React.useState(true); const [error, setError] = React.useState(null);
+        React.useEffect(() => { const fetchMarkdown = async () => { setIsLoading(true); setError(null); try { const response = await fetch(`${fileUrl}?t=${new Date().getTime()}`); if (!response.ok) { throw new Error(`Cannot load file: ${response.status} ${response.statusText}`); } const text = await response.text(); setContent(text); } catch (err) { setError(err.message); } finally { setIsLoading(false); } }; fetchMarkdown(); }, [fileUrl]);
+        const renderMarkdown = (text) => {
+            const lines = text.split('\n'); const elements = []; let i = 0;
+            while (i < lines.length) {
+                const line = lines[i];
+                if (line.startsWith('```')) { const codeLines = []; i++; while (i < lines.length && !lines[i].startsWith('```')) { codeLines.push(lines[i]); i++; } elements.push(<pre key={`code-${i}`} className="xosc-code-area my-4 p-4 rounded-md overflow-x-auto"><code>{codeLines.join('\n')}</code></pre>); i++; continue; }
+                if (line.startsWith('# ')) { elements.push(<h1 key={i} className="text-3xl font-bold mt-6 mb-3 pb-2 border-b">{line.substring(2)}</h1>); } else if (line.startsWith('## ')) { elements.push(<h2 key={i} className="text-2xl font-semibold mt-5 mb-2 pb-1 border-b">{line.substring(3)}</h2>); } else if (line.startsWith('### ')) { elements.push(<h3 key={i} className="text-xl font-semibold mt-4 mb-2">{line.substring(4)}</h3>); }
+                else if (line.trim().startsWith('- ')) { const listItems = []; while (i < lines.length && lines[i].trim().startsWith('- ')) { const liContent = lines[i].trim().substring(2).split(/(`[^`]+`)/g).map((part, index) => { if (part.startsWith('`') && part.endsWith('`')) { return <code key={index} className="bg-gray-200 text-red-600 font-mono px-1 py-0.5 rounded text-sm">{part.slice(1, -1)}</code>; } return part; }); listItems.push(<li key={i}>{liContent}</li>); i++; } elements.push(<ul key={`ul-${i}`} className="list-disc pl-8 my-3 space-y-1">{listItems}</ul>); continue; }
+                else if (line.trim() === '') { /* empty line */ } else { const parts = line.split(/(`[^`]+`)/g).map((part, index) => { if (part.startsWith('`') && part.endsWith('`')) { return <code key={index} className="bg-gray-200 text-red-600 font-mono px-1 py-0.5 rounded text-sm">{part.slice(1, -1)}</code>; } return part; }); elements.push(<p key={i} className="text-base leading-7 my-2">{parts}</p>); }
+                i++;
+            } return elements;
+        };
+        return (
+            <PageWrapper title={title} subtitle={`Source File: ${fileUrl}`}>
+                {isLoading && ( <div className="w-full flex items-center justify-center text-gray-500 mt-20"><LoadingIconSvg className="text-blue-600 h-8 w-8" /><span className="ml-3">Loading document...</span></div> )}
+                {error && ( <div className="bg-red-100 border-l-4 border-red-500 p-4 text-red-700 rounded-md"> <h2 className="font-bold">Load Error</h2> <p className="mt-2 text-sm">{error}</p> <p className="mt-2 text-sm">Please ensure file `{fileUrl}` exists in the same directory as `index.html`, and the app is served via HTTP.</p> </div> )}
+                {!isLoading && !error && ( <article className="prose prose-lg max-w-none text-gray-800 p-2">{renderMarkdown(content)}</article> )}
+            </PageWrapper>
+        );
+    }
+ 
+    // Edit Modal Component
+    const EditCandidateModal = ({ scenario, isOpen, onSave, onCancel }) => { if (!isOpen || !scenario) return null; const [editedScenario, setEditedScenario] = React.useState(JSON.parse(JSON.stringify(scenario))); const handleInputChange = (field, value) => { setEditedScenario(prev => ({ ...prev, [field]: value })); }; const handleLayerChange = (layerKey, value) => { setEditedScenario(prev => ({ ...prev, layers: { ...prev.layers, [layerKey]: value } })); }; const handleSave = () => { onSave(editedScenario); }; return ( <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4"> <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-3xl max-h-[90vh] flex flex-col"> <h2 className="text-xl font-bold mb-4 text-gray-800">Edit Scenario Details</h2> <div className="overflow-y-auto pr-2 flex-grow space-y-4"> <div> <label className="block text-sm font-medium text-gray-700 mb-1">Scenario Name</label> <input type="text" className="block w-full rounded-md border-gray-300 p-2 text-sm" value={editedScenario.name} onChange={(e) => handleInputChange('name', e.target.value)} /> </div> <div> <label className="block text-sm font-medium text-gray-700 mb-1">Scenario Description</label> <textarea rows="5" className="block w-full rounded-md border-gray-300 p-2 text-sm" value={editedScenario.description} onChange={(e) => handleInputChange('description', e.target.value)} /> </div> <div> <h3 className="text-md font-semibold text-gray-700 mb-2">Layers</h3> <div className="space-y-3"> {Object.keys(editedScenario.layers).map(key => ( <div key={key}> <label className="block text-sm font-medium text-gray-600 mb-1">{key}:</label> <textarea rows="3" className="block w-full rounded-md border-gray-300 p-2 text-sm placeholder-gray-400" value={typeof editedScenario.layers[key] === 'object' ? JSON.stringify(editedScenario.layers[key]) : editedScenario.layers[key]} onChange={(e) => handleLayerChange(key, e.target.value)} /> </div> ))} </div> </div> </div> <div className="flex justify-end space-x-4 pt-4 border-t mt-4"> <button onClick={onCancel} className="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-400">Cancel</button> <button onClick={handleSave} className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Save Changes</button> </div> </div> </div> ); };
+    
+    // AI Assisted Entry Page
+    function AIAssistedScenarioPage({ refreshLibrary, setCurrentPage, scenarioLibs, selectedModel, apiKey, adminPassword }) {
+        const [description, setDescription] = React.useState('');
+        const [layerInputs, setLayerInputs] = React.useState({ L0: "", L2: "", L3: "", L4: "", L5: "", L6: "" });
+        const [generationStep, setGenerationStep] = React.useState('form');
+        const [candidates, setCandidates] = React.useState([]);
+        const [selectedCandidateIndex, setSelectedCandidateIndex] = React.useState(null);
+        const [isLoading, setIsLoading] = React.useState(false);
+        const [error, setError] = React.useState('');
+        const [targetLibrary, setTargetLibrary] = React.useState('lib3');
+        const [isEditingModalOpen, setIsEditingModalOpen] = React.useState(false);
+        const [candidateToEdit, setCandidateToEdit] = React.useState(null);
+        const [authPassword, setAuthPassword] = React.useState(''); 
+        const handleGenerateCandidates = async (e) => {
+            e.preventDefault();
+            
+            // --- [修改点 1]：如果是 Local 模式，允许 API Key 为空 ---
+            if (selectedModel !== 'local' && !apiKey) { 
+                alert("Please enter your API Key in the top right header."); 
+                return; 
+            }
+            // ----------------------------------------------------
+
+            if (!description.trim() && Object.values(layerInputs).every(v => !v.trim())) { setError('Please enter a rough scenario description or fill in at least one layer detail.'); return; }
+         
+            setIsLoading(true); setError(''); setCandidates([]);
+            let userDraft = `Main Description: ${description.trim()}\n`;
+            Object.entries(layerInputs).forEach(([key, value]) => { if (value.trim()) { userDraft += `${key}: ${value.trim()}\n`; } });
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/refine_library_scenario_draft`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        user_draft: userDraft,
+                        model_selection: selectedModel,
+                        api_key: apiKey
+                    })
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.error || 'Failed to refine scenario draft');
+                if (result.refined_scenario) {
+                    setCandidates([result.refined_scenario]);
+                    setSelectedCandidateIndex(0);
+                    setGenerationStep('reviewing');
+                } else {
+                    throw new Error("API call successful, but failed to generate a valid scenario.");
+                }
+            } catch (err) {
+                setError(`Generation failed: ${err.message}`);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        const handleSaveSelectedScenario = async () => {
+            if (selectedCandidateIndex === null) { setError("Please select a scenario you are satisfied with."); return; }       
+            const targetLibConfig = scenarioLibs[targetLibrary];
+            let passwordToUse = authPassword;
+            if (adminPassword) {
+                passwordToUse = adminPassword;
+            } else if (targetLibConfig && targetLibConfig.password && !passwordToUse) {
+                 // 如果没有管理员权限且没填密码（通常UI会强制填，这里做个兜底）
+                 setError("Password required."); return;
+            }
+            if (targetLibConfig && targetLibConfig.password && !targetLibConfig.unlocked) {
+                 const inputPwd = prompt(`Library "${targetLibConfig.name}" is locked. Enter password to save:`);
+                 if (inputPwd === null) return; // Cancel
+                 if (inputPwd !== targetLibConfig.password) {
+                     setError("Password incorrect. Save failed.");
+                     return;
+                 }
+                 // 临时更新下密码以供发送
+                 passwordToUse = inputPwd;
+            }
+            setIsLoading(true); setError(''); setGenerationStep('saving');
+            const scenarioToSave = candidates[selectedCandidateIndex];
+         
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/save_selected_library_scenario`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        scenario_to_save: scenarioToSave,
+                        target_library_id: targetLibrary,
+                        password: passwordToUse // 使用处理后的密码
+                    })
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.error || "Save failed, please check password or backend logs");
+             
+                setGenerationStep('success');
+                refreshLibrary(targetLibrary);
+                setTimeout(() => {
+                    setCurrentPage(`scenario_library_${targetLibrary}`);
+                }, 2500);
+            } catch (err) {
+                setError(`Save failed: ${err.message}`);
+                setGenerationStep('reviewing');
+            } finally {
+                setIsLoading(false);
+            }
+        };
+     
+        const handleEditClick = () => { if (selectedCandidateIndex !== null) { setCandidateToEdit(candidates[selectedCandidateIndex]); setIsEditingModalOpen(true); } };
+        const handleSaveEdits = (editedScenario) => { const updatedCandidates = [...candidates]; updatedCandidates[selectedCandidateIndex] = editedScenario; setCandidates(updatedCandidates); setIsEditingModalOpen(false); setCandidateToEdit(null); };
+        const resetProcess = () => { setGenerationStep('form'); setCandidates([]); setSelectedCandidateIndex(null); setError(''); };
+     
+        return (
+            <PageWrapper title="AI Assisted Scenario Entry" subtitle="Generate structured scenarios from simple descriptions and add them to specific libraries.">
+                {generationStep === 'form' && (
+                    <form onSubmit={handleGenerateCandidates} className="space-y-6">
+                      <div>
+                        <label htmlFor="target-library" className="block text-base font-semibold text-gray-800 mb-2">1. Select Target Library (Required)</label>
+                        <select id="target-library" className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 p-2.5 text-sm" value={targetLibrary} onChange={e => setTargetLibrary(e.target.value)} disabled={isLoading}>
+                          {Object.values(scenarioLibs).map(lib => ( <option key={lib.id} value={lib.id}>{lib.name}</option> ))}
+                        </select>
+                      </div>
+                      <div>
+                        <label htmlFor="scenario-description" className="block text-base font-semibold text-gray-800 mb-2">2. Enter Scenario Draft (At least one item)</label>
+                        <textarea id="scenario-description" className="mt-1 block w-full rounded-md border-gray-300 p-4 text-sm placeholder-gray-400" rows="4" placeholder="Enter a rough scenario description, e.g., A vehicle tire blowout on the highway... AI will complete the details based on this." value={description} onChange={e => setDescription(e.target.value)} disabled={isLoading} ></textarea>
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-semibold text-gray-700 mb-2">Or/And provide specific layer details:</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {Object.keys(layerInputs).map(key => (
+                              <div key={key}>
+                                  <label className="block text-sm font-medium text-gray-600 mb-1">{key}:</label>
+                                  <textarea rows="3" className="block w-full rounded-md border-gray-300 p-2 text-sm placeholder-gray-400" placeholder={`Provide specific info for ${key}...`} value={layerInputs[key]} onChange={e => setLayerInputs(prev => ({...prev, [key]: e.target.value}))} disabled={isLoading}></textarea>
+                              </div>
+                          ))}
+                        </div>
+                      </div>
+                      <button type="submit" className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 text-lg font-semibold flex items-center justify-center disabled:opacity-50" disabled={isLoading}>
+                        {isLoading && <LoadingIconSvg className="text-white"/>}
+                        {isLoading ? 'Generating...' : 'Generate Candidates'}
+                      </button>
+                      {error && <p className="text-red-600 text-sm mt-4 text-center">{error}</p>}
+                    </form>
+                )}
+                {generationStep === 'reviewing' && (
+                    <div className="space-y-6">
+                        <h2 className="text-xl font-bold text-gray-800">Review AI Refined Scenarios</h2>
+                        <p className="text-gray-600 text-sm">AI has generated the following structured scenarios based on your draft. You can save directly or edit first.</p>
+                        
+                        {/* 候选场景列表区域 (保持不变) */}
+                        <div className="space-y-6">
+                            {candidates.map((candidate, index) => (
+                                <div key={index} className={`p-4 border-2 rounded-lg transition-all duration-200 cursor-pointer ${selectedCandidateIndex === index ? 'border-blue-500 candidate-card-selected' : 'border-gray-200 bg-white hover:border-blue-400/50'}`} onClick={() => setSelectedCandidateIndex(index)}>
+                                    <h3 className="text-lg font-semibold text-blue-700 mb-2">{candidate.name}</h3>
+                                    <p className="text-sm text-gray-700 whitespace-pre-line mb-4">{candidate.description}</p>
+                                    {selectedCandidateIndex === index && (
+                                    <div className="mt-4 pt-4 border-t border-blue-200 space-y-4">
+                                        {candidate.layers && ( <div> <h4 className="font-semibold text-md mb-2 text-blue-800">Detailed Layers:</h4> <ul className="list-disc pl-6 text-gray-600 text-sm space-y-1.5"> {Object.entries(candidate.layers).map(([key, value]) => ( <li key={key}><strong className="text-gray-800">{key}:</strong> {(typeof value === 'object' && value !== null && value.hasOwnProperty('description')) ? value.description : JSON.stringify(value)}</li> ))} </ul> </div> )}
+                                        {candidate.annotations && ( <div> <h4 className="font-semibold text-md mb-2 text-blue-800 mt-4">Key Annotations:</h4> <ul className="list-disc pl-5 text-sm text-gray-700 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1"> {Object.entries(candidate.annotations).map(([key, value]) => ( <li key={key}><strong className="text-gray-800">{key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}:</strong> {String(value)}</li> ))} </ul> </div> )}
+                                    </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                          
+                        {/* === [修改] 底部操作区域 (包含密码框) === */}
+                        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
+                            <div className="flex flex-col space-y-4">
+                                
+                                {/* 提示目标库 */}
+                                <div className="text-sm text-gray-600">
+                                    Target Library: <strong>{scenarioLibs[targetLibrary]?.name}</strong>
+                                </div>
+
+                                {/* === 核心修改：如果库受保护，显示密码框 === */}
+                                {scenarioLibs[targetLibrary]?.password && (
+                                    <div className="animate-fadeIn">
+                                        <label className="block text-sm font-bold text-red-600 mb-1">
+                                            Password Required to Save:
+                                        </label>
+                                        <input 
+                                            type="password" 
+                                            value={authPassword} // 绑定状态
+                                            onChange={(e) => setAuthPassword(e.target.value)} // 更新状态
+                                            className="block w-full sm:w-1/2 rounded-md border-red-300 focus:border-red-500 focus:ring-red-500 shadow-sm p-2 text-sm bg-white"
+                                            placeholder="Enter library password..."
+                                        />
+                                    </div>
+                                )}
+                                {/* ========================================== */}
+
+                                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-gray-200">
+                                    <button onClick={resetProcess} className="bg-gray-500 text-white py-2 px-5 rounded-lg hover:bg-gray-600 transition duration-150 ease-in-out text-sm font-medium"> « Back to Draft </button>
+                                    <div className="flex items-center gap-4 w-full sm:w-auto justify-end">
+                                        <button onClick={handleEditClick} className="bg-yellow-500 text-white py-2 px-5 rounded-lg hover:bg-yellow-600 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed" disabled={selectedCandidateIndex === null || isLoading}> Edit Selected </button>
+                                        <button 
+                                            onClick={handleSaveSelectedScenario} 
+                                            className="w-full sm:w-auto bg-green-600 text-white py-3 px-8 rounded-lg hover:bg-green-700 text-lg font-semibold flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed" 
+                                            disabled={selectedCandidateIndex === null || isLoading}
+                                        >
+                                            {isLoading ? <LoadingIconSvg className="text-white"/> : null}
+                                            {isLoading ? 'Saving...' : 'Confirm & Save'}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {error && <p className="text-red-600 text-sm mt-4 text-center bg-red-50 p-2 rounded border border-red-100">{error}</p>}
+                    </div>
+                )}
+                <EditCandidateModal scenario={candidateToEdit} isOpen={isEditingModalOpen} onSave={handleSaveEdits} onCancel={() => setIsEditingModalOpen(false)} />
+                {(generationStep === 'saving' || generationStep === 'success') && (
+                    <div className="p-8 text-center">
+                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mb-4"></div>
+                        <p className="text-2xl text-gray-800">{generationStep === 'success' ? `Scenario successfully saved to ${scenarioLibs[targetLibrary].name}!` : 'Saving to library...'}</p>
+                        {generationStep === 'success' && <p className="text-gray-600 mt-2">Redirecting to scenario library...</p>}
+                    </div>
+                )}
+            </PageWrapper>
+        );
+    }
+ 
+    function AITestFunctionScenarioPage({ scenarioLibs, preLoadedScenario, onClearPreLoaded, selectedModel, apiKey }) {
+        // === [新增] 控制当前页面视图的状态 ('form' 或 'results') ===
+        const [currentView, setCurrentView] = React.useState('form'); 
+
+        const [testFunction, setTestFunction] = React.useState("");
+        const [layerInputs, setLayerInputs] = React.useState({ L0: "", L1: "", L2: "", L3: "", L4: "", L5: "", L6: "" });
+        const [isLoadingDSG, setIsLoadingDSG] = React.useState(false);
+        const [errorDSG, setErrorDSG] = React.useState("");
+        const [generatedScenarios, setGeneratedScenarios] = React.useState([]);
+        const [selectedScenarioIndex, setSelectedScenarioIndex] = React.useState(null);
+        
+        // ================== [关键修复：补全丢失的状态声明] ==================
+        const [scenarioCardStates, setScenarioCardStates] = React.useState({});
+        const [understandingState, setUnderstandingState] = React.useState({});
+        // =================================================================
+
+        // === [新增] 批量处理状态 ===
+        const [selectedForBatch, setSelectedForBatch] = React.useState([]); // 存储选中的卡片 index
+        const [batchState, setBatchState] = React.useState({ isProcessing: false, current: 0, total: 0 });
+
+        // === [修改] 升级版双栏 Agent Modal 状态 ===
+        const [agentProgressModal, setAgentProgressModal] = React.useState({
+            isOpen: false,
+            batchTasks: [], // 存储任务列表: [{ index: 0, name: 'Scenario A', status: 'pending|processing|success|error' }]
+            currentActiveIndex: null, // 当前正在处理的场景索引
+            streamBlocks: [], // 混合存储 log 和 thought: [{ type: 'log', text: '...' }, { type: 'thought', text: '...' }]
+            status: 'idle',    // 'processing', 'success', 'error'
+            errorMsg: ''
+        });
+        const understandAbortRef = React.useRef(null);
+        
+        // Listen for preloaded scenarios (保持不变)
+        React.useEffect(() => {
+            if (preLoadedScenario) {
+                setGeneratedScenarios([{ scenario_data: preLoadedScenario, source: 'library' }]);
+                setSelectedScenarioIndex(0);
+                setScenarioCardStates({ 0: { scenarioData: preLoadedScenario, activeTab: 'scenario' } });
+                setUnderstandingState({});
+                setTestFunction("Loaded from Library: " + (preLoadedScenario.name || "Unnamed Scenario"));
+                setCurrentView('results'); 
+                if (onClearPreLoaded) onClearPreLoaded();
+            }
+        }, [preLoadedScenario, onClearPreLoaded])
+
+        const layerLabels = { L0: "L0: Ego-Vehicle Internal", L1: "L1: Road Network", L2: "L2: Transportation facilities", L3: "L3: Temporary Operations", L4: "L4: Dynamic Traffic Participants", L5: "L5: Environment Conditions", L6: "L6: Communication/V2X" };
+        const layerPlaceholders = { L0: "e.g., Ego-vehicle type, position, behavior.", L1: "e.g., straight urban road, crossroad, T-junction.", L2: "e.g., traffic light, stop sign, speed limit sign.", L3: "e.g., cone barrel, warning sign, warning bucket.", L4: `Detail each dynamic traffic participants (type, position, etc.) and behavior (cut_in, overtaking, etc.).`, L5: "e.g., time (daytime, nighttime), weather (sunny, rainy, snowy, etc).", L6: "e.g., V2X digital communication." };
+        const presetWeatherOptions = { label: "Weather/Light Presets", options: [ { label: "Select Weather/Light...", value: "" }, { label: "Sunny", value: "Sunny weather, bright sunlight, good visibility." }, { label: "Cloudy", value: "Cloudy weather, soft lighting." }, { label: "Light Rain", value: "Light rain, wet road, wipers on, slightly reduced visibility." }, { label: "Heavy Rain", value: "Heavy rain, severely wet road, wipers fast, significantly reduced visibility." }, { label: "Thick Fog", value: "Sudden thick fog, visibility drops to 10-20m, fog lights on." }, { label: "Night Clear", value: "Night driving, no moonlight, good road lighting, relies on headlights." }, { label: "Night Dim", value: "Night driving, poor or no road lighting, heavily relies on headlights." }, { label: "Evening Backlight", value: "Evening, low sun, strong backlight glare against driving direction." }, { label: "Dust/Sand", value: "Air filled with dust or sand, reduced visibility, potential sensor impact." } ] };
+        const [numToGenerate, setNumToGenerate] = React.useState(4);
+        const [generationProgress, setGenerationProgress] = React.useState({ current: 0, total: 0 });
+        
+        const handleLayerInputChange = (layerKey, value) => { setLayerInputs(prev => ({ ...prev, [layerKey]: value })); };
+        const handlePresetWeatherChange = (selectedPresetValue) => { if (selectedPresetValue) { setLayerInputs(prev => { const existingText = prev.L5 ? prev.L5.trim() + "\n" : ""; return { ...prev, L5: existingText + selectedPresetValue }; }); } };
+        
+        const handleSubmitDSG = async (e) => {
+            e.preventDefault();
+            if (selectedModel !== 'local' && !apiKey) { 
+                alert("Please enter your API Key in the top right header."); 
+                return; 
+            }
+
+            if (!testFunction.trim()) { setErrorDSG("Please enter a test function description."); return; }
+            setIsLoadingDSG(true); setGeneratedScenarios([]); setSelectedScenarioIndex(null); setScenarioCardStates({}); setUnderstandingState({}); setGenerationProgress({ current: 0, total: numToGenerate }); setErrorDSG("");
+         
+            const payload = {
+                test_function_description: testFunction,
+                layer_specific_inputs: {},
+                num_to_generate: numToGenerate,
+                model_selection: selectedModel,
+                api_key: apiKey
+            };
+            for (const key in layerInputs) { if (layerInputs[key] && layerInputs[key].trim() !== "") { payload.layer_specific_inputs[key] = layerInputs[key].trim(); } }
+         
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/generate_dangerous_scenario`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let buffer = '';
+                let result = null;
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop();
+                    for (const line of lines) {
+                        if (!line.startsWith('data: ')) continue;
+                        const data = JSON.parse(line.slice(6));
+                        if (data.type === 'progress') {
+                            setGenerationProgress({ current: data.completed, total: data.total });
+                        } else if (data.type === 'result') {
+                            result = data.payload;
+                        } else if (data.type === 'error') {
+                            throw new Error(data.message);
+                        }
+                    }
+                }
+
+                if (!result) { throw new Error('No result received from server.'); }
+                setGeneratedScenarios(result.scenarios || []);
+                if (result.scenarios && result.scenarios.length > 0) {
+                    const initialCardStates = {}; 
+                    result.scenarios.forEach((sw, i) => { initialCardStates[i] = { scenarioData: sw.scenario_data, activeTab: 'scenario' }; }); 
+                    setScenarioCardStates(initialCardStates);
+                    setCurrentView('results');
+                } else { setErrorDSG("API call successful, but no valid scenarios generated."); }
+            } catch (err) { setErrorDSG("Error generating natural language scenario: " + err.message); } finally { setIsLoadingDSG(false); }
+        };
+
+        const onSingleTaskStart = (index, scenarioJsonData) => {
+            const tasks = [{ index, name: scenarioJsonData.name || "Unnamed Scenario", status: 'pending' }];
+            const abortController = new AbortController();
+            understandAbortRef.current = abortController;
+            setAgentProgressModal({
+                isOpen: true,
+                batchTasks: tasks,
+                currentActiveIndex: index,
+                streamBlocks: [],
+                status: 'processing',
+                errorMsg: ''
+            });
+            handleUnderstandScene(index, scenarioJsonData, false, abortController.signal);
+        };
+
+        // === [修改] 批量队列执行函数 ===
+        const startBatchProcess = async () => {
+            const tasks = selectedForBatch.map(idx => ({ 
+                index: idx, 
+                name: generatedScenarios[idx].scenario_data.name || "Unnamed Scenario", 
+                status: 'pending' 
+            }));
+            const abortController = new AbortController();
+            understandAbortRef.current = abortController;
+            
+            setAgentProgressModal({
+                isOpen: true,
+                batchTasks: tasks,
+                currentActiveIndex: null,
+                streamBlocks: [],
+                status: 'processing',
+                errorMsg: ''
+            });
+            
+            setBatchState({ isProcessing: true, current: 0, total: selectedForBatch.length });
+            
+            for (let i = 0; i < selectedForBatch.length; i++) {
+                const targetIndex = selectedForBatch[i];
+                setBatchState(prev => ({ ...prev, current: i + 1 }));
+
+                let attempt = 0;
+                let succeeded = false;
+
+                while (attempt < 3 && !succeeded) {
+                    attempt += 1;
+                    try {
+                        await handleUnderstandScene(targetIndex, generatedScenarios[targetIndex].scenario_data, true, abortController.signal);
+                        succeeded = true;
+                        // 成功后，等待一小段时间再进入下一个
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                    } catch (e) {
+                        if (abortController.signal.aborted) {
+                            setBatchState({ isProcessing: false, current: 0, total: 0 });
+                            return;
+                        }
+                        if (attempt >= 3) {
+                            setAgentProgressModal(prev => {
+                                const newTasks = prev.batchTasks.map(t => t.index === targetIndex ? { ...t, status: 'error' } : t);
+                                return {
+                                    ...prev,
+                                    batchTasks: newTasks,
+                                    errorMsg: `Scenario ${targetIndex + 1} failed after 3 attempts and was skipped.`
+                                };
+                            });
+                        } else {
+                            await new Promise(resolve => setTimeout(resolve, 800));
+                        }
+                    }
+                }
+            }
+            
+            setBatchState({ isProcessing: false, current: 0, total: 0 });
+            setSelectedForBatch([]);
+            // 全部结束后将总体状态设为成功
+            setAgentProgressModal(prev => ({ ...prev, status: 'success' }));
+        };
+
+        // === [核心修改] 处理场景分析并混合数据流 ===
+        const handleUnderstandScene = async (index, scenarioJsonData, isBatch = false, abortSignal = null) => {
+            if (scenarioCardStates[index]?.understandingDone) return;
+            if (selectedModel !== 'local' && !apiKey) { alert("Please enter your API Key."); return; }
+            if (abortSignal?.aborted) throw new DOMException('Aborted', 'AbortError');
+
+            // 开始当前任务的流
+            setAgentProgressModal(prev => {
+                const newTasks = prev.batchTasks.map(t => t.index === index ? { ...t, status: 'processing' } : t);
+                return { 
+                    ...prev, 
+                    currentActiveIndex: index,
+                    batchTasks: newTasks,
+                    streamBlocks: [{ type: 'log', text: '🤖 Agent Task Initialized. Analyzing layout...' }],
+                    status: 'processing',
+                    errorMsg: ''
+                };
+            });
+
+            setScenarioCardStates(prev => ({ ...prev, [index]: { ...prev[index], isUnderstanding: true, understandingError: null } }));
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/generate_structured_text`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    signal: abortSignal || undefined,
+                    body: JSON.stringify({ logical_scenario_json: scenarioJsonData, model_selection: selectedModel, api_key: apiKey })
+                });
+
+                if (!response.ok) throw new Error("HTTP Error " + response.status);
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder("utf-8");
+                let buffer = "";
+                let finalResult = null;
+
+                const appendStreamBlock = (block) => {
+                    setAgentProgressModal(prev => ({
+                        ...prev,
+                        streamBlocks: [...prev.streamBlocks, block]
+                    }));
+                };
+
+                const processStreamEvent = (data) => {
+                    switch (data.type) {
+                        case 'step_start':
+                            // 保留步骤状态但不额外渲染合成日志，避免重复显示
+                            return;
+                        case 'log':
+                            appendStreamBlock({ type: 'log', text: data.message || '' });
+                            return;
+                        case 'node_summary':
+                            appendStreamBlock({ type: 'node_summary', text: `📌 ${data.content}` });
+                            return;
+                        case 'result':
+                            finalResult = data.payload;
+                            return;
+                        case 'error':
+                            throw new Error(data.message);
+                        default:
+                            return;
+                    }
+                };
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop();
+
+                    for (const line of lines) {
+                        if (!line.trim() || !line.startsWith('data: ')) continue;
+                        processStreamEvent(JSON.parse(line.slice(6)));
+                    }
+                }
+
+                if (!finalResult) throw new Error("Stream closed before receiving result.");
+
+                const reasoningMap = finalResult.reasoning && [
+                    ['🧠 Environment reasoning', finalResult.reasoning.environment_reasoning],
+                    ['⏱️ Duration reasoning', finalResult.reasoning.duration_reasoning],
+                    ['🚗 Base entities reasoning', finalResult.reasoning.base_entities_reasoning],
+                    ['🎯 Final entities reasoning', finalResult.reasoning.final_entities_reasoning],
+                ].filter(([, value]) => value !== undefined && value !== null && String(value).trim() !== '');
+
+                if (reasoningMap?.length) {
+                    appendStreamBlock({
+                        type: 'thought_bundle',
+                        blocks: reasoningMap.map(([label, value]) => ({ type: 'thought', text: `${label}\n${String(value)}` }))
+                    });
+                }
+
+                const speedOptions = (finalResult.speed_candidates || []).map((item, i) => ({ ...item, key: `speed_${i}`, selectedValue: item.value }));
+                setUnderstandingState(prev => ({ ...prev, [index]: { structuredText: finalResult.structured_text, matchedMapInfo: finalResult.matched_map_info, speedOptions } }));
+                setScenarioCardStates(prev => ({ ...prev, [index]: { ...prev[index], isUnderstanding: false, understandingDone: true, activeTab: 'understanding' } }));
+
+                // 标记任务成功
+                setAgentProgressModal(prev => {
+                    const newTasks = prev.batchTasks.map(t => t.index === index ? { ...t, status: 'success' } : t);
+                    return { ...prev, batchTasks: newTasks, status: isBatch ? 'processing' : 'success' };
+                });
+
+                if (!isBatch) {
+                    setTimeout(() => { setAgentProgressModal(prev => ({ ...prev, isOpen: false })); }, 1800);
+                }
+
+            } catch (err) {
+                setAgentProgressModal(prev => {
+                    const newTasks = prev.batchTasks.map(t => t.index === index ? { ...t, status: 'error' } : t);
+                    return { ...prev, status: 'error', batchTasks: newTasks, errorMsg: err.message };
+                });
+                setScenarioCardStates(prev => ({ ...prev, [index]: { ...prev[index], isUnderstanding: false, understandingError: err.message } }));
+                throw err; 
+            }
+        };
+
+        const handleConfirmAndGenerateCode = async (index) => { /* 保持原代码 */
+            const uData = understandingState[index];
+            if (!uData) return;
+            if (selectedModel !== 'local' && !apiKey) { alert("Please enter your API Key in the top right header."); return; }
+            setScenarioCardStates(prev => ({ ...prev, [index]: { ...prev[index], isGeneratingCode: true, codeGenError: null } }));
+            let finalText = uData.structuredText;
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/generate_code_from_text`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ structured_text: finalText, matched_map_info: uData.matchedMapInfo, model_selection: selectedModel, api_key: apiKey })
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.error || "Code generation failed");
+                setScenarioCardStates(prev => ({
+                    ...prev, [index]: { ...prev[index], structuredText: finalText, openscenarioCode: result.openscenario_code, opendriveCode: result.opendrive_code, matchedMapInfo: uData.matchedMapInfo, physicsParams: result.physics_parameters || {}, simulationCodeGenerated: true, isGeneratingCode: false, activeTab: 'openscenario', savedPaths: {} }
+                }));
+            } catch (err) {
+                setScenarioCardStates(prev => ({ ...prev, [index]: { ...prev[index], isGeneratingCode: false, codeGenError: err.message } }));
+            }
+        };
+
+        const handlePhysicsParamChange = (index, category, entityKey, field, value, actionIndex = null) => { /* 保持原代码 */
+            setScenarioCardStates(prev => {
+                const card = prev[index];
+                const oldParams = card.physicsParams || {};
+                const newParams = JSON.parse(JSON.stringify(oldParams));
+                let targetObj = null;
+                if (category === 'ego') { if (!newParams.ego) newParams.ego = { init_speed: 0, init_s: 0, speed_actions: [] }; targetObj = newParams.ego; } 
+                else if (category === 'targets') { if (!newParams.targets) newParams.targets = {}; if (!newParams.targets[entityKey]) newParams.targets[entityKey] = { init_speed: 0, init_s: 0, speed_actions: [] }; targetObj = newParams.targets[entityKey]; }
+                if (targetObj) { if (actionIndex !== null) { if (targetObj.speed_actions && targetObj.speed_actions[actionIndex]) { targetObj.speed_actions[actionIndex].target_speed = value; } } else { targetObj[field] = value; } }
+                return { ...prev, [index]: { ...card, physicsParams: newParams } };
+            });
+        };
+
+        const handleSaveFilesToServer = async (index) => { /* 保持原代码 */
+            const cardState = scenarioCardStates[index];
+            const originalScenarioName = generatedScenarios[index].scenario_data.name;
+            if (!cardState?.openscenarioCode) return;
+            setScenarioCardStates(prev => ({ ...prev, [index]: { ...prev[index], isSavingFiles: true, saveFileStatus: null, saveFileError: null } }));
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/save_simulation_files`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ openscenario_code: cardState.openscenarioCode, opendrive_code: cardState.opendriveCode, scenario_name: originalScenarioName, modified_params: cardState.physicsParams }) });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.error);
+                setScenarioCardStates(prev => ({ ...prev, [index]: { ...prev[index], isSavingFiles: false, saveFileStatus: result.message, savedPaths: result.saved_files || {} } }));
+            } catch (err) {
+                setScenarioCardStates(prev => ({ ...prev, [index]: { ...prev[index], isSavingFiles: false, saveFileError: err.message } }));
+            }
+        };
+
+        const handleRunSimulation = async (index) => { /* 保持原代码 */
+            const path = scenarioCardStates[index]?.savedPaths?.xosc_1_0_path_on_server;
+            if (!path) return;
+            setScenarioCardStates(prev => ({ ...prev, [index]: { ...prev[index], isSimulating: true, simulationStatus: "...", simulationError: null } }));
+            try {
+                await fetch(`${API_BASE_URL}/api/run_simulation`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ xosc_1_0_file_path_for_sim: path }) });
+                setScenarioCardStates(prev => ({ ...prev, [index]: { ...prev[index], isSimulating: false, simulationStatus: "Simulation Started" } }));
+            } catch (err) {
+                setScenarioCardStates(prev => ({ ...prev, [index]: { ...prev[index], isSimulating: false, simulationError: err.message } }));
+            }
+        };
+
+        const handleDeleteFile = async (index) => { /* 保持原代码 */
+            const path = scenarioCardStates[index]?.savedPaths?.xosc_1_0_path_on_server;
+            if (!path) return;
+            if (!confirm("Are you sure you want to delete the generated .xosc file from the server?")) return;
+            setScenarioCardStates(prev => ({ ...prev, [index]: { ...prev[index], isDeleting: true } }));
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/delete_simulation_file`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ file_path: path }) });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.error || "Delete failed");
+                setScenarioCardStates(prev => ({ ...prev, [index]: { ...prev[index], isDeleting: false, savedPaths: {}, saveFileStatus: null, simulationStatus: "File Deleted" } }));
+                alert("File deleted successfully.");
+            } catch (err) {
+                alert("Error deleting file: " + err.message);
+                setScenarioCardStates(prev => ({ ...prev, [index]: { ...prev[index], isDeleting: false } }));
+            }
+        };
+
+        // === [核心修改] 渲染部分：根据 currentView 决定显示表单还是结果页 ===
+        return (
+            <PageWrapper 
+                title={currentView === 'form' ? "Generate Dangerous Scenarios from Test Functions" : "Generated Scenarios Results"} 
+                subtitle={currentView === 'form' ? "Batch generate dangerous driving scenarios and OpenSCENARIO code based on test functions and environment descriptions." : "Review generated scenarios and simulate. You can return to edit anytime."}
+            >
+                {/* ---------- 视图 1: 填写表单 ---------- */}
+                {currentView === 'form' && (
+                    <>
+                        <form onSubmit={handleSubmitDSG} className="mb-8 animate-fadeIn">
+                           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                                <div className="md:col-span-3">
+                                    <label htmlFor="test-function" className="block text-lg font-semibold text-gray-800 mb-2">1. Test Function Description (Required):</label>
+                                    <textarea id="test-function" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 text-sm focus:ring-blue-500 focus:border-blue-500" rows="3" value={testFunction} onChange={(e) => setTestFunction(e.target.value)} placeholder="e.g., Multi-vehicle rear-end collision risk in patchy fog on highway at night" disabled={isLoadingDSG} required ></textarea>
+                                </div>
+                           </div>
+                           <div className="mb-6">
+                              <h3 className="text-lg font-semibold text-gray-800 mb-2">2. Other Layer Details (Optional)</h3>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                                {Object.keys(layerInputs).map((layerKey) => (
+                                    <div key={layerKey} className={`flex flex-col space-y-2 ${layerKey === 'L4' ? 'md:col-span-2' : ''}`}>
+                                      <label htmlFor={`layer-input-${layerKey}`} className={`block text-base font-medium ${layerKey === 'L4' ? 'font-semibold text-blue-700' : ''}`}>{layerLabels[layerKey]}{layerKey === 'L4' ? ' (Core behavior!)' : ''}:</label>
+                                      <textarea id={`layer-input-${layerKey}`} rows={layerKey === 'L4' ? 4 : 2} className={`block w-full rounded-md p-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm ${layerKey === 'L4' ? 'border-blue-400' : 'border-gray-300'}`} value={layerInputs[layerKey]} onChange={(e) => handleLayerInputChange(layerKey, e.target.value)} placeholder={layerPlaceholders[layerKey]} disabled={isLoadingDSG} />
+                                    </div>
+                                ))}
+                              </div>
+                           </div>
+                           <div className="max-w-sm mb-4">
+                               <label htmlFor="num-to-generate" className="block text-lg font-semibold text-gray-700 mb-2">3. Number of AI scenario</label>
+                               <input
+                                   id="num-to-generate"
+                                   type="number"
+                                   min="1"
+                                   max="20"
+                                   value={numToGenerate}
+                                   onChange={(e) => setNumToGenerate(Math.max(1, Math.min(20, parseInt(e.target.value || '1', 10))))}
+                                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3 text-sm focus:ring-blue-500 focus:border-blue-500"
+                                   disabled={isLoadingDSG}
+                               />
+                               <p className="text-base text-gray-500 mt-1">Range 1-20</p>
+                           </div>
+                           <button type="submit" className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 text-lg font-semibold flex items-center justify-center disabled:opacity-50 transition-colors" disabled={isLoadingDSG}> 
+                               {isLoadingDSG && <LoadingIconSvg className="text-white"/>} 
+                               {isLoadingDSG ? "Generating..." : "Generate Scenario Description (JSON)"} 
+                           </button>
+                        </form>
+                        {errorDSG && !isLoadingDSG && ( <div className="bg-red-100 border-l-4 border-red-500 p-4 text-red-700 mt-6 rounded-md"><p className="font-bold">Error:</p><p className="whitespace-pre-wrap">{errorDSG}</p></div> )}
+                        {isLoadingDSG && !generatedScenarios.length && ( 
+                            <div className="fixed inset-0 z-50 flex items-center justify-center bg-white bg-opacity-60 backdrop-blur-sm">
+                                <div className="bg-white p-8 rounded-2xl shadow-xl flex flex-col items-center border border-blue-100 w-full max-w-md">
+                                    <div className="inline-block animate-spin rounded-full h-14 w-14 border-t-4 border-b-4 border-blue-600"></div>
+                                    <p className="mt-5 text-lg font-bold text-blue-800">Working on it...</p>
+                                    <p className="mt-2 text-sm text-gray-500">Generating logical scenario, please wait.</p>
+                                    <div className="w-full mt-5">
+                                        <div className="flex justify-between text-sm text-gray-600 mb-2">
+                                            <span>Completed</span>
+                                            <span>{generationProgress.current}/{generationProgress.total || numToGenerate}</span>
+                                        </div>
+                                        <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+                                            <div
+                                                className="h-3 bg-blue-600 rounded-full transition-all duration-300 ease-out"
+                                                style={{ width: `${generationProgress.total ? Math.min(100, (generationProgress.current / generationProgress.total) * 100) : 0}%` }}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        )}
+                    </>
+                )}
+
+                {/* ---------- 视图 2: 显示生成的场景结果 ---------- */}
+                {currentView === 'results' && generatedScenarios.length > 0 && (
+                    <div className="mt-2 animate-fadeIn">
+                        
+                        {/* 带有返回按钮的 Header 区域 */}
+                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-4 border-b border-gray-200">
+                            <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4 sm:mb-0">
+                                Found or generated {generatedScenarios.length} related scenarios:
+                            </h3>
+                            {/* [新增] 右上角的返回按钮 */}
+                            <button 
+                                onClick={() => setCurrentView('form')} 
+                                className="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 hover:text-blue-600 font-medium py-2 px-4 rounded-lg flex items-center transition-all shadow-sm"
+                            >
+                                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                                </svg>
+                                Back to Form
+                            </button>
+                        </div>
+
+                        {/* 结果卡片展示区 */}
+                        <div className={`grid grid-cols-1 ${generatedScenarios.length > 1 ? 'lg:grid-cols-2' : ''} gap-8 pb-24`}>
+                            {generatedScenarios.map((scenarioWrapper, index) => ( 
+                                <DisplaySingleScenario 
+                                    key={index} 
+                                    scenario={scenarioWrapper.scenario_data} 
+                                    source={scenarioWrapper.source} 
+                                    isActive={selectedScenarioIndex === index} 
+                                    onCardClick={() => setSelectedScenarioIndex(selectedScenarioIndex === index ? null : index)} 
+                                    cardState={scenarioCardStates[index] || { activeTab: 'scenario' }} 
+                                    understandingData={understandingState[index]}
+                                    onStep1Click={() => onSingleTaskStart(index, scenarioWrapper.scenario_data)}
+                                    onStep2Click={() => handleConfirmAndGenerateCode(index)}
+                                    onSpeedChange={(speedKey, newVal) => {
+                                        setUnderstandingState(prev => ({
+                                            ...prev,
+                                            [index]: {
+                                                ...prev[index],
+                                                speedOptions: prev[index].speedOptions.map(opt => opt.key === speedKey ? {...opt, selectedValue: parseFloat(newVal)} : opt)
+                                            }
+                                        }));
+                                    }}
+                                    onPhysicsChange={(category, entityKey, param, value,actionIndex) => handlePhysicsParamChange(index, category, entityKey, param, value, actionIndex)} 
+                                    onSaveFilesClick={() => handleSaveFilesToServer(index)} 
+                                    onRunSimulationClick={() => handleRunSimulation(index)} 
+                                    onDeleteFileClick={() => handleDeleteFile(index)}
+                                    onTabChange={(tabName) => setScenarioCardStates(prev => ({ ...prev, [index]: { ...prev[index], activeTab: tabName } }))}
+                                    isSelected={selectedForBatch.includes(index)}
+                                    onToggleBatch={(e) => {
+                                        if (e.target.checked) setSelectedForBatch(prev => [...prev, index]);
+                                        else setSelectedForBatch(prev => prev.filter(i => i !== index));
+                                    }} 
+                                /> 
+                            ))}
+                        </div>
+
+                        {/* === [新增] 底部批量操作悬浮栏 === */}
+                        {selectedForBatch.length > 0 && !batchState.isProcessing && currentView === 'results' && (
+                            <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.15)] p-4 flex justify-between items-center z-[80] px-10 animate-slideUp">
+                                <div>
+                                    <span className="text-xl font-extrabold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">{selectedForBatch.length}</span>
+                                    <span className="text-gray-700 font-medium ml-3 text-lg">Scenarios Selected</span>
+                                </div>
+                                <button 
+                                    onClick={startBatchProcess}
+                                    className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-3.5 rounded-lg font-bold hover:from-blue-700 hover:to-indigo-700 shadow-lg transform hover:scale-105 transition-all flex items-center text-lg"
+                                >
+                                    <ICONS.ai className="w-6 h-6 mr-3" />
+                                    Understanding & Extraction Selected
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                )}
+                {/* ---------- 全新双栏 Agent Modal ---------- */}
+                {/* ---------- 全新混合双栏及任务队列 Agent Modal ---------- */}
+                {agentProgressModal.isOpen && (
+                    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[100] p-6 backdrop-blur-sm transition-all duration-300">
+                        <div className="bg-white rounded-xl shadow-2xl w-full max-w-7xl h-[85vh] flex flex-col overflow-hidden border border-blue-100">
+                            
+                            {/* Header 区域 */}
+                            <div className="bg-blue-50 px-6 py-4 flex items-center justify-between border-b border-blue-100">
+                                <div className="flex items-center space-x-4">
+                                    {agentProgressModal.status === 'processing' ? (
+                                        <div className="animate-spin rounded-full h-7 w-7 border-t-2 border-b-2 border-blue-500"></div>
+                                    ) : agentProgressModal.status === 'success' ? (
+                                        <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                                    ) : (
+                                        <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                    )}
+                                    <div>
+                                        <div className="flex items-center">
+                                            <h3 className="text-xl font-bold text-slate-900 mr-3">Agent Processing</h3>
+                                            {batchState.isProcessing && (
+                                                <span className="bg-blue-100 text-blue-700 px-2.5 py-0.5 rounded border border-blue-200 text-xs font-bold uppercase tracking-wider">
+                                                    BATCH QUEUE: {batchState.current} / {batchState.total}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <p className="text-sm text-slate-500 mt-1 flex items-center">
+                                            <span className="w-2 h-2 rounded-full bg-blue-400 mr-2"></span>
+                                            Target: <strong className="text-slate-700 ml-1">
+                                                {agentProgressModal.batchTasks.find(t => t.index === agentProgressModal.currentActiveIndex)?.name || 'Processing Queue...'}
+                                            </strong>
+                                        </p>
+                                    </div>
+                                </div>
+                                <button 
+                                    onClick={() => {
+                                        if (understandAbortRef.current) {
+                                            understandAbortRef.current.abort();
+                                            understandAbortRef.current = null;
+                                        }
+                                        setBatchState({ isProcessing: false, current: 0, total: 0 });
+                                        setScenarioCardStates(prev => {
+                                            const next = { ...prev };
+                                            Object.keys(next).forEach(key => {
+                                                if (next[key]?.isUnderstanding) {
+                                                    next[key] = { ...next[key], isUnderstanding: false, understandingError: 'Generation interrupted.' };
+                                                }
+                                            });
+                                            return next;
+                                        });
+                                        setAgentProgressModal(prev => ({
+                                            ...prev,
+                                            isOpen: false,
+                                            status: 'idle',
+                                            errorMsg: 'Generation interrupted.'
+                                        }));
+                                    }}
+                                    className="text-blue-600 hover:text-blue-800 transition-colors bg-white hover:bg-blue-50 p-2 rounded-lg border border-blue-100 flex items-center justify-center"
+                                    aria-label="Interrupt generation"
+                                    title="Interrupt generation"
+                                >
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 6l12 12M6 18L18 6"></path></svg>
+                                </button>
+                            </div>
+
+                            {/* Content 双栏布局 */}
+                            <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
+                                
+                                {/* 左栏：混合执行流 (Log + Thought 交替) (60%) */}
+                                <div className="lg:w-3/5 h-full flex flex-col border-r border-blue-100 bg-white">
+                                    <div className="bg-blue-50 px-6 py-3 border-b border-blue-100 flex items-center shadow-sm z-10">
+                                        <span className="text-xs font-bold uppercase tracking-wider text-blue-600 flex items-center">
+                                            <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                                            MODEL COT STREAM
+                                        </span>
+                                    </div>
+                                    
+                                    <div className="flex-1 p-6 overflow-y-auto">
+                                        {agentProgressModal.streamBlocks.length === 0 && (
+                                            <span className="text-gray-600 italic text-sm">Waiting for agent to start...</span>
+                                        )}
+                                        {agentProgressModal.streamBlocks.flatMap((block, idx) => {
+                                            if (block.type === 'thought_bundle' && Array.isArray(block.blocks)) {
+                                                return block.blocks.map((nestedBlock, nestedIdx) => ({
+                                                    key: `${idx}-${nestedIdx}`,
+                                                    node: (
+                                                        <div className="font-mono text-[13px] leading-relaxed text-gray-500 whitespace-pre-wrap break-words mb-5 pl-4 border-l-[3px] border-gray-700">
+                                                            {nestedBlock.text}
+                                                        </div>
+                                                    )
+                                                }));
+                                            }
+                                            if (block.type === 'log') {
+                                                const text = block.text || '';
+                                                let textColor = "text-gray-500";
+                                                if (text.includes("➡️") || text.includes("🔍") || text.includes("[STEP_START]")) textColor = "text-blue-600 font-bold";
+                                                else if (text.includes("⚠️") || text.includes("Failed")) textColor = "text-yellow-600 font-semibold";
+                                                else if (text.includes("✅") || text.includes("[STEP_END]")) textColor = "text-green-600 font-bold";
+                                                return [{ key: idx, node: <div className={`${textColor} break-words whitespace-pre-wrap mb-2`}>{text}</div> }];
+                                            }
+                                            if (block.type === 'node_summary') {
+                                                return [{
+                                                    key: idx,
+                                                    node: (
+                                                        <div className="font-medium text-indigo-700 bg-indigo-50 border border-indigo-100 rounded-lg px-4 py-3 mb-3 whitespace-pre-wrap break-words">
+                                                            {block.text}
+                                                        </div>
+                                                    )
+                                                }];
+                                            }
+                                            return [{
+                                                key: idx,
+                                                node: (
+                                                    <div className="font-mono text-[13px] leading-relaxed text-gray-500 whitespace-pre-wrap break-words mb-5 pl-4 border-l-[3px] border-gray-700">
+                                                        {block.text}
+                                                    </div>
+                                                )
+                                            }];
+                                        }).map(({ key, node }) => <React.Fragment key={key}>{node}</React.Fragment>)}
+                                        {agentProgressModal.status === 'processing' && <span className="inline-block w-2 h-4 bg-indigo-500 ml-1 animate-pulse"></span>}
+                                        <div ref={el => el && el.scrollIntoView({ behavior: 'smooth', block: 'nearest' })} />
+                                    </div>
+                                </div>
+
+                                {/* 右栏：任务队列 (40%) */}
+                                <div className="lg:w-2/5 h-full flex flex-col bg-blue-50/40">
+                                    <div className="bg-blue-50 px-6 py-4 border-b border-blue-100 shadow-sm z-10 flex justify-between items-center">
+                                        <h4 className="text-sm font-bold text-blue-700 uppercase tracking-widest flex items-center">
+                                            <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
+                                            TASK QUEUE
+                                        </h4>
+                                    </div>
+                                    
+                                    <div className="flex-1 p-6 overflow-y-auto">
+                                        <ul className="space-y-3">
+                                            {agentProgressModal.batchTasks.map((task) => (
+                                                <li key={task.index} className={`flex items-center justify-between p-3.5 rounded-lg border transition-colors ${
+                                                    task.status === 'processing' ? 'bg-blue-100 border-blue-300 shadow-[0_0_15px_rgba(37,99,235,0.12)]' : 
+                                                    task.status === 'success' ? 'bg-green-50 border-green-200' : 
+                                                    task.status === 'error' ? 'bg-red-50 border-red-200' : 
+                                                    'bg-white border-blue-100'
+                                                }`}>
+                                                    <div className="flex items-center space-x-3 w-full overflow-hidden">
+                                                        {/* Status Icon */}
+                                                        {task.status === 'processing' && <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-500 shrink-0"></div>}
+                                                        {task.status === 'success' && <svg className="w-6 h-6 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>}
+                                                        {task.status === 'error' && <svg className="w-6 h-6 text-red-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>}
+                                                        {task.status === 'pending' && <div className="w-5 h-5 rounded-full border-2 border-blue-300 shrink-0"></div>}
+                                                        
+                                                        {/* Scenario Name */}
+                                                        <span className={`text-[14px] truncate font-semibold w-full ${
+                                                            task.status === 'success' ? 'text-green-700' :
+                                                            task.status === 'processing' ? 'text-blue-700' :
+                                                            task.status === 'error' ? 'text-red-700' :
+                                                            'text-gray-700'
+                                                        }`} title={task.name}>
+                                                            {task.name}
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                    
+                                    {/* 错误提示区域置于右栏底部 */}
+                                    {agentProgressModal.status === 'error' && (
+                                        <div className="bg-red-50 border-t border-red-100 px-6 py-4">
+                                            <div className="flex items-start">
+                                                <svg className="w-5 h-5 text-red-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                                <div>
+                                                    <h4 className="text-red-700 font-bold text-sm">Task Interrupted</h4>
+                                                    <p className="text-red-600 text-xs mt-1 font-mono">{agentProgressModal.errorMsg}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </PageWrapper>
+        )
+    }
+
+    // --- [新增] Scenario Simulation & Conversion Page ---
+    function ScenarioSimulationPage({ selectedModel, apiKey }) {
+        const [originalContent, setOriginalContent] = React.useState('');
+        const [convertedContent, setConvertedContent] = React.useState('');
+        const [targetSimulator, setTargetSimulator] = React.useState('Carla');
+        const [isConverting, setIsConverting] = React.useState(false);
+        const [error, setError] = React.useState('');
+        const [fileName, setFileName] = React.useState('converted_scenario.xosc');
+        const [isCarlaSimulating, setIsCarlaSimulating] = React.useState(false);
+        // --- [新增] 调用 Carla 仿真的处理函数 ---
+        const handleRunCarla = async () => {
+            if (!convertedContent) { 
+                setError("Please convert the scenario first."); 
+                return; 
+            }
+            setIsCarlaSimulating(true);
+            setError('');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/run_carla_simulation`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ xosc_content: convertedContent })
+                });
+                
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.error || "Failed to start Carla simulation");
+                
+                // 成功启动后提示用户
+                alert(`✅ Simulation Started!\n${result.message}`);
+            } catch (err) {
+                setError(`Simulation Error: ${err.message}`);
+            } finally {
+                setIsCarlaSimulating(false);
+            }
+        };
+        // 处理本地文件上传读取
+        const handleFileUpload = (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            // 预设下载文件名
+            setFileName(file.name.replace('.xosc', '_carla.xosc').replace('.xml', '_carla.xosc'));
+            
+            const reader = new FileReader();
+            reader.onload = (evt) => {
+                setOriginalContent(evt.target.result);
+                setConvertedContent(''); // 清空旧的转化结果
+                setError('');
+            };
+            reader.readAsText(file);
+        };
+
+        // 调用后端转化 API
+        const handleConvert = async () => {
+            if (!originalContent) { setError("Please select and load an OpenSCENARIO file first."); return; }
+            if (selectedModel !== 'local' && !apiKey) { alert("Please enter your API Key in the top right header."); return; }
+            
+            setIsConverting(true); 
+            setError('');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/convert_scenario`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        original_xosc: originalContent,
+                        target_simulator: targetSimulator,
+                        model_selection: selectedModel,
+                        api_key: apiKey
+                    })
+                });
+                
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.error || "Conversion failed");
+                
+                setConvertedContent(result.converted_xosc);
+            } catch (err) {
+                setError(`Conversion Error: ${err.message}`);
+            } finally {
+                setIsConverting(false);
+            }
+        };
+
+        const handleSave = async () => {
+            if (!convertedContent) return;
+            
+            // 复用 isConverting 状态来防止多次点击导致弹出多个窗口
+            setIsConverting(true);
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/save_converted_xosc`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        converted_xosc: convertedContent,
+                        default_filename: fileName
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(result.error || "Server save error.");
+                }
+
+                if (result.status === 'success') {
+                    alert(`Saved successfully to:\n${result.saved_path}`);
+                } else if (result.status === 'cancelled') {
+                    // 用户取消，不需要弹窗报错
+                    console.log("Save operation cancelled by user.");
+                }
+            } catch (err) {
+                alert("Failed to save file: " + err.message);
+            } finally {
+                setIsConverting(false);
+            }
+        };
+
+        return (
+            <PageWrapper 
+                title="Scenario Format Conversion" 
+                subtitle="Upload a local OpenSCENARIO file and convert it to match the standard of specific simulator platforms (e.g., CARLA)."
+            >
+                <div className="flex flex-col md:flex-row gap-6 h-[70vh]">
+                    
+                    {/* 左侧：本地文件读取与原代码展示 */}
+                    <div className="flex-1 bg-white p-5 border border-gray-200 rounded-lg shadow-sm flex flex-col h-full">
+                        <div className="flex justify-between items-center mb-4 border-b pb-2">
+                            <h3 className="font-bold text-gray-800 text-lg">1. Original File</h3>
+                            <span className="text-xs font-bold px-2 py-1 rounded bg-gray-100 text-gray-600">Source: Esmini</span>
+                        </div>
+                        
+                        <div className="mb-4 flex items-center gap-3">
+                            <label className="inline-flex items-center px-4 py-2 rounded-md bg-blue-50 text-blue-700 text-sm font-semibold border border-blue-100 hover:bg-blue-100 cursor-pointer transition-colors">
+                                选择文件
+                                <input 
+                                    type="file" 
+                                    accept=".xosc,.xml" 
+                                    onChange={handleFileUpload} 
+                                    className="hidden" 
+                                />
+                            </label>
+                            <span className="text-sm text-gray-500 truncate flex-1">{originalContent ? fileName : '请先选择一个 .xosc 文件'}</span>
+                        </div>
+                        
+                        <div className="flex-1 mb-4 relative">
+                            <div className="absolute inset-0 xosc-code-area overflow-auto text-xs border border-gray-300 bg-gray-50 text-black font-mono">
+                                {originalContent || <span className="text-gray-400 italic">No file selected. Please choose a .xosc file to display its content...</span>}
+                            </div>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <select 
+                                value={targetSimulator} 
+                                onChange={e => setTargetSimulator(e.target.value)} 
+                                className="border border-gray-300 rounded-md p-2 flex-1 text-sm focus:ring-blue-500 focus:border-blue-500"
+                            >
+                                <option value="Carla">Convert to Carla Simulator</option>
+                            </select>
+                            
+                            <button 
+                                onClick={handleConvert} 
+                                disabled={isConverting || !originalContent} 
+                                className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 disabled:opacity-50 flex items-center font-semibold shadow-sm transition-colors"
+                            >
+                                {isConverting && <LoadingIconSvg className="w-4 h-4 text-white mr-2"/>}
+                                {isConverting ? "Converting..." : "Convert"}
+                            </button>
+                        </div>
+                        {error && <p className="text-red-500 text-sm mt-3 bg-red-50 p-2 rounded border border-red-100">{error}</p>}
+                    </div>
+
+                    {/* 右侧：转化后代码展示与保存 */}
+                    <div className="flex-1 bg-white p-5 border border-gray-200 rounded-lg shadow-sm flex flex-col h-full">
+                        <div className="flex justify-between items-center mb-4 border-b pb-2">
+                            <h3 className="font-bold text-gray-800 text-lg">2. Converted Output</h3>
+                            <span className="text-xs font-bold px-2 py-1 rounded bg-green-100 text-green-800">Target: {targetSimulator}</span>
+                        </div>
+                        
+                        <div className="flex-1 mb-4 relative">
+                            <div className="absolute inset-0 xosc-code-area overflow-auto text-xs border border-gray-300 bg-gray-50 text-black font-mono">
+                                {convertedContent || <span className="text-gray-400 italic">Converted OpenSCENARIO code will appear here...</span>}
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col gap-3 mt-auto">
+                            <button 
+                                onClick={handleRunCarla} 
+                                disabled={!convertedContent || isCarlaSimulating || isConverting} 
+                                className="bg-orange-500 text-white px-6 py-2 rounded-md hover:bg-orange-600 disabled:opacity-50 w-full font-semibold shadow-sm flex justify-center items-center transition-colors"
+                            >
+                                {isCarlaSimulating ? <LoadingIconSvg className="w-4 h-4 mr-2 text-white"/> : (
+                                    <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                )}
+                                {isCarlaSimulating ? "Starting Carla..." : "Run Simulation (Carla)"}
+                            </button>
+
+                            <button 
+                                onClick={handleSave} 
+                                disabled={!convertedContent || isConverting} 
+                                className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 disabled:opacity-50 w-full font-semibold shadow-sm flex justify-center items-center transition-colors"
+                            >
+                                <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                                Save Converted File
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </PageWrapper>
+        );
+    }
+
+    // Single Scenario Card Component
+    const DisplaySingleScenario = ({ scenario, source, isActive, onCardClick, cardState, understandingData, onStep1Click, onStep2Click, onSpeedChange, onPhysicsChange, onSaveFilesClick, onRunSimulationClick, onTabChange, onDeleteFileClick, isSelected, onToggleBatch }) => {
+        if (!scenario) return null;
+        
+        // --- [新增状态] 导出过程中的加载状态 ---
+        const [isExporting, setIsExporting] = React.useState(false);
+
+        const activeClasses = isActive ? "ring-2 ring-blue-500 shadow-xl scale-102" : "hover:shadow-lg hover:ring-1 hover:ring-blue-300/50";
+        const isStep1Done = cardState.understandingDone;
+        const isStep2Done = cardState.simulationCodeGenerated;
+        
+        const getCodeAreaClass = (code) => {
+            if (!code) return "border-gray-500/50";
+            if (code.trim().startsWith("# ERROR:")) return "error-border";
+            return "success-border";
+        };
+
+        // --- [新增函数] 处理一键导出 ZIP 包 ---
+        const handleExportPackage = async (e) => {
+            e.stopPropagation();
+
+            // Validation check
+            if (!cardState.openscenarioCode) {
+                alert("No OpenSCENARIO code generated yet. Please complete Step 2 first.");
+                return;
+            }
+
+            setIsExporting(true);
+            try {
+                const xodrFile = cardState.matchedMapInfo ? cardState.matchedMapInfo.xodr_file : "unknown.xodr";
+
+                // 1. Send request to backend
+                // This request will "hang" until the user closes the dialog on the backend
+                const response = await fetch(`${API_BASE_URL}/api/export_scenario_package`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        openscenario_code: cardState.openscenarioCode,
+                        opendrive_filename: xodrFile,
+                        scenario_name: scenario.name || "scenario"
+                    })
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.error || "Server export error.");
+                }
+
+                // 2. Handle result
+                if (result.status === 'cancelled') {
+                    console.log("User cancelled the save operation.");
+                    // Optional: You can show a toast message here if needed
+                } else if (result.status === 'success') {
+                    // ENGLISH ALERT
+                    alert(`Export successful!\nFile saved to:\n${result.saved_path}`);
+                }
+
+            } catch (err) {
+                console.error(err);
+                // ENGLISH ALERT
+                alert("Export process error: " + err.message);
+            } finally {
+                setIsExporting(false);
+            }
+        };
+
+        return (
+            <div className={`relative bg-white border border-gray-200 rounded-lg p-6 mt-4 transition-all ${isActive ? 'cursor-default' : 'cursor-pointer'} ${activeClasses}`} onClick={onCardClick}>
+                {/* === [新增] 右上角多选框 === */}
+                {source !== 'library' && isActive && !cardState.understandingDone && (
+                    <div className="absolute top-4 right-4 z-10" onClick={e => e.stopPropagation()}>
+                        <label className="flex items-center cursor-pointer space-x-2 bg-blue-50/80 px-3 py-1.5 rounded-md border border-blue-200 hover:bg-blue-100 transition-colors shadow-sm">
+                            <input 
+                                type="checkbox" 
+                                className="w-4 h-4 text-blue-600 rounded border-blue-300 focus:ring-blue-500 cursor-pointer"
+                                checked={isSelected}
+                                onChange={onToggleBatch}
+                            />
+                            <span className="text-sm font-bold text-blue-800 select-none">Add to Queue</span>
+                        </label>
+                    </div>
+                )}
+                <div className="flex items-center mb-2">
+                    {source !== 'library' ? (
+                        <span className="text-xs font-bold mr-3 px-3 py-1 rounded-full bg-cyan-100 text-cyan-800">AI Gen</span>
+                    ) : (
+                        (() => {
+                        const libId = scenario?.library_id || scenario?.from_library || 'cda';
+                        if (libId === 'cidas') return <span className="text-xs font-bold mr-3 px-3 py-1 rounded-full bg-red-100 text-red-800">CIDAS</span>;
+                        else if (libId === 'cda') return <span className="text-xs font-bold mr-3 px-3 py-1 rounded-full bg-green-100 text-green-800">GB</span>;
+                        else if (libId === 'project') return <span className="text-xs font-bold mr-3 px-3 py-1 rounded-full bg-orange-100 text-orange-800">PRO</span>;
+                        else return <span className="text-xs font-bold mr-3 px-3 py-1 rounded-full bg-purple-100 text-purple-800">Rec. Lib</span>;
+                        })()
+                    )}
+                    <h3 className="text-xl font-semibold">{scenario.name || "Unnamed Scenario"}</h3>
+                </div>
+                
+                {isActive && (
+                    <>
+                        <div className="flex space-x-2 border-b mb-4 mt-4">
+                             <button className={`pb-2 px-2 text-sm font-medium ${cardState.activeTab === 'scenario' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500'}`} onClick={(e) => {e.stopPropagation(); onTabChange('scenario');}}>Logical Scenario</button>
+                             {isStep1Done && <button className={`pb-2 px-2 text-sm font-medium ${cardState.activeTab === 'understanding' ? 'border-b-2 border-indigo-500 text-indigo-600' : 'text-gray-500'}`} onClick={(e) => {e.stopPropagation(); onTabChange('understanding');}}>Understanding & Tuning</button>}
+                             {isStep2Done && <button className={`pb-2 px-2 text-sm font-medium ${cardState.activeTab === 'openscenario' ? 'border-b-2 border-green-500 text-green-600' : 'text-gray-500'}`} onClick={(e) => {e.stopPropagation(); onTabChange('openscenario');}}>Final Code</button>}
+                        </div>
+
+                        {cardState.activeTab === 'scenario' && (
+                            <div className="text-sm text-gray-700 space-y-4 cursor-text" onClick={e => e.stopPropagation()}>
+                                {/* 1. Description */}
+                                <div className="bg-blue-50/50 p-3 rounded border border-blue-100">
+                                    <h4 className="font-bold text-gray-800 mb-1">Description:</h4>
+                                    <p className="whitespace-pre-line text-gray-700">{scenario.description || "No description"}</p>
+                                </div>
+
+                                {/* 2. Annotations */}
+                                {scenario.annotations && Object.keys(scenario.annotations).length > 0 && (
+                                    <div className="bg-yellow-50/50 p-3 rounded border border-yellow-200">
+                                        <h4 className="font-bold text-yellow-800 text-xs uppercase mb-2 flex items-center">
+                                            <ICONS.tag className="w-3 h-3 mr-1"/> Key Annotations
+                                        </h4>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-xs">
+                                            {Object.entries(scenario.annotations).map(([key, value]) => (
+                                                <div key={key} className="flex">
+                                                    <span className="font-semibold text-gray-600 mr-2">{key}:</span>
+                                                    <span className="text-gray-800 font-medium">{String(value)}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* 3. Layers */}
+                                {scenario.layers && (
+                                    <div className="space-y-2">
+                                        <h4 className="font-bold text-gray-800 mt-2">Detailed Layers:</h4>
+                                        {Object.entries(scenario.layers).map(([layerKey, layerValue]) => {
+                                            const isL4 = layerKey.startsWith("L4");
+                                            return (
+                                                <div key={layerKey} className={`p-3 rounded text-xs border ${isL4 ? 'bg-indigo-50 border-indigo-300 ring-1 ring-indigo-200' : 'bg-gray-50 border-gray-200'}`}>
+                                                    <strong className={`block mb-1 ${isL4 ? 'text-indigo-800 text-sm' : 'text-gray-700'}`}>
+                                                        {layerKey}:
+                                                    </strong>
+                                                    <div className="whitespace-pre-wrap text-gray-600 leading-relaxed">
+                                                        {typeof layerValue === 'object' ? JSON.stringify(layerValue) : layerValue}
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                )}
+                                <div className="mt-4 pt-4 border-t">
+                                    {!isStep1Done ? (
+                                        <button onClick={(e) => {e.stopPropagation(); onStep1Click();}} disabled={cardState.isUnderstanding} className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 disabled:opacity-50 flex justify-center items-center font-medium">
+                                            {cardState.isUnderstanding && <LoadingIconSvg className="text-white mr-2"/>}
+                                            {cardState.isUnderstanding ? "AI Processing..." : "Step 1: Understanding & Extraction"}
+                                        </button>
+                                    ) : (
+                                        <div className="text-center text-green-600 text-sm font-bold py-2 bg-green-50 rounded border border-green-200">✓ Understanding Complete</div>
+                                    )}
+                                    {cardState.understandingError && <p className="text-red-500 text-xs mt-2 bg-red-50 p-2 rounded">{cardState.understandingError}</p>}
+                                </div>
+                            </div>
+                        )}
+
+                        {cardState.activeTab === 'understanding' && understandingData && (
+                            <div className="space-y-4 text-sm" onClick={e => e.stopPropagation()}>
+                                <div className="bg-slate-50 p-3 rounded border text-xs font-mono whitespace-pre-wrap h-96 overflow-auto border-indigo-200">{understandingData.structuredText}</div>
+                                <button onClick={(e) => {e.stopPropagation(); onStep2Click();}} disabled={cardState.isGeneratingCode} className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 disabled:opacity-50 flex justify-center items-center font-medium shadow-sm">
+                                    {cardState.isGeneratingCode && <LoadingIconSvg className="text-white"/>}
+                                    {cardState.isGeneratingCode ? "Generating OpenSCENARIO..." : "Step 2: Confirm Params & Gen Code"}
+                                </button>
+                                {cardState.codeGenError && <p className="text-red-500 text-xs mt-2 bg-red-50 p-2 rounded">{cardState.codeGenError}</p>}
+                            </div>
+                        )}
+
+                        {cardState.activeTab === 'openscenario' && (
+                            <div className="space-y-3" onClick={e => e.stopPropagation()}>
+                                {/* Physics Tuning (Updated for Init + Actions) */}
+                                {cardState.physicsParams && (cardState.physicsParams.ego || (cardState.physicsParams.targets && Object.keys(cardState.physicsParams.targets).length > 0)) && (
+                                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-3 rounded-lg border border-blue-100 mb-3 shadow-sm">
+                                        <h4 className="text-sm font-bold text-blue-900 mb-2 flex items-center">
+                                            <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                                            Physics Parameter & Event Tuning
+                                        </h4>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            
+                                            {/* --- Left Column: Ego --- */}
+                                        <div>
+                                            {cardState.physicsParams.ego && (
+                                                <div className="bg-white p-2 rounded border border-blue-200 h-full overflow-y-auto max-h-60">
+                                                    <span className="block text-xs font-bold text-blue-700 mb-2 border-b pb-1">Ego Vehicle</span>
+                                                    {/* Initial State */}
+                                                    <div className="mb-2">
+                                                        {/* 1. Init Speed */}
+                                                        <div className="flex justify-between items-center mb-1">
+                                                            <label className="text-xs text-gray-600 font-semibold">Init Speed (m/s):</label>
+                                                            <input type="number" step="0.5" className="w-16 text-xs border rounded px-1 py-0.5 text-right focus:ring-1 focus:ring-blue-500 bg-gray-50"
+                                                                value={cardState.physicsParams.ego.init_speed}
+                                                                onChange={(e) => onPhysicsChange('ego', null, 'init_speed', e.target.value)}
+                                                            />
+                                                        </div>
+                                                        {/* 2. Init Pos S */}
+                                                        <div className="flex justify-between items-center mb-1">
+                                                            <label className="text-xs text-gray-600 font-semibold">Init Pos S (m):</label>
+                                                            <input type="number" step="1.0" className="w-16 text-xs border rounded px-1 py-0.5 text-right focus:ring-1 focus:ring-blue-500 bg-gray-50"
+                                                                value={cardState.physicsParams.ego.init_s}
+                                                                onChange={(e) => onPhysicsChange('ego', null, 'init_s', e.target.value)}
+                                                            />
+                                                        </div>
+                                                        {/* 3. [新增] Road ID */}
+                                                        <div className="flex justify-between items-center mb-1">
+                                                            <label className="text-xs text-gray-600 font-semibold">Road ID:</label>
+                                                            <input type="text" className="w-16 text-xs border rounded px-1 py-0.5 text-right focus:ring-1 focus:ring-blue-500 bg-gray-50"
+                                                                value={cardState.physicsParams.ego.init_road_id || ''}
+                                                                onChange={(e) => onPhysicsChange('ego', null, 'init_road_id', e.target.value)}
+                                                            />
+                                                        </div>
+                                                        {/* 4. [新增] Lane ID */}
+                                                        <div className="flex justify-between items-center">
+                                                            <label className="text-xs text-gray-600 font-semibold">Lane ID:</label>
+                                                            <input type="text" className="w-16 text-xs border rounded px-1 py-0.5 text-right focus:ring-1 focus:ring-blue-500 bg-gray-50"
+                                                                value={cardState.physicsParams.ego.init_lane_id || ''}
+                                                                onChange={(e) => onPhysicsChange('ego', null, 'init_lane_id', e.target.value)}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    {/* Dynamic Actions List */}
+                                                    {cardState.physicsParams.ego.speed_actions && cardState.physicsParams.ego.speed_actions.length > 0 && (
+                                                        <div className="mt-2 border-t pt-2">
+                                                            <span className="block text-[10px] text-gray-400 uppercase font-bold mb-1">Dynamic Events</span>
+                                                            {cardState.physicsParams.ego.speed_actions.map((action, idx) => (
+                                                                <div key={idx} className="flex justify-between items-center mb-1 bg-blue-50/50 p-1 rounded">
+                                                                    <label className="text-[10px] text-blue-800 flex-1 mr-2 break-all" title={action.event_name}>
+                                                                        {action.event_name}:
+                                                                    </label>
+                                                                    <input type="number" step="0.5" className="w-14 text-xs border border-blue-200 rounded px-1 py-0.5 text-right focus:ring-1 focus:ring-blue-500 shrink-0"
+                                                                        value={action.target_speed}
+                                                                        onChange={(e) => onPhysicsChange('ego', null, null, e.target.value, idx)}
+                                                                    />
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )}
+                                        </div>
+
+                                            {/* --- Right Column: Targets List --- */}
+                                            <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
+                                                {cardState.physicsParams.targets && Object.entries(cardState.physicsParams.targets).map(([tName, tParams]) => (
+                                                    <div key={tName} className="bg-white p-2 rounded border border-red-200">
+                                                        <span className="block text-xs font-bold text-red-700 mb-2 border-b border-red-100 pb-1 truncate" title={tName}>Target: {tName}</span>
+                                                        {/* Initial State */}
+                                                        <div className="mb-2">
+                                                            {/* 1. Init Speed */}
+                                                            <div className="flex justify-between items-center mb-1">
+                                                                <label className="text-xs text-gray-600 font-semibold">Init Speed:</label>
+                                                                <input type="number" step="0.5" className="w-14 text-xs border rounded px-1 py-0.5 text-right focus:ring-1 focus:ring-red-500 bg-gray-50"
+                                                                    value={tParams.init_speed}
+                                                                    onChange={(e) => onPhysicsChange('targets', tName, 'init_speed', e.target.value)}
+                                                                />
+                                                            </div>
+                                                            {/* 2. Init Pos S */}
+                                                            <div className="flex justify-between items-center mb-1">
+                                                                <label className="text-xs text-gray-600 font-semibold">Init Pos S:</label>
+                                                                <input type="number" step="1.0" className="w-14 text-xs border rounded px-1 py-0.5 text-right focus:ring-1 focus:ring-red-500 bg-gray-50"
+                                                                    value={tParams.init_s}
+                                                                    onChange={(e) => onPhysicsChange('targets', tName, 'init_s', e.target.value)}
+                                                                />
+                                                            </div>
+                                                            {/* 3. [新增] Road ID */}
+                                                            <div className="flex justify-between items-center mb-1">
+                                                                <label className="text-xs text-gray-600 font-semibold">Road ID:</label>
+                                                                <input type="text" className="w-14 text-xs border rounded px-1 py-0.5 text-right focus:ring-1 focus:ring-red-500 bg-gray-50"
+                                                                    value={tParams.init_road_id || ''}
+                                                                    onChange={(e) => onPhysicsChange('targets', tName, 'init_road_id', e.target.value)}
+                                                                />
+                                                            </div>
+                                                            {/* 4. [新增] Lane ID */}
+                                                            <div className="flex justify-between items-center">
+                                                                <label className="text-xs text-gray-600 font-semibold">Lane ID:</label>
+                                                                <input type="text" className="w-14 text-xs border rounded px-1 py-0.5 text-right focus:ring-1 focus:ring-red-500 bg-gray-50"
+                                                                    value={tParams.init_lane_id || ''}
+                                                                    onChange={(e) => onPhysicsChange('targets', tName, 'init_lane_id', e.target.value)}
+                                                                />
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Dynamic Actions List */}
+                                                        {tParams.speed_actions && tParams.speed_actions.length > 0 && (
+                                                            <div className="mt-2 border-t border-red-100 pt-2">
+                                                                <span className="block text-[10px] text-gray-400 uppercase font-bold mb-1">Events (Target Speed)</span>
+                                                                {tParams.speed_actions.map((action, idx) => (
+                                                                    <div key={idx} className="flex justify-between items-center mb-1 bg-red-50/50 p-1 rounded">
+                                                                        <label className="text-[10px] text-red-800 flex-1 mr-2 break-all" title={action.event_name}>
+                                                                            {action.event_name}:
+                                                                        </label>
+                                                                        <input type="number" step="0.5" className="w-14 text-xs border border-red-200 rounded px-1 py-0.5 text-right focus:ring-1 focus:ring-red-500 shrink-0"
+                                                                            value={action.target_speed}
+                                                                            onChange={(e) => onPhysicsChange('targets', tName, null, e.target.value, idx)}
+                                                                        />
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                ))}
+                                                {(!cardState.physicsParams.targets || Object.keys(cardState.physicsParams.targets).length === 0) && (
+                                                    <div className="text-xs text-gray-400 italic text-center p-2">No dynamic targets found</div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                                {/* --------------------------- */}
+                                
+                                <div className="flex space-x-2">
+                                    <button onClick={onSaveFilesClick} disabled={cardState.isSavingFiles} className="flex-1 bg-blue-600 text-white py-2 rounded text-sm font-medium hover:bg-blue-700 disabled:opacity-50 flex justify-center items-center">
+                                        {cardState.isSavingFiles && <LoadingIconSvg className="w-4 h-4 text-white"/>} {cardState.isSavingFiles ? "Saving..." : "Save Files"}
+                                    </button>
+
+                                    <button onClick={handleExportPackage} disabled={isExporting} className="flex-1 bg-teal-600 text-white py-2 rounded text-sm font-medium hover:bg-teal-700 disabled:opacity-50 flex justify-center items-center">
+                                        {isExporting ? <LoadingIconSvg className="w-4 h-4 text-white"/> : (
+                                            <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                            </svg>
+                                        )}
+                                        {isExporting ? "Zipping..." : "Export (ZIP)"}
+                                    </button>
+
+                                    {/* Run Sim 按钮 */}
+                                    <button onClick={onRunSimulationClick} disabled={!cardState.savedPaths?.xosc_1_0_path_on_server || cardState.isSimulating} className="flex-1 bg-orange-500 text-white py-2 rounded text-sm font-medium hover:bg-orange-600 disabled:opacity-50 flex justify-center items-center">
+                                        {cardState.isSimulating && <LoadingIconSvg className="w-4 h-4 text-white"/>} {cardState.isSimulating ? "Starting..." : "Run Sim"}
+                                    </button>
+
+                                    {/* --- [新增] 删除文件按钮 --- */}
+                                    {/* 只有当文件存在(savedPaths有值)时才显示或启用 */}
+                                    <button 
+                                        onClick={onDeleteFileClick} 
+                                        disabled={!cardState.savedPaths?.xosc_1_0_path_on_server || cardState.isDeleting} 
+                                        // 修改点 1: 将 w-12 改为 flex-1，让它和其他按钮平分宽度，布局更协调
+                                        className="flex-1 bg-red-100 text-red-600 border border-red-200 py-2 rounded text-sm font-medium hover:bg-red-200 hover:text-red-800 disabled:opacity-30 disabled:cursor-not-allowed flex justify-center items-center"
+                                        title="Delete generated file from server"
+                                    >
+                                        {cardState.isDeleting ? (
+                                            <>
+                                                <LoadingIconSvg className="w-4 h-4 text-red-600 mr-2"/>
+                                                Deleting...
+                                            </>
+                                        ) : (
+                                            <>
+                                                {/* 修改点 2: 保留图标并添加英文文字 */}
+                                                <ICONS.trash className="w-4 h-4 mr-2"/>
+                                                Delete Temp File
+                                            </>
+                                        )}
+                                    </button>
+                                </div>
+                                {cardState.saveFileStatus && <p className="text-green-600 text-xs text-center bg-green-50 p-1 rounded">{cardState.saveFileStatus}</p>}
+                                {cardState.simulationError && <p className="text-red-500 text-xs bg-red-50 p-2 rounded">{cardState.simulationError}</p>}
+                                <div className="mt-2">
+                                    <p className="text-xs font-bold mb-1 text-gray-600">OpenSCENARIO (.xosc):</p>
+                                    <div className={`xosc-code-area h-64 text-xs ${getCodeAreaClass(cardState.openscenarioCode)}`}>
+                                        {cardState.openscenarioCode}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </>
+                )}
+                {!isActive && <p className="text-sm text-gray-500 italic mt-2">Click card to expand details & operate</p>}
+            </div>
+        );
+    };
+     
+    // Scenario Library Page
+    function ScenarioManagementPage({ scenariosData, libraryId, libraryName, password, setCurrentPage, onSimulateLibraryScenario, onRefreshLibrary, adminPassword }) {
+        const [expandedScenarioId, setExpandedScenarioId] = React.useState(null);
+        const [searchQuery, setSearchQuery] = React.useState('');
+        const [searchResults, setSearchResults] = React.useState(null);
+        const [isSearching, setIsSearching] = React.useState(false);
+        const [searchError, setSearchError] = React.useState('');
+        const [isDeleting, setIsDeleting] = React.useState(false); // 新增删除状态
+
+        const handleSearch = async (e) => {
+            e.preventDefault();
+            if (!searchQuery.trim()) { setSearchResults(null); return; }
+            setIsSearching(true); setSearchError(''); setSearchResults([]); setExpandedScenarioId(null);
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/search_scenarios`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: searchQuery, k: 20, library_id: libraryId })
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || 'Search failed');
+                setSearchResults(data.results);
+            } catch (err) {
+                setSearchError(err.message);
+            } finally {
+                setIsSearching(false);
+            }
+        };
+
+        // --- 新增：删除场景逻辑 ---
+        const handleDeleteScenario = async (e, scenarioId) => {
+            e.stopPropagation();
+            
+            // 弹出确认框
+            if (!confirm(`Are you sure you want to delete scenario ID: ${scenarioId}? This action cannot be undone.`)) return;
+
+            setIsDeleting(true);
+
+            const passwordToSend = adminPassword ? adminPassword : password;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/delete_library_scenario`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        library_id: libraryId,
+                        scenario_id: scenarioId,
+                        password: passwordToSend // <--- 发送选定的密码
+                    })
+                });
+                const result = await response.json();
+                
+                if (!response.ok) throw new Error(result.error || "Delete failed");
+                
+                alert("Scenario deleted successfully.");
+                setExpandedScenarioId(null);
+                
+                // 刷新列表
+                if (onRefreshLibrary) {
+                    onRefreshLibrary();
+                }
+
+            } catch (err) {
+                alert(`Error deleting scenario: ${err.message}`);
+            } finally {
+                setIsDeleting(false);
+            }
+        };
+
+        const ScenarioCard = ({ scenario, isExpanded, onExpand, relevanceScore, datasetLabel }) => (
+            <div className={`bg-white border border-gray-200 rounded-lg p-6 transition-all duration-300 ease-in-out cursor-pointer ${isExpanded ? 'shadow-xl ring-2 ring-blue-500' : 'hover:shadow-md'}`} onClick={onExpand}>
+                <div className="flex justify-between items-start">
+                    <div className="flex-1 pr-4">
+                        <div className="flex items-center gap-2 mb-1">
+                            {datasetLabel && (
+                                <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                                    datasetLabel === 'CIDAS' ? 'bg-red-100 text-red-800' : 
+                                    (datasetLabel === 'GB' || datasetLabel === 'CDA') ? 'bg-green-100 text-green-800' : 
+                                    (datasetLabel === 'CQU' || datasetLabel === 'Private') ? 'bg-orange-100 text-orange-800' :
+                                    'bg-gray-100 text-gray-800'
+                                }`}>
+                                    {datasetLabel}
+                                </span>
+                            )}
+                            <h3 className="text-lg font-semibold text-blue-800">{scenario.id}: {scenario.name}</h3>
+                        </div>
+                    </div>
+                    {relevanceScore && <span className="text-xs font-mono text-white bg-blue-500 px-2 py-1 rounded-full whitespace-nowrap">Relevance: {relevanceScore.toFixed(3)}</span>}
+                </div>
+                {isExpanded && (
+                    <div className="mt-4 pt-4 border-t border-blue-200 space-y-4 text-sm">
+                        <p className="text-gray-600 whitespace-pre-line">{scenario.description}</p>
+                        {scenario.layers && <div><h4 className="font-semibold mb-2">Layers:</h4><ul className="list-disc pl-6 space-y-1">{Object.entries(scenario.layers).map(([k, v]) => (<li key={k}><strong>{k}:</strong> {(typeof v === 'object' && v !== null && v.hasOwnProperty('description')) ? v.description : JSON.stringify(v)}</li>))}</ul></div>}
+                        {scenario.annotations && <div><h4 className="font-semibold mb-2">Annotations:</h4><ul className="list-disc pl-6 space-y-1">{Object.entries(scenario.annotations).map(([k, v]) => (<li key={k}><strong>{k.replace(/_/g, ' ')}:</strong> {String(v)}</li>))}</ul></div>}
+                       
+                        <div className="pt-4 mt-2 border-t border-gray-100 flex justify-between items-center">
+                             {/* --- 新增：删除按钮 --- */}
+                             <button
+                                onClick={(e) => handleDeleteScenario(e, scenario.id)}
+                                disabled={isDeleting}
+                                className="text-red-500 hover:text-red-700 text-sm flex items-center px-3 py-2 rounded hover:bg-red-50 transition-colors"
+                             >
+                                <ICONS.trash className="w-4 h-4 mr-1"/>
+                                {isDeleting ? "Deleting..." : "Delete Scenario"}
+                             </button>
+
+                             <button 
+                                onClick={(e) => { e.stopPropagation(); onSimulateLibraryScenario(scenario); }}
+                                className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 shadow-md flex items-center transition-colors text-sm font-bold"
+                             >
+                                <ICONS.simulation className="w-4 h-4 mr-2"/>
+                                Load Scenario for Sim & Code Gen
+                             </button>
+                        </div>
+
+                    </div>
+                )}
+            </div>
+        );
+        const displayedScenarios = searchResults !== null ? searchResults : scenariosData.map(s => ({ scenario_data: s }));
+        return (
+            <PageWrapper title={libraryName} subtitle="Browse, search, and manage all test scenarios in the library.">
+                <div className="flex gap-4 mb-8">
+                    <form onSubmit={handleSearch} className="flex-grow flex gap-3">
+                        <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Enter scenario description for semantic search (e.g., Highway pop-out)..." className="flex-grow p-3 border rounded-lg" disabled={isSearching} />
+                        <button type="submit" className="bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg flex items-center disabled:opacity-50" disabled={isSearching || !searchQuery.trim()}> {isSearching ? <LoadingIconSvg /> : 'Search'} </button>
+                    </form>
+                    <button className="border-2 border-dashed border-gray-300 text-blue-600 py-3 px-6 rounded-lg flex items-center" onClick={() => setCurrentPage("ai_assisted_scenario")}> <ICONS.ai className="w-5 h-5 mr-2" /> AI Assist Add </button>
+                </div>
+                {isSearching && <div className="flex justify-center p-8"><LoadingIconSvg className="h-8 w-8 text-blue-600" /><span className="ml-3">Searching...</span></div>}
+                {searchError && <p className="text-red-500">{searchError}</p>}
+                {!isSearching && (
+                    <div>
+                        {searchResults !== null && <h3 className="text-xl font-semibold text-gray-800 mb-4">Search results for "{searchQuery}" ({displayedScenarios.length} items) <button onClick={() => {setSearchQuery(''); setSearchResults(null);}} className="text-sm text-blue-600 ml-4">Clear Search</button></h3>}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {displayedScenarios.map((item, index) => (
+                                <ScenarioCard
+                                    key={item.scenario_data.id || index}
+                                    scenario={item.scenario_data}
+                                    relevanceScore={item.relevance_score}
+                                    datasetLabel={item.dataset_label}
+                                    isExpanded={expandedScenarioId === item.scenario_data.id}
+                                    onExpand={() => setExpandedScenarioId(prev => prev === item.scenario_data.id ? null : item.scenario_data.id)}
+                                />
+                            ))}
+                            {displayedScenarios.length === 0 && (
+                                <div className="md:col-span-2 text-center text-gray-500 p-10 border-2 border-dashed rounded-lg">
+                                    <h3 className="text-lg font-semibold">No Results</h3>
+                                    <p>No matching scenarios found. Try different keywords or add a new scenario to this library.</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
+            </PageWrapper>
+        );
+    }
+
+    function TriggerLibraryPage({ initialTriggersData, libraryId }) {
+        const [expandedTriggerId, setExpandedTriggerId] = React.useState(null);
+        const [searchQuery, setSearchQuery] = React.useState('');
+        const [searchResults, setSearchResults] = React.useState(null);
+        const [isSearching, setIsSearching] = React.useState(false);
+        const [searchError, setSearchError] = React.useState('');
+
+        const handleSearch = async (e) => {
+            e.preventDefault();
+            if (!searchQuery.trim()) { setSearchResults(null); return; }
+            setIsSearching(true); setSearchError(''); setSearchResults([]); setExpandedTriggerId(null);
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/search_triggers`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: searchQuery, k: 30, library_id: libraryId })
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || 'Search failed');
+                setSearchResults(data.results);
+            } catch (err) {
+                setSearchError(err.message);
+            } finally {
+                setIsSearching(false);
+            }
+        };
+
+        // --- TriggerCard 组件 ---
+        const TriggerCard = ({ trigger, isExpanded, onExpand, relevanceScore }) => {
+            return (
+                <div className={`bg-white border border-gray-200 rounded-lg p-6 transition-all duration-300 ease-in-out cursor-pointer ${isExpanded ? 'shadow-xl ring-2 ring-teal-500' : 'hover:shadow-md'}`} onClick={onExpand}>
+                    <div className="flex justify-between items-start">
+                        <div className="flex-1 pr-4">
+                            <div className="flex items-center gap-2 mb-1">
+                                {trigger.tc_id && (
+                                    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-teal-100 text-teal-800 border border-teal-200">
+                                        {trigger.tc_id}
+                                    </span>
+                                )}
+                                {/* 这里直接显示 Scene Name，且它是卡片的最醒目部分 */}
+                                <h3 className="text-lg font-semibold text-gray-800">
+                                    {trigger.scene_name || trigger.name}
+                                </h3>
+                            </div>
+                        </div>
+                        {relevanceScore && <span className="text-xs font-mono text-white bg-teal-500 px-2 py-1 rounded-full whitespace-nowrap">Relevance: {relevanceScore.toFixed(3)}</span>}
+                    </div>
+
+                    {!isExpanded && trigger.description && (
+                        <p className="text-sm text-gray-500 mt-2 line-clamp-2">{trigger.description}</p>
+                    )}
+
+                    {isExpanded && (
+                        <div className="mt-4 pt-4 border-t border-teal-200 space-y-4 text-sm animate-fadeIn">
+                            {trigger.description && (
+                                <div className="bg-gray-50 p-3 rounded-md border border-gray-100">
+                                    <h4 className="font-semibold text-gray-700 mb-1">Description</h4>
+                                    <p className="text-gray-600 leading-relaxed">{trigger.description}</p>
+                                </div>
+                            )}
+
+                            {trigger.paths && trigger.paths.length > 0 && (
+                                <div>
+                                    <h4 className="font-semibold text-gray-700 mb-2">Categories / Tags</h4>
+                                    <div className="flex flex-wrap gap-2">
+                                        {trigger.paths.map((path, idx) => (
+                                            <span key={idx} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded border border-gray-200">
+                                                {path.split('/').pop()}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {trigger.children && trigger.children.map((child, idx) => (
+                                <div key={idx} className="mt-4">
+                                    <h4 className="font-bold text-teal-700 border-b border-teal-100 pb-1 mb-2 flex items-center">
+                                        <ICONS.trigger className="w-4 h-4 mr-1"/>
+                                        {child.name}
+                                    </h4>
+                                    {child.leaf_items && (
+                                        <div className="overflow-x-auto">
+                                            <table className="min-w-full text-left text-sm whitespace-nowrap">
+                                                <thead className="bg-teal-50 text-teal-800 font-semibold">
+                                                    <tr>
+                                                        <th scope="col" className="px-3 py-2 rounded-l-md">Condition / Behavior</th>
+                                                        <th scope="col" className="px-3 py-2 rounded-r-md w-24 text-center">Probability</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody className="divide-y divide-gray-100">
+                                                    {child.leaf_items.map((leaf, leafIdx) => (
+                                                        <tr key={leafIdx} className="hover:bg-gray-50">
+                                                            <td className="px-3 py-2 whitespace-normal">{leaf.name}</td>
+                                                            <td className="px-3 py-2 text-center">
+                                                                <span className={`inline-block px-2 py-0.5 rounded text-xs font-bold ${
+                                                                    leaf.probability === 'E4' || leaf.Probability === 'E4' ? 'bg-red-100 text-red-700' :
+                                                                    leaf.probability === 'E3' || leaf.Probability === 'E3' ? 'bg-orange-100 text-orange-700' :
+                                                                    'bg-blue-100 text-blue-700'
+                                                                }`}>
+                                                                    {leaf.probability || leaf.Probability || 'N/A'}
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // --- 核心逻辑修改：提取所有场景，打平数组 ---
+        const getAllScenes = () => {
+            const scenes = [];
+            if (initialTriggersData && Array.isArray(initialTriggersData)) {
+                initialTriggersData.forEach(category => {
+                    if (category.children && Array.isArray(category.children)) {
+                        scenes.push(...category.children);
+                    }
+                });
+            }
+            return scenes;
+        };
+
+        const displayList = searchResults !== null ? searchResults : getAllScenes().map(scene => ({ data: scene }));
+
+        return (
+            <PageWrapper title="Trigger & Hazard Library" subtitle="Browse hierarchical trigger conditions and hazard seeds.">
+                <div className="mb-8">
+                    <form onSubmit={handleSearch} className="flex gap-3">
+                        <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search triggers (e.g. 'Foggy intersection')..." className="flex-grow p-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none" disabled={isSearching} />
+                        <button type="submit" className="bg-teal-600 text-white font-semibold py-3 px-6 rounded-lg flex items-center disabled:opacity-50 hover:bg-teal-700 transition-colors shadow-sm" disabled={isSearching || !searchQuery.trim()}>
+                            {isSearching ? <LoadingIconSvg /> : 'Search'}
+                        </button>
+                    </form>
+                </div>
+             
+                {isSearching && <div className="flex justify-center p-8"><LoadingIconSvg className="h-8 w-8 text-teal-600" /><span className="ml-3">Searching...</span></div>}
+                {searchError && <p className="text-red-500 bg-red-50 p-4 rounded-md border border-red-200">{searchError}</p>}
+             
+                {!isSearching && (
+                    <div>
+                        {searchResults !== null && (
+                            <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                                Search results for "{searchQuery}" ({displayList.length} items) 
+                                <button onClick={() => {setSearchQuery(''); setSearchResults(null);}} className="text-sm text-teal-600 ml-4 hover:underline">Clear Search</button>
+                            </h3>
+                        )}
+
+                        {/* 无论是否搜索，都使用同一个扁平的 grid 渲染，去掉了外层的分类标题 */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {displayList.map((item, index) => (
+                                <TriggerCard
+                                    key={item.data.path || index}
+                                    trigger={item.data}
+                                    relevanceScore={item.relevance_score}
+                                    isExpanded={expandedTriggerId === (item.data.path || index)}
+                                    onExpand={() => setExpandedTriggerId(prev => prev === (item.data.path || index) ? null : (item.data.path || index))}
+                                />
+                            ))}
+                            {displayList.length === 0 && (
+                                <div className="md:col-span-2 text-center text-gray-500 p-10 border-2 border-dashed rounded-lg">
+                                    <h3 className="text-lg font-semibold">No Results</h3>
+                                    <p>No triggers found.</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
+            </PageWrapper>
+        );
+    }
+ 
+    // --- Manual Import Page Component ---
+    function ManualScenarioImportPage({ scenarioLibs, refreshLibrary, setCurrentPage, adminPassword }) {
+        const [formData, setFormData] = React.useState({
+            name: '',
+            description: '',
+            targetLibrary: 'cda', // 默认选中 cda，实际会根据列表渲染
+            password: '' // <--- [新增] 密码字段
+        });
+        const [files, setFiles] = React.useState({
+            xosc: null,
+            xodr: null
+        });
+        const [isUploading, setIsUploading] = React.useState(false);
+        const [status, setStatus] = React.useState({ type: '', msg: '' });
+
+        // 处理文本输入 (包括新增的密码输入)
+        const handleInputChange = (e) => {
+            const { name, value } = e.target;
+            setFormData(prev => ({ ...prev, [name]: value }));
+        };
+
+        // 处理文件选择
+        const handleFileChange = (e, type) => {
+            const file = e.target.files && e.target.files[0];
+            setFiles(prev => ({ ...prev, [type]: file || null }));
+        };
+
+        // 提交表单
+        const handleSubmit = async (e) => {
+            e.preventDefault();
+            
+            // 1. 基础校验
+            if (!formData.name || !files.xosc) {
+                setStatus({ type: 'error', msg: 'Name and .xosc file are required.' });
+                return;
+            }
+
+            // 获取当前选中的库对象
+            const selectedLib = scenarioLibs[formData.targetLibrary];
+            const isProtected = selectedLib && selectedLib.password;
+
+            // 2. 权限校验
+            if (isProtected && !formData.password && !adminPassword) {
+                setStatus({ type: 'error', msg: 'Password is required for this library.' });
+                return;
+            }
+
+            setIsUploading(true);
+            setStatus({ type: 'info', msg: 'Uploading...' });
+
+            const uploadData = new FormData();
+            uploadData.append('name', formData.name);
+            uploadData.append('description', formData.description);
+            uploadData.append('target_library_id', formData.targetLibrary);
+            
+            // 3. 密码处理
+            if (adminPassword) {
+                 uploadData.append('password', adminPassword);
+            } else if (isProtected) {
+                 uploadData.append('password', formData.password);
+            }
+
+            uploadData.append('xosc_file', files.xosc);
+            if (files.xodr) uploadData.append('xodr_file', files.xodr);
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/manual_import_scenario`, {
+                    method: 'POST',
+                    body: uploadData
+                });
+
+                // [关键修改] 先检查响应文本，防止解析非 JSON 响应时崩溃
+                const responseText = await response.text();
+                let result;
+                try {
+                    result = JSON.parse(responseText);
+                } catch (jsonError) {
+                    throw new Error(`Server returned non-JSON response: ${responseText.substring(0, 100)}...`);
+                }
+                
+                if (!response.ok) throw new Error(result.error || "Upload failed");
+
+                setStatus({ type: 'success', msg: `Success! Scenario ID: ${result.scenario_data.id}` });
+                
+                // 刷新库并跳转
+                if (refreshLibrary) refreshLibrary(formData.targetLibrary);
+                setTimeout(() => {
+                    setCurrentPage(`scenario_library_${formData.targetLibrary}`);
+                }, 1500);
+
+            } catch (err) {
+                console.error("Upload Error:", err);
+                setStatus({ type: 'error', msg: err.message });
+            } finally {
+                // [关键] 无论成功失败，都必须停止 Loading
+                setIsUploading(false);
+            }
+        };
+
+        // 获取当前选中的库对象，判断是否受保护
+        const selectedLib = scenarioLibs[formData.targetLibrary];
+        const isProtected = selectedLib && selectedLib.password;
+
+        return (
+            <PageWrapper title="Manual Scenario Import" subtitle="Upload existing OpenSCENARIO (.xosc) and OpenDRIVE (.xodr) files directly to the library.">
+                <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg border border-gray-200 shadow-sm mt-4">
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        
+                        {/* 1. Target Library (带密码框的区域) */}
+                        <div className="bg-gray-50 p-4 rounded-md border border-gray-200">
+                            <label className="block text-sm font-bold text-gray-700 mb-2">Target Library</label>
+                            <select 
+                                name="targetLibrary" 
+                                value={formData.targetLibrary} 
+                                onChange={handleInputChange}
+                                className="block w-full rounded-md border-gray-300 shadow-sm p-2.5 bg-white mb-2"
+                            >
+                                {Object.values(scenarioLibs).map(lib => (
+                                    <option key={lib.id} value={lib.id}>{lib.name}</option>
+                                ))}
+                            </select>
+
+                            {/* === [新增] 动态显示密码输入框 === */}
+                            {isProtected && (
+                                <div className="mt-3 animate-fadeIn">
+                                    <label className="block text-sm font-bold text-red-600 mb-1">
+                                        Library Password Required
+                                    </label>
+                                    <input 
+                                        type="password"
+                                        name="password"
+                                        value={formData.password}
+                                        onChange={handleInputChange}
+                                        className="block w-full rounded-md border-red-300 focus:border-red-500 focus:ring-red-500 shadow-sm p-2 text-sm"
+                                        placeholder="Enter password to authorize upload..."
+                                        required
+                                    />
+                                </div>
+                            )}
+                            {/* ================================== */}
+                        </div>
+
+                        {/* 2. Metadata */}
+                        <div>
+                            <label className="block text-sm font-bold text-gray-700 mb-2">Scenario Name *</label>
+                            <input 
+                                type="text" 
+                                name="name"
+                                value={formData.name}
+                                onChange={handleInputChange}
+                                className="block w-full rounded-md border-gray-300 shadow-sm p-2"
+                                placeholder="e.g. Manual Test Case 01"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-bold text-gray-700 mb-2">Description</label>
+                            <textarea 
+                                name="description"
+                                value={formData.description}
+                                onChange={handleInputChange}
+                                rows="3"
+                                className="block w-full rounded-md border-gray-300 shadow-sm p-2"
+                                placeholder="Describe the scenario..."
+                            />
+                        </div>
+
+                        {/* 3. Files */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-gray-100">
+                            {/* OpenSCENARIO */}
+                            <div>
+                                <label className="block text-sm font-bold text-blue-700 mb-2">OpenSCENARIO (.xosc) *</label>
+                                <div className="flex items-center">
+                                    <input 
+                                        id="xosc-upload"
+                                        type="file" 
+                                        accept=".xosc,.xml"
+                                        onChange={(e) => handleFileChange(e, 'xosc')}
+                                        className="hidden" 
+                                        required
+                                    />
+                                    <label 
+                                        htmlFor="xosc-upload"
+                                        className="cursor-pointer bg-blue-50 text-blue-700 font-semibold py-2 px-4 rounded-full text-sm hover:bg-blue-100 transition-colors mr-3 border-0"
+                                    >
+                                        Choose File
+                                    </label>
+                                    <span className="text-sm text-gray-500 truncate max-w-[200px]">
+                                        {files.xosc ? files.xosc.name : "No file chosen"}
+                                    </span>
+                                </div>
+                                <p className="text-xs text-gray-400 mt-1">Defines dynamic behavior.</p>
+                            </div>
+
+                            {/* OpenDRIVE */}
+                            <div>
+                                <label className="block text-sm font-bold text-orange-700 mb-2">OpenDRIVE (.xodr)</label>
+                                <div className="flex items-center">
+                                    <input 
+                                        id="xodr-upload"
+                                        type="file" 
+                                        accept=".xodr,.xml"
+                                        onChange={(e) => handleFileChange(e, 'xodr')}
+                                        className="hidden" 
+                                    />
+                                    <label 
+                                        htmlFor="xodr-upload"
+                                        className="cursor-pointer bg-orange-50 text-orange-700 font-semibold py-2 px-4 rounded-full text-sm hover:bg-orange-100 transition-colors mr-3 border-0"
+                                    >
+                                        Choose File
+                                    </label>
+                                    <span className="text-sm text-gray-500 truncate max-w-[200px]">
+                                        {files.xodr ? files.xodr.name : "No file chosen"}
+                                    </span>
+                                </div>
+                                <p className="text-xs text-gray-400 mt-1">Optional. Defines static map.</p>
+                            </div>
+                        </div>
+
+                        {/* Status & Button */}
+                        <div className="pt-4">
+                            {status.msg && (
+                                <div className={`p-4 mb-4 rounded-md ${status.type === 'error' ? 'bg-red-50 text-red-700' : status.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-blue-50 text-blue-700'}`}>
+                                    {status.msg}
+                                </div>
+                            )}
+                            <button 
+                                type="submit" 
+                                disabled={isUploading}
+                                className="w-full bg-gray-800 text-white py-3 rounded-lg hover:bg-gray-900 font-semibold shadow-lg transition-transform transform active:scale-95 flex justify-center items-center"
+                            >
+                                {isUploading ? <LoadingIconSvg className="text-white"/> : <ICONS.knowledge className="w-5 h-5 mr-2"/>}
+                                {isUploading ? 'Importing...' : 'Import to Library'}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </PageWrapper>
+        );
+    }
+
+    // --- APP CONTAINER ---
+    function App() {
+      // 默认加载 Public 下的 CDA 库
+      const [currentPage, setCurrentPage] = React.useState('scenario_library_cda');
+      const [allTriggers, setAllTriggers] = React.useState([]);
+      const [adminPassword, setAdminPassword] = React.useState(null); // 存储管理员密码
+      const isAdmin = !!adminPassword; 
+      const handleAdminLogin = (pwd) => {
+          if(pwd) setAdminPassword(pwd);
+      };
+      const handleAdminLogout = () => setAdminPassword(null);
+      // --- 核心修改：根据你的要求初始化库列表 ---
+      const [scenarioLibs, setScenarioLibs] = React.useState({
+        cda: { id: 'cda', name: 'CDA (Public)', file: 'scenarios3.json', password: null, data: [], unlocked: true, isLoading: true, error: null },
+        cidas: { id: 'cidas', name: 'CIDAS (Public)', file: 'scenarios.json', password: null, data: [], unlocked: true, isLoading: true, error: null },
+        project: { id: 'project', name: 'Project (Private)', file: 'scenarios2.json', password: null, data: null, unlocked: true, isLoading: true, error: null },
+      });
+      
+      const [preSelectedScenario, setPreSelectedScenario] = React.useState(null);
+      const [showPasswordModalFor, setShowPasswordModalFor] = React.useState(null);
+      const [globalIsLoading, setGlobalIsLoading] = React.useState(true);
+      const [globalError, setGlobalError] = React.useState(null);
+      const [selectedModel, setSelectedModel] = React.useState('local');
+      const [apiKey, setApiKey] = React.useState('');
+
+      const handleSimulateLibraryScenario = (scenarioData) => {
+         setPreSelectedScenario(scenarioData);
+         setCurrentPage('ai_test_function_scenario');
+      };
+
+      const fetchLibraryData = async (libId) => {
+        const lib = scenarioLibs[libId];
+        if (!lib) return;
+
+        setScenarioLibs(prev => ({ ...prev, [libId]: { ...prev[libId], isLoading: true, error: null } }));
+        try {
+            const response = await fetch(`./${lib.file}?t=${new Date().getTime()}`);
+            if (!response.ok) throw new Error(`Failed to load file ${lib.file}. Make sure it exists.`);
+            const data = await response.json();
+            setScenarioLibs(prev => ({ ...prev, [libId]: { ...prev[libId], data: Array.isArray(data) ? data : [], unlocked: true, isLoading: false } }));
+            if (showPasswordModalFor === libId) setShowPasswordModalFor(null);
+        } catch (err) {
+            setScenarioLibs(prev => ({ ...prev, [libId]: { ...prev[libId], error: err.message, isLoading: false } }));
+        }
+      };
+    
+      React.useEffect(() => {
+        const initApp = async () => {
+            setGlobalIsLoading(true); setGlobalError(null);
+            try {
+                const listRes = await fetch(`${API_BASE_URL}/api/get_library_list`);
+                if (!listRes.ok) throw new Error("Failed to fetch library list");
+                const remoteLibs = await listRes.json();
+                const newLibsState = {};
+                remoteLibs.forEach(lib => {
+                    newLibsState[lib.id] = {
+                        id: lib.id,
+                        name: lib.name,
+                        file: lib.file,
+                        password: lib.password,
+                        data: [], 
+                        unlocked: !lib.password, 
+                        isLoading: true,
+                        error: null
+                    };
+                });
+                setScenarioLibs(prev => ({ ...prev, ...newLibsState }));
+                const loadPromises = remoteLibs.map(lib => {
+                    if (!lib.password) {
+                        return fetch(`./${lib.file}?t=${new Date().getTime()}`)
+                            .then(res => {
+                                if (!res.ok) return [];
+                                return res.json();
+                            })
+                            .then(data => {
+                                setScenarioLibs(prev => ({
+                                    ...prev,
+                                    [lib.id]: { ...prev[lib.id], data: Array.isArray(data) ? data : [], isLoading: false }
+                                }));
+                            })
+                            .catch(err => {
+                                console.warn(`Failed to load ${lib.id}:`, err);
+                                setScenarioLibs(prev => ({
+                                    ...prev,
+                                    [lib.id]: { ...prev[lib.id], isLoading: false, error: "Load failed" }
+                                }));
+                            });
+                    }
+                    return Promise.resolve();
+                });
+
+                await Promise.all(loadPromises);
+                const triggersRes = await fetch(`./triggers.json?t=${new Date().getTime()}`);
+                if (triggersRes.ok) {
+                    const triggerJsonData = await triggersRes.json();
+                    setAllTriggers(Array.isArray(triggerJsonData) ? triggerJsonData : []);
+                }
+
+            } catch (err) {
+                console.error("Init Error:", err);
+                setGlobalError(err.message);
+            } finally {
+                setGlobalIsLoading(false);
+            }
+        };
+
+        initApp();
+      }, []);
+      const handleLibraryAccess = (libId) => {
+        const lib = scenarioLibs[libId];
+        if (!lib) return;
+        if (isAdmin || lib.unlocked) {
+            setCurrentPage(`scenario_library_${libId}`);
+            if (!lib.data || lib.data.length === 0) fetchLibraryData(libId);
+        } else {
+            setShowPasswordModalFor(libId);
+        }
+      };
+       const handleDeleteLibrary = async (libId) => {
+          const lib = scenarioLibs[libId];
+          if (!lib) return;
+
+          // 定义统一的密码变量
+          let passwordToSend = null;
+
+          // 1. 权限与密码确认逻辑
+          if (isAdmin) {
+              // 管理员模式
+              if(!confirm(`[ADMIN] Delete library "${lib.name}"?`)) return;
+              passwordToSend = adminPassword; 
+          } else {
+              // 普通模式
+              if (lib.password) {
+                  // 库有密码，询问用户
+                  const input = prompt(`Deleting "${lib.name}" requires authorization.\nPlease enter the password:`);
+                  if (input === null) return; // 用户取消
+                  
+                  // 前端简单校验（也可以交给后端校验）
+                  if (input !== lib.password) {
+                      alert("Incorrect password. Delete cancelled.");
+                      return;
+                  }
+                  passwordToSend = input;
+              } else {
+                  // 库无密码，仅二次确认
+                  if(!confirm(`Are you sure you want to PERMANENTLY delete library "${lib.name}"? This will delete the file from the server.`)) return;
+              }
+          } // <--- 之前就是这里少了这个大括号！
+          
+          try {
+              const response = await fetch(`${API_BASE_URL}/api/delete_library`, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ 
+                      library_id: libId,
+                      password: passwordToSend // 使用统一的变量名
+                  })
+              });
+
+              const result = await response.json();
+
+              if (!response.ok) {
+                  throw new Error(result.error || "Delete failed");
+              }
+              const newLibs = { ...scenarioLibs };
+              delete newLibs[libId];
+              setScenarioLibs(newLibs);
+              if (currentPage === `scenario_library_${libId}`) {
+                  setCurrentPage('scenario_library_cda');
+              }
+              
+              alert("Library deleted successfully.");
+
+          } catch (err) {
+              alert(`Error deleting library: ${err.message}`);
+          }
+        };
+
+       const handleAddLibrary = async (type) => {
+          // 1. 输入显示名称
+          const libName = prompt(`Please enter the name for the new ${type} library:`);
+          if (!libName || !libName.trim()) return;
+          
+          // 2. 输入文件名
+          let fileName = prompt(`Please enter the filename for storage (e.g., cqu_lib.json):`, `new_${type}_lib.json`);
+          if (!fileName || !fileName.trim()) return;
+          if (!fileName.endsWith('.json')) fileName += '.json';
+
+          // 3. 只有 Private 库才询问密码
+          let password = null;
+          if (type === 'private') {
+              password = prompt("Set a password for this private library (Leave empty for no password):");
+              if (password && !password.trim()) password = null;
+          }
+
+          // === [关键修改] 构造带后缀的名称发送给后端 ===
+          // 这样刷新页面后，名字里依然包含 Public/Private，侧边栏就能正确分类了
+          const displayNameWithSuffix = `${libName} (${type === 'public' ? 'Public' : 'Private'})`;
+
+          try {
+              const response = await fetch(`${API_BASE_URL}/api/create_new_library`, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ 
+                      filename: fileName,
+                      display_name: displayNameWithSuffix, // <--- 这里改成发带后缀的名字
+                      password: password
+                  })
+              });
+
+              if (!response.ok) {
+                  const errData = await response.json();
+                  throw new Error(errData.error || "Failed to create file on server");
+              }
+              
+              const result = await response.json();
+              const finalFileName = result.filename || fileName;
+              const newId = finalFileName.replace('.json', ''); 
+
+              // 4. 更新前端状态
+              setScenarioLibs(prev => ({
+                  ...prev,
+                  [newId]: {
+                      id: newId, 
+                      name: displayNameWithSuffix, // 本地状态保持一致
+                      file: finalFileName,
+                      password: password,
+                      data: [], 
+                      unlocked: !password, 
+                      isLoading: false, 
+                      error: null
+                  }
+              }));
+
+              alert(`New library "${displayNameWithSuffix}" created successfully!`);
+              
+              if(password) {
+                   setScenarioLibs(prev => ({...prev, [newId]: {...prev[newId], unlocked: true}}));
+              }
+              setCurrentPage(`scenario_library_${newId}`);
+
+          } catch (err) {
+              alert(`Error creating library: ${err.message}`);
+          }
+        };
+
+      const handlePasswordSubmit = (libId, password) => {
+        const lib = scenarioLibs[libId];
+        if (password === lib.password) {
+            fetchLibraryData(libId);
+            setCurrentPage(`scenario_library_${libId}`);
+        } else {
+            alert('Incorrect Password!');
+        }
+      };
+
+      const PasswordModal = ({ library, onSubmit, onCancel }) => {
+          const [password, setPassword] = React.useState('');
+          const handleSubmit = (e) => { e.preventDefault(); onSubmit(library.id, password); };
+          return (
+              <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+                  <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-sm">
+                      <h2 className="text-xl font-bold mb-4">Authorization Required</h2>
+                      <p className="text-gray-600 mb-6">Accessing <span className="font-semibold text-blue-600">{library.name}</span> requires a password.</p>
+                      <form onSubmit={handleSubmit}>
+                          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full p-2 border rounded-md mb-4" placeholder="Enter Password" autoFocus />
+                          <div className="flex justify-end space-x-4">
+                              <button type="button" onClick={onCancel} className="bg-gray-200 py-2 px-4 rounded-lg">Cancel</button>
+                              <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded-lg">Confirm</button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          );
+      };
+
+      // 页面渲染路由逻辑
+      const renderPage = () => {
+        if (globalIsLoading && (currentPage.startsWith('scenario_library_') || currentPage === 'trigger_library')) { return <div className="w-full h-full flex justify-center items-center"><LoadingIconSvg className="h-10 w-10 text-blue-600"/><p>Loading...</p></div>; }
+        if (globalError) { return <div className="p-6 bg-red-100 text-red-700"><h2>Data Load Error</h2><p>{globalError}</p></div>; }
+   
+        // --- 动态路由匹配：处理 scenario_library_XXX ---
+        if (currentPage.startsWith('scenario_library_')) {
+            const libId = currentPage.replace('scenario_library_', '');
+            const lib = scenarioLibs[libId];
+
+            if (!lib) {
+                // 如果库ID找不到（比如因为刷新丢失了动态添加的库，或者ID错误），回到默认页
+                return <PlaceholderPage title="Library Not Found" />;
+            }
+            
+            if (lib.isLoading) return <div className="w-full h-full flex justify-center items-center"><LoadingIconSvg className="h-8 w-8 text-blue-500" /></div>;
+            if (lib.error) return <div className="p-4 bg-red-100 text-red-700">Error loading {lib.name}: {lib.error}</div>;
+            
+            if (lib.unlocked) {
+                return (
+                    <ScenarioManagementPage 
+                        scenariosData={lib.data || []} // 确保 data 即使为 null 也是数组
+                        setCurrentPage={setCurrentPage} 
+                        libraryName={lib.name} 
+                        libraryId={lib.id}
+                        password={lib.password}
+                        onRefreshLibrary={() => fetchLibraryData(libId)}
+                        onSimulateLibraryScenario={handleSimulateLibraryScenario} 
+                        adminPassword={adminPassword}
+                    />
+                );
+            }
+            return <PageWrapper title="Access Restricted"><p>Please access this library from the sidebar.</p></PageWrapper>;
+        }
+
+        // 其他静态页面路由
+        switch (currentPage) {
+          case 'trigger_library':
+            return <TriggerLibraryPage initialTriggersData={allTriggers} libraryId="triggers1" />;
+          // [新增] 将新建的转化页面加入路由渲染
+          case 'scenario_simulation':
+            return (
+                <ScenarioSimulationPage 
+                    selectedModel={selectedModel}
+                    apiKey={apiKey}
+                />
+            );
+          case 'ai_test_function_scenario': 
+            return (
+                <AITestFunctionScenarioPage 
+                    scenarioLibs={scenarioLibs}
+                    preLoadedScenario={preSelectedScenario} 
+                    onClearPreLoaded={() => setPreSelectedScenario(null)}
+                    selectedModel={selectedModel}
+                    apiKey={apiKey}
+                />
+            );
+          
+         case 'manual_import_scenario':
+            return (
+                <ManualScenarioImportPage 
+                    scenarioLibs={scenarioLibs}
+                    refreshLibrary={fetchLibraryData}
+                    setCurrentPage={setCurrentPage}
+                    adminPassword={adminPassword}  
+                />
+            );
+
+          case 'ai_assisted_scenario':
+            return (
+                <AIAssistedScenarioPage 
+                    refreshLibrary={fetchLibraryData} 
+                    setCurrentPage={setCurrentPage} 
+                    scenarioLibs={scenarioLibs} 
+                    selectedModel={selectedModel}
+                    apiKey={apiKey}
+                    adminPassword={adminPassword}
+                />
+            );
+          case 'openscenario_rules':
+            return (
+                <PageWrapper title="User Manual">
+                {/* 给容器设置高度，例如 h-[85vh] 或具体像素，否则 PDF 可能显示不全 */}
+                <div className="flex justify-center mt-4 w-full h-[85vh]">
+                    <iframe
+                    src="Instructions.png"  // 假设你的文件名为 Instructions.pdf
+                    title="User Manual"
+                    className="w-full h-full rounded-lg shadow-sm border border-gray-200"
+                    />
+                </div>
+                </PageWrapper>
+            );
+          default: return <PlaceholderPage title="Welcome" />;
+        }
+      };
+      
+      return (
+        <div className="h-screen w-screen flex flex-col bg-gray-100">
+          {/* Header */}
+          <Header selectedModel={selectedModel} setSelectedModel={setSelectedModel} apiKey={apiKey} setApiKey={setApiKey} isAdmin={isAdmin} onAdminLogin={handleAdminLogin} onAdminLogout={handleAdminLogout} />
+          <div className="flex flex-grow overflow-hidden">
+            {/* Sidebar 传入了 onAddLibrary */}
+            <Sidebar 
+                currentPage={currentPage} 
+                setCurrentPage={setCurrentPage} 
+                onLibraryAccess={handleLibraryAccess} 
+                onAddLibrary={handleAddLibrary} 
+                scenarioLibs={scenarioLibs}      
+                onDeleteLibrary={handleDeleteLibrary}
+            />
+            
+            <main className="flex-grow overflow-y-auto main-content">
+              {renderPage()}
+              {showPasswordModalFor && (
+                  <PasswordModal library={scenarioLibs[showPasswordModalFor]} onSubmit={handlePasswordSubmit} onCancel={() => setShowPasswordModalFor(null)} />
+              )}
+            </main>
+          </div>
+        </div>
+      );
+    }
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<React.StrictMode><App /></React.StrictMode>);
+  </script>
+</body>
+</html>

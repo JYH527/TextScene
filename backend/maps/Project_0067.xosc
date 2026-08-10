@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2025-05-20T10:00:00" description="T-Junction Collision: Straight vs Left Turn" author="MapAssistant"/>
+    
+    <!-- 1. 资源库路径配置 (必须包含) -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <ParameterDeclarations>
+        <ParameterDeclaration name="EgoSpeed" parameterType="double" value="13.8"/> <!-- ~50 kph -->
+        <ParameterDeclaration name="AdvSpeed" parameterType="double" value="8.3"/>  <!-- ~30 kph -->
+    </ParameterDeclarations>
+
+    <RoadNetwork>
+        <!-- 2. 地图文件名称更新 -->
+        <LogicFile filepath="two-way-four-lane-Tjunction.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <!-- 3. 使用 CatalogReference 定义车辆 -->
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+
+        <ScenarioObject name="Adversary">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- Ego 初始化: Road 2 (西), Lane -1 (向东行驶), 距路口一定距离 -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- s=20.0, 假设Road长98m, 则距离路口约78m -->
+                                <LanePosition roadId="2" laneId="-1" offset="0.0" s="20.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="$EgoSpeed"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- Adversary 初始化: Road 1 (东), Lane -1 (向西行驶), 距路口一定距离 -->
+                <Private entityRef="Adversary">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- s=20.0, 距离路口约78m -->
+                                <LanePosition roadId="1" laneId="-1" offset="0.0" s="20.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="$AdvSpeed"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="CollisionStory">
+            <Act name="DriveAct">
+                
+                <!-- Ego: 直行 (Road 2 -> Junction -> Road 1) -->
+                <ManeuverGroup maximumExecutionCount="1" name="EgoManeuverGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                    </Actors>
+                    <Maneuver name="EgoStraightManeuver">
+                        <Event name="EgoFollowRouteEvent" priority="overwrite">
+                            <Action name="EgoRouteAction">
+                                <PrivateAction>
+                                    <RoutingAction>
+                                        <AssignRouteAction>
+                                            <Route name="Ego_Straight_Route" closed="false">
+                                                <Waypoint routeStrategy="shortest">
+                                                    <Position>
+                                                        <LanePosition roadId="2" laneId="-1" offset="0.0" s="20.0"/>
+                                                    </Position>
+                                                </Waypoint>
+                                                <Waypoint routeStrategy="shortest">
+                                                    <!-- 驶出路口: Road 1 的 Lane 1 (假设s反向) -->
+                                                    <Position>
+                                                        <LanePosition roadId="1" laneId="1" offset="0.0" s="20.0"/>
+                                                    </Position>
+                                                </Waypoint>
+                                            </Route>
+                                        </AssignRouteAction>
+                                    </RoutingAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="StartImmediate" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <!-- Adversary: 左转 (Road 1 -> Junction -> Road 0) 并同步碰撞 -->
+                <ManeuverGroup maximumExecutionCount="1" name="AdvManeuverGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Adversary"/>
+                    </Actors>
+                    <Maneuver name="AdvLeftTurnManeuver">
+                        
+                        <!-- 1. 路径规划 -->
+                        <Event name="AdvAssignRouteEvent" priority="overwrite">
+                            <Action name="AdvRouteAction">
+                                <PrivateAction>
+                                    <RoutingAction>
+                                        <AssignRouteAction>
+                                            <Route name="Adv_LeftTurn_Route" closed="false">
+                                                <Waypoint routeStrategy="shortest">
+                                                    <Position>
+                                                        <LanePosition roadId="1" laneId="-1" offset="0.0" s="20.0"/>
+                                                    </Position>
+                                                </Waypoint>
+                                                <Waypoint routeStrategy="shortest">
+                                                    <!-- 驶出路口: Road 0 (南向) -->
+                                                    <Position>
+                                                        <LanePosition roadId="0" laneId="1" offset="0.0" s="20.0"/>
+                                                    </Position>
+                                                </Waypoint>
+                                            </Route>
+                                        </AssignRouteAction>
+                                    </RoutingAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="StartImmediate" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+
+                        <!-- 2. 碰撞同步: 强制两车同时到达路口中心区域 -->
+                        <Event name="CollisionSyncEvent" priority="parallel">
+                            <Action name="AdvSyncAction">
+                                <PrivateAction>
+                                    <SynchronizeAction masterEntityRef="Ego">
+                                        <!-- Master(Ego)目标位置: 到达路口入口处 (Road 2, s=98) -->
+                                        <TargetPositionMaster>
+                                            <LanePosition roadId="2" laneId="-1" offset="0.0" s="98.0"/>
+                                        </TargetPositionMaster>
+                                        <!-- Slave(Adv)目标位置: 同时到达路口入口处 (Road 1, s=98) -->
+                                        <!-- 这样两人同时进入路口，左转车路径更长且慢，通常会正好卡在直行车路线上 -->
+                                        <TargetPosition>
+                                            <LanePosition roadId="1" laneId="-1" offset="0.0" s="98.0"/>
+                                        </TargetPosition>
+                                        <FinalSpeed>
+                                            <AbsoluteSpeed value="$AdvSpeed"/>
+                                        </FinalSpeed>
+                                    </SynchronizeAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="SyncWhenApproaching" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Ego"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <!-- 当主车行驶到 s=50 (离路口还有48m) 时触发同步 -->
+                                                <ReachPositionCondition tolerance="2.0">
+                                                    <Position>
+                                                        <LanePosition roadId="2" laneId="-1" s="50.0"/>
+                                                    </Position>
+                                                </ReachPositionCondition>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+
+                    </Maneuver>
+                </ManeuverGroup>
+            </Act>
+
+            <StopTrigger>
+                <ConditionGroup>
+                    <Condition name="StopOnCollision" delay="0" conditionEdge="rising">
+                        <ByEntityCondition>
+                            <TriggeringEntities triggeringEntitiesRule="any">
+                                <EntityRef entityRef="Ego"/>
+                            </TriggeringEntities>
+                            <EntityCondition>
+                                <CollisionCondition>
+                                    <EntityRef entityRef="Adversary"/>
+                                </CollisionCondition>
+                            </EntityCondition>
+                        </ByEntityCondition>
+                    </Condition>
+                </ConditionGroup>
+                <ConditionGroup>
+                    <Condition name="Timeout" delay="0" conditionEdge="rising">
+                        <ByValueCondition>
+                            <SimulationTimeCondition value="20" rule="greaterThan"/>
+                        </ByValueCondition>
+                    </Condition>
+                </ConditionGroup>
+            </StopTrigger>
+        </Story>
+    </Storyboard>
+</OpenSCENARIO>

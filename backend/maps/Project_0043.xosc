@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-01T12:30:00" description="LTAP/OD: Ego Left Turn vs Oncoming Straight (Near Miss)" author="Esmini-Expert"/>
+
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="two-way-four-lane-crossroad.xodr"/>
+    </RoadNetwork>
+
+    <!-- 1. 实体定义 -->
+    <Entities>
+        <!-- 自车: 蓝色，准备左转 -->
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        
+        <!-- 对向车: 红色，直行冲过来 -->
+        <ScenarioObject name="Adversary">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- ============================
+                     1. 自车 Ego (Road 1 -> Road 2 左转)
+                     ============================ -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- 
+                                    Road 1 (南), Lane 1 (内侧). 
+                                    s=40: 离路口停止线较近，准备起步 
+                                -->
+                                <LanePosition roadId="1" laneId="1" offset="0.0" s="40.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <!-- 初始速度较慢，模拟路口起步: 20 km/h -->
+                                    <AbsoluteTargetSpeed value="19.55"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    
+                    <!-- 【关键】分配左转路径 -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Ego_Left_Turn" closed="false">
+                                    <!-- 起点: Road 1 -->
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position> <LanePosition roadId="1" laneId="1" offset="0.0" s="40.0"/> </Position>
+                                    </Waypoint>
+                                    <!-- 终点: Road 2 (西侧道路), Lane -1 (右侧车道) -->
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position> <LanePosition roadId="2" laneId="-1" offset="0.0" s="20.0"/> </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- ============================
+                     2. 对向车 Adversary (Road 0 -> Road 1 直行)
+                     ============================ -->
+                <Private entityRef="Adversary">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- 
+                                    Road 0 (北), Lane -1 (内侧).
+                                    s=70: 离路口稍微远一点，给它加速空间 
+                                -->
+                                <LanePosition roadId="0" laneId="-1" offset="0.0" s="70.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <!-- 速度较快: 50 km/h (13.88 m/s), 模拟抢行 -->
+                                    <AbsoluteTargetSpeed value="12.88"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    
+                    <!-- 分配直行路径 -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Adversary_Straight" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position> <LanePosition roadId="0" laneId="-1" offset="0.0" s="70.0"/> </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position> <LanePosition roadId="1" laneId="-1" offset="0.0" s="50.0"/> </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="NearMissStory">
+            <Act name="KeepRunningAct">
+                <ManeuverGroup maximumExecutionCount="1" name="KeepRunningGroup">
+                    <Actors selectTriggeringEntities="false"/>
+                </ManeuverGroup>
+            </Act>
+            
+            <!-- 
+                如果你想让场景更惊险，可以加一个触发器：
+                当两车距离小于 10米 时，对向车鸣笛(或者闪灯/急刹)，或者自车急刹。
+                目前 Esmini 默认的碰撞避免逻辑应该会起作用。
+            -->
+        </Story>
+        
+        <!-- 设置仿真时长 15秒后自动结束 -->
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="TimeOut" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="15.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

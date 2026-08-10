@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-03T13:35:00" description="Animal crossing collision scenario" author="Esmini-Generator"/>
+
+    <!-- 1. 资源库配置 (必须包含) -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <!-- 2. 地图加载 -->
+    <RoadNetwork>
+        <LogicFile filepath="two-way-two-lane-straight-urban.xodr"/>
+    </RoadNetwork>
+
+    <!-- 3. 实体定义 -->
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <ScenarioObject name="CrossingMoose">
+            <CatalogReference catalogName="PedestrianCatalog" entryName="moose"/>
+        </ScenarioObject>
+    </Entities>
+
+    <!-- 4. 故事板 -->
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- 自车初始化: Road 0, Lane -1 (右侧行车道), s=10m, 速度 50km/h (13.89m/s) -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-1" offset="0.0" s="10.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="19.89"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- 麋鹿初始化: Road 0, Lane -4 (右侧人行道), s=60m (在自车前方50m处) -->
+                <Private entityRef="CrossingMoose">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-4" offset="0.0" s="60.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="AnimalCrashStory">
+            <Act name="MooseCrossingAct">
+                <ManeuverGroup maximumExecutionCount="1" name="MooseManeuverGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="CrossingMoose"/>
+                    </Actors>
+                    
+                    <Maneuver name="MooseRunManeuver">
+                        <Event name="StartRunningEvent" priority="overwrite">
+                            <!-- 触发条件: 当自车到达 s=35m 处 (距离麋鹿还有25m) -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="EgoApproaching" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Ego"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <ReachPositionCondition tolerance="2.0">
+                                                    <Position>
+                                                        <LanePosition roadId="0" laneId="-1" s="35.0"/>
+                                                    </Position>
+                                                </ReachPositionCondition>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+
+                            <!-- 动作1: 麋鹿加速奔跑 (速度设为 8m/s，模拟受惊冲出) -->
+                            <Action name="MooseAcceleration">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="10.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="8.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+
+                            <!-- 动作2: 沿轨迹横穿马路 -->
+                            <Action name="MooseFollowPath">
+                                <PrivateAction>
+                                    <RoutingAction>
+                                        <FollowTrajectoryAction>
+                                            <Trajectory name="MooseCrossingTrajectory" closed="false">
+                                                <Shape>
+                                                    <Polyline>
+                                                        <!-- 起点: 人行道 -->
+                                                        <Vertex>
+                                                            <Position><LanePosition roadId="0" laneId="-4" offset="0.0" s="60.0"/></Position>
+                                                        </Vertex>
+                                                        <!-- 中间点: 穿过路肩 -->
+                                                        <Vertex>
+                                                            <Position><LanePosition roadId="0" laneId="-2" offset="0.0" s="60.0"/></Position>
+                                                        </Vertex>
+                                                        <!-- 碰撞点: 行车道中心 (Lane -1) -->
+                                                        <Vertex>
+                                                            <Position><LanePosition roadId="0" laneId="-1" offset="0.0" s="60.0"/></Position>
+                                                        </Vertex>
+                                                        <!-- 终点: 跑到对面路肩 -->
+                                                        <Vertex>
+                                                            <Position><LanePosition roadId="0" laneId="2" offset="0.0" s="60.0"/></Position>
+                                                        </Vertex>
+                                                    </Polyline>
+                                                </Shape>
+                                                <TimeReference>
+                                                    <None/>
+                                                </TimeReference>
+                                                <TrajectoryFollowingMode followingMode="position"/>
+                                            </Trajectory>
+                                        </FollowTrajectoryAction>
+                                    </RoutingAction>
+                                </PrivateAction>
+                            </Action>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+            </Act>
+        </Story>
+        
+        <StopTrigger>
+            <ConditionGroup>
+                <!-- 碰撞或超时后停止仿真 -->
+                <Condition name="CollisionOccurred" delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                        <TriggeringEntities triggeringEntitiesRule="any">
+                            <EntityRef entityRef="Ego"/>
+                        </TriggeringEntities>
+                        <EntityCondition>
+                            <CollisionCondition>
+                                <EntityRef entityRef="CrossingMoose"/>
+                            </CollisionCondition>
+                        </EntityCondition>
+                    </ByEntityCondition>
+                </Condition>
+                <Condition name="TimeOut" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="15.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

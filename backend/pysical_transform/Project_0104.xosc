@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-01T11:20:00" description="Pedestrian Crossing from Offset -10.5" author="Esmini-Expert"/>
+
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="two-way-four-lane-crossroad.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <ScenarioObject name="Pedestrian_1">
+            <CatalogReference catalogName="PedestrianCatalog" entryName="pedestrian_adult"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Night_Rain_Environment">
+                            <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+                            <Weather cloudState="overcast">
+                                <Sun intensity="0.0" azimuth="0.0" elevation="0.0"/>
+                                <Fog visualRange="10000.0"/>
+                                <Precipitation precipitationType="rain" intensity="1.0"/>
+                            </Weather>
+                            <RoadCondition frictionScaleFactor="1.0"/>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+                <!-- 自车: Road 1, Lane 2, s=60 -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="1" laneId="2" offset="0.0" s="60.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="18.33"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Ego_Straight_Route" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="1" laneId="2" offset="0.0" s="60.0"/>
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="0" laneId="2" offset="0.0" s="20.0"/>
+                                        </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- 【校准】行人初始位置: offset="-10.5" -->
+                <Private entityRef="Pedestrian_1">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="69" laneId="1" offset="-10.5" s="3.56"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="DangerStory">
+            <Act name="JaywalkingAct">
+                <ManeuverGroup maximumExecutionCount="1" name="JaywalkingManeuverGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Pedestrian_1"/>
+                    </Actors>
+
+                    <Maneuver name="PedestrianCrossManeuver">
+                        <Event name="StartCrossingEvent" priority="overwrite">
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="EgoApproachesCondition" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Ego"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <ReachPositionCondition tolerance="2.0">
+                                                    <Position>
+                                                        <!-- 逆向，s减小方向，到达 38.0 触发 -->
+                                                        <LanePosition roadId="1" laneId="2" s="38.0"/>
+                                                    </Position>
+                                                </ReachPositionCondition>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+
+                            <Action name="SetPedestrianSpeed">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="2.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <!-- 保持 4m/s 跑步速度 -->
+                                                <AbsoluteTargetSpeed value="4.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+
+                            <Action name="PedestrianFollowPath">
+                                <PrivateAction>
+                                    <RoutingAction>
+                                        <FollowTrajectoryAction>
+                                            <Trajectory name="CrossingPath" closed="false">
+                                                <Shape>
+                                                    <Polyline>
+                                                        <!-- 起点: offset="-10.5" -->
+                                                        <Vertex>
+                                                            <Position>
+                                                                <LanePosition roadId="69" laneId="1" offset="-10.5" s="3.56"/>
+                                                            </Position>
+                                                        </Vertex>
+                                                        <!-- 中间点 -->
+                                                        <Vertex>
+                                                            <Position>
+                                                                <LanePosition roadId="69" laneId="1" offset="0.0" s="3.56"/>
+                                                            </Position>
+                                                        </Vertex>
+                                                        <!-- 终点: offset="12.0" (横穿) -->
+                                                        <Vertex>
+                                                            <Position>
+                                                                <LanePosition roadId="69" laneId="1" offset="12.0" s="3.56"/>
+                                                            </Position>
+                                                        </Vertex>
+                                                    </Polyline>
+                                                </Shape>
+                                                <TimeReference>
+                                                    <None/>
+                                                </TimeReference>
+                                                <TrajectoryFollowingMode followingMode="position"/>
+                                            </Trajectory>
+                                        </FollowTrajectoryAction>
+                                    </RoutingAction>
+                                </PrivateAction>
+                            </Action>
+
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+            </Act>
+        </Story>
+    </Storyboard>
+</OpenSCENARIO>

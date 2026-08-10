@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2023-10-27T10:00:00" description="Crossing Collision Setup" author="Esmini-Expert"/>
+
+    <!-- 1. 资源库路径配置 (必须包含) -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <!-- 2. 道路网络引用 (假设地图文件名为 junction_map.xodr) -->
+    <RoadNetwork>
+        <LogicFile filepath="two-way-four-lane-crossroad.xodr"/>
+    </RoadNetwork>
+
+    <!-- 3. 实体定义 -->
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <ScenarioObject name="Adversary">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+    </Entities>
+
+    <!-- 4. 故事板与初始位置 -->
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- ============================
+                     1. 自车 (Ego) 设置
+                     ============================ -->
+                <Private entityRef="Ego">
+                    <!-- 初始位置: Road 1 (南), 车道 1 (逆向), 距离路口 50米 -->
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="1" laneId="1" offset="0.0" s="50.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <!-- 初始速度: 40 km/h -->
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="11.11"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <!-- 【关键修复】分配路线: 明确告诉它要去 Road 0 (直行穿过路口) -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Ego_Straight_Route" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="1" laneId="1" offset="0.0" s="50.0"/>
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <!-- 目的地设在 Road 0 的远处 -->
+                                            <LanePosition roadId="0" laneId="1" offset="0.0" s="40.0"/>
+                                        </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- ============================
+                     2. 对向车 (Adversary) 设置
+                     ============================ -->
+                <Private entityRef="Adversary">
+                    <!-- 初始位置: Road 0 (北), 车道 -1 (顺向), 距离路口 56米 -->
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-1" offset="0.0" s="30.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <!-- 初始速度: 40 km/h -->
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="11.11"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <!-- 分配路线: 明确告诉它要去 Road 3 (左转) -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Adversary_Left_Route" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="0" laneId="-1" offset="0.0" s="30.0"/>
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <!-- 目的地设在 Road 3 (东侧路) -->
+                                            <LanePosition roadId="3" laneId="-1" offset="0.0" s="40.0"/>
+                                        </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+        
+        <!-- 这里暂时留空，后续添加碰撞故事 -->
+        <Story name="CollisionStory">
+            <Act name="CollisionAct">
+                <ManeuverGroup maximumExecutionCount="1" name="CollisionManeuverGroup">
+                    <Actors selectTriggeringEntities="false"/>
+                </ManeuverGroup>
+            </Act>
+        </Story>
+    </Storyboard>
+</OpenSCENARIO>

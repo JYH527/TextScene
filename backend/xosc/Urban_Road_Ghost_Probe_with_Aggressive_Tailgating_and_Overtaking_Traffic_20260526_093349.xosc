@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenScenario.xsd">
+    <FileHeader description="Urban Road Ghost Probe with Aggressive Tailgating and Overtaking Traffic" author="System" revMajor="1" revMinor="0" date="2025-01-01T00:00:00" />
+    <ParameterDeclarations />
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles" />
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians" />
+        </PedestrianCatalog>
+    </CatalogLocations>
+    <RoadNetwork>
+        <LogicFile filepath="../maps/Town06.xodr" />
+    </RoadNetwork>
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_white" />
+        </ScenarioObject>
+        <ScenarioObject name="Truck">
+            <CatalogReference catalogName="VehicleCatalog" entryName="truck_yellow" />
+        </ScenarioObject>
+        <ScenarioObject name="Pedestrian">
+            <CatalogReference catalogName="PedestrianCatalog" entryName="pedestrian_adult" />
+        </ScenarioObject>
+        <ScenarioObject name="Tailgater">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red" />
+        </ScenarioObject>
+        <ScenarioObject name="Overtaker">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue" />
+        </ScenarioObject>
+    </Entities>
+    <Storyboard>
+        <Init>
+            <Actions>
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Environment1">
+                            <TimeOfDay animation="false" dateTime="2025-01-01T12:00:00" />
+                            <Weather cloudState="rainy">
+                                <Sun intensity="0.0" azimuth="0.0" elevation="-1.5" />
+                                <Fog visualRange="100000.0" />
+                                <Precipitation precipitationType="rain" intensity="0.3" />
+                            </Weather>
+                            <RoadCondition frictionScaleFactor="1.0" />
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+                
+                
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time" />
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="10" />
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="13" laneId="-5" s="20" offset="0.0" />
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="InitRoute_Ego" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="13" laneId="-5" s="20.0" offset="0.0" />
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="13" laneId="-5" s="100.0" offset="0.0" />
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="13" laneId="-5" s="104.0" offset="0.0" />
+                                        </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                
+                <Private entityRef="Truck">
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time" />
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0" />
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="13" laneId="-6" s="45" offset="0.0" />
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="InitRoute_Truck" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="13" laneId="-6" s="45.0" offset="0.0" />
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="13" laneId="-6" s="100.0" offset="0.0" />
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="13" laneId="-6" s="104.0" offset="0.0" />
+                                        </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                
+                <Private entityRef="Pedestrian">
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time" />
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0" />
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="13" laneId="-6" s="52" offset="0.0" />
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="InitRoute_Pedestrian" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="13" laneId="-6" s="52.0" offset="0.0" />
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="13" laneId="-6" s="52.0" offset="0.0" />
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="13" laneId="-6" s="52.0" offset="0.0" />
+                                        </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                
+                <Private entityRef="Tailgater">
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time" />
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="12" />
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="13" laneId="-5" s="5" offset="0.0" />
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="InitRoute_Tailgater" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="13" laneId="-5" s="5.0" offset="0.0" />
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="13" laneId="-5" s="100.0" offset="0.0" />
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="13" laneId="-5" s="104.0" offset="0.0" />
+                                        </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                
+                <Private entityRef="Overtaker">
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time" />
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="15" />
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="13" laneId="-4" s="0" offset="0.0" />
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="InitRoute_Overtaker" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="13" laneId="-4" s="0.0" offset="0.0" />
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="13" laneId="-4" s="100.0" offset="0.0" />
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="13" laneId="-4" s="104.0" offset="0.0" />
+                                        </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="MainStory">
+            
+            <Act name="Act_Overtaker_1">
+                <ManeuverGroup maximumExecutionCount="1" name="MG_Overtaker_1">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Overtaker" />
+                    </Actors>
+                    <Maneuver name="Man_Overtaker_1">
+                        <Event name="Ev_Overtaker_1" priority="overwrite" maximumExecutionCount="1">
+                            <Action name="Act_Spd_Overtaker_1">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="15.0" dynamicsDimension="distance" />
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="20" />
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Cond_Overtaker_1" delay="0" conditionEdge="none">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Overtaker" />
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <TraveledDistanceCondition value="0.0" />
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="ActStart_Overtaker_1" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan" />
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+
+            
+            <Act name="Act_Tailgater_2">
+                <ManeuverGroup maximumExecutionCount="1" name="MG_Tailgater_2">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Tailgater" />
+                    </Actors>
+                    <Maneuver name="Man_Tailgater_2">
+                        <Event name="Ev_Tailgater_2" priority="overwrite" maximumExecutionCount="1">
+                            <Action name="Act_Spd_Tailgater_2">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="10.0" dynamicsDimension="distance" />
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="15" />
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Cond_Tailgater_2" delay="0" conditionEdge="none">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Tailgater" />
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <TraveledDistanceCondition value="0.0" />
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="ActStart_Tailgater_2" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <StoryboardElementStateCondition storyboardElementType="act" storyboardElementRef="Act_Overtaker_1" state="completeState" />
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+
+            
+            <Act name="Act_Pedestrian_3">
+                <ManeuverGroup maximumExecutionCount="1" name="MG_Pedestrian_3">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Pedestrian" />
+                    </Actors>
+                    <Maneuver name="Man_Pedestrian_3">
+                        <Event name="Ev_Pedestrian_3" priority="overwrite" maximumExecutionCount="1">
+                            <Action name="Act_Spd_Pedestrian_3">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="1.0" dynamicsDimension="distance" />
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="3" />
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Cond_Pedestrian_3" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Pedestrian" />
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <RelativeDistanceCondition entityRef="Ego" relativeDistanceType="longitudinal" value="12.0" freespace="true" rule="lessThan" />
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="ActStart_Pedestrian_3" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <StoryboardElementStateCondition storyboardElementType="act" storyboardElementRef="Act_Tailgater_2" state="completeState" />
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+
+            
+            <Act name="Act_Pedestrian_4">
+                <ManeuverGroup maximumExecutionCount="1" name="MG_Pedestrian_4">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Pedestrian" />
+                    </Actors>
+                    <Maneuver name="Man_Pedestrian_4">
+                        <Event name="Ev_Pedestrian_4" priority="overwrite" maximumExecutionCount="1">
+                            <Action name="Act_Traj_Pedestrian_4">
+                                <PrivateAction>
+                                    <RoutingAction>
+                                        <FollowTrajectoryAction>
+                                            <Trajectory name="Traj_Pedestrian_4" closed="false">
+                                                <Shape>
+                                                    <Polyline>
+                                                        <Vertex>
+                                                            <Position>
+                                                                <LanePosition roadId="13" laneId="-6" s="53.1" offset="0.0" />
+                                                            </Position>
+                                                        </Vertex>
+                                                        <Vertex>
+                                                            <Position>
+                                                                <LanePosition roadId="13" laneId="-5" s="53.5" offset="0.0" />
+                                                            </Position>
+                                                        </Vertex>
+                                                    </Polyline>
+                                                </Shape>
+                                                <TimeReference>
+                                                    <None />
+                                                </TimeReference>
+                                            </Trajectory>
+                                            <Velocity>
+                                                <Sustained speed="1.5" />
+                                            </Velocity>
+                                            <TrajectoryFollowingMode followingMode="position" />
+                                        </FollowTrajectoryAction>
+                                    </RoutingAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Cond_Pedestrian_4" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Pedestrian" />
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <TraveledDistanceCondition value="0.1" rule="greaterThan" />
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="ActStart_Pedestrian_4" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <StoryboardElementStateCondition storyboardElementType="act" storyboardElementRef="Act_Pedestrian_3" state="completeState" />
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+
+            
+            <Act name="Act_Pedestrian_5">
+                <ManeuverGroup maximumExecutionCount="1" name="MG_Pedestrian_5">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Pedestrian" />
+                    </Actors>
+                    <Maneuver name="Man_Pedestrian_5">
+                        <Event name="Ev_Pedestrian_5" priority="overwrite" maximumExecutionCount="1">
+                            <Action name="Act_Spd_Pedestrian_5">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="0.5" dynamicsDimension="distance" />
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="0" />
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Cond_Pedestrian_5" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Pedestrian" />
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <RelativeDistanceCondition entityRef="Ego" relativeDistanceType="longitudinal" value="6.0" freespace="true" rule="lessThan" />
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="ActStart_Pedestrian_5" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <StoryboardElementStateCondition storyboardElementType="act" storyboardElementRef="Act_Pedestrian_4" state="completeState" />
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+        </Story>
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="StopCondition" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="10.0" rule="greaterThan" />
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

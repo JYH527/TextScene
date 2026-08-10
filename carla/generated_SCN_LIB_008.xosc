@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+  <FileHeader revMajor="1" revMinor="0" date="2024-05-21T10:00:00" description="SCN_LIB_008: 车辆切出-目标车辆避让前方静止车. 测试Ego在跟随的前车为避让前方静止车辆而突然变道后，对突然暴露的静止障碍物的紧急制动（AEB）反应能力。" author="ASAM OpenSCENARIO Expert"/>
+  <ParameterDeclarations/>
+  <CatalogLocations/>
+  <RoadNetwork>
+    <LogicFile filepath="generated_SCN_LIB_008.xodr"/>
+    <SceneGraphFile filepath=""/>
+  </RoadNetwork>
+  <Entities>
+    <ScenarioObject name="Ego">
+      <Vehicle name="vehicle.tesla.model3" vehicleCategory="car">
+        <BoundingBox>
+          <Center x="1.4" y="0.0" z="0.8"/>
+          <Dimensions length="4.5" width="2.0" height="1.6"/>
+        </BoundingBox>
+        <Performance maxSpeed="55.5" maxAcceleration="10.0" maxDeceleration="10.0"/>
+        <Axles>
+          <FrontAxle maxSteering="0.5" wheelDiameter="0.8" trackWidth="1.8" positionX="2.8" positionZ="0.4"/>
+          <RearAxle maxSteering="0.0" wheelDiameter="0.8" trackWidth="1.8" positionX="0.0" positionZ="0.4"/>
+        </Axles>
+        <Properties/>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="Adv_1">
+      <Vehicle name="vehicle.bmw.grandtourer" vehicleCategory="car">
+        <BoundingBox>
+          <Center x="1.4" y="0.0" z="0.8"/>
+          <Dimensions length="4.5" width="2.0" height="1.6"/>
+        </BoundingBox>
+        <Performance maxSpeed="55.5" maxAcceleration="10.0" maxDeceleration="10.0"/>
+        <Axles>
+          <FrontAxle maxSteering="0.5" wheelDiameter="0.8" trackWidth="1.8" positionX="2.8" positionZ="0.4"/>
+          <RearAxle maxSteering="0.0" wheelDiameter="0.8" trackWidth="1.8" positionX="0.0" positionZ="0.4"/>
+        </Axles>
+        <Properties/>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="Adv_2">
+      <Vehicle name="vehicle.audi.a2" vehicleCategory="car">
+        <BoundingBox>
+          <Center x="1.4" y="0.0" z="0.8"/>
+          <Dimensions length="4.5" width="2.0" height="1.6"/>
+        </BoundingBox>
+        <Performance maxSpeed="55.5" maxAcceleration="10.0" maxDeceleration="10.0"/>
+        <Axles>
+          <FrontAxle maxSteering="0.5" wheelDiameter="0.8" trackWidth="1.8" positionX="2.8" positionZ="0.4"/>
+          <RearAxle maxSteering="0.0" wheelDiameter="0.8" trackWidth="1.8" positionX="0.0" positionZ="0.4"/>
+        </Axles>
+        <Properties/>
+      </Vehicle>
+    </ScenarioObject>
+  </Entities>
+  <Storyboard>
+    <Init>
+      <Actions>
+        <GlobalAction>
+          <EnvironmentAction>
+            <Environment name="Environment1">
+              <TimeOfDay animation="false" dateTime="2023-01-01T12:00:00"/>
+              <Weather cloudState="free">
+                <Sun intensity="0.85" azimuth="0.0" elevation="1.571"/>
+                <Fog visualRange="100000.0"/>
+                <Precipitation precipitationType="dry" intensity="0.0"/>
+              </Weather>
+              <RoadCondition frictionScaleFactor="1.0"/>
+            </Environment>
+          </EnvironmentAction>
+        </GlobalAction>
+        <Private entityRef="Ego">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <!-- 使用新的负数 laneId -->
+                <LanePosition roadId="1" laneId="-1" s="50.0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="13.89"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="Adv_1">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <LanePosition roadId="1" laneId="-1" s="80.0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="13.89"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="Adv_2">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <LanePosition roadId="1" laneId="-1" s="150.0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="0.0"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+    <Story name="CutOutAndBrakeStory">
+      <Act name="CutOutAndBrakeAct">
+        <ManeuverGroup name="Ego_Initial_Cruise_mg" maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Ego"/>
+          </Actors>
+          <Maneuver name="EgoInitialCruiseManeuver">
+            <Event name="Ego_Initial_Cruise_event" priority="parallel">
+              <Action name="Ego_Initial_Cruise">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="13.89"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="SimTimeStart" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                      <SimulationTimeCondition value="0.1" rule="greaterThan"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <ManeuverGroup name="Adv_1_Initial_Cruise_mg" maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Adv_1"/>
+          </Actors>
+          <Maneuver name="Adv1InitialCruiseManeuver">
+            <Event name="Adv_1_Initial_Cruise_event" priority="parallel">
+              <Action name="Adv_1_Initial_Cruise">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="13.89"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="SimTimeStart" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                      <SimulationTimeCondition value="0.1" rule="greaterThan"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <ManeuverGroup name="Adv_2_Stationary_State_mg" maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Adv_2"/>
+          </Actors>
+          <Maneuver name="Adv2StationaryManeuver">
+            <Event name="Adv_2_Stationary_State_event" priority="parallel">
+              <Action name="Adv_2_Stationary_State">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="0.0"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="SimTimeStart" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                      <SimulationTimeCondition value="0.1" rule="greaterThan"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <ManeuverGroup name="Adv_1_Evasive_Lane_Change_mg" maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Adv_1"/>
+          </Actors>
+          <Maneuver name="Adv1EvasiveLaneChangeManeuver">
+            <Event name="Adv_1_Evasive_Lane_Change_event" priority="overwrite">
+              <Action name="Adv_1_Evasive_Lane_Change">
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneChangeAction>
+                      <LaneChangeActionDynamics dynamicsShape="sinusoidal" value="30.0" dynamicsDimension="distance"/>
+                      <LaneChangeTarget>
+                        <!-- 相对变道，value=-1 表示向右变道一个车道 (从 -1 到 -2) -->
+                        <RelativeTargetLane entityRef="Adv_1" value="-1"/>
+                      </LaneChangeTarget>
+                    </LaneChangeAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="DistanceTrigger" delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any">
+                        <EntityRef entityRef="Adv_1"/>
+                      </TriggeringEntities>
+                      <EntityCondition>
+                        <RelativeDistanceCondition entityRef="Adv_2" relativeDistanceType="longitudinal" value="40.0" freespace="false" rule="lessThan"/>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <ManeuverGroup name="Adv_1_Stabilize_After_Change_mg" maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Adv_1"/>
+          </Actors>
+          <Maneuver name="Adv1StabilizeManeuver">
+            <Event name="Adv_1_Stabilize_After_Change_event" priority="overwrite">
+              <Action name="Adv_1_Stabilize_After_Change">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="13.89"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="EndOfLaneChange" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                      <StoryboardElementStateCondition storyboardElementType="action" storyboardElementRef="Adv_1_Evasive_Lane_Change" state="completeState"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <ManeuverGroup name="Ego_Emergency_Brake_mg" maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Ego"/>
+          </Actors>
+          <Maneuver name="EgoEmergencyBrakeManeuver">
+            <Event name="Ego_Emergency_Brake_event" priority="overwrite">
+              <Action name="Ego_Emergency_Brake">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsShape="linear" value="8.0" dynamicsDimension="rate"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="0.0"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="EgoBrakeTrigger" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                      <StoryboardElementStateCondition storyboardElementType="action" storyboardElementRef="Adv_1_Evasive_Lane_Change" state="completeState"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <StartTrigger>
+            <ConditionGroup>
+                <Condition name="ActStart" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StartTrigger>
+      </Act>
+    </Story>
+    <StopTrigger>
+      <ConditionGroup>
+        <Condition name="SimulationTime" delay="0" conditionEdge="rising">
+          <ByValueCondition>
+            <SimulationTimeCondition value="60" rule="greaterThan"/>
+          </ByValueCondition>
+        </Condition>
+        <Condition name="Collision" delay="0" conditionEdge="rising">
+          <ByEntityCondition>
+            <TriggeringEntities triggeringEntitiesRule="any">
+              <EntityRef entityRef="Ego"/>
+            </TriggeringEntities>
+            <EntityCondition>
+              <CollisionCondition>
+                <EntityRef entityRef="Ego"/>
+              </CollisionCondition>
+            </EntityCondition>
+          </ByEntityCondition>
+        </Condition>
+        <Condition name="ReachPosition" delay="0" conditionEdge="rising">
+          <ByEntityCondition>
+            <TriggeringEntities triggeringEntitiesRule="any">
+              <EntityRef entityRef="Ego"/>
+            </TriggeringEntities>
+            <EntityCondition>
+              <ReachPositionCondition tolerance="2.0">
+                <Position>
+                  <RoadPosition roadId="1" s="440.0" t="0"/>
+                </Position>
+              </ReachPositionCondition>
+            </EntityCondition>
+          </ByEntityCondition>
+        </Condition>
+      </ConditionGroup>
+    </StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

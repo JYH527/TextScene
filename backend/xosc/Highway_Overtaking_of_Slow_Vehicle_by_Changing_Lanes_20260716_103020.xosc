@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2023-10-27T11:00:00" description="Overtaking Slow Vehicle on 2-Lane Highway" author="AutonomousDrivingEngineer" />
+
+    <ParameterDeclarations />
+
+    
+    
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles" />
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians" />
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="../maps/one-way-two-lane-straight-highway.xodr" />
+    </RoadNetwork>
+
+    <Entities>
+        
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red" />
+        </ScenarioObject>
+
+        
+        <ScenarioObject name="SlowLeadingCar">
+            <CatalogReference catalogName="VehicleCatalog" entryName="semi_truck" />
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-3" offset="0.0" s="10" />
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time" />
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="30" />
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                
+                <Private entityRef="SlowLeadingCar">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-3" offset="0.0" s="70" />
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time" />
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="16.67" />
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="OvertakingStory">
+            <Act name="EgoOvertakeAct">
+                <ManeuverGroup maximumExecutionCount="1" name="EgoManeuverGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego" />
+                    </Actors>
+
+                    <Maneuver name="LaneChangeManeuver">
+                        
+                        <Event name="EgoLaneChangeEvent" priority="overwrite">
+
+                            
+                            <Action name="TurnSignalLeft">
+                                <PrivateAction>
+                                    <ControllerAction>
+                                        <OverrideControllerValueAction>
+                                            <Throttle value="0" active="false" />
+                                            <Brake value="0" active="false" />
+                                            <Clutch value="0" active="false" />
+                                            <ParkingBrake value="0" active="false" />
+                                            <SteeringWheel value="0" active="false" />
+                                            <Gear number="0" active="false" />
+                                        </OverrideControllerValueAction>
+                                    </ControllerAction>
+                                </PrivateAction>
+                            </Action>
+                            
+
+                            
+                            <Action name="PerformLaneChange">
+                                <PrivateAction>
+                                    <LateralAction>
+                                        <LaneChangeAction>
+                                            
+                                            <LaneChangeActionDynamics dynamicsShape="sinusoidal" value="2.5" dynamicsDimension="time" />
+                                            <LaneChangeTarget>
+                                                <AbsoluteTargetLane value="-2" />
+                                            </LaneChangeTarget>
+                                        </LaneChangeAction>
+                                    </LateralAction>
+                                </PrivateAction>
+                            </Action>
+
+                            
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="DistanceToTruckCondition" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Ego" />
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <RelativeDistanceCondition entityRef="SlowLeadingCar" relativeDistanceType="longitudinal" value="12.0" freespace="true" rule="lessThan" />
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="SimulationStart" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan" />
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            
+            <ConditionGroup>
+                <Condition name="TimeOut" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="20.0" rule="greaterThan" />
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

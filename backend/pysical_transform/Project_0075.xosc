@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenScenario.xsd">
+    <FileHeader description="原始经典切入 + Target1 正后方加遮挡大货车（只遮挡视线，不改变任何原有逻辑）" author="Grok" revMajor="1" revMinor="0" date="2025-11-29T21:00:00"/>
+
+    <ParameterDeclarations/>
+    <!-- 必须的 Catalog 路径（esmini 标准相对路径） -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="two-way-six-lane-straight-highway.xodr"/>
+    </RoadNetwork>
+    <Entities>
+        <!-- 自车 -->
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <ScenarioObject name="Target1">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+        <ScenarioObject name="BlockTruck">
+            <CatalogReference catalogName="VehicleCatalog" entryName="semi_truck"/>
+        </ScenarioObject>
+    </Entities>
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- 全局环境设置：黑夜 + 雨天 -->
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Night_Rain">
+                            <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+                            <Weather cloudState="overcast">
+                                <Precipitation precipitationType="rain" intensity="1.0"/>
+                            </Weather>
+                            <RoadCondition frictionScaleFactor="1.0"/>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+
+                <!-- Ego：-3车道 30 m/s -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget><AbsoluteTargetSpeed value="30.0"/></SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position><LanePosition roadId="0" laneId="-3" s="25.0" offset="0.0"/></Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- Target1：-2车道 前方10 m 40 m/s（原逻辑） -->
+                <Private entityRef="Target1">
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget><AbsoluteTargetSpeed value="40.0"/></SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position><LanePosition roadId="0" laneId="-2" s="15.0" offset="0.0"/></Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- 遮挡大货车：紧贴 Target1 正后方，40 m/s直行（只负责遮挡视线） -->
+                <Private entityRef="BlockTruck">
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget><AbsoluteTargetSpeed value="40.0"/></SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- 车头离 Target1 车尾只有约 2~3 米，完美遮挡 -->
+                                <LanePosition roadId="0" laneId="-2" s="3.5" offset="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="mystory">
+            <Act name="red_act">
+
+                <!-- Target1 变道 + 急刹（你原来的完整逻辑，100% 不变） -->
+                <ManeuverGroup name="mangroup_red_lane_change" maximumExecutionCount="1">
+                    <Actors selectTriggeringEntities="false"><EntityRef entityRef="Target1"/></Actors>
+                    <Maneuver name="red_maneuver_lc">
+                        <Event name="first_lane_change" priority="overwrite">
+                            <Action name="lane_change_red">
+                                <PrivateAction>
+                                    <LateralAction>
+                                        <LaneChangeAction>
+                                            <LaneChangeActionDynamics dynamicsShape="sinusoidal" value="2.0" dynamicsDimension="time"/>
+                                            <LaneChangeTarget><AbsoluteTargetLane value="-3"/></LaneChangeTarget>
+                                        </LaneChangeAction>
+                                    </LateralAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="redtrigger_lc" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any"><EntityRef entityRef="Ego"/></TriggeringEntities>
+                                            <EntityCondition>
+                                                <TimeHeadwayCondition entityRef="Target1" value="0.01" alongRoute="false" relativeDistanceType="longitudinal" coordinateSystem="road" freespace="true" rule="greaterThan"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <ManeuverGroup name="red_mangroup_brake" maximumExecutionCount="1">
+                    <Actors selectTriggeringEntities="false"><EntityRef entityRef="Target1"/></Actors>
+                    <Maneuver name="red_maneuver_brake">
+                        <Event name="brake_red" priority="overwrite">
+                            <Action name="brake_to_stop">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="0.1" dynamicsDimension="time"/>
+                                            <SpeedActionTarget><AbsoluteTargetSpeed value="0.0"/></SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="redtrigger_brake" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any"><EntityRef entityRef="Ego"/></TriggeringEntities>
+                                            <EntityCondition>
+                                                <TimeHeadwayCondition entityRef="Target1" value="0.01" alongRoute="false" relativeDistanceType="longitudinal" coordinateSystem="road" freespace="true" rule="greaterThan"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="starttrigger" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0.0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="stop_simulation" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="20.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

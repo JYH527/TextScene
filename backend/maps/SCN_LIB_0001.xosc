@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+  <FileHeader revMajor="1" revMinor="0" date="2023-10-27T10:00:00" description="Rear Collision Due to Reversing Blind Spot" author="ScenarioBuilder"/>
+  
+  <ParameterDeclarations/>
+  
+  <CatalogLocations>
+    <VehicleCatalog>
+      <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+    </VehicleCatalog>
+    <PedestrianCatalog>
+      <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+    </PedestrianCatalog>
+  </CatalogLocations>
+  
+  <RoadNetwork>
+    <LogicFile filepath="../maps/two-way-four-lane-straight-urban.xodr"/>
+  </RoadNetwork>
+  
+  <Entities>
+    <!-- 根据核心规则，Ego强制映射为 car_red，尽管场景描述为两轮车 -->
+    <ScenarioObject name="Ego">
+      <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+    </ScenarioObject>
+    
+    <!-- Target1: 半挂卡车 -> semi_truck -->
+    <ScenarioObject name="Target1">
+      <CatalogReference catalogName="VehicleCatalog" entryName="semi_truck"/>
+    </ScenarioObject>
+  </Entities>
+  
+  <Storyboard>
+    <Init>
+      <Actions>
+        <Private entityRef="Ego">
+          <PrivateAction>
+            <!-- Ego在最外侧行车道(Lane -2)行驶，初始速度20kph (5.55m/s) -->
+            <TeleportAction>
+              <Position>
+                <LanePosition roadId="0" laneId="-2" offset="0.0" s="10.0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="15.55"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        
+        <Private entityRef="Target1">
+          <PrivateAction>
+            <!-- Target1停在路肩(Lane -3)装卸区，位于Ego前方 -->
+            <TeleportAction>
+              <Position>
+                <LanePosition roadId="0" laneId="-3" offset="0.0" s="50.0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="0.0"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+    
+    <Story name="BlindSpotReversingStory">
+      <Act name="ReversingAct">
+        <ManeuverGroup maximumExecutionCount="1" name="TruckManeuverGroup">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Target1"/>
+          </Actors>
+          
+          <Maneuver name="TruckReverseIntoRoad">
+            <Event name="StartReversingEvent" priority="overwrite">
+              <Action name="ReverseSpeedAction">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <!-- 倒车速度 -3 kph (-0.83 m/s) -->
+                      <SpeedActionDynamics dynamicsShape="linear" value="2.0" dynamicsDimension="time"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="-0.83"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              
+              <Action name="EnterLaneAction">
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneChangeAction>
+                      <LaneChangeActionDynamics dynamicsShape="sinusoidal" value="4.0" dynamicsDimension="time"/>
+                      <LaneChangeTarget>
+                        <!-- 从路肩(-3)进入行车道(-2)，Relative为+1 (向左) -->
+                        <RelativeTargetLane entityRef="Target1" value="1"/>
+                      </LaneChangeTarget>
+                    </LaneChangeAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+              
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="DistanceCondition" delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any">
+                        <EntityRef entityRef="Ego"/>
+                      </TriggeringEntities>
+                      <EntityCondition>
+                        <RelativeDistanceCondition entityRef="Target1" relativeDistanceType="longitudinal" value="25.0" freespace="true" rule="lessThan"/>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+      </Act>
+    </Story>
+    
+    <StopTrigger>
+      <ConditionGroup>
+        <Condition name="TimeOut" delay="0" conditionEdge="rising">
+          <ByValueCondition>
+            <SimulationTimeCondition value="20.0" rule="greaterThan"/>
+          </ByValueCondition>
+        </Condition>
+      </ConditionGroup>
+    </StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

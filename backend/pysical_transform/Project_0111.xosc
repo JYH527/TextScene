@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-01T11:50:00" description="Ghost Probe: Ego follows LeadingCar, Truck blocks view, Bicyclist crosses, Oncoming Traffic blocks swerve" author="Esmini-Expert"/>
+
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="two-way-four-lane-crossroad.xodr"/>
+    </RoadNetwork>
+
+    <!-- 1. 定义实体 -->
+    <Entities>
+        <!-- 自车 (白色) -->
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <!-- 遮挡视线的卡车 -->
+        <ScenarioObject name="Truck_1">
+            <CatalogReference catalogName="VehicleCatalog" entryName="semi_truck"/>
+        </ScenarioObject>
+        <!-- 鬼探头的骑行者 -->
+        <ScenarioObject name="Bicyclist_1">
+            <CatalogReference catalogName="VehicleCatalog" entryName="bicycle"/>
+        </ScenarioObject>
+        <!-- 前车 (蓝色NPC) -->
+        <ScenarioObject name="LeadingCar">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+        <!-- [新增] 对向直行车 (红色NPC) - 用于封锁左侧避让空间 -->
+        <ScenarioObject name="OncomingCar">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_yellow"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- [新增] 全局环境设置：黑夜 + 雨天 -->
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Night_Rain_Environment">
+                            <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+                            <Weather cloudState="overcast">
+                                <Sun intensity="0.0" azimuth="0.0" elevation="0.0"/>
+                                <Fog visualRange="10000.0"/>
+                                <Precipitation precipitationType="rain" intensity="1.0"/>
+                            </Weather>
+                            <RoadCondition frictionScaleFactor="1.0"/>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+
+                <!-- ============================
+                     1. 自车 (在最后面)
+                     ============================ -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="1" laneId="1" offset="0.0" s="65.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="20.51"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Ego_Straight" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position> <LanePosition roadId="1" laneId="1" offset="0.0" s="65.0"/> </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position> <LanePosition roadId="0" laneId="1" offset="0.0" s="20.0"/> </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- ============================
+                     2. 前车 (NPC, 诱导自车跟车)
+                     ============================ -->
+                <Private entityRef="LeadingCar">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="1" laneId="1" offset="0.0" s="50.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="22.11"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="LeadingCar_Straight" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position> <LanePosition roadId="1" laneId="1" offset="0.0" s="35.0"/> </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position> <LanePosition roadId="0" laneId="1" offset="0.0" s="20.0"/> </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- ============================
+                     3. 卡车 (静止路口，挡视线)
+                     ============================ -->
+                <Private entityRef="Truck_1">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="1" laneId="2" offset="0.0" s="5.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- ============================
+                     4. [新增] 对向车 (从北向南直行)
+                     ============================ -->
+                <Private entityRef="OncomingCar">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- 初始位置在北侧 Road 0, Lane -1 (顺向), 距离路口 40米 -->
+                                <LanePosition roadId="0" laneId="-1" offset="0.0" s="40.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <!-- 速度稍快，确保及时穿过路口封住 Ego 的左边 -->
+                                    <AbsoluteTargetSpeed value="15.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Oncoming_Straight" closed="false">
+                                    <!-- 从 Road 0 直行穿过路口去 Road 1 -->
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position> <LanePosition roadId="0" laneId="-1" offset="0.0" s="40.0"/> </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position> <LanePosition roadId="1" laneId="-1" offset="0.0" s="60.0"/> </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- ============================
+                     5. 骑行者 (offset -10.5)
+                     ============================ -->
+                <Private entityRef="Bicyclist_1">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="69" laneId="1" offset="-10.5" s="3.56"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="GhostProbeStory">
+            <Act name="BicyclistStartAct">
+                <ManeuverGroup maximumExecutionCount="1" name="BicyclistMoveGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Bicyclist_1"/>
+                    </Actors>
+                    <Maneuver name="BicyclistRideManeuver">
+                        <Event name="BicyclistRideEvent" priority="overwrite">
+                            
+                            <!-- 触发逻辑: 前车到达 s=20 时触发 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="LeadingCarTrigger" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="LeadingCar"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <ReachPositionCondition tolerance="2.0">
+                                                    <Position>
+                                                        <LanePosition roadId="1" laneId="1" s="20.0"/>
+                                                    </Position>
+                                                </ReachPositionCondition>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                            
+                            <!-- 动作: 骑行者加速 -->
+                            <Action name="SetBicycleSpeed">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="3.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="5.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <Action name="FollowPath">
+                                <PrivateAction>
+                                    <RoutingAction>
+                                        <FollowTrajectoryAction>
+                                            <Trajectory name="CrossingPath" closed="false">
+                                                <Shape>
+                                                    <Polyline>
+                                                        <Vertex><Position><LanePosition roadId="69" laneId="1" offset="-10.5" s="3.56"/></Position></Vertex>
+                                                        <Vertex><Position><LanePosition roadId="69" laneId="1" offset="0.0" s="3.56"/></Position></Vertex>
+                                                        <Vertex><Position><LanePosition roadId="69" laneId="1" offset="12.0" s="3.56"/></Position></Vertex>
+                                                    </Polyline>
+                                                </Shape>
+                                                <TimeReference><None/></TimeReference>
+                                                <TrajectoryFollowingMode followingMode="position"/>
+                                            </Trajectory>
+                                        </FollowTrajectoryAction>
+                                    </RoutingAction>
+                                </PrivateAction>
+                            </Action>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="StopSimulation" delay="0.0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="20.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

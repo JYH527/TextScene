@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+  <FileHeader revMajor="1" revMinor="0" date="2023-10-27T10:00:00" description="Drunk Driving SUV Collision with Tricycle and Pedestrian in Urban Area" author="ScenarioBuilder"/>
+  
+  <ParameterDeclarations/>
+  
+  <CatalogLocations>
+    <VehicleCatalog>
+      <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+    </VehicleCatalog>
+    <PedestrianCatalog>
+      <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+    </PedestrianCatalog>
+  </CatalogLocations>
+  
+  <RoadNetwork>
+    <LogicFile filepath="../maps/two-way-four-lane-straight-urban.xodr"/>
+  </RoadNetwork>
+  
+  <Entities>
+    <!-- 根据核心规则，Ego强制映射为 car_red，忽略描述中的 Porsche SUV -->
+    <ScenarioObject name="Ego">
+      <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+    </ScenarioObject>
+    
+    <!-- Target1: 三轮车 (Tricycle) 不在白名单中，强制映射为 car_white -->
+    <ScenarioObject name="Target1">
+      <CatalogReference catalogName="VehicleCatalog" entryName="car_white"/>
+    </ScenarioObject>
+
+    <!-- Target2: 行人 -->
+    <ScenarioObject name="Target2">
+      <CatalogReference catalogName="PedestrianCatalog" entryName="pedestrian_adult"/>
+    </ScenarioObject>
+  </Entities>
+  
+  <Storyboard>
+    <Init>
+      <Actions>
+        <Private entityRef="Ego">
+          <PrivateAction>
+            <!-- Ego在右侧行车道(Lane -2)行驶，模拟酒驾超速状态 (例如 80kph = 22.2m/s) -->
+            <TeleportAction>
+              <Position>
+                <LanePosition roadId="0" laneId="-2" offset="0.0" s="5.0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="22.2"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        
+        <Private entityRef="Target1">
+          <PrivateAction>
+            <!-- Target1 (三轮车) 在 Ego 前方同车道慢速行驶 -->
+            <TeleportAction>
+              <Position>
+                <LanePosition roadId="0" laneId="-2" offset="0.0" s="100.0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="3.0"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+
+        <Private entityRef="Target2">
+          <PrivateAction>
+            <!-- Target2 (行人) 在 Target1 前方同车道非常慢速移动或静止 -->
+            <TeleportAction>
+              <Position>
+                <LanePosition roadId="0" laneId="-2" offset="0.0" s="115.0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="1.0"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+    
+    <Story name="RearEndCollisionStory">
+      <Act name="KeepObjectsMoving">
+        <ManeuverGroup maximumExecutionCount="1" name="TargetManeuverGroup">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Target1"/>
+            <EntityRef entityRef="Target2"/>
+          </Actors>
+          
+          <Maneuver name="MaintainSpeedManeuver">
+            <Event name="KeepSpeedEvent" priority="overwrite">
+              <Action name="Target1KeepSpeed">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsShape="linear" value="0.0" dynamicsDimension="time"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="3.0"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <Action name="Target2KeepSpeed">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsShape="linear" value="0.0" dynamicsDimension="time"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="1.0"/>
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="StartImmediately" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                      <SimulationTimeCondition value="0" rule="greaterThan"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+      </Act>
+    </Story>
+    
+    <StopTrigger>
+      <ConditionGroup>
+        <Condition name="TimeOut" delay="0" conditionEdge="rising">
+          <ByValueCondition>
+            <SimulationTimeCondition value="15.0" rule="greaterThan"/>
+          </ByValueCondition>
+        </Condition>
+      </ConditionGroup>
+    </StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

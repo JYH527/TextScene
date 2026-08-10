@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-02T16:00:00" description="Scenario 3 Improved: Dynamic Emergency Braking in Curve" author="ESMINI_Expert"/>
+
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="two-way-four-lane-roundout-two.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <ScenarioObject name="Target_Vehicle">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- ================== 自车 (后方跟随) ================== -->
+                <!-- Road_52 (22m长), Lane -4, s=5.0 -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="52" laneId="-4" offset="0.0" s="5.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="10.0"/> <!-- 36 km/h -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="EgoRoute" closed="false">
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="52" laneId="-4" s="5.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="2" laneId="-4" s="10.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="11" laneId="-4" s="10.0" offset="0.0"/></Position></Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- ================== 前车 (前方领航) ================== -->
+                <!-- Road_52, Lane -4, s=15.0 -->
+                <!-- 间距: 10米。时距 (Time Gap) = 1.0秒 (比较紧凑的跟车距离，增加难度) -->
+                <Private entityRef="Target_Vehicle">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="52" laneId="-4" offset="0.0" s="15.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="10.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="TargetRoute" closed="false">
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="52" laneId="-4" s="15.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="2" laneId="-4" s="10.0" offset="0.0"/></Position></Waypoint>
+                                    <Waypoint routeStrategy="shortest"><Position><LanePosition roadId="11" laneId="-4" s="10.0" offset="0.0"/></Position></Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="PanicBrakeStory">
+            <Act name="BrakeAct">
+                
+                <!-- 
+                   时序逻辑:
+                   1. T=0~2s: 两车保持 10m/s 行驶，进入 Road_2 (弯道)。
+                   2. T=2.0s: 前车突然以 -8 m/s^2 的减速度刹车。
+                      - 刹停时间: 10 / 8 = 1.25s。
+                      - 刹车距离: v^2 / 2a = 100 / 16 = 6.25m。
+                      - 前车将在 T=3.25s 时完全静止。
+                   3. 自车挑战:
+                      - 如果自车反应时间为 0.5s (传感器延迟+算法耗时)，此时已行驶 5m。
+                      - 自车剩余距离仅有: 初始间距10m + 前车滑行6.25m - 自车反应行驶5m = 11.25m。
+                      - 自车也必须进行至少 -5 m/s^2 以上的刹车才能不撞上。
+                -->
+
+                <ManeuverGroup maximumExecutionCount="1" name="TargetBrakeManeuver">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Target_Vehicle"/>
+                    </Actors>
+                    <Maneuver name="EmergencyStop">
+                        <Event name="PanicBrake" priority="overwrite">
+                            <Action name="BrakeToZero">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <!-- 急刹车: -8.0 m/s^2 (接近物理极限) -->
+                                            <SpeedActionDynamics dynamicsShape="linear" value="-8.0" dynamicsDimension="rate"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="0.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 2秒后触发，此时车辆正好在弯道中间 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="TimeTrigger" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="2.0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <!-- 让自车保持初始速度 (除非算法介入) -->
+                <ManeuverGroup maximumExecutionCount="1" name="EgoCruising">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                    </Actors>
+                    <Maneuver name="KeepSpeed">
+                        <Event name="Cruise" priority="overwrite">
+                            <Action name="Maintain">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="0.0" dynamicsDimension="time"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="10.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Start" delay="0" conditionEdge="rising">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="0.0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="EndSimulation" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="8.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

@@ -1,0 +1,3374 @@
+{
+  "one-way-four-lane-ramp_out": {
+    "summary": {
+      "total_roads": 5,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_3": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_0 (West)",
+          "Road_1 (North)",
+          "Road_2 (South)"
+        ],
+        "driving_paths": [
+          "From Road_1 to Road_0 via Road_4",
+          "From Road_1 to Road_2 via Road_6"
+        ],
+        "internal_parts": [
+          "Road_4",
+          "Road_6"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:20.0m | No_Driving Highway Shape:Curve(Arc+Line)",
+        "link": "pred:junction_3(end) -> succ:None",
+        "lanes": "offRamp:[-2] | shoulder:[-3, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:50.9m | One-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:junction_3(end)",
+        "lanes": "driving:[-5, -4, -3, -2] | median:[-1] | stop:[-6]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:22.7m | One-Way Highway Shape:Straight",
+        "link": "pred:junction_3(end) -> succ:None",
+        "lanes": "driving:[-5, -4, -3, -2] | median:[-1] | stop:[-6]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_4": {
+        "info": "Len:26.5m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "pred:road_1(end) -> succ:road_0(start)",
+        "lanes": "driving:[-2] | none:[-1, -1] | offRamp:[-2] | shoulder:[-3] | stop:[-3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_6": {
+        "info": "Len:26.4m | One-Way Junction_Link(ID:3) Shape:Straight",
+        "link": "pred:road_1(end) -> succ:road_2(start)",
+        "lanes": "driving:[-5, -4, -3, -2] | median:[-1] | stop:[-6]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-one-lane-curved-highway": {
+    "summary": {
+      "total_roads": 3,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:80.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:road_2(end) -> succ:None",
+        "lanes": "driving:[-1, 1] | shoulder:[-2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:80.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:road_2(start)",
+        "lanes": "driving:[-1, 1] | shoulder:[-2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:123.3m | Two-Way Highway Shape:Curve(Arc+Line+Spiral)",
+        "link": "pred:road_1(end) -> succ:road_0(start)",
+        "lanes": "driving:[-1, 1] | shoulder:[-2]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-one-lane-curved-urban": {
+    "summary": {
+      "total_roads": 3,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:70.8m | One-Way Highway Shape:Curve(Arc+Line+Spiral)",
+        "link": "succ:road_1(end) -> pred:road_2(start)",
+        "lanes": "driving:[3, 4, 5] | shoulder:[2, 6] | sidewalk:[1, 7]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:70.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:road_0(end)",
+        "lanes": "driving:[-2, -1, 1] | shoulder:[-3, 2] | sidewalk:[-4, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:70.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:road_0(start) -> succ:None",
+        "lanes": "driving:[-2, -1, 1] | shoulder:[-3, 2] | sidewalk:[-4, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-one-lane-straight-highway": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:300.0m | One-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-2] | shoulder:[-3, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-one-lane-straight-urban": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:210.2m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-2, -1, 1] | shoulder:[-3, 2] | sidewalk:[-4, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-three-lane-curved-highway": {
+    "summary": {
+      "total_roads": 3,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:80.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:road_2(end) -> succ:None",
+        "lanes": "driving:[-3, -2, -1, 1] | shoulder:[-4]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:80.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:road_2(start)",
+        "lanes": "driving:[-3, -2, -1, 1] | shoulder:[-4]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:123.3m | Two-Way Highway Shape:Curve(Arc+Line+Spiral)",
+        "link": "pred:road_1(end) -> succ:road_0(start)",
+        "lanes": "driving:[-3, -2, -1, 1] | shoulder:[-4]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-three-lane-curved-urban": {
+    "summary": {
+      "total_roads": 3,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:70.0m | One-Way Highway Shape:Straight",
+        "link": "pred:road_2(end) -> succ:None",
+        "lanes": "driving:[-6, -5, -4] | shoulder:[-8, -7, -3, -2] | sidewalk:[-9, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:70.0m | One-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:road_2(start)",
+        "lanes": "driving:[-6, -5, -4] | shoulder:[-8, -7, -3, -2] | sidewalk:[-9, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:80.9m | One-Way Highway Shape:Curve(Arc+Line+Spiral)",
+        "link": "pred:road_1(end) -> succ:road_0(start)",
+        "lanes": "driving:[-6, -5, -4] | shoulder:[-8, -7, -3, -2] | sidewalk:[-9, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-three-lane-highway-podao": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:199.6m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-4, -3, -2, -1, 1]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-three-lane-ramp_in": {
+    "summary": {
+      "total_roads": 5,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_3": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_0 (West)",
+          "Road_1 (North)",
+          "Road_2 (South)"
+        ],
+        "driving_paths": [
+          "From Road_0 to Road_2 via Road_4",
+          "From Road_1 to Road_2 via Road_6"
+        ],
+        "internal_parts": [
+          "Road_4",
+          "Road_6"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:21.5m | One-Way Highway Shape:Curve(Arc+Line)",
+        "link": "succ:None -> pred:junction_3(end)",
+        "lanes": "driving:[2] | stop:[1, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:28.5m | One-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:junction_3(end)",
+        "lanes": "driving:[-4, -3, -2] | median:[-1] | stop:[-5]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:44.5m | One-Way Highway Shape:Straight",
+        "link": "pred:junction_3(end) -> succ:None",
+        "lanes": "driving:[-4, -3, -2] | median:[-1] | stop:[-5]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_4": {
+        "info": "Len:27.0m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "succ:road_0(start) -> pred:road_2(start)",
+        "lanes": "driving:[2] | none:[1] | stop:[3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_6": {
+        "info": "Len:26.9m | One-Way Junction_Link(ID:3) Shape:Straight",
+        "link": "pred:road_1(end) -> succ:road_2(start)",
+        "lanes": "driving:[-4, -3, -2] | median:[-1] | stop:[-5]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-three-lane-ramp_out": {
+    "summary": {
+      "total_roads": 5,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_3": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_0 (North)",
+          "Road_1 (South)",
+          "Road_2 (North)"
+        ],
+        "driving_paths": [
+          "From Road_1 to Road_0 via Road_4",
+          "From Road_1 to Road_2 via Road_6"
+        ],
+        "internal_parts": [
+          "Road_4",
+          "Road_6"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:61.3m | One-Way Highway Shape:Curve(Arc+Line)",
+        "link": "pred:junction_3(end) -> succ:None",
+        "lanes": "driving:[-2] | stop:[-3, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:94.7m | One-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:junction_3(end)",
+        "lanes": "driving:[-4, -3, -2] | median:[-1] | stop:[-5]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:49.2m | One-Way Highway Shape:Straight",
+        "link": "pred:junction_3(end) -> succ:None",
+        "lanes": "driving:[-4, -3, -2] | median:[-1] | stop:[-5]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_4": {
+        "info": "Len:36.2m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "pred:road_1(end) -> succ:road_0(start)",
+        "lanes": "driving:[-2] | none:[-1] | stop:[-3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_6": {
+        "info": "Len:36.1m | One-Way Junction_Link(ID:3) Shape:Straight",
+        "link": "pred:road_1(end) -> succ:road_2(start)",
+        "lanes": "driving:[-4, -3, -2] | median:[-1] | stop:[-5]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-three-lane-slope": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:200.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-2, -1, 1] | shoulder:[-4, -3, 2, 3] | sidewalk:[-5, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-three-lane-straight-highway": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:200.0m | One-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-4, -3, -2] | median:[-1] | stop:[-5]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-three-lane-straight-urban": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:200.0m | One-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-6, -5, -4] | shoulder:[-8, -7, -3, -2] | sidewalk:[-9, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-two-lane-bianqulv": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_1": {
+        "info": "Len:250.0m | One-Way Highway Shape:Curve(Arc+Line+Spiral)",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-two-lane-curved-highway": {
+    "summary": {
+      "total_roads": 3,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:80.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:road_2(end) -> succ:None",
+        "lanes": "driving:[-2, -1, 1] | shoulder:[-3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:80.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:road_2(start)",
+        "lanes": "driving:[-2, -1, 1] | shoulder:[-3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:123.3m | Two-Way Highway Shape:Curve(Arc+Line+Spiral)",
+        "link": "pred:road_1(end) -> succ:road_0(start)",
+        "lanes": "driving:[-2, -1, 1] | shoulder:[-3]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-two-lane-curved-urban": {
+    "summary": {
+      "total_roads": 3,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:70.0m | One-Way Highway Shape:Straight",
+        "link": "pred:road_2(end) -> succ:None",
+        "lanes": "driving:[-5, -4] | shoulder:[-7, -6, -3, -2] | sidewalk:[-8, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:70.0m | One-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:road_2(start)",
+        "lanes": "driving:[-5, -4] | shoulder:[-7, -6, -3, -2] | sidewalk:[-8, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:80.9m | One-Way Highway Shape:Curve(Arc+Line+Spiral)",
+        "link": "pred:road_1(end) -> succ:road_0(start)",
+        "lanes": "driving:[-5, -4] | shoulder:[-7, -6, -3, -2] | sidewalk:[-8, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-two-lane-slope": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:200.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3] | sidewalk:[-4, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-two-lane-straight-highway copy": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:200.0m | One-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-3, -2] | median:[-1] | stop:[-4]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-two-lane-straight-highway": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:300.0m | One-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-3, -2] | shoulder:[-4, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-two-lane-straight-urban copy": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:200.0m | One-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-5, -4] | shoulder:[-7, -6, -3, -2] | sidewalk:[-8, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-two-lane-straight-urban": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:200.0m | One-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-5, -4] | shoulder:[-7, -6, -3, -2] | sidewalk:[-8, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-two-lane-tunnels copy": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_1": {
+        "info": "Len:800.0m | One-Way Highway Shape:Straight [Contains_Tunnel]",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-2, -1] | shoulder:[-3, 1]",
+        "tunnels": [
+          {
+            "id": "100",
+            "type": "standard"
+          }
+        ],
+        "crosswalks": []
+      }
+    }
+  },
+  "one-way-two-lane-tunnels": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_1": {
+        "info": "Len:800.0m | One-Way Highway Shape:Straight [Contains_Tunnel]",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-2, -1] | shoulder:[-3, 1]",
+        "tunnels": [
+          {
+            "id": "100",
+            "type": "standard"
+          }
+        ],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-four-lane-crossroad copy": {
+    "summary": {
+      "total_roads": 20,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_4": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_0 (North)",
+          "Road_1 (South)",
+          "Road_2 (West)",
+          "Road_3 (East)"
+        ],
+        "driving_paths": [
+          "From Road_0 to Road_1 via Road_28",
+          "From Road_0 to Road_2 via Road_6",
+          "From Road_0 to Road_3 via Road_29",
+          "From Road_1 to Road_0 via Road_27",
+          "From Road_1 to Road_2 via Road_48",
+          "From Road_1 to Road_3 via Road_78",
+          "From Road_2 to Road_0 via Road_7",
+          "From Road_2 to Road_1 via Road_42",
+          "From Road_2 to Road_3 via Road_67",
+          "From Road_3 to Road_0 via Road_36",
+          "From Road_3 to Road_1 via Road_69",
+          "From Road_3 to Road_2 via Road_66"
+        ],
+        "internal_parts": [
+          "Road_5",
+          "Road_6",
+          "Road_7",
+          "Road_27",
+          "Road_28",
+          "Road_29",
+          "Road_36",
+          "Road_39",
+          "Road_42",
+          "Road_45",
+          "Road_48",
+          "Road_66",
+          "Road_67",
+          "Road_68",
+          "Road_69",
+          "Road_78"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:86.1m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:junction_4(end)",
+        "lanes": "driving:[-2, -1, 1, 2] | shoulder:[-3, 3] | sidewalk:[-4, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:89.8m | Two-Way Highway Shape:Straight",
+        "link": "pred:junction_4(end) -> succ:None",
+        "lanes": "driving:[-2, -1, 1, 2] | shoulder:[-3, 3] | sidewalk:[-4, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:89.9m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:junction_4(end)",
+        "lanes": "driving:[-2, -1, 1, 2] | shoulder:[-3, 3] | sidewalk:[-4, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_3": {
+        "info": "Len:86.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:junction_4(end) -> succ:None",
+        "lanes": "driving:[-2, -1, 1, 2] | shoulder:[-3, 3] | sidewalk:[-4, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_5": {
+        "info": "Len:7.9m | No_Driving Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_2(end)",
+        "lanes": "shoulder:[-1] | sidewalk:[-2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_6": {
+        "info": "Len:13.4m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_2(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_7": {
+        "info": "Len:19.9m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line) [Has_Crosswalk]",
+        "link": "pred:road_2(end) -> succ:road_0(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [
+          {
+            "id": "82",
+            "s": 3.56
+          },
+          {
+            "id": "81",
+            "s": 16.39
+          }
+        ]
+      },
+      "Road_27": {
+        "info": "Len:24.1m | One-Way Junction_Link(ID:4) Shape:Straight",
+        "link": "succ:road_1(start) -> pred:road_0(end)",
+        "lanes": "driving:[1, 2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_28": {
+        "info": "Len:24.1m | One-Way Junction_Link(ID:4) Shape:Straight",
+        "link": "pred:road_0(end) -> succ:road_1(start)",
+        "lanes": "driving:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_29": {
+        "info": "Len:20.0m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_3(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_36": {
+        "info": "Len:13.5m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "succ:road_3(start) -> pred:road_0(end)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_39": {
+        "info": "Len:8.0m | No_Driving Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_3(start)",
+        "lanes": "shoulder:[1] | sidewalk:[2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_42": {
+        "info": "Len:13.5m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "pred:road_2(end) -> succ:road_1(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_45": {
+        "info": "Len:8.0m | No_Driving Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "pred:road_2(end) -> succ:road_1(start)",
+        "lanes": "shoulder:[-1] | sidewalk:[-2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_48": {
+        "info": "Len:20.0m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "succ:road_1(start) -> pred:road_2(end)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_66": {
+        "info": "Len:24.1m | One-Way Junction_Link(ID:4) Shape:Straight",
+        "link": "succ:road_3(start) -> pred:road_2(end)",
+        "lanes": "driving:[1, 2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_67": {
+        "info": "Len:24.1m | One-Way Junction_Link(ID:4) Shape:Straight",
+        "link": "pred:road_2(end) -> succ:road_3(start)",
+        "lanes": "driving:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_68": {
+        "info": "Len:7.9m | No_Driving Junction_Link(ID:4) Shape:Curve(Arc)",
+        "link": "pred:road_1(start) -> succ:road_3(start)",
+        "lanes": "shoulder:[-1] | sidewalk:[-2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_69": {
+        "info": "Len:19.9m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line) [Has_Crosswalk]",
+        "link": "succ:road_3(start) -> pred:road_1(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [
+          {
+            "id": "79",
+            "s": 3.56
+          },
+          {
+            "id": "80",
+            "s": 16.39
+          }
+        ]
+      },
+      "Road_78": {
+        "info": "Len:13.4m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "succ:road_1(start) -> pred:road_3(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-four-lane-crossroad": {
+    "summary": {
+      "total_roads": 20,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_4": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_0 (North)",
+          "Road_1 (South)",
+          "Road_2 (West)",
+          "Road_3 (East)"
+        ],
+        "driving_paths": [
+          "From Road_0 to Road_1 via Road_28",
+          "From Road_0 to Road_2 via Road_6",
+          "From Road_0 to Road_3 via Road_29",
+          "From Road_1 to Road_0 via Road_27",
+          "From Road_1 to Road_2 via Road_48",
+          "From Road_1 to Road_3 via Road_78",
+          "From Road_2 to Road_0 via Road_7",
+          "From Road_2 to Road_1 via Road_42",
+          "From Road_2 to Road_3 via Road_67",
+          "From Road_3 to Road_0 via Road_36",
+          "From Road_3 to Road_1 via Road_69",
+          "From Road_3 to Road_2 via Road_66"
+        ],
+        "internal_parts": [
+          "Road_5",
+          "Road_6",
+          "Road_7",
+          "Road_27",
+          "Road_28",
+          "Road_29",
+          "Road_36",
+          "Road_39",
+          "Road_42",
+          "Road_45",
+          "Road_48",
+          "Road_66",
+          "Road_67",
+          "Road_68",
+          "Road_69",
+          "Road_78"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:86.1m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:junction_4(end)",
+        "lanes": "driving:[-2, -1, 1, 2] | shoulder:[-3, 3] | sidewalk:[-4, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:89.8m | Two-Way Highway Shape:Straight",
+        "link": "pred:junction_4(end) -> succ:None",
+        "lanes": "driving:[-2, -1, 1, 2] | shoulder:[-3, 3] | sidewalk:[-4, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:89.9m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:junction_4(end)",
+        "lanes": "driving:[-2, -1, 1, 2] | shoulder:[-3, 3] | sidewalk:[-4, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_3": {
+        "info": "Len:86.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:junction_4(end) -> succ:None",
+        "lanes": "driving:[-2, -1, 1, 2] | shoulder:[-3, 3] | sidewalk:[-4, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_5": {
+        "info": "Len:7.9m | No_Driving Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_2(end)",
+        "lanes": "shoulder:[-1] | sidewalk:[-2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_6": {
+        "info": "Len:13.4m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_2(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_7": {
+        "info": "Len:19.9m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line) [Has_Crosswalk]",
+        "link": "pred:road_2(end) -> succ:road_0(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [
+          {
+            "id": "82",
+            "s": 3.56
+          },
+          {
+            "id": "81",
+            "s": 16.39
+          }
+        ]
+      },
+      "Road_27": {
+        "info": "Len:24.1m | One-Way Junction_Link(ID:4) Shape:Straight",
+        "link": "succ:road_1(start) -> pred:road_0(end)",
+        "lanes": "driving:[1, 2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_28": {
+        "info": "Len:24.1m | One-Way Junction_Link(ID:4) Shape:Straight",
+        "link": "pred:road_0(end) -> succ:road_1(start)",
+        "lanes": "driving:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_29": {
+        "info": "Len:20.0m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_3(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_36": {
+        "info": "Len:13.5m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "succ:road_3(start) -> pred:road_0(end)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_39": {
+        "info": "Len:8.0m | No_Driving Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_3(start)",
+        "lanes": "shoulder:[1] | sidewalk:[2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_42": {
+        "info": "Len:13.5m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "pred:road_2(end) -> succ:road_1(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_45": {
+        "info": "Len:8.0m | No_Driving Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "pred:road_2(end) -> succ:road_1(start)",
+        "lanes": "shoulder:[-1] | sidewalk:[-2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_48": {
+        "info": "Len:20.0m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "succ:road_1(start) -> pred:road_2(end)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_66": {
+        "info": "Len:24.1m | One-Way Junction_Link(ID:4) Shape:Straight",
+        "link": "succ:road_3(start) -> pred:road_2(end)",
+        "lanes": "driving:[1, 2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_67": {
+        "info": "Len:24.1m | One-Way Junction_Link(ID:4) Shape:Straight",
+        "link": "pred:road_2(end) -> succ:road_3(start)",
+        "lanes": "driving:[-2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_68": {
+        "info": "Len:7.9m | No_Driving Junction_Link(ID:4) Shape:Curve(Arc)",
+        "link": "pred:road_1(start) -> succ:road_3(start)",
+        "lanes": "shoulder:[-1] | sidewalk:[-2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_69": {
+        "info": "Len:19.9m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line) [Has_Crosswalk]",
+        "link": "succ:road_3(start) -> pred:road_1(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [
+          {
+            "id": "79",
+            "s": 3.56
+          },
+          {
+            "id": "80",
+            "s": 16.39
+          }
+        ]
+      },
+      "Road_78": {
+        "info": "Len:13.4m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "succ:road_1(start) -> pred:road_3(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-four-lane-curved-highway": {
+    "summary": {
+      "total_roads": 3,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:80.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:road_2(end) -> succ:None",
+        "lanes": "driving:[-2, -1, 1, 2, 3] | shoulder:[-3, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:80.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:road_2(start)",
+        "lanes": "driving:[-2, -1, 1, 2, 3] | shoulder:[-3, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:123.3m | Two-Way Highway Shape:Curve(Arc+Line+Spiral)",
+        "link": "pred:road_1(end) -> succ:road_0(start)",
+        "lanes": "driving:[-2, -1, 1, 2, 3] | shoulder:[-3, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-four-lane-curved-urban": {
+    "summary": {
+      "total_roads": 3,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:70.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:road_2(end) -> succ:None",
+        "lanes": "driving:[-2, -1, 1, 2] | shoulder:[-4, -3, 3, 4] | sidewalk:[-5, 5]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:70.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:road_2(start)",
+        "lanes": "driving:[-2, -1, 1, 2] | shoulder:[-4, -3, 3, 4] | sidewalk:[-5, 5]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:80.9m | Two-Way Highway Shape:Curve(Arc+Line+Spiral)",
+        "link": "pred:road_1(end) -> succ:road_0(start)",
+        "lanes": "driving:[-2, -1, 1, 2] | shoulder:[-4, -3, 3, 4] | sidewalk:[-5, 5]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-four-lane-roundout-three": {
+    "summary": {
+      "total_roads": 45,
+      "total_junctions": 8
+    },
+    "junctions_semantic": {
+      "Junction_16": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_10 (West)",
+          "Road_12 (East)",
+          "Road_4 (West)"
+        ],
+        "driving_paths": [
+          "From Road_12 to Road_10 via Road_19",
+          "From Road_4 to Road_12 via Road_17"
+        ],
+        "internal_parts": [
+          "Road_17",
+          "Road_19"
+        ]
+      },
+      "Junction_21": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_13 (North)",
+          "Road_15 (South)",
+          "Road_2 (North)",
+          "Road_8 (West)"
+        ],
+        "driving_paths": [
+          "From Road_15 to Road_13 via Road_30",
+          "From Road_15 to Road_13 via Road_31",
+          "From Road_15 to Road_8 via Road_22",
+          "From Road_2 to Road_13 via Road_34",
+          "From Road_2 to Road_8 via Road_26",
+          "From Road_2 to Road_8 via Road_27"
+        ],
+        "internal_parts": [
+          "Road_22",
+          "Road_26",
+          "Road_27",
+          "Road_30",
+          "Road_31",
+          "Road_34"
+        ]
+      },
+      "Junction_35": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_0 (North)",
+          "Road_13 (South)",
+          "Road_2 (South)"
+        ],
+        "driving_paths": [
+          "From Road_0 to Road_2 via Road_36",
+          "From Road_13 to Road_0 via Road_38"
+        ],
+        "internal_parts": [
+          "Road_36",
+          "Road_38"
+        ]
+      },
+      "Junction_40": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_1 (South)",
+          "Road_3 (West)",
+          "Road_7 (West)",
+          "Road_8 (East)"
+        ],
+        "driving_paths": [
+          "From Road_3 to Road_1 via Road_45",
+          "From Road_3 to Road_1 via Road_48",
+          "From Road_8 to Road_1 via Road_41",
+          "From Road_8 to Road_7 via Road_49",
+          "From Road_8 to Road_7 via Road_50"
+        ],
+        "internal_parts": [
+          "Road_41",
+          "Road_45",
+          "Road_48",
+          "Road_49",
+          "Road_50"
+        ]
+      },
+      "Junction_53": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_1 (North)",
+          "Road_14 (East)",
+          "Road_5 (South)",
+          "Road_6 (South)"
+        ],
+        "driving_paths": [
+          "From Road_1 to Road_14 via Road_58",
+          "From Road_1 to Road_6 via Road_54",
+          "From Road_1 to Road_6 via Road_57",
+          "From Road_5 to Road_14 via Road_62",
+          "From Road_5 to Road_14 via Road_63"
+        ],
+        "internal_parts": [
+          "Road_54",
+          "Road_57",
+          "Road_58",
+          "Road_62",
+          "Road_63"
+        ]
+      },
+      "Junction_66": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_10 (East)",
+          "Road_14 (West)",
+          "Road_15 (North)",
+          "Road_4 (East)"
+        ],
+        "driving_paths": [
+          "From Road_10 to Road_15 via Road_67",
+          "From Road_10 to Road_15 via Road_70",
+          "From Road_14 to Road_15 via Road_71",
+          "From Road_14 to Road_4 via Road_75",
+          "From Road_14 to Road_4 via Road_76"
+        ],
+        "internal_parts": [
+          "Road_67",
+          "Road_70",
+          "Road_71",
+          "Road_75",
+          "Road_76"
+        ]
+      },
+      "Junction_79": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_3 (East)",
+          "Road_7 (East)",
+          "Road_9 (West)"
+        ],
+        "driving_paths": [
+          "From Road_7 to Road_9 via Road_82",
+          "From Road_9 to Road_3 via Road_80"
+        ],
+        "internal_parts": [
+          "Road_80",
+          "Road_82"
+        ]
+      },
+      "Junction_84": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_11 (South)",
+          "Road_5 (North)",
+          "Road_6 (North)"
+        ],
+        "driving_paths": [
+          "From Road_11 to Road_5 via Road_87",
+          "From Road_6 to Road_11 via Road_85"
+        ],
+        "internal_parts": [
+          "Road_85",
+          "Road_87"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:37.9m | Two-Way Highway Shape:Straight",
+        "link": "pred:junction_35(end) -> succ:None",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:34.4m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_40(end) -> succ:junction_53(end)",
+        "lanes": "driving:[-4, -3, -2] | shoulder:[-5, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:3.3m | One-Way Highway Shape:Curve(Arc+Line)",
+        "link": "pred:junction_35(end) -> succ:junction_21(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_3": {
+        "info": "Len:3.3m | One-Way Highway Shape:Curve(Arc+Line)",
+        "link": "pred:junction_79(end) -> succ:junction_40(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_4": {
+        "info": "Len:3.6m | One-Way Highway Shape:Curve(Arc+Line)",
+        "link": "succ:junction_66(end) -> pred:junction_16(end)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_5": {
+        "info": "Len:3.5m | One-Way Highway Shape:Curve(Arc+Line)",
+        "link": "pred:junction_84(end) -> succ:junction_53(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_6": {
+        "info": "Len:3.5m | One-Way Highway Shape:Curve(Arc+Line)",
+        "link": "succ:junction_53(end) -> pred:junction_84(end)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_7": {
+        "info": "Len:3.3m | One-Way Highway Shape:Curve(Arc+Line)",
+        "link": "succ:junction_40(end) -> pred:junction_79(end)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_8": {
+        "info": "Len:34.4m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_21(end) -> succ:junction_40(end)",
+        "lanes": "driving:[-4, -3, -2] | shoulder:[-5, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_9": {
+        "info": "Len:37.8m | Two-Way Highway Shape:Straight",
+        "link": "pred:junction_79(end) -> succ:None",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_10": {
+        "info": "Len:3.6m | One-Way Highway Shape:Curve(Arc+Line)",
+        "link": "pred:junction_16(end) -> succ:junction_66(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_11": {
+        "info": "Len:38.1m | Two-Way Highway Shape:Straight",
+        "link": "pred:junction_84(end) -> succ:None",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_12": {
+        "info": "Len:37.9m | Two-Way Highway Shape:Straight",
+        "link": "pred:junction_16(end) -> succ:None",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_13": {
+        "info": "Len:3.3m | One-Way Highway Shape:Curve(Arc+Line)",
+        "link": "succ:junction_21(end) -> pred:junction_35(end)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_14": {
+        "info": "Len:34.4m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_53(end) -> succ:junction_66(end)",
+        "lanes": "driving:[-4, -3, -2] | shoulder:[-5, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_15": {
+        "info": "Len:34.3m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_66(end) -> succ:junction_21(end)",
+        "lanes": "driving:[-4, -3, -2] | shoulder:[-5, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_17": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:16) Shape:Straight",
+        "link": "succ:road_4(start) -> pred:road_12(start)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_19": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:16) Shape:Straight",
+        "link": "succ:road_12(start) -> pred:road_10(start)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_22": {
+        "info": "Len:34.5m | One-Way Junction_Link(ID:21) Shape:Curve(Arc)",
+        "link": "pred:road_15(end) -> succ:road_8(start)",
+        "lanes": "driving:[-4, -3, -2] | shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_26": {
+        "info": "Len:21.4m | One-Way Junction_Link(ID:21) Shape:Curve(Arc+Line)",
+        "link": "pred:road_2(end) -> succ:road_8(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_27": {
+        "info": "Len:20.6m | One-Way Junction_Link(ID:21) Shape:Curve(Arc+Line)",
+        "link": "pred:road_2(end) -> succ:road_8(start)",
+        "lanes": "driving:[-1, -1] | none:[-2] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_30": {
+        "info": "Len:20.6m | One-Way Junction_Link(ID:21) Shape:Curve(Arc+Line)",
+        "link": "pred:road_15(end) -> succ:road_13(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_31": {
+        "info": "Len:19.8m | One-Way Junction_Link(ID:21) Shape:Curve(Arc+Line)",
+        "link": "pred:road_15(end) -> succ:road_13(end)",
+        "lanes": "driving:[-1, -1] | none:[-2] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_34": {
+        "info": "Len:1.8m | One-Way Junction_Link(ID:21) Shape:Curve(Arc+Line)",
+        "link": "pred:road_2(end) -> succ:road_13(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_36": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:35) Shape:Straight",
+        "link": "succ:road_0(start) -> pred:road_2(start)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_38": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:35) Shape:Straight",
+        "link": "succ:road_13(start) -> pred:road_0(start)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_41": {
+        "info": "Len:34.4m | One-Way Junction_Link(ID:40) Shape:Curve(Arc)",
+        "link": "pred:road_8(end) -> succ:road_1(start)",
+        "lanes": "driving:[-4, -3, -2] | shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_45": {
+        "info": "Len:20.7m | One-Way Junction_Link(ID:40) Shape:Curve(Arc+Line)",
+        "link": "pred:road_3(end) -> succ:road_1(start)",
+        "lanes": "driving:[-1, -1] | none:[-2] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_48": {
+        "info": "Len:21.5m | One-Way Junction_Link(ID:40) Shape:Curve(Arc+Line)",
+        "link": "pred:road_3(end) -> succ:road_1(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_49": {
+        "info": "Len:20.4m | One-Way Junction_Link(ID:40) Shape:Curve(Arc+Line)",
+        "link": "pred:road_8(end) -> succ:road_7(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_50": {
+        "info": "Len:19.5m | One-Way Junction_Link(ID:40) Shape:Curve(Arc+Line)",
+        "link": "pred:road_8(end) -> succ:road_7(end)",
+        "lanes": "driving:[-1, -1] | none:[-2] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_54": {
+        "info": "Len:19.5m | One-Way Junction_Link(ID:53) Shape:Curve(Arc+Line)",
+        "link": "pred:road_1(end) -> succ:road_6(end)",
+        "lanes": "driving:[-1, -1] | none:[-2] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_57": {
+        "info": "Len:20.4m | One-Way Junction_Link(ID:53) Shape:Curve(Arc+Line)",
+        "link": "pred:road_1(end) -> succ:road_6(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_58": {
+        "info": "Len:34.4m | One-Way Junction_Link(ID:53) Shape:Curve(Arc)",
+        "link": "pred:road_1(end) -> succ:road_14(start)",
+        "lanes": "driving:[-4, -3, -2] | shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_62": {
+        "info": "Len:21.2m | One-Way Junction_Link(ID:53) Shape:Curve(Arc+Line)",
+        "link": "pred:road_5(end) -> succ:road_14(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_63": {
+        "info": "Len:20.5m | One-Way Junction_Link(ID:53) Shape:Curve(Arc+Line)",
+        "link": "pred:road_5(end) -> succ:road_14(start)",
+        "lanes": "driving:[-1, -1] | none:[-2] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_67": {
+        "info": "Len:20.3m | One-Way Junction_Link(ID:66) Shape:Curve(Arc+Line)",
+        "link": "pred:road_10(end) -> succ:road_15(start)",
+        "lanes": "driving:[-1, -1] | none:[-2] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_70": {
+        "info": "Len:21.1m | One-Way Junction_Link(ID:66) Shape:Curve(Arc+Line)",
+        "link": "pred:road_10(end) -> succ:road_15(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_71": {
+        "info": "Len:34.4m | One-Way Junction_Link(ID:66) Shape:Curve(Arc)",
+        "link": "pred:road_14(end) -> succ:road_15(start)",
+        "lanes": "driving:[-4, -3, -2] | shoulder:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_75": {
+        "info": "Len:20.3m | One-Way Junction_Link(ID:66) Shape:Curve(Arc+Line)",
+        "link": "pred:road_14(end) -> succ:road_4(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_76": {
+        "info": "Len:19.5m | One-Way Junction_Link(ID:66) Shape:Curve(Arc+Line)",
+        "link": "pred:road_14(end) -> succ:road_4(end)",
+        "lanes": "driving:[-1, -1] | none:[-2] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_80": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:79) Shape:Straight",
+        "link": "succ:road_9(start) -> pred:road_3(start)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_82": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:79) Shape:Straight",
+        "link": "succ:road_7(start) -> pred:road_9(start)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_85": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:84) Shape:Straight",
+        "link": "succ:road_6(start) -> pred:road_11(start)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_87": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:84) Shape:Straight",
+        "link": "succ:road_11(start) -> pred:road_5(start)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-four-lane-roundout-two copy": {
+    "summary": {
+      "total_roads": 44,
+      "total_junctions": 8
+    },
+    "junctions_semantic": {
+      "Junction_16": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_0 (North)",
+          "Road_15 (North)",
+          "Road_9 (South)"
+        ],
+        "driving_paths": [
+          "From Road_0 to Road_9 via Road_17",
+          "From Road_9 to Road_15 via Road_19"
+        ],
+        "internal_parts": [
+          "Road_17",
+          "Road_19"
+        ]
+      },
+      "Junction_21": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_11 (South)",
+          "Road_2 (East)",
+          "Road_7 (West)",
+          "Road_8 (West)"
+        ],
+        "driving_paths": [
+          "From Road_2 to Road_11 via Road_25",
+          "From Road_2 to Road_8 via Road_29",
+          "From Road_2 to Road_8 via Road_31",
+          "From Road_7 to Road_11 via Road_22",
+          "From Road_7 to Road_11 via Road_24"
+        ],
+        "internal_parts": [
+          "Road_22",
+          "Road_24",
+          "Road_25",
+          "Road_29",
+          "Road_31"
+        ]
+      },
+      "Junction_32": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_0 (South)",
+          "Road_10 (East)",
+          "Road_11 (North)",
+          "Road_15 (South)"
+        ],
+        "driving_paths": [
+          "From Road_11 to Road_0 via Road_33",
+          "From Road_11 to Road_0 via Road_35",
+          "From Road_11 to Road_10 via Road_39",
+          "From Road_15 to Road_10 via Road_36",
+          "From Road_15 to Road_10 via Road_37"
+        ],
+        "internal_parts": [
+          "Road_33",
+          "Road_35",
+          "Road_36",
+          "Road_37",
+          "Road_39"
+        ]
+      },
+      "Junction_43": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_1 (South)",
+          "Road_12 (North)",
+          "Road_14 (South)"
+        ],
+        "driving_paths": [
+          "From Road_1 to Road_12 via Road_44",
+          "From Road_12 to Road_14 via Road_46"
+        ],
+        "internal_parts": [
+          "Road_44",
+          "Road_46"
+        ]
+      },
+      "Junction_48": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_1 (North)",
+          "Road_14 (North)",
+          "Road_2 (West)",
+          "Road_6 (South)"
+        ],
+        "driving_paths": [
+          "From Road_14 to Road_2 via Road_56",
+          "From Road_14 to Road_2 via Road_58",
+          "From Road_6 to Road_1 via Road_49",
+          "From Road_6 to Road_1 via Road_51",
+          "From Road_6 to Road_2 via Road_52"
+        ],
+        "internal_parts": [
+          "Road_49",
+          "Road_51",
+          "Road_52",
+          "Road_56",
+          "Road_58"
+        ]
+      },
+      "Junction_59": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_3 (West)",
+          "Road_4 (West)",
+          "Road_5 (East)"
+        ],
+        "driving_paths": [
+          "From Road_4 to Road_5 via Road_62",
+          "From Road_5 to Road_3 via Road_60"
+        ],
+        "internal_parts": [
+          "Road_60",
+          "Road_62"
+        ]
+      },
+      "Junction_64": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_10 (West)",
+          "Road_3 (East)",
+          "Road_4 (East)",
+          "Road_6 (North)"
+        ],
+        "driving_paths": [
+          "From Road_10 to Road_4 via Road_72",
+          "From Road_10 to Road_4 via Road_74",
+          "From Road_10 to Road_6 via Road_68",
+          "From Road_3 to Road_6 via Road_65",
+          "From Road_3 to Road_6 via Road_67"
+        ],
+        "internal_parts": [
+          "Road_65",
+          "Road_67",
+          "Road_68",
+          "Road_72",
+          "Road_74"
+        ]
+      },
+      "Junction_75": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_13 (West)",
+          "Road_7 (East)",
+          "Road_8 (East)"
+        ],
+        "driving_paths": [
+          "From Road_13 to Road_7 via Road_76",
+          "From Road_8 to Road_13 via Road_78"
+        ],
+        "internal_parts": [
+          "Road_76",
+          "Road_78"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:0.8m | One-Way Highway Shape:Curve(Arc)",
+        "link": "succ:junction_32(end) -> pred:junction_16(end)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:0.9m | One-Way Highway Shape:Curve(Arc)",
+        "link": "succ:junction_48(end) -> pred:junction_43(end)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:15.7m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_48(end) -> succ:junction_21(end)",
+        "lanes": "driving:[-4, -3] | shoulder:[-6, -5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_3": {
+        "info": "Len:1.1m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_59(end) -> succ:junction_64(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_4": {
+        "info": "Len:1.1m | One-Way Highway Shape:Curve(Arc)",
+        "link": "succ:junction_64(end) -> pred:junction_59(end)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_5": {
+        "info": "Len:22.5m | Two-Way Highway Shape:Straight",
+        "link": "pred:junction_59(end) -> succ:None",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_6": {
+        "info": "Len:15.1m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_64(end) -> succ:junction_48(end)",
+        "lanes": "driving:[-4, -3] | shoulder:[-6, -5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_7": {
+        "info": "Len:1.6m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_75(end) -> succ:junction_21(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_8": {
+        "info": "Len:1.6m | One-Way Highway Shape:Curve(Arc)",
+        "link": "succ:junction_21(end) -> pred:junction_75(end)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_9": {
+        "info": "Len:15.5m | Two-Way Highway Shape:Straight",
+        "link": "pred:junction_16(end) -> succ:None",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_10": {
+        "info": "Len:15.6m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_32(end) -> succ:junction_64(end)",
+        "lanes": "driving:[-4, -3] | shoulder:[-6, -5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_11": {
+        "info": "Len:15.2m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_21(end) -> succ:junction_32(end)",
+        "lanes": "driving:[-4, -3] | shoulder:[-6, -5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_12": {
+        "info": "Len:15.5m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:junction_43(end)",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_13": {
+        "info": "Len:22.5m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:junction_75(end)",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_14": {
+        "info": "Len:0.9m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_43(end) -> succ:junction_48(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_15": {
+        "info": "Len:0.8m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_16(end) -> succ:junction_32(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_17": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:16) Shape:Curve(Arc+Line)",
+        "link": "succ:road_0(start) -> pred:road_9(start)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_19": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:16) Shape:Curve(Arc+Line)",
+        "link": "succ:road_9(start) -> pred:road_15(start)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_22": {
+        "info": "Len:13.8m | One-Way Junction_Link(ID:21) Shape:Curve(Arc+Line)",
+        "link": "pred:road_7(end) -> succ:road_11(start)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_24": {
+        "info": "Len:15.0m | One-Way Junction_Link(ID:21) Shape:Curve(Arc+Line)",
+        "link": "pred:road_7(end) -> succ:road_11(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_25": {
+        "info": "Len:21.4m | One-Way Junction_Link(ID:21) Shape:Curve(Arc)",
+        "link": "pred:road_2(end) -> succ:road_11(start)",
+        "lanes": "driving:[-4, -3] | shoulder:[-5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_29": {
+        "info": "Len:13.3m | One-Way Junction_Link(ID:21) Shape:Curve(Arc+Line)",
+        "link": "pred:road_2(end) -> succ:road_8(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_31": {
+        "info": "Len:14.6m | One-Way Junction_Link(ID:21) Shape:Curve(Arc+Line)",
+        "link": "pred:road_2(end) -> succ:road_8(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_33": {
+        "info": "Len:14.0m | One-Way Junction_Link(ID:32) Shape:Curve(Arc+Line)",
+        "link": "pred:road_11(end) -> succ:road_0(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_35": {
+        "info": "Len:15.2m | One-Way Junction_Link(ID:32) Shape:Curve(Arc+Line)",
+        "link": "pred:road_11(end) -> succ:road_0(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_36": {
+        "info": "Len:15.3m | One-Way Junction_Link(ID:32) Shape:Curve(Arc+Line)",
+        "link": "pred:road_15(end) -> succ:road_10(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_37": {
+        "info": "Len:14.1m | One-Way Junction_Link(ID:32) Shape:Curve(Arc+Line)",
+        "link": "pred:road_15(end) -> succ:road_10(start)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_39": {
+        "info": "Len:21.9m | One-Way Junction_Link(ID:32) Shape:Curve(Arc)",
+        "link": "pred:road_11(end) -> succ:road_10(start)",
+        "lanes": "driving:[-4, -3] | shoulder:[-5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_44": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:43) Shape:Curve(Arc+Line)",
+        "link": "succ:road_1(start) -> pred:road_12(end)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_46": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:43) Shape:Curve(Arc+Line)",
+        "link": "pred:road_12(end) -> succ:road_14(start)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_49": {
+        "info": "Len:14.0m | One-Way Junction_Link(ID:48) Shape:Curve(Arc+Line)",
+        "link": "pred:road_6(end) -> succ:road_1(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_51": {
+        "info": "Len:15.2m | One-Way Junction_Link(ID:48) Shape:Curve(Arc+Line)",
+        "link": "pred:road_6(end) -> succ:road_1(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_52": {
+        "info": "Len:22.0m | One-Way Junction_Link(ID:48) Shape:Curve(Arc)",
+        "link": "pred:road_6(end) -> succ:road_2(start)",
+        "lanes": "driving:[-4, -3] | shoulder:[-5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_56": {
+        "info": "Len:14.0m | One-Way Junction_Link(ID:48) Shape:Curve(Arc+Line)",
+        "link": "pred:road_14(end) -> succ:road_2(start)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_58": {
+        "info": "Len:15.2m | One-Way Junction_Link(ID:48) Shape:Curve(Arc+Line)",
+        "link": "pred:road_14(end) -> succ:road_2(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_60": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:59) Shape:Curve(Arc+Line)",
+        "link": "succ:road_5(start) -> pred:road_3(start)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_62": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:59) Shape:Curve(Arc+Line)",
+        "link": "succ:road_4(start) -> pred:road_5(start)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_65": {
+        "info": "Len:13.9m | One-Way Junction_Link(ID:64) Shape:Curve(Arc+Line)",
+        "link": "pred:road_3(end) -> succ:road_6(start)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_67": {
+        "info": "Len:15.1m | One-Way Junction_Link(ID:64) Shape:Curve(Arc+Line)",
+        "link": "pred:road_3(end) -> succ:road_6(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_68": {
+        "info": "Len:21.4m | One-Way Junction_Link(ID:64) Shape:Curve(Arc)",
+        "link": "pred:road_10(end) -> succ:road_6(start)",
+        "lanes": "driving:[-4, -3] | shoulder:[-5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_72": {
+        "info": "Len:13.4m | One-Way Junction_Link(ID:64) Shape:Curve(Arc+Line)",
+        "link": "pred:road_10(end) -> succ:road_4(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_74": {
+        "info": "Len:14.7m | One-Way Junction_Link(ID:64) Shape:Curve(Arc+Line)",
+        "link": "pred:road_10(end) -> succ:road_4(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_76": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:75) Shape:Curve(Arc+Line)",
+        "link": "pred:road_13(end) -> succ:road_7(start)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_78": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:75) Shape:Curve(Arc+Line)",
+        "link": "succ:road_8(start) -> pred:road_13(end)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-four-lane-roundout-two": {
+    "summary": {
+      "total_roads": 44,
+      "total_junctions": 8
+    },
+    "junctions_semantic": {
+      "Junction_16": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_0 (North)",
+          "Road_15 (North)",
+          "Road_9 (South)"
+        ],
+        "driving_paths": [
+          "From Road_0 to Road_9 via Road_17",
+          "From Road_9 to Road_15 via Road_19"
+        ],
+        "internal_parts": [
+          "Road_17",
+          "Road_19"
+        ]
+      },
+      "Junction_21": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_11 (South)",
+          "Road_2 (East)",
+          "Road_7 (West)",
+          "Road_8 (West)"
+        ],
+        "driving_paths": [
+          "From Road_2 to Road_11 via Road_25",
+          "From Road_2 to Road_8 via Road_29",
+          "From Road_2 to Road_8 via Road_31",
+          "From Road_7 to Road_11 via Road_22",
+          "From Road_7 to Road_11 via Road_24"
+        ],
+        "internal_parts": [
+          "Road_22",
+          "Road_24",
+          "Road_25",
+          "Road_29",
+          "Road_31"
+        ]
+      },
+      "Junction_32": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_0 (South)",
+          "Road_10 (East)",
+          "Road_11 (North)",
+          "Road_15 (South)"
+        ],
+        "driving_paths": [
+          "From Road_11 to Road_0 via Road_33",
+          "From Road_11 to Road_0 via Road_35",
+          "From Road_11 to Road_10 via Road_39",
+          "From Road_15 to Road_10 via Road_36",
+          "From Road_15 to Road_10 via Road_37"
+        ],
+        "internal_parts": [
+          "Road_33",
+          "Road_35",
+          "Road_36",
+          "Road_37",
+          "Road_39"
+        ]
+      },
+      "Junction_43": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_1 (South)",
+          "Road_12 (North)",
+          "Road_14 (South)"
+        ],
+        "driving_paths": [
+          "From Road_1 to Road_12 via Road_44",
+          "From Road_12 to Road_14 via Road_46"
+        ],
+        "internal_parts": [
+          "Road_44",
+          "Road_46"
+        ]
+      },
+      "Junction_48": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_1 (North)",
+          "Road_14 (North)",
+          "Road_2 (West)",
+          "Road_6 (South)"
+        ],
+        "driving_paths": [
+          "From Road_14 to Road_2 via Road_56",
+          "From Road_14 to Road_2 via Road_58",
+          "From Road_6 to Road_1 via Road_49",
+          "From Road_6 to Road_1 via Road_51",
+          "From Road_6 to Road_2 via Road_52"
+        ],
+        "internal_parts": [
+          "Road_49",
+          "Road_51",
+          "Road_52",
+          "Road_56",
+          "Road_58"
+        ]
+      },
+      "Junction_59": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_3 (West)",
+          "Road_4 (West)",
+          "Road_5 (East)"
+        ],
+        "driving_paths": [
+          "From Road_4 to Road_5 via Road_62",
+          "From Road_5 to Road_3 via Road_60"
+        ],
+        "internal_parts": [
+          "Road_60",
+          "Road_62"
+        ]
+      },
+      "Junction_64": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_10 (West)",
+          "Road_3 (East)",
+          "Road_4 (East)",
+          "Road_6 (North)"
+        ],
+        "driving_paths": [
+          "From Road_10 to Road_4 via Road_72",
+          "From Road_10 to Road_4 via Road_74",
+          "From Road_10 to Road_6 via Road_68",
+          "From Road_3 to Road_6 via Road_65",
+          "From Road_3 to Road_6 via Road_67"
+        ],
+        "internal_parts": [
+          "Road_65",
+          "Road_67",
+          "Road_68",
+          "Road_72",
+          "Road_74"
+        ]
+      },
+      "Junction_75": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_13 (West)",
+          "Road_7 (East)",
+          "Road_8 (East)"
+        ],
+        "driving_paths": [
+          "From Road_13 to Road_7 via Road_76",
+          "From Road_8 to Road_13 via Road_78"
+        ],
+        "internal_parts": [
+          "Road_76",
+          "Road_78"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:0.8m | One-Way Highway Shape:Curve(Arc)",
+        "link": "succ:junction_32(end) -> pred:junction_16(end)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:0.9m | One-Way Highway Shape:Curve(Arc)",
+        "link": "succ:junction_48(end) -> pred:junction_43(end)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:15.7m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_48(end) -> succ:junction_21(end)",
+        "lanes": "driving:[-4, -3] | shoulder:[-6, -5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_3": {
+        "info": "Len:1.1m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_59(end) -> succ:junction_64(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_4": {
+        "info": "Len:1.1m | One-Way Highway Shape:Curve(Arc)",
+        "link": "succ:junction_64(end) -> pred:junction_59(end)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_5": {
+        "info": "Len:22.5m | Two-Way Highway Shape:Straight",
+        "link": "pred:junction_59(end) -> succ:None",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_6": {
+        "info": "Len:15.1m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_64(end) -> succ:junction_48(end)",
+        "lanes": "driving:[-4, -3] | shoulder:[-6, -5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_7": {
+        "info": "Len:1.6m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_75(end) -> succ:junction_21(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_8": {
+        "info": "Len:1.6m | One-Way Highway Shape:Curve(Arc)",
+        "link": "succ:junction_21(end) -> pred:junction_75(end)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_9": {
+        "info": "Len:15.5m | Two-Way Highway Shape:Straight",
+        "link": "pred:junction_16(end) -> succ:None",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_10": {
+        "info": "Len:15.6m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_32(end) -> succ:junction_64(end)",
+        "lanes": "driving:[-4, -3] | shoulder:[-6, -5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_11": {
+        "info": "Len:15.2m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_21(end) -> succ:junction_32(end)",
+        "lanes": "driving:[-4, -3] | shoulder:[-6, -5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_12": {
+        "info": "Len:15.5m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:junction_43(end)",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_13": {
+        "info": "Len:22.5m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:junction_75(end)",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_14": {
+        "info": "Len:0.9m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_43(end) -> succ:junction_48(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_15": {
+        "info": "Len:0.8m | One-Way Highway Shape:Curve(Arc)",
+        "link": "pred:junction_16(end) -> succ:junction_32(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_17": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:16) Shape:Curve(Arc+Line)",
+        "link": "succ:road_0(start) -> pred:road_9(start)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_19": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:16) Shape:Curve(Arc+Line)",
+        "link": "succ:road_9(start) -> pred:road_15(start)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_22": {
+        "info": "Len:13.8m | One-Way Junction_Link(ID:21) Shape:Curve(Arc+Line)",
+        "link": "pred:road_7(end) -> succ:road_11(start)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_24": {
+        "info": "Len:15.0m | One-Way Junction_Link(ID:21) Shape:Curve(Arc+Line)",
+        "link": "pred:road_7(end) -> succ:road_11(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_25": {
+        "info": "Len:21.4m | One-Way Junction_Link(ID:21) Shape:Curve(Arc)",
+        "link": "pred:road_2(end) -> succ:road_11(start)",
+        "lanes": "driving:[-4, -3] | shoulder:[-5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_29": {
+        "info": "Len:13.3m | One-Way Junction_Link(ID:21) Shape:Curve(Arc+Line)",
+        "link": "pred:road_2(end) -> succ:road_8(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_31": {
+        "info": "Len:14.6m | One-Way Junction_Link(ID:21) Shape:Curve(Arc+Line)",
+        "link": "pred:road_2(end) -> succ:road_8(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_33": {
+        "info": "Len:14.0m | One-Way Junction_Link(ID:32) Shape:Curve(Arc+Line)",
+        "link": "pred:road_11(end) -> succ:road_0(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_35": {
+        "info": "Len:15.2m | One-Way Junction_Link(ID:32) Shape:Curve(Arc+Line)",
+        "link": "pred:road_11(end) -> succ:road_0(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_36": {
+        "info": "Len:15.3m | One-Way Junction_Link(ID:32) Shape:Curve(Arc+Line)",
+        "link": "pred:road_15(end) -> succ:road_10(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_37": {
+        "info": "Len:14.1m | One-Way Junction_Link(ID:32) Shape:Curve(Arc+Line)",
+        "link": "pred:road_15(end) -> succ:road_10(start)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_39": {
+        "info": "Len:21.9m | One-Way Junction_Link(ID:32) Shape:Curve(Arc)",
+        "link": "pred:road_11(end) -> succ:road_10(start)",
+        "lanes": "driving:[-4, -3] | shoulder:[-5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_44": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:43) Shape:Curve(Arc+Line)",
+        "link": "succ:road_1(start) -> pred:road_12(end)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_46": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:43) Shape:Curve(Arc+Line)",
+        "link": "pred:road_12(end) -> succ:road_14(start)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_49": {
+        "info": "Len:14.0m | One-Way Junction_Link(ID:48) Shape:Curve(Arc+Line)",
+        "link": "pred:road_6(end) -> succ:road_1(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_51": {
+        "info": "Len:15.2m | One-Way Junction_Link(ID:48) Shape:Curve(Arc+Line)",
+        "link": "pred:road_6(end) -> succ:road_1(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_52": {
+        "info": "Len:22.0m | One-Way Junction_Link(ID:48) Shape:Curve(Arc)",
+        "link": "pred:road_6(end) -> succ:road_2(start)",
+        "lanes": "driving:[-4, -3] | shoulder:[-5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_56": {
+        "info": "Len:14.0m | One-Way Junction_Link(ID:48) Shape:Curve(Arc+Line)",
+        "link": "pred:road_14(end) -> succ:road_2(start)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_58": {
+        "info": "Len:15.2m | One-Way Junction_Link(ID:48) Shape:Curve(Arc+Line)",
+        "link": "pred:road_14(end) -> succ:road_2(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_60": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:59) Shape:Curve(Arc+Line)",
+        "link": "succ:road_5(start) -> pred:road_3(start)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_62": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:59) Shape:Curve(Arc+Line)",
+        "link": "succ:road_4(start) -> pred:road_5(start)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_65": {
+        "info": "Len:13.9m | One-Way Junction_Link(ID:64) Shape:Curve(Arc+Line)",
+        "link": "pred:road_3(end) -> succ:road_6(start)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_67": {
+        "info": "Len:15.1m | One-Way Junction_Link(ID:64) Shape:Curve(Arc+Line)",
+        "link": "pred:road_3(end) -> succ:road_6(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_68": {
+        "info": "Len:21.4m | One-Way Junction_Link(ID:64) Shape:Curve(Arc)",
+        "link": "pred:road_10(end) -> succ:road_6(start)",
+        "lanes": "driving:[-4, -3] | shoulder:[-5, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_72": {
+        "info": "Len:13.4m | One-Way Junction_Link(ID:64) Shape:Curve(Arc+Line)",
+        "link": "pred:road_10(end) -> succ:road_4(end)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_74": {
+        "info": "Len:14.7m | One-Way Junction_Link(ID:64) Shape:Curve(Arc+Line)",
+        "link": "pred:road_10(end) -> succ:road_4(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_76": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:75) Shape:Curve(Arc+Line)",
+        "link": "pred:road_13(end) -> succ:road_7(start)",
+        "lanes": "driving:[-1] | shoulder:[-3, -2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_78": {
+        "info": "Len:4.2m | One-Way Junction_Link(ID:75) Shape:Curve(Arc+Line)",
+        "link": "succ:road_8(start) -> pred:road_13(end)",
+        "lanes": "driving:[1] | shoulder:[2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-four-lane-straight-highway": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:300.0m | One-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-6, -5, -4, -3, -2] | shoulder:[-7, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-four-lane-straight-urban": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:200.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-2, -1, 1, 2] | shoulder:[-4, -3, 3, 4] | sidewalk:[-5, 5]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-four-lane-Tjunction": {
+    "summary": {
+      "total_roads": 14,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_3": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_0 (South)",
+          "Road_1 (East)",
+          "Road_2 (West)"
+        ],
+        "driving_paths": [
+          "From Road_0 to Road_1 via Road_15",
+          "From Road_0 to Road_2 via Road_19",
+          "From Road_1 to Road_0 via Road_14",
+          "From Road_1 to Road_2 via Road_10",
+          "From Road_1 to Road_2 via Road_4",
+          "From Road_2 to Road_0 via Road_20",
+          "From Road_2 to Road_1 via Road_8",
+          "From Road_2 to Road_1 via Road_9"
+        ],
+        "internal_parts": [
+          "Road_4",
+          "Road_5",
+          "Road_8",
+          "Road_9",
+          "Road_10",
+          "Road_11",
+          "Road_14",
+          "Road_15",
+          "Road_16",
+          "Road_19",
+          "Road_20"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:98.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:junction_3(end)",
+        "lanes": "driving:[-2, -1, 1, 2] | shoulder:[-3, 3] | sidewalk:[-4, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:98.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:junction_3(end)",
+        "lanes": "driving:[-2, -1, 1, 2] | shoulder:[-3, 3] | sidewalk:[-4, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:98.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:junction_3(end)",
+        "lanes": "driving:[-2, -1, 1, 2] | shoulder:[-3, 3] | sidewalk:[-4, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_4": {
+        "info": "Len:29.4m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "pred:road_1(end) -> succ:road_2(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_5": {
+        "info": "Len:29.4m | No_Driving Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "pred:road_1(end) -> succ:road_2(end)",
+        "lanes": "shoulder:[-1] | sidewalk:[-2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_8": {
+        "info": "Len:29.4m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "pred:road_2(end) -> succ:road_1(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_9": {
+        "info": "Len:29.4m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "pred:road_2(end) -> succ:road_1(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_10": {
+        "info": "Len:29.4m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "pred:road_1(end) -> succ:road_2(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_11": {
+        "info": "Len:12.3m | No_Driving Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "pred:road_1(end) -> succ:road_0(end)",
+        "lanes": "shoulder:[1] | sidewalk:[2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_14": {
+        "info": "Len:22.5m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "pred:road_1(end) -> succ:road_0(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_15": {
+        "info": "Len:17.0m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_1(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_16": {
+        "info": "Len:12.6m | No_Driving Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "pred:road_2(end) -> succ:road_0(end)",
+        "lanes": "shoulder:[-1] | sidewalk:[-2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_19": {
+        "info": "Len:22.8m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_2(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_20": {
+        "info": "Len:17.3m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "pred:road_2(end) -> succ:road_0(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-four-line-bianqulv": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_1": {
+        "info": "Len:250.0m | Two-Way Highway Shape:Curve(Arc+Line+Spiral)",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-2, -1, 1, 2]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-six-lane-crossroad": {
+    "summary": {
+      "total_roads": 20,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_4": {
+        "type": "Crossroad",
+        "arms_count": 4,
+        "connected_arms": [
+          "Road_0 (North)",
+          "Road_1 (South)",
+          "Road_2 (West)",
+          "Road_3 (East)"
+        ],
+        "driving_paths": [
+          "From Road_0 to Road_1 via Road_34",
+          "From Road_0 to Road_2 via Road_17",
+          "From Road_0 to Road_3 via Road_35",
+          "From Road_1 to Road_0 via Road_33",
+          "From Road_1 to Road_2 via Road_53",
+          "From Road_1 to Road_3 via Road_83",
+          "From Road_2 to Road_0 via Road_6",
+          "From Road_2 to Road_1 via Road_62",
+          "From Road_2 to Road_3 via Road_81",
+          "From Road_3 to Road_0 via Road_44",
+          "From Road_3 to Road_1 via Road_84",
+          "From Road_3 to Road_2 via Road_80"
+        ],
+        "internal_parts": [
+          "Road_5",
+          "Road_6",
+          "Road_17",
+          "Road_33",
+          "Road_34",
+          "Road_35",
+          "Road_44",
+          "Road_47",
+          "Road_50",
+          "Road_53",
+          "Road_62",
+          "Road_80",
+          "Road_81",
+          "Road_82",
+          "Road_83",
+          "Road_84"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:82.6m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:junction_4(end)",
+        "lanes": "driving:[-3, -2, -1, 1, 2, 3] | shoulder:[-4, 4] | sidewalk:[-5, 5]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:86.3m | Two-Way Highway Shape:Straight",
+        "link": "pred:junction_4(end) -> succ:None",
+        "lanes": "driving:[-3, -2, -1, 1, 2, 3] | shoulder:[-4, 4] | sidewalk:[-5, 5]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:86.4m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:junction_4(end)",
+        "lanes": "driving:[-3, -2, -1, 1, 2, 3] | shoulder:[-4, 4] | sidewalk:[-5, 5]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_3": {
+        "info": "Len:82.5m | Two-Way Highway Shape:Straight",
+        "link": "pred:junction_4(end) -> succ:None",
+        "lanes": "driving:[-3, -2, -1, 1, 2, 3] | shoulder:[-4, 4] | sidewalk:[-5, 5]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_5": {
+        "info": "Len:7.9m | No_Driving Junction_Link(ID:4) Shape:Curve(Arc)",
+        "link": "pred:road_0(end) -> succ:road_2(end)",
+        "lanes": "shoulder:[-1] | sidewalk:[-2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_6": {
+        "info": "Len:25.5m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line) [Has_Crosswalk]",
+        "link": "pred:road_2(end) -> succ:road_0(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": [
+          {
+            "id": "98",
+            "s": 3.57
+          },
+          {
+            "id": "97",
+            "s": 21.91
+          }
+        ]
+      },
+      "Road_17": {
+        "info": "Len:13.4m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_2(end)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_33": {
+        "info": "Len:31.1m | One-Way Junction_Link(ID:4) Shape:Straight",
+        "link": "succ:road_1(start) -> pred:road_0(end)",
+        "lanes": "driving:[1, 2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_34": {
+        "info": "Len:31.1m | One-Way Junction_Link(ID:4) Shape:Straight",
+        "link": "pred:road_0(end) -> succ:road_1(start)",
+        "lanes": "driving:[-3, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_35": {
+        "info": "Len:25.5m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_3(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_44": {
+        "info": "Len:13.5m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "succ:road_3(start) -> pred:road_0(end)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_47": {
+        "info": "Len:8.0m | No_Driving Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "pred:road_0(end) -> succ:road_3(start)",
+        "lanes": "shoulder:[1] | sidewalk:[2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_50": {
+        "info": "Len:8.0m | No_Driving Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "pred:road_2(end) -> succ:road_1(start)",
+        "lanes": "shoulder:[-1] | sidewalk:[-2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_53": {
+        "info": "Len:25.5m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "succ:road_1(start) -> pred:road_2(end)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_62": {
+        "info": "Len:13.5m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "pred:road_2(end) -> succ:road_1(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_80": {
+        "info": "Len:31.1m | One-Way Junction_Link(ID:4) Shape:Straight",
+        "link": "succ:road_3(start) -> pred:road_2(end)",
+        "lanes": "driving:[1, 2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_81": {
+        "info": "Len:31.1m | One-Way Junction_Link(ID:4) Shape:Straight",
+        "link": "pred:road_2(end) -> succ:road_3(start)",
+        "lanes": "driving:[-3, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_82": {
+        "info": "Len:7.9m | No_Driving Junction_Link(ID:4) Shape:Curve(Arc)",
+        "link": "pred:road_1(start) -> succ:road_3(start)",
+        "lanes": "shoulder:[-1] | sidewalk:[-2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_83": {
+        "info": "Len:13.4m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line)",
+        "link": "succ:road_1(start) -> pred:road_3(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_84": {
+        "info": "Len:25.5m | One-Way Junction_Link(ID:4) Shape:Curve(Arc+Line) [Has_Crosswalk]",
+        "link": "succ:road_3(start) -> pred:road_1(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [
+          {
+            "id": "95",
+            "s": 3.57
+          },
+          {
+            "id": "96",
+            "s": 21.91
+          }
+        ]
+      }
+    }
+  },
+  "two-way-six-lane-curved-highway": {
+    "summary": {
+      "total_roads": 3,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:80.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:road_2(end) -> succ:None",
+        "lanes": "driving:[-3, -2, -1, 1, 2, 3, 4] | shoulder:[-4, 5]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:80.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:road_2(start)",
+        "lanes": "driving:[-3, -2, -1, 1, 2, 3, 4] | shoulder:[-4, 5]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:123.3m | Two-Way Highway Shape:Curve(Arc+Line+Spiral)",
+        "link": "pred:road_1(end) -> succ:road_0(start)",
+        "lanes": "driving:[-3, -2, -1, 1, 2, 3, 4] | shoulder:[-4, 5]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-six-lane-curved-urban": {
+    "summary": {
+      "total_roads": 3,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:70.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:road_2(end) -> succ:None",
+        "lanes": "driving:[-3, -2, -1, 1, 2, 3] | shoulder:[-5, -4, 4, 5] | sidewalk:[-6, 6]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:70.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:road_2(start)",
+        "lanes": "driving:[-3, -2, -1, 1, 2, 3] | shoulder:[-5, -4, 4, 5] | sidewalk:[-6, 6]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:80.9m | Two-Way Highway Shape:Curve(Arc+Line+Spiral)",
+        "link": "pred:road_1(end) -> succ:road_0(start)",
+        "lanes": "driving:[-3, -2, -1, 1, 2, 3] | shoulder:[-5, -4, 4, 5] | sidewalk:[-6, 6]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-six-lane-straight-highway": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:300.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-3, -2, -1, 2, 3, 4] | median:[1] | stop:[-4, 5]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-six-lane-straight-urban": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:200.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-3, -2, -1, 1, 2, 3] | shoulder:[-5, -4, 4, 5] | sidewalk:[-6, 6]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-six-lane-Tjunction": {
+    "summary": {
+      "total_roads": 19,
+      "total_junctions": 1
+    },
+    "junctions_semantic": {
+      "Junction_3": {
+        "type": "T-Junction",
+        "arms_count": 3,
+        "connected_arms": [
+          "Road_0 (South)",
+          "Road_1 (West)",
+          "Road_2 (East)"
+        ],
+        "driving_paths": [
+          "From Road_0 to Road_1 via Road_26",
+          "From Road_0 to Road_1 via Road_32",
+          "From Road_0 to Road_2 via Road_41",
+          "From Road_0 to Road_2 via Road_47",
+          "From Road_0 to Road_2 via Road_53",
+          "From Road_0 to Road_2 via Road_65",
+          "From Road_1 to Road_0 via Road_14",
+          "From Road_1 to Road_0 via Road_20",
+          "From Road_1 to Road_0 via Road_4",
+          "From Road_1 to Road_0 via Road_8",
+          "From Road_1 to Road_2 via Road_40",
+          "From Road_2 to Road_0 via Road_42",
+          "From Road_2 to Road_0 via Road_59",
+          "From Road_2 to Road_1 via Road_39"
+        ],
+        "internal_parts": [
+          "Road_4",
+          "Road_6",
+          "Road_8",
+          "Road_14",
+          "Road_20",
+          "Road_26",
+          "Road_32",
+          "Road_39",
+          "Road_40",
+          "Road_41",
+          "Road_42",
+          "Road_47",
+          "Road_53",
+          "Road_59",
+          "Road_65",
+          "Road_71"
+        ]
+      }
+    },
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:175.1m | Two-Way Highway Shape:Straight",
+        "link": "pred:junction_3(end) -> succ:None",
+        "lanes": "driving:[-3, -2, -1, 1, 2, 3] | shoulder:[-4, 4] | sidewalk:[-5, 5]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:86.2m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:junction_3(end)",
+        "lanes": "driving:[-3, -2, -1, 1, 2, 3] | shoulder:[-4, 4] | sidewalk:[-5, 5]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:82.7m | Two-Way Highway Shape:Straight",
+        "link": "pred:junction_3(end) -> succ:None",
+        "lanes": "driving:[-3, -2, -1, 1, 2, 3] | shoulder:[-4, 4] | sidewalk:[-5, 5]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_4": {
+        "info": "Len:13.5m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "pred:road_1(end) -> succ:road_0(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_6": {
+        "info": "Len:7.9m | No_Driving Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "pred:road_1(end) -> succ:road_0(start)",
+        "lanes": "shoulder:[-1] | sidewalk:[-2]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_8": {
+        "info": "Len:23.2m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "pred:road_1(end) -> succ:road_0(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_14": {
+        "info": "Len:20.2m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "pred:road_1(end) -> succ:road_0(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_20": {
+        "info": "Len:17.8m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "pred:road_1(end) -> succ:road_0(start)",
+        "lanes": "driving:[-1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_26": {
+        "info": "Len:28.7m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "succ:road_0(start) -> pred:road_1(end)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_32": {
+        "info": "Len:25.6m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line) [Has_Crosswalk]",
+        "link": "succ:road_0(start) -> pred:road_1(end)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": [
+          {
+            "id": "72",
+            "s": 22.0
+          }
+        ]
+      },
+      "Road_39": {
+        "info": "Len:31.0m | One-Way Junction_Link(ID:3) Shape:Straight",
+        "link": "succ:road_2(start) -> pred:road_1(end)",
+        "lanes": "driving:[1, 2, 3] | shoulder:[4] | sidewalk:[5]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_40": {
+        "info": "Len:31.0m | One-Way Junction_Link(ID:3) Shape:Straight",
+        "link": "pred:road_1(end) -> succ:road_2(start)",
+        "lanes": "driving:[-3, -2, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_41": {
+        "info": "Len:13.4m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "succ:road_0(start) -> pred:road_2(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_42": {
+        "info": "Len:25.6m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "succ:road_2(start) -> pred:road_0(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_47": {
+        "info": "Len:23.2m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "succ:road_0(start) -> pred:road_2(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_53": {
+        "info": "Len:20.2m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "succ:road_0(start) -> pred:road_2(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_59": {
+        "info": "Len:28.7m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "succ:road_2(start) -> pred:road_0(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_65": {
+        "info": "Len:17.8m | One-Way Junction_Link(ID:3) Shape:Curve(Arc+Line)",
+        "link": "succ:road_0(start) -> pred:road_2(start)",
+        "lanes": "driving:[1]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_71": {
+        "info": "Len:7.9m | No_Driving Junction_Link(ID:3) Shape:Curve(Arc)",
+        "link": "pred:road_0(start) -> succ:road_2(start)",
+        "lanes": "shoulder:[-1] | sidewalk:[-2]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-two-lane-bianqulv": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_1": {
+        "info": "Len:250.0m | Two-Way Highway Shape:Curve(Arc+Line+Spiral)",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-1, 1]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-two-lane-curved-highway": {
+    "summary": {
+      "total_roads": 3,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:80.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:road_2(end) -> succ:None",
+        "lanes": "driving:[-1, 1, 2] | shoulder:[-2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:80.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:road_2(start)",
+        "lanes": "driving:[-1, 1, 2] | shoulder:[-2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:123.3m | Two-Way Highway Shape:Curve(Arc+Line+Spiral)",
+        "link": "pred:road_1(end) -> succ:road_0(start)",
+        "lanes": "driving:[-1, 1, 2] | shoulder:[-2, 3]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-two-lane-curved-urban": {
+    "summary": {
+      "total_roads": 3,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:70.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:road_2(end) -> succ:None",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3] | sidewalk:[-4, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_1": {
+        "info": "Len:70.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:road_2(start)",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3] | sidewalk:[-4, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      },
+      "Road_2": {
+        "info": "Len:80.9m | Two-Way Highway Shape:Curve(Arc+Line+Spiral)",
+        "link": "pred:road_1(end) -> succ:road_0(start)",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3] | sidewalk:[-4, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-two-lane-straight-highway": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:300.0m | One-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-4, -2] | median:[-3] | stop:[-5, -1]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-two-lane-straight-urban copy": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:200.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3] | sidewalk:[-4, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two-way-two-lane-straight-urban": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:200.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-1, 1] | shoulder:[-3, -2, 2, 3] | sidewalk:[-4, 4]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two_way_four_lane_slope": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:200.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-2, -1, 1, 2] | shoulder:[-4, -3, 3, 4] | sidewalk:[-5, 5]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  },
+  "two_way_six_lane_slope": {
+    "summary": {
+      "total_roads": 1,
+      "total_junctions": 0
+    },
+    "junctions_semantic": {},
+    "raw_roads": {
+      "Road_0": {
+        "info": "Len:200.0m | Two-Way Highway Shape:Straight",
+        "link": "pred:None -> succ:None",
+        "lanes": "driving:[-3, -2, -1, 1, 2, 3] | shoulder:[-5, -4, 4, 5] | sidewalk:[-6, 6]",
+        "tunnels": [],
+        "crosswalks": []
+      }
+    }
+  }
+}

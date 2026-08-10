@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2023-10-27T15:00:00" description="Ego lane change from Outer(-2) to Inner(-1) lane entering a curve" author="OpenSCENARIO-Expert"/>
+
+    <ParameterDeclarations/>
+
+    <!-- 资源目录配置 (严格遵守要求) -->
+    <!-- 必须的 Catalog 路径（esmini 标准相对路径） -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="one-way-two-lane-bianqulv.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <!-- 定义 Ego 车辆 -->
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Daytime">
+                            <TimeOfDay animation="false" dateTime="2023-10-27T12:00:00"/>
+                            <Weather cloudState="free">
+                                <Sun intensity="100000.0" azimuth="0.0" elevation="1.57"/>
+                            </Weather>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+
+                <!-- Ego 初始化：放置在外侧车道 (-2) -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="1" laneId="-2" offset="0.0" s="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <!-- 设置初始巡航速度 -->
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="20.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="OuterToInnerLaneChangeStory">
+            <Act name="CutInCurveAct">
+                <ManeuverGroup maximumExecutionCount="1" name="LaneChangeManeuverGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                    </Actors>
+
+                    <!-- 事件：由外向内变道 (Right -2 -> Left -1) -->
+                    <Maneuver name="LeftLaneChangeManeuver">
+                        <Event name="PerformLaneChange" priority="overwrite">
+                            <Action name="LaneChangeLeft">
+                                <PrivateAction>
+                                    <LateralAction>
+                                        <LaneChangeAction>
+                                            <LaneChangeTarget>
+                                                <!-- 目标：内侧车道 (-1) -->
+                                                <AbsoluteTargetLane value="-1"/>
+                                            </LaneChangeTarget>
+                                            <!-- 动态：4秒内完成正弦过渡，模拟切弯入弯心 -->
+                                            <LaneChangeActionDynamics dynamicsShape="sinusoidal" value="4.0" dynamicsDimension="time"/>
+                                        </LaneChangeAction>
+                                    </LateralAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 触发条件：到达直道与弯道连接处 (s=50m) -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="ArriveAtCurveEntry" delay="0.0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Ego"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <ReachPositionCondition tolerance="2.0">
+                                                    <Position>
+                                                        <LanePosition roadId="1" laneId="-2" s="80.0"/>
+                                                    </Position>
+                                                </ReachPositionCondition>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <!-- 结束触发器：车辆在内侧车道稳定行驶至道路末端 -->
+                <StopTrigger>
+                    <ConditionGroup>
+                        <Condition name="EndSimulation" delay="0.0" conditionEdge="rising">
+                            <ByEntityCondition>
+                                <TriggeringEntities triggeringEntitiesRule="any">
+                                    <EntityRef entityRef="Ego"/>
+                                </TriggeringEntities>
+                                <EntityCondition>
+                                    <ReachPositionCondition tolerance="5.0">
+                                        <Position>
+                                            <!-- 判定结束位置：s=240m，需要在目标车道(-1) -->
+                                            <LanePosition roadId="1" laneId="-1" s="240.0"/>
+                                        </Position>
+                                    </ReachPositionCondition>
+                                </EntityCondition>
+                            </ByEntityCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StopTrigger>
+            </Act>
+        </Story>
+    </Storyboard>
+</OpenSCENARIO>

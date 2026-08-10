@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenScenario.xsd">
+  <FileHeader revMajor="1" revMinor="0" description="CQU_0011: 同向自行车突然左切 + 对向来车（左转逃逸被封死，后方可刹）" date="2025-11-29"/>
+  <ParameterDeclarations/>
+  <CatalogLocations>
+    <VehicleCatalog><Directory path="../resources/xosc/Catalogs/Vehicles"/></VehicleCatalog>
+  </CatalogLocations>
+
+  <RoadNetwork>
+    <LogicFile filepath="two-way-two-lane-straight-urban.xodr"/>
+  </RoadNetwork>
+
+  <Entities>
+    <!-- 自车 -->
+    <ScenarioObject name="Ego">
+      <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+    </ScenarioObject>
+    
+    <!-- 路边停放大货车 -->
+    <ScenarioObject name="ParkedTruck">
+      <CatalogReference catalogName="VehicleCatalog" entryName="semi_truck"/>
+    </ScenarioObject>
+    
+    <!-- 同向前方自行车 -->
+    <ScenarioObject name="Bicycle">
+      <CatalogReference catalogName="VehicleCatalog" entryName="bicycle"/>
+    </ScenarioObject>
+    
+    <!-- 对向来车（封死左转逃逸） -->
+    <ScenarioObject name="Oncoming">
+      <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+    </ScenarioObject>
+  </Entities>
+
+  <Storyboard>
+    <Init>
+      <Actions>
+        <!-- Ego -->
+        <Private entityRef="Ego">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-1" s="20.0" offset="0.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="8.5"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+        
+        <!-- 大货车 -->
+        <Private entityRef="ParkedTruck">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-2" s="80.0" offset="0.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="0.0"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+        
+        <!-- 自行车 -->
+        <Private entityRef="Bicycle">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-2" s="45.0" offset="0.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="4.5"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+        
+        <!-- 对向来车：40km/h，在自行车变道触发时与Ego相向距离约55-65米，TTC≈3秒 -->
+        <Private entityRef="Oncoming">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="1" s="145.0" offset="0.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="11.0"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+
+    <Story>
+      <Act>
+        <!-- 自行车突然左切（核心事件） -->
+        <ManeuverGroup maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false"><EntityRef entityRef="Bicycle"/></Actors>
+          <Maneuver>
+            <Event priority="overwrite">
+              <Action>
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneChangeAction>
+                      <LaneChangeActionDynamics dynamicsShape="sinusoidal" dynamicsDimension="time" value="2.8"/>
+                      <LaneChangeTarget><RelativeTargetLane entityRef="ParkedTruck" value="+1"/></LaneChangeTarget>
+                    </LaneChangeAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any"><EntityRef entityRef="Bicycle"/></TriggeringEntities>
+                      <EntityCondition>
+                        <RelativeDistanceCondition entityRef="ParkedTruck" relativeDistanceType="longitudinal" value="8.0" freespace="true" rule="lessThan"/>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+
+        <StartTrigger>
+          <ConditionGroup>
+            <Condition delay="0" conditionEdge="rising">
+              <ByValueCondition><SimulationTimeCondition value="0.1" rule="greaterThan"/></ByValueCondition>
+            </Condition>
+          </ConditionGroup>
+        </StartTrigger>
+      </Act>
+    </Story>
+
+    <StopTrigger>
+      <ConditionGroup>
+        <Condition delay="0" conditionEdge="rising">
+          <ByValueCondition><SimulationTimeCondition value="30.0" rule="greaterThan"/></ByValueCondition>
+        </Condition>
+      </ConditionGroup>
+    </StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

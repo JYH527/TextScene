@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenSCENARIO.xsd">
+    <FileHeader revMajor="1" revMinor="0" date="2023-12-03T16:00:00" description="Ego right lane change avoidance in Road_0 curve (Topology: 1->0->2)" author="OpenSCENARIO-Expert"/>
+    <ParameterDeclarations/>
+
+    <!-- 资源目录配置 (严格遵守要求) -->
+    <!-- 必须的 Catalog 路径（esmini 标准相对路径） -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="one-way-two-lane-curved-urban.xodr"/>
+    </RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+        <ScenarioObject name="StaticTargetCar">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- 环境设置 -->
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Daytime">
+                            <TimeOfDay animation="false" dateTime="2023-12-03T12:00:00"/>
+                            <Weather cloudState="free">
+                                <Sun intensity="100000.0" azimuth="0.0" elevation="1.57"/>
+                            </Weather>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+
+                <!-- Ego 初始化: Road 1 (直道) 末端附近 -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- Road 1 长度 80m, 放置在 s=60m 处 -->
+                                <LanePosition roadId="1" laneId="-4" offset="0.0" s="60.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="13.8"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- Target 初始化: Road 0 (弯道) 内部 -->
+                <Private entityRef="StaticTargetCar">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- Road 0 长度 84.1m, 放置在 s=35m 处 (弯道深处) -->
+                                <LanePosition roadId="0" laneId="-4" offset="0.0" s="35.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="CurveAvoidanceStory">
+            <Act name="RightLaneChangeAct">
+                <ManeuverGroup maximumExecutionCount="1" name="AvoidanceManeuverGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                    </Actors>
+
+                    <!-- 避让动作: 向右变道 (Lane -4 -> -5) -->
+                    <Maneuver name="RightLaneChangeManeuver">
+                        <Event name="PerformLaneChange" priority="overwrite">
+                            <Action name="LaneChangeRight">
+                                <PrivateAction>
+                                    <LateralAction>
+                                        <LaneChangeAction>
+                                            <LaneChangeTarget>
+                                                <!-- 目标: 外侧车道 -5 -->
+                                                <AbsoluteTargetLane value="-5"/>
+                                            </LaneChangeTarget>
+                                            <!-- 动态: 3秒正弦过渡，适应弯道几何 -->
+                                            <LaneChangeActionDynamics dynamicsShape="sinusoidal" value="3.0" dynamicsDimension="time"/>
+                                        </LaneChangeAction>
+                                    </LateralAction>
+                                </PrivateAction>
+                            </Action>
+
+                            <!-- 触发条件: 距离障碍物 < 35m -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="DistanceToTarget" delay="0.0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Ego"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <RelativeDistanceCondition entityRef="StaticTargetCar" relativeDistanceType="longitudinal" value="20.0" rule="lessThan" freeSpace="true"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <!-- 结束条件: Ego 成功超越障碍物并到达弯道后半段 -->
+                <StopTrigger>
+                    <ConditionGroup>
+                        <Condition name="PassObstacle" delay="0.0" conditionEdge="rising">
+                            <ByEntityCondition>
+                                <TriggeringEntities triggeringEntitiesRule="any">
+                                    <EntityRef entityRef="Ego"/>
+                                </TriggeringEntities>
+                                <EntityCondition>
+                                    <ReachPositionCondition tolerance="5.0">
+                                        <Position>
+                                            <!-- 判定点: Road 0 的 s=75.0m (全长84.1m, 此时应已完成超车) -->
+                                            <LanePosition roadId="0" laneId="-5" s="75.0"/>
+                                        </Position>
+                                    </ReachPositionCondition>
+                                </EntityCondition>
+                            </ByEntityCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StopTrigger>
+            </Act>
+        </Story>
+    </Storyboard>
+</OpenSCENARIO>

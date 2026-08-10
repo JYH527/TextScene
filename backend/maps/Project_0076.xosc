@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenScenario.xsd">
+  <FileHeader revMajor="1" revMinor="2" description="最简鬼探头（完美版：行人正常跑 + 完全遮挡 + 自车纯恒速）" date="2025-11-29"/>
+  
+  <ParameterDeclarations/>
+  
+  <!-- 行人目录 -->
+  <CatalogLocations>
+    <VehicleCatalog>
+      <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+    </VehicleCatalog>
+    <PedestrianCatalog>
+      <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+    </PedestrianCatalog>
+  </CatalogLocations>
+  
+  <RoadNetwork>
+    <LogicFile filepath="two-way-two-lane-straight-urban.xodr"/>
+  </RoadNetwork>
+  
+  <Entities>
+    <ScenarioObject name="Ego">
+      <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+    </ScenarioObject>
+    
+    <ScenarioObject name="Truck">
+      <CatalogReference catalogName="VehicleCatalog" entryName="semi_truck"/>
+    </ScenarioObject>
+    
+    <ScenarioObject name="Child">
+      <CatalogReference catalogName="PedestrianCatalog" entryName="pedestrian_adult"/>
+    </ScenarioObject>
+  </Entities>
+  
+  <Storyboard>
+    <Init>
+      <Actions>
+        <GlobalAction>
+          <EnvironmentAction>
+            <Environment name="Night_Rain">
+              <TimeOfDay animation="false" dateTime="2023-11-29T22:00:00"/>
+              <Weather cloudState="overcast">
+                <Precipitation precipitationType="rain" intensity="1.0"/>
+              </Weather>
+            </Environment>
+          </EnvironmentAction>
+        </GlobalAction>
+        <!-- 自车：内侧车道 8.5 m/s（≈30km/h）恒速 -->
+        <Private entityRef="Ego">
+          <PrivateAction>
+            <TeleportAction>
+              <Position><LanePosition roadId="0" laneId="-1" s="20.0" offset="0.0"/></Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget><AbsoluteTargetSpeed value="8.5"/></SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        
+        <!-- 大货车：外侧车道静止停放 -->
+        <Private entityRef="Truck">
+          <PrivateAction>
+            <TeleportAction>
+              <Position><LanePosition roadId="0" laneId="-2" s="100.0" offset="0.0"/></Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <!-- 修正：这里原代码是 time10，已改为 time -->
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget><AbsoluteTargetSpeed value="0.0"/></SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        
+        <!-- 小孩初始完全藏在半挂车正后方（s=118） -->
+        <Private entityRef="Child">
+          <PrivateAction>
+            <TeleportAction>
+              <Position><LanePosition roadId="0" laneId="-2" s="118.0" offset="0.0"/></Position>
+            </TeleportAction>
+          </PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+    
+    <Story>
+      <Act>
+        <!-- 小孩横穿 -->
+        <ManeuverGroup maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false"><EntityRef entityRef="Child"/></Actors>
+          <Maneuver>
+            <Event priority="overwrite">
+              <Action>
+                <PrivateAction>
+                  <RoutingAction>
+                    <FollowTrajectoryAction>
+                      <Trajectory closed="false">
+                        <Shape>
+                          <Polyline>
+                            <Vertex time="0.0">
+                              <Position><LanePosition roadId="0" laneId="-2" s="118.0" offset="0.0"/></Position>
+                            </Vertex>
+                            <!-- 
+                               注意：如果想让跑步动画更明显，建议缩短 time 时间。
+                               当前 4.5秒走约 4米，速度<1m/s，可能还是走路姿态。
+                               如果改为 time="2.0"，速度约 2m/s，会跑得更自然。
+                            -->
+                            <Vertex time="4.5">
+                              <Position><LanePosition roadId="0" laneId="-1" s="119.5" offset="0.0"/></Position>
+                            </Vertex>
+                          </Polyline>
+                        </Shape>
+                      </Trajectory>
+                      <TimeReference><Timing domainAbsoluteRelative="relative"/></TimeReference>
+                      <!-- 【关键修复】这里必须是 position，行人才能被强制按照轨迹移动 -->
+                      <TrajectoryFollowingMode followingMode="position"/>
+                    </FollowTrajectoryAction>
+                  </RoutingAction>
+                </PrivateAction>
+              </Action>
+              
+              <!-- 触发逻辑：自车开过 58米后（约 6.8秒时）触发 -->
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any"><EntityRef entityRef="Ego"/></TriggeringEntities>
+                      <EntityCondition>
+                        <TraveledDistanceCondition value="58.0"/>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        
+        <StartTrigger>
+          <ConditionGroup>
+            <Condition delay="0" conditionEdge="rising">
+              <ByValueCondition>
+                <SimulationTimeCondition value="0.1" rule="greaterThan"/>
+              </ByValueCondition>
+            </Condition>
+          </ConditionGroup>
+        </StartTrigger>
+      </Act>
+    </Story>
+    
+    <StopTrigger>
+      <ConditionGroup>
+        <Condition delay="0" conditionEdge="rising">
+          <ByValueCondition>
+            <SimulationTimeCondition value="30.0" rule="greaterThan"/>
+          </ByValueCondition>
+        </Condition>
+      </ConditionGroup>
+    </StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-02T16:50:00" description="Scenario 3.2 Fixed: Ego Init First" author="ESMINI_Expert"/>
+
+    <CatalogLocations><VehicleCatalog><Directory path="../resources/xosc/Catalogs/Vehicles"/></VehicleCatalog></CatalogLocations>
+    <RoadNetwork><LogicFile filepath="two-way-four-lane-roundout-two.xodr"/></RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego"><CatalogReference catalogName="VehicleCatalog" entryName="car_red"/></ScenarioObject>
+        <ScenarioObject name="Target_Front"><CatalogReference catalogName="VehicleCatalog" entryName="car_white"/></ScenarioObject>
+        <ScenarioObject name="Side_Blocker"><CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/></ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- ============================================== -->
+                <!-- 修正点：把 Ego 提到第一个初始化，锁定视角！ -->
+                <!-- ============================================== -->
+                <!-- 自车: Lane -4, s=5.0 -->
+                <Private entityRef="Ego">
+                    <PrivateAction><TeleportAction><Position><LanePosition roadId="52" laneId="-4" s="5.0" offset="0.0"/></Position></TeleportAction></PrivateAction>
+                    <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionDynamics dynamicsShape="step" value="0.0"/><SpeedActionTarget><AbsoluteTargetSpeed value="10.0"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+                    <PrivateAction><RoutingAction><AssignRouteAction><Route name="R2" closed="false"><Waypoint routeStrategy="shortest"><Position><LanePosition roadId="52" laneId="-4" s="5.0" offset="0.0"/></Position></Waypoint><Waypoint routeStrategy="shortest"><Position><LanePosition roadId="2" laneId="-4" s="10.0" offset="0.0"/></Position></Waypoint></Route></AssignRouteAction></RoutingAction></PrivateAction>
+                </Private>
+
+                <!-- 前车: Lane -4, s=15.0 -->
+                <Private entityRef="Target_Front">
+                    <PrivateAction><TeleportAction><Position><LanePosition roadId="52" laneId="-4" s="15.0" offset="0.0"/></Position></TeleportAction></PrivateAction>
+                    <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionDynamics dynamicsShape="step" value="0.0"/><SpeedActionTarget><AbsoluteTargetSpeed value="10.0"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+                    <PrivateAction><RoutingAction><AssignRouteAction><Route name="R1" closed="false"><Waypoint routeStrategy="shortest"><Position><LanePosition roadId="52" laneId="-4" s="15.0" offset="0.0"/></Position></Waypoint><Waypoint routeStrategy="shortest"><Position><LanePosition roadId="2" laneId="-4" s="10.0" offset="0.0"/></Position></Waypoint></Route></AssignRouteAction></RoutingAction></PrivateAction>
+                </Private>
+
+                <!-- 左侧封堵车: Lane -3, s=1.0 -->
+                <Private entityRef="Side_Blocker">
+                    <PrivateAction><TeleportAction><Position><LanePosition roadId="52" laneId="-3" s="1.0" offset="0.0"/></Position></TeleportAction></PrivateAction>
+                    <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionDynamics dynamicsShape="step" value="0.0"/><SpeedActionTarget><AbsoluteTargetSpeed value="10.0"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+                    <PrivateAction><RoutingAction><AssignRouteAction><Route name="R3" closed="false"><Waypoint routeStrategy="shortest"><Position><LanePosition roadId="52" laneId="-3" s="5.0" offset="0.0"/></Position></Waypoint><Waypoint routeStrategy="shortest"><Position><LanePosition roadId="11" laneId="-3" s="10.0" offset="0.0"/></Position></Waypoint></Route></AssignRouteAction></RoutingAction></PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="BlockedEvasionStory">
+            <Act name="HazardAct">
+                <ManeuverGroup maximumExecutionCount="1" name="FrontBrake">
+                    <Actors selectTriggeringEntities="false"><EntityRef entityRef="Target_Front"/></Actors>
+                    <Maneuver name="Panic">
+                        <Event name="Stop" priority="overwrite">
+                            <Action name="HardBrake">
+                                <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionDynamics dynamicsShape="linear" value="-8.0" dynamicsDimension="rate"/><SpeedActionTarget><AbsoluteTargetSpeed value="0.0"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+                            </Action>
+                            <StartTrigger><ConditionGroup><Condition name="T1" delay="0" conditionEdge="rising"><ByValueCondition><SimulationTimeCondition value="2.0" rule="greaterThan"/></ByValueCondition></Condition></ConditionGroup></StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+
+                <ManeuverGroup maximumExecutionCount="1" name="SideBlock">
+                    <Actors selectTriggeringEntities="false"><EntityRef entityRef="Side_Blocker"/></Actors>
+                    <Maneuver name="Shadow">
+                        <Event name="KeepParallel" priority="overwrite">
+                            <Action name="Sync">
+                                <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionDynamics dynamicsShape="linear" value="0.0" dynamicsDimension="time"/><SpeedActionTarget>
+                                    <RelativeTargetSpeed entityRef="Ego" value="0.0" speedTargetValueType="delta" continuous="true"/>
+                                </SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+                            </Action>
+                            <StartTrigger><ConditionGroup><Condition name="Start" delay="0" conditionEdge="rising"><ByValueCondition><SimulationTimeCondition value="0.0" rule="greaterThan"/></ByValueCondition></Condition></ConditionGroup></StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+            </Act>
+        </Story>
+        <StopTrigger><ConditionGroup><Condition name="End" delay="0" conditionEdge="rising"><ByValueCondition><SimulationTimeCondition value="8.0" rule="greaterThan"/></ByValueCondition></Condition></ConditionGroup></StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

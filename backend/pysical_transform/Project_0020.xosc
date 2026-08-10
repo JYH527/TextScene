@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenScenario.xsd">
+  <FileHeader revMajor="1" revMinor="1" description="CQU_0020: 前车提前发现龟速自行车并提前右切（人类真实反应，自车来不及）" date="2025-11-29"/>
+  <ParameterDeclarations/>
+  <CatalogLocations>
+    <VehicleCatalog><Directory path="../resources/xosc/Catalogs/Vehicles"/></VehicleCatalog>
+  </CatalogLocations>
+
+  <RoadNetwork>
+    <LogicFile filepath="two-way-two-lane-straight-urban.xodr"/>
+  </RoadNetwork>
+
+  <Entities>
+    <ScenarioObject name="Ego"><CatalogReference catalogName="VehicleCatalog" entryName="car_red"/></ScenarioObject>
+    <ScenarioObject name="LeadCar"><CatalogReference catalogName="VehicleCatalog" entryName="car_yellow"/></ScenarioObject>
+    <ScenarioObject name="SlowBike"><CatalogReference catalogName="VehicleCatalog" entryName="bicycle"/></ScenarioObject>
+  </Entities>
+
+  <Storyboard>
+    <Init>
+      <Actions>
+        <Private entityRef="Ego">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-1" s="60.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="8.5"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+        <!-- 前车位置提前，让它有足够距离提前反应 -->
+        <Private entityRef="LeadCar">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-1" s="70.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="8.5"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+        <!-- 龟速自行车放在更前方 -->
+        <Private entityRef="SlowBike">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-1" s="110.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="1.67"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+
+    <Story>
+      <Act>
+        <!-- 前车提前发现自行车（距离25米时开始变道，人类真实反应） -->
+        <ManeuverGroup maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false"><EntityRef entityRef="LeadCar"/></Actors>
+          <Maneuver>
+            <Event priority="overwrite">
+              <Action>
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneChangeAction>
+                      <LaneChangeActionDynamics dynamicsShape="sinusoidal" dynamicsDimension="time" value="3.0"/> <!-- 3秒变道，悠然自然 -->
+                      <LaneChangeTarget><AbsoluteTargetLane value="-2"/></LaneChangeTarget>
+                    </LaneChangeAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+
+              <!-- 关键：前车在距离自行车25米时（s≈85）开始变道，完全来得及 -->
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any"><EntityRef entityRef="LeadCar"/></TriggeringEntities>
+                      <EntityCondition>
+                        <ReachPositionCondition tolerance="3.0">
+                          <Position><LanePosition roadId="0" laneId="-1" s="90.0"/></Position>
+                        </ReachPositionCondition>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+
+        <StartTrigger>
+          <ConditionGroup>
+            <Condition delay="0" conditionEdge="rising">
+              <ByValueCondition><SimulationTimeCondition value="0.1" rule="greaterThan"/></ByValueCondition>
+            </Condition>
+          </ConditionGroup>
+        </StartTrigger>
+      </Act>
+    </Story>
+
+    <StopTrigger>
+      <ConditionGroup>
+        <Condition delay="0" conditionEdge="rising">
+          <ByValueCondition><SimulationTimeCondition value="30.0" rule="greaterThan"/></ByValueCondition>
+        </Condition>
+      </ConditionGroup>
+    </StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

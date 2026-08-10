@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-02T14:15:00" description="Scenario 4: Wrong Way Driver" author="ESMINI_Expert"/>
+    <CatalogLocations><VehicleCatalog><Directory path="../resources/xosc/Catalogs/Vehicles"/></VehicleCatalog></CatalogLocations>
+    <RoadNetwork><LogicFile filepath="two-way-four-lane-roundout-two.xodr"/></RoadNetwork>
+
+    <Entities>
+        <ScenarioObject name="Ego"><CatalogReference catalogName="VehicleCatalog" entryName="car_red"/></ScenarioObject>
+        <ScenarioObject name="Adversary"><CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/></ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- 自车：从 Road_12 入口准备进入 -->
+                <Private entityRef="Ego">
+                    <PrivateAction><TeleportAction><Position><LanePosition roadId="12" laneId="-1" s="5.0" offset="0.0"/></Position></TeleportAction></PrivateAction>
+                    <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/><SpeedActionTarget><AbsoluteTargetSpeed value="8.0"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+                    <PrivateAction><RoutingAction><AssignRouteAction><Route name="EgoRoute" closed="false"><Waypoint routeStrategy="shortest"><Position><LanePosition roadId="12" laneId="-1" s="5.0" offset="0.0"/></Position></Waypoint><Waypoint routeStrategy="shortest"><Position><LanePosition roadId="2" laneId="-4" s="5.0" offset="0.0"/></Position></Waypoint></Route></AssignRouteAction></RoutingAction></PrivateAction>
+                </Private>
+
+                <!-- 对手车：逆行！ -->
+                <!-- Road_2 是环岛主路，正常流向是 s 增加的方向 -->
+                <!-- 我们把它放在 Road_2 的末端 (s=15.0)，并让它“倒着”跑 -->
+                <Private entityRef="Adversary">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <!-- h=3.1415926 (180度) 表示车头朝后 -->
+                                <LanePosition roadId="2" laneId="-4" s="15.0" offset="0.0">
+                                    <Orientation type="relative" h="3.1415926"/> 
+                                </LanePosition>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <!-- 速度设为正值，因为车头已经调转了，它会向前（即路网的逆向）开 -->
+                                    <AbsoluteTargetSpeed value="10.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <!-- 逆行通常很难使用 RoutingAction，因为地图拓扑不支持。这里我们只给初速度，让它按惯性冲 -->
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="WrongWayStory">
+            <Act name="CrashAct">
+                 <!-- 保持 Adversary 速度，制造冲突 -->
+                 <ManeuverGroup maximumExecutionCount="1" name="WrongWayManeuver">
+                    <Actors selectTriggeringEntities="false"><EntityRef entityRef="Adversary"/></Actors>
+                    <Maneuver name="DriveBackwards">
+                        <Event name="KeepGoing" priority="overwrite">
+                             <Action name="Maintain">
+                                <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionDynamics dynamicsShape="linear" value="0.0" dynamicsDimension="time"/><SpeedActionTarget><AbsoluteTargetSpeed value="10.0"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+                            </Action>
+                            <StartTrigger><ConditionGroup><Condition name="Start" delay="0" conditionEdge="rising"><ByValueCondition><SimulationTimeCondition value="0.0" rule="greaterThan"/></ByValueCondition></Condition></ConditionGroup></StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+            </Act>
+        </Story>
+        <StopTrigger><ConditionGroup><Condition name="End" delay="0" conditionEdge="rising"><ByValueCondition><SimulationTimeCondition value="8.0" rule="greaterThan"/></ByValueCondition></Condition></ConditionGroup></StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

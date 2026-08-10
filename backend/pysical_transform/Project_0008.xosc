@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenScenario.xsd">
+  <FileHeader revMajor="1" revMinor="2" description="Ultimate_Dilemma_Ghost_Probe_Full" date="2025-12-05"/>
+  
+  <ParameterDeclarations/>
+  
+  <CatalogLocations>
+    <VehicleCatalog>
+      <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+    </VehicleCatalog>
+    <PedestrianCatalog>
+      <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+    </PedestrianCatalog>
+  </CatalogLocations>
+  
+  <RoadNetwork>
+    <LogicFile filepath="two-way-two-lane-straight-urban.xodr"/>
+  </RoadNetwork>
+  
+  <Entities>
+    <!-- 1. 自车 -->
+    <ScenarioObject name="Ego">
+      <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+    </ScenarioObject>
+    
+    <!-- 2. 跟随车 (蓝车) - 位于自车后方 -->
+    <ScenarioObject name="Follower">
+      <CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/>
+    </ScenarioObject>
+
+    <!-- 3. 对向来车 (黄色) - 位于对向车道 -->
+    <ScenarioObject name="Oncoming">
+      <CatalogReference catalogName="VehicleCatalog" entryName="car_yellow"/>
+    </ScenarioObject>
+
+    <!-- 4. 遮挡货车 (半挂) - 位于路边 -->
+    <ScenarioObject name="Truck">
+      <CatalogReference catalogName="VehicleCatalog" entryName="semi_truck"/>
+    </ScenarioObject>
+    
+    <!-- 5. 行人 (小孩) - 位于货车后 -->
+    <ScenarioObject name="Child">
+      <CatalogReference catalogName="PedestrianCatalog" entryName="pedestrian_adult"/>
+    </ScenarioObject>
+  </Entities>
+  
+  <Storyboard>
+    <Init>
+      <Actions>
+        <!-- ==========================================
+             初始化位置与速度
+             ========================================== -->
+        
+        <!-- 自车: s=20, Lane -1, 30km/h (8.5m/s) -->
+        <Private entityRef="Ego">
+          <PrivateAction>
+            <TeleportAction>
+              <Position><LanePosition roadId="0" laneId="-1" s="20.0" offset="0.0"/></Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget><AbsoluteTargetSpeed value="8.5"/></SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+
+        <!-- 跟随车: s=0 (距自车20米), Lane -1, 30km/h (8.5m/s) -->
+        <Private entityRef="Follower">
+          <PrivateAction>
+            <TeleportAction>
+              <Position><LanePosition roadId="0" laneId="-1" s="5.0" offset="0.0"/></Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget><AbsoluteTargetSpeed value="8.5"/></SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+
+        <!-- 对向车: s=270, Lane 1 (逆向), 54km/h (15m/s) -->
+        <!-- 计算逻辑: 此时出发，它将与自车在碰撞点(s=110)附近交汇 -->
+        <Private entityRef="Oncoming">
+          <PrivateAction>
+            <TeleportAction>
+              <Position><LanePosition roadId="0" laneId="1" s="270.0" offset="0.0"/></Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget><AbsoluteTargetSpeed value="10.0"/></SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        
+        <!-- 货车: s=100, Lane -2 (路边) -->
+        <Private entityRef="Truck">
+          <PrivateAction>
+            <TeleportAction>
+              <Position><LanePosition roadId="0" laneId="-2" s="100.0" offset="0.0"/></Position>
+            </TeleportAction>
+          </PrivateAction>
+        </Private>
+        
+        <!-- 小孩: s=109 (紧贴车头), Lane -2 -->
+        <Private entityRef="Child">
+          <PrivateAction>
+            <TeleportAction>
+              <Position><LanePosition roadId="0" laneId="-2" s="109.0" offset="0.0"/></Position>
+            </TeleportAction>
+          </PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+    
+    <Story>
+      <Act>
+        <ManeuverGroup maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false"><EntityRef entityRef="Child"/></Actors>
+          <Maneuver>
+            <Event priority="override">
+              
+              <!-- ==========================================
+                   事件动作：小孩跑向路中
+                   ========================================== -->
+              
+              <!-- 动作1: 赋予速度 (3 m/s) -->
+              <Action>
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                      <SpeedActionTarget><AbsoluteTargetSpeed value="3.0"/></SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+
+              <!-- 动作2: 沿着轨迹跑 (109 -> 110.5) -->
+              <Action>
+                <PrivateAction>
+                  <RoutingAction>
+                    <FollowTrajectoryAction>
+                      <Trajectory closed="false">
+                        <Shape>
+                          <Polyline>
+                            <!-- 起点 -->
+                            <Vertex>
+                              <Position><LanePosition roadId="0" laneId="-2" s="109.0" offset="0.0"/></Position>
+                            </Vertex>
+                            <!-- 碰撞点 (路中) -->
+                            <Vertex>
+                              <Position><LanePosition roadId="0" laneId="-1" s="110.5" offset="0.0"/></Position>
+                            </Vertex>
+                            <!-- 终点 (跑过去) -->
+                            <Vertex>
+                              <Position><LanePosition roadId="0" laneId="-1" s="115.0" offset="3.0"/></Position>
+                            </Vertex>
+                          </Polyline>
+                        </Shape>
+                      </Trajectory>
+                      <TimeReference><None/></TimeReference> 
+                      <TrajectoryFollowingMode followingMode="position"/>
+                    </FollowTrajectoryAction>
+                  </RoutingAction>
+                </PrivateAction>
+              </Action>
+              
+              <!-- ==========================================
+                   触发器：自车开到“必死距离”时触发
+                   ========================================== -->
+              <!-- 
+                   自车 s=20 出发，触发距离 78m -> 触发位置 s=98。
+                   碰撞点 s=110.5。
+                   剩余距离 12.5m。
+                   自车速度 8.5m/s -> 剩余时间 1.47s。
+                   小孩跑步时间 1.3s。
+                   完美遭遇。
+              -->
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any"><EntityRef entityRef="Ego"/></TriggeringEntities>
+                      <EntityCondition>
+                        <TraveledDistanceCondition value="78.0"/>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        
+        <StartTrigger>
+          <ConditionGroup>
+            <Condition delay="0" conditionEdge="rising">
+              <ByValueCondition>
+                <SimulationTimeCondition value="0.1" rule="greaterThan"/>
+              </ByValueCondition>
+            </Condition>
+          </ConditionGroup>
+        </StartTrigger>
+      </Act>
+    </Story>
+    
+    <StopTrigger>
+      <ConditionGroup>
+        <Condition delay="0" conditionEdge="rising">
+          <ByValueCondition>
+            <SimulationTimeCondition value="20.0" rule="greaterThan"/>
+          </ByValueCondition>
+        </Condition>
+      </ConditionGroup>
+    </StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

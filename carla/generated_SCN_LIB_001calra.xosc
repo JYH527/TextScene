@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+  <FileHeader revMajor="1" revMinor="0" date="2024-05-21T10:00:00" description="Town01: Oncoming Motorcycle Swerve" author="Scenario Adapter"/>
+  <ParameterDeclarations/>
+  <CatalogLocations/>
+  <RoadNetwork>
+    <!-- 使用 Town01 地图 -->
+    <LogicFile filepath="Town01"/>
+  </RoadNetwork>
+  <Entities>
+    <ScenarioObject name="Ego">
+      <Vehicle name="vehicle.tesla.model3" vehicleCategory="car">
+        <Properties>
+          <!-- 必须加这个才能被 manual_control 找到 -->
+          <Property name="role_name" value="hero"/>
+        </Properties>
+        <BoundingBox>
+          <Center x="1.5" y="0.0" z="0.9"/>
+          <Dimensions length="4.8" width="2.1" height="1.8"/>
+        </BoundingBox>
+        <Performance maxSpeed="55.56" maxAcceleration="10.0" maxDeceleration="10.0"/>
+        <Axles>
+          <FrontAxle maxSteering="0.5" wheelDiameter="0.8" trackWidth="1.8" positionX="3.8" positionZ="0.4"/>
+          <RearAxle maxSteering="0.0" wheelDiameter="0.8" trackWidth="1.8" positionX="1.0" positionZ="0.4"/>
+        </Axles>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="Adv_1">
+      <Vehicle name="vehicle.kawasaki.ninja" vehicleCategory="motorbike">
+        <Properties>
+          <Property name="role_name" value="adversary"/>
+        </Properties>
+        <BoundingBox>
+          <Center x="1.0" y="0.0" z="0.7"/>
+          <Dimensions length="2.2" width="0.8" height="1.4"/>
+        </BoundingBox>
+        <Performance maxSpeed="50.0" maxAcceleration="8.0" maxDeceleration="10.0"/>
+        <Axles>
+          <FrontAxle maxSteering="0.8" wheelDiameter="0.6" trackWidth="0.0" positionX="1.5" positionZ="0.3"/>
+          <RearAxle maxSteering="0.0" wheelDiameter="0.6" trackWidth="0.0" positionX="0.0" positionZ="0.3"/>
+        </Axles>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="Adv_2">
+      <Vehicle name="vehicle.toyota.prius" vehicleCategory="car">
+        <Properties>
+          <Property name="role_name" value="adversary"/>
+        </Properties>
+        <BoundingBox>
+          <Center x="1.5" y="0.0" z="0.9"/>
+          <Dimensions length="4.8" width="2.1" height="1.8"/>
+        </BoundingBox>
+        <Performance maxSpeed="55.56" maxAcceleration="10.0" maxDeceleration="10.0"/>
+        <Axles>
+          <FrontAxle maxSteering="0.5" wheelDiameter="0.8" trackWidth="1.8" positionX="3.8" positionZ="0.4"/>
+          <RearAxle maxSteering="0.0" wheelDiameter="0.8" trackWidth="1.8" positionX="1.0" positionZ="0.4"/>
+        </Axles>
+      </Vehicle>
+    </ScenarioObject>
+  </Entities>
+  <Storyboard>
+    <Init>
+      <Actions>
+        <GlobalAction>
+          <EnvironmentAction>
+            <Environment name="Environment1">
+              <TimeOfDay animation="false" dateTime="2023-01-01T12:00:00"/>
+              <Weather cloudState="free">
+                <Sun intensity="0.85" azimuth="0.0" elevation="1.57"/>
+                <Fog visualRange="100000.0"/>
+                <Precipitation precipitationType="dry" intensity="0.0"/>
+              </Weather>
+              <RoadCondition frictionScaleFactor="1.0"/>
+            </Environment>
+          </EnvironmentAction>
+        </GlobalAction>
+        <Private entityRef="Ego">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <!-- Ego 在 Lane -1 (右侧车道) -->
+                <LanePosition roadId="4" laneId="-1" s="10.0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="0.0"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="Adv_1">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <!-- 摩托车在 Lane 1 (对向车道), s=200 -->
+                <LanePosition roadId="4" laneId="1" s="200.0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <!-- 初始给 0，startTrigger 后再加速 -->
+                  <AbsoluteTargetSpeed value="0.0"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="Adv_2">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <!-- 静止障碍车在 Lane -1 (同向), s=100 (Ego前方) -->
+                <LanePosition roadId="4" laneId="-1" s="120.0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="0.0"/>
+                </SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+    <Story name="OncomingMotorcycleSwerveStory">
+      <Act name="OncomingMotorcycleSwerveStory_act">
+        
+        <!-- 全局启动：1秒后 Ego 和 摩托车 相对而行 -->
+        <ManeuverGroup name="Start_Driving_mg" maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Ego"/>
+            <EntityRef entityRef="Adv_1"/>
+          </Actors>
+          <Maneuver name="StartManeuver">
+            <Event name="StartEvent" priority="parallel">
+              <Action name="Ego_Start_Speed">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="11.11"/> <!-- Ego 40km/h -->
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <Action name="Moto_Start_Speed">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="13.89"/> <!-- Moto 50km/h -->
+                      </SpeedActionTarget>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="WaitTime" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                      <SimulationTimeCondition value="1.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+
+        <!-- 摩托车偏移 (压线) -->
+        <ManeuverGroup name="Adv_1_Swerve_Challenge_mg" maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Adv_1"/>
+          </Actors>
+          <Maneuver name="Adv_1_Swerve_Challenge_maneuver">
+            <Event name="Adv_1_Swerve_Challenge_event" priority="overwrite">
+              <Action name="Adv_1_Swerve_Challenge">
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneOffsetAction continuous="true">
+                      <LaneOffsetActionDynamics dynamicsShape="sinusoidal" maxLateralAcc="1.0" />
+                      <LaneOffsetTarget>
+                        <!-- 向内侧偏移 1.0米 (压中线) -->
+                        <AbsoluteTargetLaneOffset value="-1.0" />
+                      </LaneOffsetTarget>
+                    </LaneOffsetAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="DistanceTrigger" delay="0" conditionEdge="rising">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="any">
+                        <EntityRef entityRef="Adv_1"/>
+                      </TriggeringEntities>
+                      <EntityCondition>
+                        <!-- 当两车距离小于 80米 时触发偏移 -->
+                        <RelativeDistanceCondition entityRef="Ego" relativeDistanceType="cartesianDistance" value="80.0" freespace="true" rule="lessThan"/>
+                      </EntityCondition>
+                    </ByEntityCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+
+        <StartTrigger>
+          <ConditionGroup>
+            <Condition name="ActStart" delay="0" conditionEdge="rising">
+              <ByValueCondition>
+                <SimulationTimeCondition value="0" rule="greaterThan"/>
+              </ByValueCondition>
+            </Condition>
+          </ConditionGroup>
+        </StartTrigger>
+      </Act>
+    </Story>
+    <StopTrigger>
+      <ConditionGroup>
+        <Condition name="StopTime" delay="0" conditionEdge="rising">
+          <ByValueCondition>
+            <SimulationTimeCondition value="30" rule="greaterThan"/>
+          </ByValueCondition>
+        </Condition>
+      </ConditionGroup>
+    </StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

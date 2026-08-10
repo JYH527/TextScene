@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2023-10-25T10:00:00" description="十字路口行人遮挡碰撞风险" author="AI_Generator"/>
+    <ParameterDeclarations/>
+    <CatalogLocations/>
+    <RoadNetwork>
+        <LogicFile filepath="two-way-four-lane-crossroad.xodr"/>
+    </RoadNetwork>
+    <Entities>
+        <ScenarioObject name="Ego">
+            <Vehicle name="car_white" vehicleCategory="car">
+                <ParameterDeclarations/>
+                <Performance maxSpeed="69.44" maxAcceleration="200" maxDeceleration="10.0"/>
+                <BoundingBox>
+                    <Center x="1.5" y="0.0" z="0.9"/>
+                    <Dimensions width="2.1" length="4.5" height="1.8"/>
+                </BoundingBox>
+                <Axles>
+                    <FrontAxle maxSteering="0.5" wheelDiameter="0.6" trackWidth="1.8" positionX="3.1" positionZ="0.3"/>
+                    <RearAxle maxSteering="0.0" wheelDiameter="0.6" trackWidth="1.8" positionX="0.0" positionZ="0.3"/>
+                </Axles>
+                <Properties/>
+            </Vehicle>
+        </ScenarioObject>
+
+        <!-- 遮挡车辆 (ParkedCar) 定义 -->
+        <ScenarioObject name="ParkedCar">
+            <Vehicle name="car_black" vehicleCategory="car">
+                <ParameterDeclarations/>
+                <Performance maxSpeed="69.44" maxAcceleration="200" maxDeceleration="10.0"/>
+                <BoundingBox>
+                    <Center x="1.5" y="0.0" z="0.9"/>
+                    <Dimensions width="2.1" length="4.5" height="1.8"/>
+                </BoundingBox>
+                <Axles>
+                    <FrontAxle maxSteering="0.5" wheelDiameter="0.6" trackWidth="1.8" positionX="3.1" positionZ="0.3"/>
+                    <RearAxle maxSteering="0.0" wheelDiameter="0.6" trackWidth="1.8" positionX="0.0" positionZ="0.3"/>
+                </Axles>
+                <Properties/>
+            </Vehicle>
+        </ScenarioObject>
+
+        <!-- 行人定义 -->
+        <ScenarioObject name="Pedestrian">
+            <Pedestrian model="pedestrian_adult" mass="70.0" name="pedestrian_adult" pedestrianCategory="pedestrian">
+                <ParameterDeclarations/>
+                <BoundingBox>
+                    <Center x="0.0" y="0.0" z="0.9"/>
+                    <Dimensions width="0.5" length="0.5" height="1.8"/>
+                </BoundingBox>
+                <Properties/>
+            </Pedestrian>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- 全局环境设置 (Environment) -->
+                <GlobalAction>
+                    <EnvironmentAction>
+                        <Environment name="Sunny_Environment">
+                            <TimeOfDay animation="false" dateTime="2023-10-25T12:00:00"/>
+                            <!-- cloud_state="free", sun_azimuth=0.0, sun_elevation=1.5 -->
+                            <Weather cloudState="free">
+                                <Sun intensity="1.0" azimuth="0.0" elevation="1.5"/>
+                                <Fog visualRange="100000.0"/>
+                                <Precipitation precipitationType="dry" intensity="0.0"/>
+                            </Weather>
+                            <RoadCondition frictionScaleFactor="1.0"/>
+                        </Environment>
+                    </EnvironmentAction>
+                </GlobalAction>
+
+                <!-- Ego 初始化状态 -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-1" s="10.0" offset="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="15.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- ParkedCar 初始化状态 -->
+                <Private entityRef="ParkedCar">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-3" s="80.0" offset="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- Pedestrian 初始化状态 -->
+                <Private entityRef="Pedestrian">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="0" laneId="-4" s="80.0" offset="0.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="0.0"/>
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="MainStory">
+            <ParameterDeclarations/>
+            
+            <!-- Ego 的行为轨迹设定 -->
+            <Act name="Ego_Act">
+                <ManeuverGroup maximumExecutionCount="1" name="Ego_ManeuverGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                    </Actors>
+                    <Maneuver name="Ego_Maneuver">
+                        <Event name="Ego_Speed_Event" priority="overwrite" maximumExecutionCount="1">
+                            <Action name="Ego_Speed_Action">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="50.0" dynamicsDimension="distance"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="15.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 触发条件：TraveledDistanceCondition = 0.0 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Ego_Start_Condition" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Ego"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <TraveledDistanceCondition value="0.0"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="ActStartCondition" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0.0" rule="greaterOrEqual"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+
+            <!-- ParkedCar 的行为轨迹设定 -->
+            <Act name="ParkedCar_Act">
+                <ManeuverGroup maximumExecutionCount="1" name="ParkedCar_ManeuverGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="ParkedCar"/>
+                    </Actors>
+                    <Maneuver name="ParkedCar_Maneuver">
+                        <Event name="ParkedCar_Speed_Event" priority="overwrite" maximumExecutionCount="1">
+                            <Action name="ParkedCar_Speed_Action">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="1.0" dynamicsDimension="distance"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="0.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 触发条件：TraveledDistanceCondition = 0.0 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="ParkedCar_Start_Condition" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="ParkedCar"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <TraveledDistanceCondition value="0.0"/>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="ActStartCondition" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0.0" rule="greaterOrEqual"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+
+            <!-- 行人横穿事件设定 -->
+            <Act name="Pedestrian_Act">
+                <ManeuverGroup maximumExecutionCount="1" name="Pedestrian_ManeuverGroup">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Pedestrian"/>
+                    </Actors>
+                    <Maneuver name="Pedestrian_Maneuver">
+                        <Event name="Pedestrian_Crossing_Event" priority="overwrite" maximumExecutionCount="1">
+                            <!-- 行为 1: 速度控制 -->
+                            <Action name="Pedestrian_Speed_Action">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="linear" value="5.0" dynamicsDimension="distance"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="1.5"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <!-- 行为 2: 横穿轨迹 (FollowTrajectory) -->
+                            <Action name="Pedestrian_Trajectory_Action">
+                                <PrivateAction>
+                                    <RoutingAction>
+                                        <FollowTrajectoryAction>
+                                            <Trajectory name="Pedestrian_Crossing_Trajectory" closed="false">
+                                                <Shape>
+                                                    <Polyline>
+                                                        <!-- 使用 OpenDRIVE RoadPosition t(offset) 表达横穿 -->
+                                                        <Vertex time="0.0">
+                                                            <Position>
+                                                                <RoadPosition roadId="0" s="80.0" t="-10.0"/>
+                                                            </Position>
+                                                        </Vertex>
+                                                        <Vertex time="1.0">
+                                                            <Position>
+                                                                <RoadPosition roadId="0" s="80.0" t="0.0"/>
+                                                            </Position>
+                                                        </Vertex>
+                                                        <Vertex time="2.0">
+                                                            <Position>
+                                                                <RoadPosition roadId="0" s="80.0" t="10.0"/>
+                                                            </Position>
+                                                        </Vertex>
+                                                    </Polyline>
+                                                </Shape>
+                                            </Trajectory>
+                                            <TimeReference>
+                                                <None/>
+                                            </TimeReference>
+                                            <TrajectoryFollowingMode followingMode="position"/>
+                                        </FollowTrajectoryAction>
+                                    </RoutingAction>
+                                </PrivateAction>
+                            </Action>
+
+                            <!-- 触发条件：Ego 抵达 Road 0, Lane -1, s=50.0 -->
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Pedestrian_Trigger_Condition" delay="0" conditionEdge="rising">
+                                        <ByEntityCondition>
+                                            <TriggeringEntities triggeringEntitiesRule="any">
+                                                <EntityRef entityRef="Ego"/>
+                                            </TriggeringEntities>
+                                            <EntityCondition>
+                                                <ReachPositionCondition tolerance="1.0">
+                                                    <Position>
+                                                        <LanePosition roadId="0" laneId="-1" s="50.0" offset="0.0"/>
+                                                    </Position>
+                                                </ReachPositionCondition>
+                                            </EntityCondition>
+                                        </ByEntityCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="ActStartCondition" delay="0" conditionEdge="rising">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0.0" rule="greaterOrEqual"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+        </Story>
+
+        <!-- 仿真持续时间: 20秒 -->
+        <StopTrigger>
+            <ConditionGroup>
+                <Condition name="StopCondition" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="20.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

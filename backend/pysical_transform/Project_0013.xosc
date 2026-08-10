@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OpenScenario.xsd">
+  <FileHeader revMajor="1" revMinor="0" description="CQU_0013: 前方纸箱 + 对向来车（左转被封死）" date="2025-11-29"/>
+  <ParameterDeclarations/>
+  <CatalogLocations>
+    <VehicleCatalog><Directory path="../resources/xosc/Catalogs/Vehicles"/></VehicleCatalog>
+  </CatalogLocations>
+
+  <RoadNetwork><LogicFile filepath="two-way-two-lane-straight-urban.xodr"/></RoadNetwork>
+
+  <Entities>
+    <ScenarioObject name="Ego"><CatalogReference catalogName="VehicleCatalog" entryName="car_red"/></ScenarioObject>
+    <ScenarioObject name="ParkedTruck"><CatalogReference catalogName="VehicleCatalog" entryName="semi_truck"/></ScenarioObject>
+    <ScenarioObject name="CardboardBox">
+      <MiscObject name="box_yellow" miscObjectCategory="obstacle">
+        <BoundingBox><Center x="0.0" y="0.0" z="0.3"/><Dimensions width="1.2" length="0.8" height="0.6"/></BoundingBox>
+      </MiscObject>
+    </ScenarioObject>
+    <!-- 对向来车，封死左转 -->
+    <ScenarioObject name="Oncoming"><CatalogReference catalogName="VehicleCatalog" entryName="car_blue"/></ScenarioObject>
+  </Entities>
+
+  <Storyboard>
+    <Init>
+      <Actions>
+        <Private entityRef="Ego">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-1" s="20.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="8.5"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+        <Private entityRef="ParkedTruck">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-2" s="82.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="0.0"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+        <Private entityRef="CardboardBox">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="-1" s="80.0"/></Position></TeleportAction></PrivateAction>
+        </Private>
+        <Private entityRef="Oncoming">
+          <PrivateAction><TeleportAction><Position><LanePosition roadId="0" laneId="1" s="145.0"/></Position></TeleportAction></PrivateAction>
+          <PrivateAction><LongitudinalAction><SpeedAction><SpeedActionTarget><AbsoluteTargetSpeed value="11.0"/></SpeedActionTarget></SpeedAction></LongitudinalAction></PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+
+    <Story><Act name="MainAct">
+      <StartTrigger><ConditionGroup><Condition delay="0" conditionEdge="rising"><ByValueCondition><SimulationTimeCondition value="0.0" rule="greaterThan"/></ByValueCondition></Condition></ConditionGroup></StartTrigger>
+    </Act></Story>
+
+    <StopTrigger><ConditionGroup><Condition delay="0" conditionEdge="rising"><ByValueCondition><SimulationTimeCondition value="30.0" rule="greaterThan"/></ByValueCondition></Condition></ConditionGroup></StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

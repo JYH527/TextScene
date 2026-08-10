@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+    <FileHeader revMajor="1" revMinor="0" date="2025-12-03T16:50:00" description="Ego collides with pedestrian moving along full-length crosswalk trajectory" author="Esmini-Generator"/>
+
+    <ParameterDeclarations/>
+
+    <!-- 1. 资源库配置 -->
+    <CatalogLocations>
+        <VehicleCatalog>
+            <Directory path="../resources/xosc/Catalogs/Vehicles"/>
+        </VehicleCatalog>
+        <PedestrianCatalog>
+            <Directory path="../resources/xosc/Catalogs/Pedestrians"/>
+        </PedestrianCatalog>
+    </CatalogLocations>
+
+    <RoadNetwork>
+        <LogicFile filepath="two-way-four-lane-crossroad.xodr"/>
+    </RoadNetwork>
+
+    <!-- 2. 实体定义 -->
+    <Entities>
+        <ScenarioObject name="Ego">
+            <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+        </ScenarioObject>
+
+        <!-- Pedestrian: 成年男性 -->
+        <ScenarioObject name="Pedestrian_Crosswalk">
+            <CatalogReference catalogName="PedestrianCatalog" entryName="pedestrian_adult"/>
+        </ScenarioObject>
+    </Entities>
+
+    <Storyboard>
+        <Init>
+            <Actions>
+                <!-- Init Ego: Road 2, S=65.0 -->
+                <!-- 距离 Road 7 的斑马线撞击点约 41.3米 -->
+                <Private entityRef="Ego">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="2" laneId="-1" offset="0" s="65.0"/>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                    <PrivateAction>
+                        <LongitudinalAction>
+                            <SpeedAction>
+                                <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="12.0"/> <!-- 恒定速度 12 m/s -->
+                                </SpeedActionTarget>
+                            </SpeedAction>
+                        </LongitudinalAction>
+                    </PrivateAction>
+                    <!-- Ego 路由: 强制经过 Road 7 -->
+                    <PrivateAction>
+                        <RoutingAction>
+                            <AssignRouteAction>
+                                <Route name="Ego_Left_Turn_Route" closed="false">
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="2" laneId="-1" offset="0" s="80.0"/>
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="7" laneId="-1" offset="0" s="10.0"/>
+                                        </Position>
+                                    </Waypoint>
+                                    <Waypoint routeStrategy="shortest">
+                                        <Position>
+                                            <LanePosition roadId="0" laneId="1" offset="0" s="20.0"/>
+                                        </Position>
+                                    </Waypoint>
+                                </Route>
+                            </AssignRouteAction>
+                        </RoutingAction>
+                    </PrivateAction>
+                </Private>
+
+                <!-- Init Pedestrian: Road 7, S=16.39 -->
+                <!-- 初始位置设在 Offset -7.0 (右侧路边外), 确保从画面外走入 -->
+                <Private entityRef="Pedestrian_Crosswalk">
+                    <PrivateAction>
+                        <TeleportAction>
+                            <Position>
+                                <LanePosition roadId="7" laneId="0" offset="-7.0" s="16.39">
+                                    <Orientation type="relative" h="1.57"/> <!-- 90度朝向左侧/马路对面 -->
+                                </LanePosition>
+                            </Position>
+                        </TeleportAction>
+                    </PrivateAction>
+                </Private>
+            </Actions>
+        </Init>
+
+        <Story name="Full_Crosswalk_Collision_Story">
+
+            <!-- Act 1: 行人沿全长轨迹移动 -->
+            <Act name="Pedestrian_Trajectory_Act">
+                <ManeuverGroup maximumExecutionCount="1" name="Pedestrian_Move_Group">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Pedestrian_Crosswalk"/>
+                    </Actors>
+                    <Maneuver name="Follow_Full_Crosswalk">
+                        <Event name="Start_Crossing_Full" priority="overwrite">
+                            <Action name="Follow_Path_Full">
+                                <PrivateAction>
+                                    <RoutingAction>
+                                        <FollowTrajectoryAction>
+                                            <Trajectory name="Full_Crosswalk_Line" closed="false">
+                                                <Shape>
+                                                    <Polyline>
+                                                        <!-- 起点: T=0, Offset=-7.0 (右侧路外) -->
+                                                        <Vertex time="0.0">
+                                                            <Position>
+                                                                <LanePosition roadId="7" laneId="0" offset="-7.0" s="16.39"/>
+                                                            </Position>
+                                                        </Vertex>
+                                                        <!-- 终点: T=10.0, Offset=8.0 (左侧路外) -->
+                                                        <!-- 跨度15米，耗时10秒，速度约1.5m/s。 -->
+                                                        <!-- 在3.44秒(碰撞时刻)，行人位于 offset ≈ -1.8，正好在车道中心 -->
+                                                        <Vertex time="10.0">
+                                                            <Position>
+                                                                <LanePosition roadId="7" laneId="0" offset="8.0" s="16.39"/>
+                                                            </Position>
+                                                        </Vertex>
+                                                    </Polyline>
+                                                </Shape>
+                                            </Trajectory>
+                                            <TimeReference>
+                                                <Timing domainAbsoluteRelative="relative" scale="1.0" offset="0.0"/>
+                                            </TimeReference>
+                                            <TrajectoryFollowingMode followingMode="position"/>
+                                        </FollowTrajectoryAction>
+                                    </RoutingAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Sim_Start" delay="0" conditionEdge="none">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="Always_True" delay="0" conditionEdge="none">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+
+            <!-- Act 2: Ego 保持速度 -->
+            <Act name="Ego_Act">
+                <ManeuverGroup maximumExecutionCount="1" name="Ego_Group">
+                    <Actors selectTriggeringEntities="false">
+                        <EntityRef entityRef="Ego"/>
+                    </Actors>
+                    <Maneuver name="Keep_Velocity">
+                        <Event name="Cruise" priority="overwrite">
+                            <Action name="Speed_Hold">
+                                <PrivateAction>
+                                    <LongitudinalAction>
+                                        <SpeedAction>
+                                            <SpeedActionDynamics dynamicsShape="step" value="0.0" dynamicsDimension="time"/>
+                                            <SpeedActionTarget>
+                                                <AbsoluteTargetSpeed value="12.0"/>
+                                            </SpeedActionTarget>
+                                        </SpeedAction>
+                                    </LongitudinalAction>
+                                </PrivateAction>
+                            </Action>
+                            <StartTrigger>
+                                <ConditionGroup>
+                                    <Condition name="Start_Ego" delay="0" conditionEdge="none">
+                                        <ByValueCondition>
+                                            <SimulationTimeCondition value="0" rule="greaterThan"/>
+                                        </ByValueCondition>
+                                    </Condition>
+                                </ConditionGroup>
+                            </StartTrigger>
+                        </Event>
+                    </Maneuver>
+                </ManeuverGroup>
+                <StartTrigger>
+                    <ConditionGroup>
+                        <Condition name="Always_True_Ego" delay="0" conditionEdge="none">
+                            <ByValueCondition>
+                                <SimulationTimeCondition value="0" rule="greaterThan"/>
+                            </ByValueCondition>
+                        </Condition>
+                    </ConditionGroup>
+                </StartTrigger>
+            </Act>
+        </Story>
+
+        <StopTrigger>
+            <ConditionGroup>
+                <!-- 超时保护 -->
+                <Condition name="Time_Out" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                        <SimulationTimeCondition value="12.0" rule="greaterThan"/>
+                    </ByValueCondition>
+                </Condition>
+            </ConditionGroup>
+        </StopTrigger>
+    </Storyboard>
+</OpenSCENARIO>

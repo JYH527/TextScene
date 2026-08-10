@@ -1,0 +1,522 @@
+[
+  {
+    "id": "CDA_001",
+    "description": "The ego vehicle travels at a constant speed on a one-way, two-lane road containing straight sections, transition curves, and circular arc transitions.",
+    "annotations": {
+      "scenario_type": "Road Geometry/Curve Handling",
+      "risk_level": "Low",
+      "expected_function": "Lane Keeping Assist (LKA) / Cruise Control",
+      "weather": "Clear/Daytime"
+    },
+    "layers": {
+      "L0_EgoInternal": "The vehicle's powertrain is normal, executing cruise control logic.",
+      "L1_Road": "one-way-two-lane-bianqulv",
+      "L2_Infrastructure": "No special traffic signs or traffic lights.",
+      "L3_TemporaryChanges": "No road construction or temporary detours.",
+      "L4_DynamicObjects": "The scenario contains only the ego vehicle, with no other dynamic traffic participants. The ego vehicle travels along the centerline of the inner lane, completing the transition from straight to curved sections.",
+      "L5_Environment": "Clear daytime, no clouds, intense direct sunlight, normal road surface friction coefficient.",
+      "L6_DigitalCommunication": "No V2X communication interaction."
+    },
+    "name": "Constant Speed Driving on Variable Curvature Road"
+  },
+  {
+    "id": "CDA_002",
+    "description": "The ego vehicle is traveling in the outer lane and changes to the inner lane to the left just before entering a curve (at the junction of the straight section and the transition curve).",
+    "annotations": {
+      "scenario_type": "LaneChange",
+      "risk_level": "Low",
+      "expected_function": "Path Planning, Lateral Control",
+      "weather": "Sunny"
+    },
+    "layers": {
+      "L0_EgoInternal": "The vehicle is in normal cruise state, with powertrain and sensors functioning normally.",
+      "L1_Road": "one-way-two-lane-bianqulv",
+      "L2_Infrastructure": "No special traffic signs or traffic lights.",
+      "L3_TemporaryChanges": "No road construction or temporary detours.",
+      "L4_DynamicObjects": "The scenario contains only the ego vehicle. The ego vehicle is initially in the outer lane, maintaining a constant cruise speed. When the ego vehicle reaches the area connecting the straight section and the curve, it executes a left lane change maneuver, smoothly transitioning to the inner lane (simulating cutting into the apex of the curve), and then continues driving in the inner lane until reaching the end of the road.",
+      "L5_Environment": "Clear daytime, high light intensity, no clouds.",
+      "L6_DigitalCommunication": "No V2X communication interaction."
+    },
+    "name": "Lane Change to Inner Lane at Curve Entrance"
+  },
+  {
+    "id": "CDA_003",
+    "description": "The ego vehicle is traveling in the right lane of a highway, encounters a slow-moving truck ahead, and automatically changes lanes to the left to overtake when approaching the leading vehicle.",
+    "annotations": {
+      "scenario_type": "Overtaking",
+      "risk_level": "Low",
+      "expected_function": "Lane Change Assist (LCA) / Adaptive Cruise Control (ACC)",
+      "weather": "Clear"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle's initial state is stable, maintaining high-speed cruise, and possesses automatic lane change capability.",
+      "L1_Road": "one-way-two-lane-straight-highway",
+      "L2_Infrastructure": "No special traffic signs or traffic lights.",
+      "L3_TemporaryChanges": "No construction or temporary obstacles.",
+      "L4_DynamicObjects": "The ego vehicle is in the right travel lane, with a slow-moving heavy semi-trailer truck (SlowLeadingCar) ahead in the same lane. The ego vehicle's speed is significantly higher than the leading vehicle's. When the distance between the ego vehicle and the leading vehicle decreases to a safety threshold, the ego vehicle executes a smooth lane change maneuver to the left overtaking lane to pass the slow vehicle.",
+      "L5_Environment": "Default clear weather, good lighting conditions.",
+      "L6_DigitalCommunication": "No V2X interaction."
+    },
+    "name": "Highway Overtaking of Slow Vehicle by Changing Lanes"
+  },
+  {
+    "id": "CDA_004",
+    "description": "The ego vehicle is traveling on a highway and attempts to change lanes to the right lane, where an interfering vehicle traveling at the same speed exists behind in the target lane.",
+    "annotations": {
+      "scenario_type": "Lane Change / Cut-in",
+      "risk_level": "Low",
+      "expected_function": "Automatic Lane Change (ALC) / Blind Spot Detection (BSD)",
+      "weather": "Clear"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle is initially in the left overtaking lane, maintaining a steady speed, and initiates a right lane change request 1 second after the simulation starts.",
+      "L1_Road": "one-way-two-lane-straight-highway",
+      "L2_Infrastructure": "No special traffic signs or traffic lights.",
+      "L3_TemporaryChanges": "No construction or temporary obstacles.",
+      "L4_DynamicObjects": "The interfering vehicle (TargetInterferingCar) is in the adjacent lane to the right of the ego vehicle (the target lane), initially positioned behind the ego vehicle (at a relatively close distance), and maintains the same speed as the ego vehicle. The ego vehicle will cut in front of this interfering vehicle during the lane change.",
+      "L5_Environment": "Default clear weather, ample sunlight.",
+      "L6_DigitalCommunication": "No V2X communication interaction."
+    },
+    "name": "Highway Right Lane Change Encountering Rear Interfering Vehicle"
+  },
+  {
+    "id": "CDA_005",
+    "description": "A target vehicle rapidly approaches from the rear of the leftmost far lane, continuously crosses the middle lane, and aggressively cuts into the lane where the ego vehicle is located.",
+    "annotations": {
+      "scenario_type": "Cut-in",
+      "risk_level": "High",
+      "expected_function": "AEB/ACC",
+      "weather": "Clear"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle maintains a constant cruise speed in the rightmost lane (or outer lane).",
+      "L1_Road": "one-way-three-lane-straight-highway",
+      "L2_Infrastructure": "No special definition",
+      "L3_TemporaryChanges": "None",
+      "L4_DynamicObjects": "The Target vehicle is initially positioned behind the ego vehicle in the second lane to the left (one lane separated from the ego vehicle), with a speed significantly higher than the ego vehicle. After the simulation starts, the Target vehicle executes a continuous right lane change maneuver (Double Lane Change), crossing the middle lane and directly cutting into the lane in front of the ego vehicle.",
+      "L5_Environment": "Default clear weather",
+      "L6_DigitalCommunication": "None"
+    },
+    "name": "Aggressive Double Lane Change Cut-in"
+  },
+  {
+    "id": "CDA_006",
+    "description": "The ego vehicle is rapidly approaching a slow vehicle ahead in its current lane. When attempting to overtake, a high-speed vehicle from the left adjacent lane approaches from behind (in the blind spot or closing quickly). The ego vehicle abandons the lane change and executes deceleration to follow.",
+    "annotations": {
+      "scenario_type": "Overtake Aborted / Car Following",
+      "risk_level": "High",
+      "expected_function": "ACC (Adaptive Cruise Control) / Blind Spot Detection",
+      "weather": "Clear"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle initially travels at a high speed in the outer lane. It detects a slow vehicle ahead and an interfering vehicle in the left lane, triggering deceleration logic to match the speed of the leading vehicle.",
+      "L1_Road": "one-way-two-lane-straight-highway.xodr",
+      "L2_Infrastructure": "No special traffic signs or signals.",
+      "L3_TemporaryChanges": "No construction or temporary obstacles.",
+      "L4_DynamicObjects": "SlowLeadingCar (slow leading vehicle) is directly ahead of the ego vehicle in the same lane, moving significantly slower. InterferingCar (interfering vehicle) is in the left adjacent lane, initially behind the ego vehicle but traveling faster, rapidly approaching the ego's blind spot. When the distance between the ego and the leading vehicle shortens to the safety threshold, the ego vehicle executes deceleration.",
+      "L5_Environment": "Clear weather with good lighting.",
+      "L6_DigitalCommunication": "No V2X interaction."
+    },
+    "name": "Aborted Overtaking Due to Blind Spot Interference"
+  },
+  {
+    "id": "CDA_007",
+    "description": "While entering a tunnel, the ego vehicle encounters a stationary overturned vehicle in the same lane ahead. The ego maintains its speed, resulting in a collision.",
+    "annotations": {
+      "scenario_type": "Accident/Collision",
+      "risk_level": "High",
+      "expected_function": "AEB (Automatic Emergency Braking)",
+      "weather": "Bright Daylight"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle travels straight at a constant speed without performing any braking.",
+      "L1_Road": "one-way-two-lane-tunnels",
+      "L2_Infrastructure": "No special traffic signs or signals defined.",
+      "L3_TemporaryChanges": "An overturned vehicle is present ahead on the road as a temporary static obstacle.",
+      "L4_DynamicObjects": "The obstacle vehicle (Overturned_Vehicle) is located some distance ahead of the ego vehicle (Ego) in the same lane (near the tunnel entrance). It is in an overturned state (Roll=90 degrees) and remains stationary. The ego vehicle continues to approach and eventually collides with it.",
+      "L5_Environment": "Noon time, intense direct sunlight, clear and cloudless weather.",
+      "L6_DigitalCommunication": "No V2X communication."
+    },
+    "name": "Collision with Stationary Overturned Vehicle at Tunnel Entrance"
+  },
+  {
+    "id": "CDA_008",
+    "description": "While traveling at high speed, a low-speed vehicle ahead in the left lane suddenly cuts into the ego vehicle's lane, forcing the ego to trigger emergency braking.",
+    "annotations": {
+      "scenario_type": "Cut-In",
+      "risk_level": "High",
+      "expected_function": "AEB (Automatic Emergency Braking) / ACC",
+      "weather": "Clear/Default"
+    },
+    "layers": {
+      "L0_EgoInternal": "Initially maintains high-speed cruise control, then enters an emergency deceleration state.",
+      "L1_Road": "one-way-two-lane-straight-highway.xodr",
+      "L2_Infrastructure": "No special traffic signs or signals.",
+      "L3_TemporaryChanges": "No construction or temporary obstacles.",
+      "L4_DynamicObjects": "TargetCutInCar is initially ahead in the left adjacent lane, traveling significantly slower than the ego. Shortly after simulation start, TargetCutInCar executes a right lane change, cutting into the path directly ahead of the ego. Due to the dangerously close distance, the ego vehicle performs emergency braking to reduce speed and match the leading vehicle.",
+      "L5_Environment": "Default clear weather with good lighting.",
+      "L6_DigitalCommunication": "No V2X communication interaction."
+    },
+    "name": "Aggressive Cut-In and Emergency Braking"
+  },
+  {
+    "id": "CDA_009",
+    "description": "While driving, the ego vehicle encounters a construction obstacle ahead in its lane and a stationary vehicle blocking the left lane side-by-side, leaving no space for a lane change, forcing emergency braking.",
+    "annotations": {
+      "scenario_type": "Emergency Braking / Blocked Road",
+      "risk_level": "High",
+      "expected_function": "AEB (Automatic Emergency Braking)",
+      "weather": "Clear"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle travels straight in the right lane at medium-high speed under normal conditions.",
+      "L1_Road": "one-way-two-lane-straight-highway",
+      "L2_Infrastructure": "No special traffic signs or signals.",
+      "L3_TemporaryChanges": "A construction obstacle (simulated by a stationary vehicle) is present ahead in the right lane.",
+      "L4_DynamicObjects": "ConstructionObstacle (construction obstacle vehicle) is stationary directly ahead in the ego's lane. StaticInterferingCar (interfering vehicle) is stationary ahead in the left adjacent lane, side-by-side with the construction obstacle, blocking the ego's left lane change evasion path. The ego vehicle identifies the risk upon approaching the obstacles and executes emergency braking until coming to a complete stop.",
+      "L5_Environment": "Default clear weather with ample lighting.",
+      "L6_DigitalCommunication": "No V2X interaction."
+    },
+    "name": "Emergency Braking for Complete Two-Lane Blockage"
+  },
+  {
+    "id": "CDA_010",
+    "description": "While traveling at high speed, the ego vehicle encounters a group of stationary obstacles arranged diagonally across the lane ahead. After identifying the risk, it changes lanes to the left to avoid them.",
+    "annotations": {
+      "scenario_type": "Obstacle Avoidance",
+      "risk_level": "High",
+      "expected_function": "AEB / Automatic Emergency Steering / Path Planning",
+      "weather": "Clear"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle is initialized in the right lane in a high-speed cruise control state.",
+      "L1_Road": "one-way-two-lane-straight-highway",
+      "L2_Infrastructure": "No special traffic signs or signals.",
+      "L3_TemporaryChanges": "A group of stationary obstacles (simulated by scooters) is present ahead in the current lane, arranged in a diagonal formation, completely blocking the travel path in the right lane.",
+      "L4_DynamicObjects": "The ego vehicle travels straight in the right lane. Three stationary obstacles are parked ahead in the same lane, positioned at the right, middle, and left parts of the lane, forming a staggered blockade. When the ego vehicle approaches the outermost (closest) obstacle to a specific distance, it executes a lane change to the left adjacent lane, bypasses the obstacle group, and continues driving.",
+      "L5_Environment": "Clear weather with good lighting conditions (default environment).",
+      "L6_DigitalCommunication": "No V2X communication interaction."
+    },
+    "name": "Diagonal Static Obstacle Avoidance"
+  },
+  {
+    "id": "CDA_011",
+    "description": "The ego vehicle fails to recognize the construction zone ahead while driving straight, maintaining speed and colliding with stationary crash barrels and construction barriers.",
+    "annotations": {
+      "scenario_type": "Collision/Obstacle Avoidance",
+      "risk_level": "High",
+      "expected_function": "AEB (Automatic Emergency Braking)",
+      "weather": "Clear"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle initializes in the left lane, maintaining a constant speed with no braking or steering input.",
+      "L1_Road": "one-way-two-lane-straight-highway",
+      "L2_Infrastructure": "No special traffic signs or signals.",
+      "L3_TemporaryChanges": "A construction zone is set up ahead in the ego vehicle's lane, containing crash barrels and barriers.",
+      "L4_DynamicObjects": "The ego vehicle is in the left lane. A set of stationary obstacles exists in the same lane ahead: first, two crash barrels arranged diagonally (simulated), followed by a construction barrier (simulated) blocking the lane laterally. The ego vehicle continues straight and collides with the obstacles.",
+      "L5_Environment": "Default clear weather with ample lighting.",
+      "L6_DigitalCommunication": "No V2X communication."
+    },
+    "name": "Construction Zone Collision Accident"
+  },
+  {
+    "id": "CDA_012",
+    "description": "The ego vehicle cruises at a constant speed on a straight road. A stationary obstacle (simulated cardboard box) is present in the same lane ahead. The ego vehicle does not avoid it and collides directly.",
+    "annotations": {
+      "scenario_type": "Collision/AEB_Test",
+      "risk_level": "High",
+      "expected_function": "Automatic Emergency Braking (AEB) or Collision Warning",
+      "weather": "Clear"
+    },
+    "layers": {
+      "L0_EgoInternal": "After initialization, the ego vehicle maintains a constant speed and drives straight with no braking or steering input.",
+      "L1_Road": "one-way-two-lane-straight-highway",
+      "L2_Infrastructure": "No special traffic signs or signals.",
+      "L3_TemporaryChanges": "No construction or temporary detours.",
+      "L4_DynamicObjects": "The obstacle (Obstacle_Box) is located directly ahead of the ego vehicle in the same lane and is completely stationary. There is an initial distance between the ego vehicle and the obstacle. Over time, the ego vehicle rapidly approaches the obstacle until a collision occurs.",
+      "L5_Environment": "Default clear weather with good lighting.",
+      "L6_DigitalCommunication": "No V2X communication."
+    },
+    "name": "Straight-line Collision with Stationary Obstacle"
+  },
+  {
+    "id": "CDA_013",
+    "description": "While transitioning from a straight road into a curve, the ego vehicle detects a stationary vehicle ahead in the inner lane and changes lanes to the right outer lane to avoid it.",
+    "annotations": {
+      "scenario_type": "Obstacle Avoidance / Lane Change",
+      "risk_level": "High",
+      "expected_function": "Automatic Emergency Braking (AEB) or Evasive Steering",
+      "weather": "Clear Daytime"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle maintains constant speed cruise control and executes an emergency lane change control strategy upon detecting the obstacle.",
+      "L1_Road": "one-way-two-lane-curved-urban.xodr",
+      "L2_Infrastructure": "No special traffic signs or signals.",
+      "L3_TemporaryChanges": "No construction or temporary detours.",
+      "L4_DynamicObjects": "The ego vehicle initially travels in the inner lane of the straight section, heading into the curve. The obstacle vehicle (red sedan) is stationary in the same lane (inner lane) further ahead in the curve. When the distance between the ego vehicle and the obstacle vehicle shortens to the safety threshold, the ego vehicle changes lanes to the right into the outer lane, bypasses the obstacle, and continues along the curve.",
+      "L5_Environment": "Clear daytime with ample lighting, no clouds.",
+      "L6_DigitalCommunication": "No V2X communication."
+    },
+    "name": "Right-side Avoidance of Stationary Vehicle on Inner Curve"
+  },
+  {
+    "id": "CDA_014",
+    "description": "The ego vehicle follows a leading vehicle. The leading vehicle suddenly cuts out to the left due to a stationary obstacle vehicle ahead, causing the stationary obstacle to suddenly appear in the ego vehicle's field of view, testing the AEB function.",
+    "annotations": {
+      "scenario_type": "Cut-out",
+      "risk_level": "High",
+      "expected_function": "AEB (Automatic Emergency Braking) / FCW",
+      "weather": "Clear"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle travels at high-speed constant cruise control.",
+      "L1_Road": "one-way-three-lane-straight-highway",
+      "L2_Infrastructure": "No special traffic signs or signals defined.",
+      "L3_TemporaryChanges": "No construction or temporary detours.",
+      "L4_DynamicObjects": "The ego vehicle (Ego) travels in the middle lane. A red van (LeadingCar) travels ahead in the same direction as an occluding vehicle, at a speed slightly lower than the ego vehicle. Further ahead of the occluding vehicle, a white sedan (HiddenStationaryCar) is broken down and stationary in the same lane. When the occluding vehicle approaches the stationary vehicle, it suddenly cuts out into the left passing lane. After the occluding vehicle cuts out, the stationary vehicle is suddenly exposed to the ego vehicle's view, creating an emergency braking scenario.",
+      "L5_Environment": "Default clear weather with ample lighting.",
+      "L6_DigitalCommunication": "No V2X communication defined."
+    },
+    "name": "Encountering Stationary Vehicle After Leading Vehicle Cuts Out"
+  },
+  {
+    "id": "CDA_015",
+    "description": "While driving in its current lane, the ego vehicle encounters a stationary obstacle vehicle and attempts to overtake by borrowing the oncoming lane. At this time, a motorcycle is approaching in the oncoming lane.",
+    "annotations": {
+      "scenario_type": "Urban_Overtaking_Conflict",
+      "risk_level": "High",
+      "expected_function": "Overtaking_Decision_Making/AEB",
+      "weather": "Default"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle drives normally with the intention to change lanes for overtaking.",
+      "L1_Road": "two-way-two-lane-straight-urban",
+      "L2_Infrastructure": "No special traffic signs or signals.",
+      "L3_TemporaryChanges": "No construction zone.",
+      "L4_DynamicObjects": "The Obstacle_Car is located directly ahead of the ego vehicle in the same lane and is stationary. The Oncoming_Biker is in the left oncoming lane, driving towards the ego vehicle at a constant speed. As the ego vehicle approaches the Obstacle_Car, it changes lanes to the left into the oncoming lane to attempt an overtake, creating a potential collision risk with the Oncoming_Biker.",
+      "L5_Environment": "Clear with good lighting conditions (default).",
+      "L6_DigitalCommunication": "No V2X communication."
+    },
+    "name": "Overtaking by Borrowing Lane Encounters Oncoming Vehicle"
+  },
+  {
+    "id": "CDA_016",
+    "description": "The ego vehicle, while traveling at high speed on a highway, makes an aggressive lane change to the right lane and collides with a stationary motorcycle ahead in that lane.",
+    "annotations": {
+      "scenario_type": "Cut-In/Collision",
+      "risk_level": "High",
+      "expected_function": "AEB/AES",
+      "weather": "Clear"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle initially maintains high-speed cruise control, then executes an aggressive lateral lane change command.",
+      "L1_Road": "one-way-two-lane-straight-highway",
+      "L2_Infrastructure": "No special traffic signs or signals.",
+      "L3_TemporaryChanges": "No construction or temporary obstacles.",
+      "L4_DynamicObjects": "The ego vehicle (Ego) is in the left lane (fast lane) at a high speed. The target obstacle (Target_Motorbike) is located far ahead in the right lane (slow lane) and is completely stationary. As the ego vehicle approaches the target, it suddenly changes lanes to the right, cutting into the target's lane, and maintains high speed without decelerating, leading to an imminent severe collision with the stationary motorcycle.",
+      "L5_Environment": "Default clear weather with ample lighting.",
+      "L6_DigitalCommunication": "No V2X communication."
+    },
+    "name": "High-speed aggressive lane change colliding with stationary motorcycle"
+  },
+  {
+    "id": "CDA_017",
+    "description": "While entering a curve, the ego vehicle detects a stationary scooter ahead in the same lane and triggers AEB emergency braking until it comes to a stop.",
+    "annotations": {
+      "scenario_type": "AEB_Curve_StaticObstacle",
+      "risk_level": "High",
+      "expected_function": "Automatic Emergency Braking (AEB)",
+      "weather": "Clear/Daytime"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle initially travels at a medium speed (approx. 50 km/h) and is equipped with obstacle detection and emergency braking capabilities.",
+      "L1_Road": "one-way-two-lane-curved-urban",
+      "L2_Infrastructure": "No special traffic signs or signals.",
+      "L3_TemporaryChanges": "No construction or temporary detours.",
+      "L4_DynamicObjects": "TargetScooter (a vulnerable road user) is stationary on the inner lane in the curve area ahead. The ego vehicle travels from the straight section into the curve in the same lane. When approaching the TargetScooter, it triggers hard braking as the detection distance meets the condition.",
+      "L5_Environment": "Clear daytime with ample sunlight and no clouds.",
+      "L6_DigitalCommunication": "No V2X communication."
+    },
+    "name": "Emergency braking for stationary motorcycle on curve"
+  },
+  {
+    "id": "CDA_018",
+    "description": "While driving on an urban road, the ego vehicle changes lanes to the right and collides with a stationary pedestrian (simulating a child) ahead in the target lane.",
+    "annotations": {
+      "scenario_type": "Collision/Accident",
+      "risk_level": "High",
+      "expected_function": "AEB (Automatic Emergency Braking) / AES (Automatic Emergency Steering)",
+      "weather": "Clear"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle initially maintains constant speed, then executes a lane change command to the right.",
+      "L1_Road": "one-way-two-lane-straight-urban",
+      "L2_Infrastructure": "No special traffic signs or signals defined.",
+      "L3_TemporaryChanges": "No construction or temporary obstacles.",
+      "L4_DynamicObjects": "The ego vehicle is in the left lane. The target pedestrian (simulating a child) is located far ahead in the right lane (the target lane for the ego's lane change) and is completely stationary. The ego vehicle begins changing lanes to the right, and its trajectory overlaps with the pedestrian's position, resulting in a collision.",
+      "L5_Environment": "Default clear weather with good lighting.",
+      "L6_DigitalCommunication": "No V2X communication."
+    },
+    "name": "Ego vehicle right lane change colliding with stationary pedestrian"
+  },
+  {
+    "id": "CDA_019",
+    "description": "While traveling at high speed towards a curve, the ego vehicle detects a stationary pedestrian ahead in the same lane, then performs emergency braking and changes lanes to the right to avoid it.",
+    "annotations": {
+      "scenario_type": "Obstacle Avoidance / Emergency Steering",
+      "risk_level": "High",
+      "expected_function": "AES (Automatic Emergency Steering) / AEB",
+      "weather": "Clear/Daytime"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle is initially in high-speed cruise mode, then enters emergency avoidance mode, activating the braking and steering systems.",
+      "L1_Road": "one-way-two-lane-curved-urban.xodr",
+      "L2_Infrastructure": "No special traffic signs or signals described.",
+      "L3_TemporaryChanges": "No construction or temporary obstacles.",
+      "L4_DynamicObjects": "TargetChild (pedestrian) is stationary in the center of the ego vehicle's current lane (conflict lane) after the entrance of the curve ahead. The ego vehicle (Ego) approaches at high speed from the straight section. When the detected distance to the pedestrian is less than the safety threshold, it performs moderate braking while maintaining relatively high kinetic energy and quickly cuts into the right lane (avoidance lane), successfully bypassing the pedestrian and continuing its journey.",
+      "L5_Environment": "Clear daytime with ample sunlight, no clouds, and good visibility.",
+      "L6_DigitalCommunication": "No V2X communication."
+    },
+    "name": "High-speed curve avoidance of stationary pedestrian"
+  },
+  {
+    "id": "CDA_020",
+    "description": "While transitioning from a straight section into a curve, the ego vehicle detects a stationary bicycle ahead in the same lane, decelerates, changes lanes to the right to avoid it, and resumes cruise speed after passing the obstacle.",
+    "annotations": {
+      "scenario_type": "Obstacle Avoidance / Lane Change",
+      "risk_level": "High",
+      "expected_function": "AEB, LKA, Path Planning",
+      "weather": "Clear Daytime"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle initially maintains cruise speed. Upon detecting the obstacle, it executes deceleration and steering maneuvers. After successful avoidance, it executes acceleration.",
+      "L1_Road": "one-way-two-lane-curved-urban.xodr",
+      "L2_Infrastructure": "No special traffic signs or signals.",
+      "L3_TemporaryChanges": "No construction or temporary detours.",
+      "L4_DynamicObjects": "TargetBicycle (bicycle) is stationary within the ego vehicle's current lane after the curve entrance, completely blocking traffic. The ego vehicle approaches from the straight section. Upon identifying the bicycle within its perception range, it performs an emergency lane change to the right adjacent lane while decelerating. After successfully bypassing the bicycle, the ego vehicle re-accelerates within the target lane.",
+      "L5_Environment": "Clear daytime with ample sunlight and no clouds.",
+      "L6_DigitalCommunication": "No V2X communication."
+    },
+    "name": "Emergency avoidance of stationary bicycle on curve"
+  },
+  {
+    "id": "CDA_021",
+    "description": "The ego vehicle attempts to use the opposite lane to bypass a stationary construction obstacle ahead. At this time, a vehicle is approaching from the opposite lane, creating a conflict scenario.",
+    "annotations": {
+      "scenario_type": "Obstacle Avoidance / Oncoming Traffic Conflict",
+      "risk_level": "High",
+      "expected_function": "Overtaking Decision / AEB",
+      "weather": "Clear (Default)"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle travels at a constant speed. After detecting the obstacle ahead, it executes a lane-borrowing bypass strategy.",
+      "L1_Road": "two-way-two-lane-straight-urban",
+      "L2_Infrastructure": "No special traffic signs or traffic lights.",
+      "L3_TemporaryChanges": "A construction obstacle (Obstacle_Construction) exists ahead in the ego vehicle's lane, blocking passage on the current lane.",
+      "L4_DynamicObjects": "The ego vehicle (Ego) is in its own lane. Ahead in the same lane is a stationary construction truck (Obstacle_Construction). In the opposite lane, a red car (Target_1) is driving towards the ego vehicle. When the ego vehicle approaches the construction truck within a certain distance, it changes lanes to the left into the opposite lane to bypass, creating a head-on conflict risk with Target_1, which is driving normally in the opposite lane.",
+      "L5_Environment": "Default clear weather with good lighting conditions.",
+      "L6_DigitalCommunication": "No V2X interaction."
+    },
+    "name": "Lane Borrowing Bypass Encounters Oncoming Vehicle"
+  },
+  {
+    "id": "CDA_022",
+    "description": "When the ego vehicle merges into a roundabout from a side road, a vehicle inside the roundabout attempts to cut out but performs an emergency brake due to a stationary vehicle blocking the exit, creating a potential conflict on the ego vehicle's merging path.",
+    "annotations": {
+      "scenario_type": "Roundabout Merge/Conflict",
+      "risk_level": "High",
+      "expected_function": "AEB/Merge Assist",
+      "weather": "Clear"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle is located on the side road at the roundabout entrance, accelerating in preparation to merge.",
+      "L1_Road": "two-way-four-lane-roundout-two",
+      "L2_Infrastructure": "No description of special traffic signs or signals.",
+      "L3_TemporaryChanges": "No construction zones.",
+      "L4_DynamicObjects": "Target_2 (a van) is stationary on the connecting road at the roundabout exit, blocking the exit path. Target_1 (a red car) is driving in the inner lane of the roundabout's main road. When attempting to cut out into this exit lane, it executes an emergency brake upon detecting that Target_2 is too close. Ego (the ego vehicle) is on the entrance side road, accelerating to merge into the roundabout, facing the risk of collision with Target_1, which is about to stop near the merge/cut-out intersection area.",
+      "L5_Environment": "Default clear weather with good lighting.",
+      "L6_DigitalCommunication": "No V2X communication."
+    },
+    "name": "Roundabout Merge Encounters Blocked Vehicle Emergency Brake"
+  },
+  {
+    "id": "CDA_023",
+    "description": "The ego vehicle fails to yield to the oncoming vehicle from the left while making a left turn at an intersection, leading to a collision risk.",
+    "annotations": {
+      "scenario_type": "Intersection Collision",
+      "risk_level": "High",
+      "expected_function": "AEB / Intersection Assist",
+      "weather": "Clear"
+    },
+    "layers": {
+      "L0_EgoInternal": "The vehicle is driving normally, maintaining a constant speed, and executing a left turn command.",
+      "L1_Road": "two-way-four-lane-crossroad",
+      "L2_Infrastructure": "Crossroad",
+      "L3_TemporaryChanges": "None",
+      "L4_DynamicObjects": "The target vehicle (Target) is on the lateral road to the left of the ego vehicle, driving straight towards the intersection. The ego vehicle (Ego) enters the intersection from the other road and attempts to turn left into the road from which the target vehicle is coming. Both parties maintain their current speed without deceleration or yielding, forming a side collision trajectory.",
+      "L5_Environment": "Clear, good lighting",
+      "L6_DigitalCommunication": "None"
+    },
+    "name": "Intersection Left Turn Running the Red/Yield Causing Collision"
+  },
+  {
+    "id": "CDA_024",
+    "description": "The ego vehicle and the target vehicle both refuse to yield at an intersection, proceeding straight at constant speeds, leading to a collision.",
+    "annotations": {
+      "scenario_type": "Intersection/Collision",
+      "risk_level": "High",
+      "expected_function": "AEB (Automatic Emergency Braking) / Intersection Assist",
+      "weather": "Clear"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle maintains a constant speed with no intention to brake.",
+      "L1_Road": "two-way-four-lane-crossroad",
+      "L2_Infrastructure": "Crossroad",
+      "L3_TemporaryChanges": "None",
+      "L4_DynamicObjects": "The ego vehicle (Ego) drives straight along its current road towards the intersection. The target vehicle (Target) is on the perpendicular crossing road, also driving straight towards the intersection. Both vehicles maintain constant speed in a straight line without any deceleration or yielding, ultimately colliding at the intersection junction.",
+      "L5_Environment": "Clear weather, good lighting (default)",
+      "L6_DigitalCommunication": "None"
+    },
+    "name": "Intersection Blind Straight Driving Collision"
+  },
+  {
+    "id": "CDA_025",
+    "description": "A scooter traveling at low speed in the right lane suddenly cuts in front of the ego vehicle. The ego vehicle performs emergency braking but collides due to insufficient distance.",
+    "annotations": {
+      "scenario_type": "Cut-in",
+      "risk_level": "High",
+      "expected_function": "AEB (Automatic Emergency Braking)",
+      "weather": "Clear"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle initially maintains a constant speed cruise state and executes emergency braking upon detecting danger.",
+      "L1_Road": "one-way-two-lane-straight-urban",
+      "L2_Infrastructure": "No special definition",
+      "L3_TemporaryChanges": "None",
+      "L4_DynamicObjects": "TargetScooter (scooter) is located ahead in the adjacent right lane of the ego vehicle, traveling at a speed significantly lower than the ego vehicle. Shortly after the simulation starts, TargetScooter executes a lane change to the left, cutting into the path directly in front of the ego vehicle. The ego vehicle triggers emergency braking when the longitudinal distance to the preceding vehicle shortens to a critical value but fails to avoid a collision.",
+      "L5_Environment": "Default clear weather",
+      "L6_DigitalCommunication": "None"
+    },
+    "name": "Scooter Cutting in from Right Side Causes Collision"
+  },
+  {
+    "id": "CDA_026",
+    "description": "When the ego vehicle is performing a left turn at an intersection, it encounters a pedestrian crossing the entire road along the zebra crossing from the roadside. The ego vehicle maintains its speed, resulting in a collision.",
+    "annotations": {
+      "scenario_type": "Pedestrian Collision / Turning",
+      "risk_level": "High",
+      "expected_function": "AEB (Automatic Emergency Braking) / VRU Protection",
+      "weather": "Clear"
+    },
+    "layers": {
+      "L0_EgoInternal": "The ego vehicle is initialized in the entry lane of the intersection, set with a constant target speed, and is assigned a left-turn routing path passing through the center of the intersection.",
+      "L1_Road": "two-way-four-lane-crossroad",
+      "L2_Infrastructure": "Intersection, containing a standard pedestrian crossing (zebra crossing).",
+      "L3_TemporaryChanges": "No temporary construction or obstacles.",
+      "L4_DynamicObjects": "The pedestrian is initially located in the roadside area on the right side of the ego vehicle's target road after the left turn. After the simulation starts, the pedestrian crosses the entire road surface along the zebra crossing trajectory from right to left (relative to the road direction). The pedestrian's crossing trajectory overlaps with the ego vehicle's left-turn driving trajectory in both time and space, and the pedestrian does not yield to the ego vehicle.",
+      "L5_Environment": "Default clear weather with good lighting conditions.",
+      "L6_DigitalCommunication": "No V2X communication interaction."
+    },
+    "name": "Left Turn at Intersection Encountering Pedestrian Crossing Full Width Collision"
+  }
+]
