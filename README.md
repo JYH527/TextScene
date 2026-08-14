@@ -2,7 +2,7 @@
 
 Knowledge-Enhanced Scenario Generation for Autonomous Driving via Map-Topology Abstraction and Heterogeneous Retrieval
 
-[![Paper](https://img.shields.io/badge/Paper-PDF-red)](./part_c.pdf)
+[![Paper](https://img.shields.io/badge/Paper-PDF-red)](./TextScene-PartC.pdf)
 [![OpenSCENARIO](https://img.shields.io/badge/Output-OpenSCENARIO-blue)](https://www.asam.net/standards/detail/openscenario/)
 [![CARLA](https://img.shields.io/badge/Simulator-CARLA-green)](https://carla.org/)
 
